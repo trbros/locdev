@@ -59,7 +59,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
         unset($_SERVER['HTTPS']);
         $_SERVER['REQUEST_SCHEME'] = 'http';
     }
-    if (isset($_SERVER['HTTP_X_FORWARDED_PORT']) && ctype_digit($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+    if (isset($_SERVER['HTTP_X_FORWARDED_PORT']) && preg_match('/\A\d{1,5}\z/', $_SERVER['HTTP_X_FORWARDED_PORT'])) {
         $_SERVER['SERVER_PORT'] = $_SERVER['HTTP_X_FORWARDED_PORT'];
     }
 }
@@ -80,6 +80,16 @@ if (false !== ($locdevNext = getenv('LOCDEV_PREPEND_NEXT')) && '' !== $locdevNex
 /// File names of the shim, now and when it only handled dumps, so neither is
 /// taken for a prepend file the user set.
 const PHP_SHIM_FILE: &str = "locdev-prepend.php";
+
+/// The ini that loads the shim. The path is quoted: unquoted, INI syntax
+/// reads `~` (as in Windows short names, `RUNNER~1`) and spaces as operators.
+fn php_shim_ini(shim: &Path) -> String {
+    format!(
+        "; {}: loads the shim that tells PHP a request came over HTTPS and lets dump()/dd() reach LocDev's Debug Center.\nauto_prepend_file=\"{}\"\n",
+        locdev_platform::MARKER,
+        shim.display()
+    )
+}
 const OLD_SHIM_FILE: &str = "locdev-dumps.php";
 
 /// Output stays quiet this long → whatever was being read is complete.
@@ -319,14 +329,7 @@ impl Daemon {
             Ok(())
         };
         write(&shim, PHP_SHIM)?;
-        write(
-            &ini,
-            &format!(
-                "; {}: loads the shim that tells PHP a request came over HTTPS and lets dump()/dd() reach LocDev's Debug Center.\nauto_prepend_file=\"{}\"\n",
-                locdev_platform::MARKER,
-                shim.display()
-            ),
-        )?;
+        write(&ini, &php_shim_ini(&shim))?;
         Ok(dir)
     }
 
@@ -865,8 +868,9 @@ mod tests {
         );
     }
 
-    /// The shim under PHP's built-in server: a proxied HTTPS request looks
-    /// like HTTPS to PHP, a plain one doesn't. Skipped without `php`.
+    /// The shim under PHP's built-in server, loaded the way sites load it
+    /// (the ini in PHP_INI_SCAN_DIR): a proxied HTTPS request looks like
+    /// HTTPS to PHP, a plain one doesn't. Skipped without `php`.
     #[test]
     fn php_shim_marks_proxied_https() {
         let probe = std::process::Command::new("php").arg("-v").output();
@@ -875,8 +879,12 @@ mod tests {
             return;
         }
         let dir = tempfile::tempdir().unwrap();
-        let shim = dir.path().join(PHP_SHIM_FILE);
+        let scan = dir.path().join("conf.d");
+        std::fs::create_dir(&scan).unwrap();
+        let shim = scan.join(PHP_SHIM_FILE);
         std::fs::write(&shim, PHP_SHIM).unwrap();
+        std::fs::write(scan.join("95-locdev-prepend.ini"), php_shim_ini(&shim)).unwrap();
+        let log = dir.path().join("php.log");
         let root = dir.path().join("public");
         std::fs::create_dir(&root).unwrap();
         std::fs::write(
@@ -890,13 +898,13 @@ mod tests {
             .unwrap()
             .port();
         let mut server = std::process::Command::new("php")
-            .arg("-d")
-            .arg(format!("auto_prepend_file={}", shim.display()))
+            .args(["-d", "display_errors=stderr"])
             .args(["-S", &format!("127.0.0.1:{port}"), "-t"])
             .arg(&root)
+            .env("PHP_INI_SCAN_DIR", &scan)
             .env_remove("LOCDEV_PREPEND_NEXT")
             .stdout(std::process::Stdio::null())
-            .stderr(std::process::Stdio::null())
+            .stderr(std::fs::File::create(&log).unwrap())
             .spawn()
             .unwrap();
         let get = |headers: &str| -> String {
@@ -910,7 +918,7 @@ mod tests {
                     .unwrap();
                     let mut out = String::new();
                     s.read_to_string(&mut out).unwrap();
-                    return out.rsplit("\r\n\r\n").next().unwrap_or("").to_string();
+                    return out;
                 }
                 std::thread::sleep(Duration::from_millis(100));
             }
@@ -921,8 +929,18 @@ mod tests {
         let direct = get("");
         let _ = server.kill();
         let _ = server.wait();
-        assert_eq!(https, "on https 443");
-        assert_eq!(http, "- http 80");
-        assert_eq!(direct, format!("- - {port}"));
+        let errors = std::fs::read_to_string(&log).unwrap_or_default();
+        let body = |response: &str| response.rsplit("\r\n\r\n").next().unwrap_or("").to_string();
+        for (response, expected) in [
+            (&https, "on https 443".to_string()),
+            (&http, "- http 80".to_string()),
+            (&direct, format!("- - {port}")),
+        ] {
+            assert_eq!(
+                body(response),
+                expected,
+                "response:\n{response}\nphp stderr:\n{errors}"
+            );
+        }
     }
 }

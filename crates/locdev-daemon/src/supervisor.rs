@@ -1136,8 +1136,9 @@ mod process_tests {
             .unwrap();
         assert!(dir.path().join("running.json").is_file());
         // While `sh -c` execs `sleep`, /proc shows no command line for an
-        // instant; a real orphan has been running for a while.
-        for _ in 0..60 {
+        // instant; a real orphan has been running for a while. Up to 10 s:
+        // a busy CI runner (macOS) can take more than 3.
+        for _ in 0..200 {
             if locdev_platform::ports::process_matches(pid, "sleep 31") {
                 break;
             }
