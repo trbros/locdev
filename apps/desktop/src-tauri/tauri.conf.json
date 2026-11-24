@@ -1,0 +1,92 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "LocDev",
+  "version": "../package.json",
+  "identifier": "dev.locdev.desktop",
+  "build": {
+    "beforeDevCommand": "node scripts/prepare-sidecars.mjs --debug && pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build && node scripts/prepare-sidecars.mjs",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "splash",
+        "title": "LocDev",
+        "url": "splash.html",
+        "width": 440,
+        "height": 330,
+        "resizable": false,
+        "maximizable": false,
+        "decorations": false,
+        "center": true,
+        "focus": true,
+        "backgroundColor": "#13100e"
+      },
+      {
+        "title": "LocDev",
+        "width": 1120,
+        "height": 740,
+        "minWidth": 900,
+        "minHeight": 600,
+        "label": "main",
+        "center": true,
+        "visible": false,
+        "backgroundColor": "#13100e",
+        "decorations": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": [
+      "binaries/locdevd",
+      "binaries/locdev"
+    ],
+    "category": "DeveloperTool",
+    "shortDescription": "Local development environment",
+    "longDescription": "LocDev brings your projects and development servers together in one place. Start and stop projects, follow their logs, and access each site through a .test domain with local HTTPS, from the app or CLI. Open source for Linux, macOS and Windows.",
+    "publisher": "LocDev",
+    "license": "Apache-2.0",
+    "copyright": "LocDev contributors",
+    "linux": {
+      "deb": {
+        "section": "devel"
+      },
+      "rpm": {}
+    },
+    "macOS": {
+      "minimumSystemVersion": "11.0"
+    },
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "mainBinaryName": "locdev-app",
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQ3NTUwRENDQTNFRkMwQkIKUldTN3dPK2p6QTFWUjV1UFh6OWMxN2JPeUpBYnBnUXp6SGdZazhhRWgrb1V2a3YrVjI4UjJROVgK",
+      "endpoints": [
+        "https://github.com/trbros/locdev/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

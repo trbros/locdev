@@ -1,0 +1,1533 @@
+{
+	"Meta": {
+		"title": "LocDev — Seu ambiente local, sem limites",
+		"description": "Um ambiente de desenvolvimento local open source, feito em Rust. Domínios .test, HTTPS, runtimes e controle absoluto do seu workflow."
+	},
+	"Nav": {
+		"contact": "Contato",
+		"product": "Produto",
+		"features": "Recursos",
+		"download": "Instalar",
+		"roadmap": "Changelog",
+		"docs": "Documentação",
+		"github": "GitHub",
+		"menu": "Abrir menu",
+		"close": "Fechar menu",
+		"language": "Selecionar idioma",
+		"lightTheme": "Ativar tema claro",
+		"darkTheme": "Ativar tema escuro",
+		"skip": "Pular para o conteúdo",
+		"mainNav": "Navegação principal",
+		"mobileNav": "Navegação móvel",
+		"donate": "Apoiar",
+		"stacks": "Stacks",
+		"getStarted": "Começar",
+		"configure": "Configurar projeto",
+		"changelog": "Changelog",
+		"contribute": "Contribuir",
+		"explore": "Explorar",
+		"services": "Serviços",
+		"about": "Sobre",
+		"support": "Suporte",
+		"privacy": "Privacidade",
+		"securityReporting": "Relatar vulnerabilidade",
+		"faq": "Perguntas frequentes",
+		"compare": "Comparar"
+	},
+	"Hero": {
+		"eyebrow": "O DESENVOLVIMENTO LOCAL, REIMAGINADO",
+		"version": "{version} · EM DESENVOLVIMENTO",
+		"titlePrimary": "Local é só o começo.",
+		"titleAccent": "O resto é seu.",
+		"body": "Seus projetos, seus domínios, seu ambiente. Um daemon em Rust que conecta CLI, desktop, DNS e HTTPS — sem nuvem obrigatória, sem assinatura, sem atrito.",
+		"primary": "Começar com o LocDev",
+		"secondary": "Conhecer a CLI",
+		"badge1": "100% open source",
+		"badge2": "Linux · macOS · Windows",
+		"scroll": "ROLE PARA EXPLORAR",
+		"caption": "SEU WORKSPACE. SUAS REGRAS.",
+		"corner": "DESIGNED FOR BUILDERS"
+	},
+	"Ticker": {
+		"label": "FEITO PARA SUA STACK"
+	},
+	"Capabilities": {
+		"eyebrow": "01 / CONTROLE TOTAL",
+		"title": "Menos configuração.",
+		"titleAccent": "Mais código.",
+		"body": "Tudo que você precisa para rodar projetos locais de verdade, em uma ferramenta que respeita seu sistema.",
+		"domainsTag": "01 / DOMÍNIOS",
+		"domainsTitle": "Adeus, localhost:3000.",
+		"domainsBody": "Cada projeto recebe seu próprio domínio .test, com subdomínios e proxy inteligente.",
+		"domainsFooter": "DNS LOCAL + PROXY REVERSO",
+		"httpsTag": "02 / SEGURANÇA",
+		"httpsTitle": "HTTPS local, de verdade.",
+		"httpsBody": "Certificados locais com CA limitada a .test e .localhost. Confiança explícita, sem atalhos inseguros.",
+		"processTag": "03 / PROCESSOS",
+		"processTitle": "Um daemon. Tudo sob controle.",
+		"processBody": "Inicie, pare e monitore seus projetos pelo desktop ou terminal. A mesma lógica, as mesmas operações.",
+		"privilegeTag": "04 / TRANSPARÊNCIA",
+		"privilegeTitle": "Privilégios? Só com seu OK.",
+		"privilegeBody": "Mudanças sensíveis mostram exatamente o que será executado e pedem sua autorização.",
+		"runtimesTag": "05 / RUNTIMES",
+		"runtimesTitle": "Versões certas, por projeto.",
+		"runtimesBody": "Gerencie Node.js e PHP por projeto, com detecção de instalações existentes.",
+		"doctorTag": "06 / DIAGNÓSTICO",
+		"doctorTitle": "O Doctor não chuta. Verifica.",
+		"doctorBody": "Diagnóstico de DNS, TLS, portas e conflitos com evidências reais."
+	},
+	"Demo": {
+		"eyebrow": "02 / VISÃO GERAL",
+		"title": "Uma interface que pensa como dev.",
+		"body": "Sem painéis intermináveis. Encontre seus projetos, acompanhe processos e saiba o que está acontecendo em tempo real.",
+		"desktop": "DESKTOP / LOCDEV",
+		"sites": "Sites",
+		"runtimes": "Runtimes",
+		"services": "Services",
+		"settings": "Settings",
+		"workspace": "Workspace",
+		"allSites": "Seus projetos",
+		"online": "3 ativos",
+		"status": "RUNNING",
+		"siteDetail": "Detalhes do projeto",
+		"logs": "Saída do processo",
+		"healthy": "Sistema operacional",
+		"realTime": "LIVE",
+		"cliLabel": "CLI + DESKTOP + DAEMON",
+		"mock": "PRÉVIA DE INTERFACE"
+	},
+	"Workflow": {
+		"eyebrow": "03 / WORKFLOW",
+		"title": "Do terminal para o navegador.",
+		"titleAccent": "Sem desvios.",
+		"body": "Três comandos. Um ambiente pronto para trabalhar.",
+		"tabOne": "Configurar",
+		"tabTwo": "Iniciar",
+		"tabThree": "Diagnosticar",
+		"copy": "Copiar comando",
+		"copied": "Copiado!",
+		"step1": "Instale e inicie o daemon",
+		"step2": "Registre seu projeto e dê play",
+		"step3": "Valide seu ambiente com o Doctor",
+		"note": "Comandos ilustrativos baseados na CLI real do projeto."
+	},
+	"Security": {
+		"eyebrow": "ENGINEERED WITH INTENT",
+		"title": "Seu ambiente. Seus dados. Sem dependências desnecessárias.",
+		"body": "O daemon escuta localmente, alterações privilegiadas são explícitas e o certificado raiz tem restrições de domínio. Segurança não é uma opção escondida.",
+		"cta": "Entenda a arquitetura",
+		"item1": "100% LOCAL",
+		"item2": "CA RESTRITA",
+		"item3": "SEM CONTA OBRIGATÓRIA"
+	},
+	"Platform": {
+		"eyebrow": "04 / PLATAFORMAS",
+		"title": "Seu sistema é bem-vindo.",
+		"body": "Uma base em Rust. Integrações nativas para as três plataformas de desktop.",
+		"linux": "Linux",
+		"mac": "macOS",
+		"windows": "Windows",
+		"note": "A distribuição e a validação dos instaladores ainda estão em andamento."
+	},
+	"FAQ": {
+		"eyebrow": "DÚVIDAS FREQUENTES",
+		"title": "Sem pegadinhas. Sem letras miúdas.",
+		"q1": "O LocDev é gratuito?",
+		"a1": {
+			"p1": "Sim. O LocDev é gratuito e de código aberto, distribuído sob a licença Apache-2.0. Você não precisa de uma assinatura para utilizar os recursos essenciais do ambiente de desenvolvimento local.",
+			"p2": "Você pode usar o LocDev em projetos pessoais, acadêmicos, profissionais ou comerciais, inclusive para desenvolver aplicações de clientes. A licença permite estudar, modificar e redistribuir o código, desde que suas condições sejam respeitadas, como a preservação dos avisos de licença aplicáveis.",
+			"p3": "A proposta é oferecer liberdade para trabalhar com diferentes stacks em uma só ferramenta, sem bloquear funcionalidades essenciais por assinatura. Alguns recursos ainda estão em desenvolvimento e sua disponibilidade depende da versão instalada. Você pode acompanhar o código, sugerir melhorias e contribuir no GitHub."
+		},
+		"q2": "Preciso de Docker?",
+		"a2": {
+			"p1": "Não. O funcionamento básico do LocDev não depende de Docker, Podman ou de uma máquina virtual. Os servidores de desenvolvimento são iniciados como processos nativos do seu computador, gerenciados por um daemon local.",
+			"p2": "A CLI e o aplicativo desktop se comunicam com esse mesmo daemon. Ele registra os projetos, controla inicialização e encerramento, encaminha as requisições pelo proxy e disponibiliza recursos como domínios locais e HTTPS. Isso permite trabalhar com projetos Laravel, Next.js e outras aplicações sem preparar contêineres para cada site.",
+			"p3": "Isso não significa que todos os projetos funcionem sem dependências adicionais: PHP, Node.js, bancos de dados e outros serviços podem ser necessários, conforme a stack. O LocDev roda tudo como processos nativos, sem contêineres."
+		},
+		"q3": "Posso usar Linux, Windows e macOS?",
+		"a3": {
+			"p1": "O LocDev foi projetado para Linux, Windows e macOS. A base compartilhada em Rust reúne o daemon, a CLI e o núcleo das funcionalidades, enquanto o aplicativo desktop utiliza Tauri.",
+			"p2": "O funcionamento e a instalação podem variar entre os sistemas. Por exemplo, a configuração do DNS local, a confiança nos certificados HTTPS, os serviços de inicialização automática e as dependências necessárias seguem os mecanismos de cada plataforma.",
+			"p3": "O suporte está em evolução, e a validação dos instaladores e de determinados fluxos ainda pode estar pendente. Antes de instalar, consulte os requisitos, os artefatos disponíveis e as notas da release para verificar a compatibilidade com sua máquina."
+		},
+		"q4": "Os instaladores já estão prontos para produção?",
+		"a4": {
+			"p1": "Ainda não recomendamos tratar os instaladores como uma distribuição estável para ambientes críticos. O LocDev continua em pré-lançamento e passa por validações de empacotamento, compatibilidade e assinatura dos binários.",
+			"p2": "Os builds disponibilizados podem ser úteis para experimentar o aplicativo, testar funcionalidades e reportar problemas. Entretanto, a existência de um instalador ou de um recurso no código-fonte não garante que ele tenha sido validado em todas as plataformas ou cenários de uso.",
+			"p3": "Para testar com segurança, consulte primeiro os requisitos de sua plataforma, confira as notas da versão e mantenha cópias das configurações importantes. A página de downloads aponta para as releases disponíveis; o changelog mostra o que mudou em cada versão."
+		},
+		"link1": "Ver licença Apache-2.0",
+		"link2": "Entender a arquitetura",
+		"link3": "Consultar requisitos e instalação",
+		"link4": "Ver releases e formas de testar"
+	},
+	"CTA": {
+		"eyebrow": "PRONTO PARA TRABALHAR DIFERENTE?",
+		"title": "Faça do local",
+		"accent": "seu melhor ambiente.",
+		"body": "Explore o código, participe da evolução e ajude a construir o ambiente de desenvolvimento que você gostaria de usar.",
+		"primary": "Ver o changelog",
+		"secondary": "Abrir GitHub"
+	},
+	"Download": {
+		"eyebrow": "BUILD / RELEASES",
+		"title": "Seu ambiente. Em qualquer máquina.",
+		"body": "O LocDev está sendo preparado para Linux, macOS e Windows. Acompanhe os artefatos e escolha a forma de testar mais adequada ao seu sistema.",
+		"developmentNotice": "Pré-lançamento: os instaladores e suas assinaturas ainda estão em validação. Não considere os builds como uma versão estável.",
+		"osTitle": "Escolha sua plataforma",
+		"windows": "Windows",
+		"windowsDetail": "Pacotes MSI / NSIS planejados para releases",
+		"mac": "macOS",
+		"macDetail": "Pacotes DMG planejados para releases",
+		"linux": "Linux",
+		"linuxDetail": "Pacotes DEB, RPM e AppImage planejados para releases",
+		"release": "Consultar releases",
+		"sourceTitle": "Ou rode a partir do código-fonte.",
+		"sourceBody": "O repositório inclui CLI, daemon e desktop Tauri. Requer Rust, Node.js e as dependências de sistema documentadas. O acesso ao repositório pode exigir autorização.",
+		"sourceLink": "Consultar instruções",
+		"disclaimer": "Disponibilidade dos binários depende da publicação e validação de cada release.",
+		"version": "Estado atual: desenvolvimento ativo",
+		"step1": "Escolha seu sistema operacional.",
+		"step2": "Confira os arquivos disponíveis na release.",
+		"step3": "Siga o guia de instalação da sua plataforma.",
+		"sourceEyebrow": "CÓDIGO-FONTE / BUILD"
+	},
+	"Docs": {
+		"eyebrow": "REFERENCE / 001",
+		"title": "Documentação para quem constrói.",
+		"body": "Comece pelo fluxo básico e descubra o que realmente acontece entre terminal, daemon e navegador.",
+		"start": "Primeiros passos",
+		"startBody": "Um fluxo local com a CLI. Para instalar, siga os pré-requisitos do repositório.",
+		"cli": "Referência rápida da CLI",
+		"cliBody": "CLI e desktop enviam requisições ao mesmo daemon local.",
+		"command": "Comando",
+		"meaning": "O que faz",
+		"cmd1": "Inicia o daemon",
+		"cmd2": "Adiciona e inicia o projeto atual",
+		"cmd3": "Lista projetos registrados",
+		"cmd4": "Mostra a saída do processo",
+		"cmd5": "Verifica DNS, HTTPS e conflitos",
+		"cmd6": "Estado da resolução de .test",
+		"cmd7": "Inspeciona a confiança da CA",
+		"architecture": "Arquitetura em camadas",
+		"arch1": "Interface desktop + CLI",
+		"arch2": "IPC local / protocolo compartilhado",
+		"arch3": "Daemon Rust / supervisão",
+		"arch4": "Proxy + DNS + TLS + runtimes",
+		"external": "Ver documentação no repositório",
+		"tip": "O comando exato de instalação varia por sistema. Consulte o README antes de conceder privilégios."
+	},
+	"Footer": {
+		"description": "Ambiente de desenvolvimento local, open source, com HTTPS e controle pelo app ou terminal.",
+		"help": "Documentação e ajuda",
+		"project": "Institucional",
+		"legal": "Legal",
+		"tagline": "Local first. Developer always.",
+		"made": "Criado para quem cria.",
+		"product": "Produto",
+		"resources": "Explorar",
+		"rights": "Código aberto · Licença Apache 2.0",
+		"external": "Repositório GitHub",
+		"back": "Voltar ao topo",
+		"maintainedBy": "Desenvolvimento e manutenção"
+	},
+	"Common": {
+		"learnMore": "Saiba mais",
+		"viewDocs": "Ler documentação",
+		"coming": "Em desenvolvimento",
+		"loading": "Carregando",
+		"source": "Código-fonte",
+		"status": "Status"
+	},
+	"Gallery": {
+		"eyebrow": "04 / INTERFACE REAL",
+		"title": "Feito para usar. Não só para admirar.",
+		"body": "Conheça as telas que organizam sites, runtimes e verificações do seu ambiente. Veja os detalhes no tour da documentação.",
+		"sites": "Lista de sites e saída ao vivo",
+		"runtimes": "Versões de PHP e Node.js por projeto",
+		"doctor": "Diagnóstico do ambiente com Doctor",
+		"link": "Explorar o app"
+	},
+	"DocCode": {
+		"terminal": "Terminal",
+		"copy": "Copiar",
+		"copied": "Copiado",
+		"copyFailed": "Não foi possível copiar. Selecione e copie o código.",
+		"running": "Daemon em execução",
+		"example": "Exemplo de saída · o estado real depende do seu ambiente."
+	},
+	"DocsSearch": {
+		"title": "Pesquisar documentação",
+		"placeholder": "Buscar nas docs…",
+		"description": "Pesquise páginas e seções da documentação do LocDev.",
+		"clear": "Limpar busca",
+		"close": "Fechar busca",
+		"empty": "Nenhuma seção encontrada. Tente outro termo.",
+		"hint": "↑ ↓ navegar · Enter abrir · Esc fechar"
+	},
+	"FeaturePage": {
+		"eyebrow": "RECURSOS / FEITO PARA DESENVOLVER",
+		"title": "Um ambiente inteiro. Um fluxo só.",
+		"body": "Do primeiro domínio aos logs do processo: desktop e terminal conectados ao mesmo ambiente local.",
+		"primary": "Começar com o LocDev",
+		"preview": "O aplicativo, por dentro",
+		"architectureEyebrow": "COMO AS PEÇAS SE CONECTAM",
+		"architectureTitle": "Uma base. Duas interfaces.",
+		"desktop": "App desktop",
+		"desktopBody": "Seus projetos, versões e diagnósticos em uma interface nativa.",
+		"cli": "Linha de comando",
+		"cliBody": "As mesmas operações, prontas para o seu terminal e scripts.",
+		"daemon": "Daemon local",
+		"daemonBody": "Um processo supervisiona os sites, mesmo com o app fechado.",
+		"network": "DNS + HTTPS",
+		"networkBody": "Domínios locais, proxy reverso e certificados por site.",
+		"workflowsLabel": "Explorar os fluxos",
+		"runtimesPreview": "Versões e ferramentas, por projeto",
+		"runtimesAlt": "Gerenciamento de versões e runtimes no aplicativo LocDev."
+	},
+	"License": {
+		"label": "Licença",
+		"eyebrow": "OPEN SOURCE / APACHE-2.0",
+		"title": "Seu código pode ir mais longe.",
+		"body": "O aplicativo LocDev é disponibilizado sob a Apache License, Version 2.0: uma licença de código aberto que permite usar, modificar e distribuir o software, inclusive comercialmente, sob seus termos.",
+		"permissionsTitle": "Liberdade para construir.",
+		"useTitle": "Usar",
+		"useBody": "Use o aplicativo em projetos pessoais, internos ou comerciais.",
+		"modifyTitle": "Modificar",
+		"modifyBody": "Adapte o código e crie trabalhos derivados.",
+		"shareTitle": "Distribuir",
+		"shareBody": "Redistribua versões originais ou modificadas, cumprindo as condições da licença.",
+		"conditionsTitle": "O que você precisa preservar",
+		"condition1": "Forneça uma cópia da licença ao redistribuir o software.",
+		"condition2": "Identifique os arquivos modificados e preserve os avisos aplicáveis de autoria, patentes, marcas e atribuição.",
+		"condition3": "Se a distribuição incluir um arquivo NOTICE, mantenha os avisos de atribuição aplicáveis.",
+		"limitsTitle": "Patentes, marcas e garantias",
+		"limitsBody": "A licença concede direitos de patente nos limites da seção 3. Ela não concede permissão geral para usar marcas. O software é fornecido “como está”, sem garantias e com limitações de responsabilidade nos termos das seções 7 e 8.",
+		"fullTitle": "Leia os termos completos",
+		"fullBody": "O resumo acima é informativo. O texto oficial em inglês abaixo define os termos da Apache-2.0.",
+		"official": "Ver fonte oficial",
+		"download": "Baixar licença (.txt)",
+		"showText": "Apache License, Version 2.0 — texto completo",
+		"spdx": "Identificador SPDX",
+		"dependencies": "Dependências e componentes de terceiros podem ter suas próprias licenças e avisos."
+	},
+	"FeatureDetails": {
+		"eyebrow": "NA PRÁTICA / FLUXOS DE DESENVOLVIMENTO",
+		"title": "Do projeto ao ambiente pronto.",
+		"sitesLabel": "SITES E PROCESSOS",
+		"sitesTitle": "Sua pasta vira um endereço local.",
+		"sitesBody": "Registre o projeto, deixe o LocDev detectar o framework e acompanhe o processo pelo app ou pela CLI. O domínio .localhost funciona sem configurar o DNS do sistema.",
+		"sitesItem1": "Detecção de projetos PHP, Laravel, WordPress, Node.js e Next.js.",
+		"sitesItem2": "Inicie, pare e acompanhe os logs de cada servidor.",
+		"sitesItem3": "Configure .test e HTTPS quando precisar, com autorização explícita.",
+		"sitesAlt": "Tela de sites com o projeto selecionado e seus logs de processo.",
+		"runtimesLabel": "RUNTIMES POR PROJETO",
+		"runtimesTitle": "A versão do projeto, sem mexer no sistema.",
+		"runtimesBody": "Selecione Node.js e PHP por site. O LocDev prepara o PATH do processo com a versão escolhida, mantendo suas instalações globais e outros projetos independentes.",
+		"runtimesItem1": "Use versões gerenciadas ou instalações detectadas na máquina.",
+		"runtimesItem2": "Fixe a versão por projeto ou defina um padrão do LocDev.",
+		"runtimesItem3": "Downloads gerenciados são verificados antes da instalação.",
+		"runtimesAlt": "Tela de gerenciamento de versões Node.js e PHP no LocDev.",
+		"doctorLabel": "DIAGNÓSTICO",
+		"doctorTitle": "Entenda o problema antes de mudar o ambiente.",
+		"doctorBody": "O Doctor verifica o daemon, as portas, o resolvedor DNS e a confiança da CA local. Os resultados mostram o que foi encontrado e orientam a próxima ação.",
+		"doctorItem1": "Identifique conflitos de portas e dependências ausentes.",
+		"doctorItem2": "Confira a configuração de DNS e a confiança dos certificados.",
+		"doctorItem3": "Execute o mesmo diagnóstico no desktop ou com locdev doctor.",
+		"doctorAlt": "Tela do Doctor mostrando os resultados do diagnóstico local.",
+		"controlEyebrow": "CONTROLE / PERMISSÕES EXPLÍCITAS",
+		"controlTitle": "Seu ambiente, com mudanças visíveis.",
+		"securityLink": "Conhecer os limites de segurança",
+		"inspectTitle": "Veja antes de executar",
+		"inspectBody": "As operações de integração com o sistema mostram o script que será executado.",
+		"approveTitle": "Autorize quando necessário",
+		"approveBody": "A instalação do DNS e da confiança da CA pede confirmação antes de alterar o sistema.",
+		"undoTitle": "Desfaça a integração",
+		"undoBody": "Comandos de desinstalação do DNS e remoção da confiança permitem reverter essas configurações.",
+		"nextEyebrow": "PRÓXIMO PASSO",
+		"nextTitle": "Monte seu primeiro ambiente local.",
+		"nextBody": "Siga o guia para iniciar o daemon, registrar um projeto e abrir seu endereço no navegador.",
+		"startLink": "Seguir o guia inicial",
+		"downloadLink": "Escolher uma instalação"
+	},
+	"LicenseReader": {
+		"contents": "Seções da licença",
+		"introduction": "Apresentação",
+		"document": "Texto completo da licença Apache-2.0",
+		"copy": "Copiar texto",
+		"copied": "Texto copiado",
+		"copyError": "Não foi possível copiar. Selecione o texto para copiá-lo.",
+		"textSize": "Alternar tamanho do texto",
+		"download": "Baixar licença",
+		"expand": "Ampliar leitor",
+		"close": "Fechar leitor",
+		"language": "Texto oficial · Inglês",
+		"original": "Apache License, Version 2.0 · Texto original preservado"
+	},
+	"Donate": {
+		"label": "Apoie o LocDev",
+		"eyebrow": "COMUNIDADE / MANUTENÇÃO DO APP",
+		"title": "Menos atrito para desenvolver. Mais fôlego para continuar.",
+		"body": "Manter o LocDev em desenvolvimento exige tempo para corrigir bugs, testar sistemas, acompanhar runtimes e melhorar cada interação. Queremos abrir um caminho de apoio voluntário para dar continuidade a esse trabalho.",
+		"whyLink": "Por que apoiar",
+		"otherWays": "Como ajudar hoje",
+		"status": "EM PREPARAÇÃO",
+		"comingTitle": "Contribuições financeiras em breve.",
+		"comingBody": "Estamos preparando uma forma de apoiar a manutenção do aplicativo. Os pagamentos ainda não estão disponíveis.",
+		"comingButton": "Contribuir em breve",
+		"noPayment": "Nenhum pagamento é solicitado ou processado nesta página.",
+		"prioritiesEyebrow": "ONDE O APOIO PODE FAZER DIFERENÇA",
+		"prioritiesTitle": "Cuidar do que funciona. Construir o que vem a seguir.",
+		"prioritiesBody": "Estas frentes vêm do trabalho descrito no README, nas ferramentas de build e no changelog do LocDev. O apoio poderá ajudar a dedicar mais tempo e recursos a elas.",
+		"roadmapLink": "Ver o changelog",
+		"explore": "Conhecer esta frente",
+		"maintenanceTitle": "Manutenção do ambiente local",
+		"maintenanceBody": "Corrigir problemas e acompanhar dependências do daemon, da CLI, do proxy HTTP/HTTPS, do DNS .test e dos certificados locais. A base que mantém seus projetos funcionando também precisa de cuidado.",
+		"experienceTitle": "Uma experiência de desenvolvimento melhor",
+		"experienceBody": "Refinar os fluxos do app desktop, a paleta de comandos, os logs e o Doctor. Melhorar mensagens, acessibilidade e documentação para reduzir o tempo entre abrir o projeto e começar a desenvolver.",
+		"runtimesTitle": "Runtimes e builds verificados",
+		"runtimesBody": "Evoluir as versões de Node.js e PHP por projeto e manter a cadeia de builds do PHP, os manifestos assinados e a verificação de downloads. São partes que precisam acompanhar as atualizações das ferramentas.",
+		"releasesTitle": "Qualidade nos três sistemas",
+		"releasesBody": "Ampliar testes reais em Linux, macOS e Windows, validar instaladores e avançar nas assinaturas dos binários. Empacotamento e compatibilidade fazem parte do caminho para uma versão estável.",
+		"principlesEyebrow": "APOIO VOLUNTÁRIO / CÓDIGO ABERTO",
+		"principlesTitle": "Contribuir é apoiar o trabalho, não comprar uma promessa.",
+		"voluntary": "O LocDev continua sendo um aplicativo open source sob Apache-2.0. O apoio é voluntário e não será uma condição para usar os recursos essenciais do ambiente local.",
+		"plans": "Diagnóstico avançado e workspaces ainda não existem no app. Uma contribuição não compra prioridade, não garante uma funcionalidade e não define uma data de entrega.",
+		"licenseLink": "Ler a licença Apache-2.0",
+		"otherEyebrow": "VOCÊ TAMBÉM PODE AJUDAR ASSIM",
+		"otherTitle": "Nem toda contribuição precisa ser financeira.",
+		"testTitle": "Teste e relate problemas",
+		"testBody": "Experimente os builds disponíveis e descreva seu sistema, o que aconteceu e como reproduzir o problema. Isso ajuda a transformar falhas reais em correções.",
+		"testLink": "Ver como testar",
+		"docsTitle": "Compartilhe o que aprendeu",
+		"docsBody": "Use os guias, aponte passos confusos e ajude a melhorar explicações e traduções. Documentação clara também melhora a experiência de desenvolvimento.",
+		"docsLink": "Explorar a documentação",
+		"codeTitle": "Contribua com o projeto",
+		"codeBody": "Correções, revisões e melhorias de interface ajudam o projeto a avançar. O acesso e as contribuições seguem a disponibilidade e as orientações do repositório.",
+		"codeLink": "Abrir o repositório",
+		"sourceNote": "Prioridades baseadas no README, no changelog e na documentação de builds do repositório LocDev. Itens ainda não entregues continuam sujeitos a implementação e validação."
+	},
+	"Stacks": {
+		"eyebrow": "SEU CÓDIGO. SEU ECOSSISTEMA.",
+		"homeTitle": "Mude de stack. Mantenha o fluxo.",
+		"homeBody": "Do Laravel ao Rust, veja como cada ecossistema trabalha. O LocDev conecta seu servidor local a domínios .test, HTTPS e controle de processos.",
+		"pageTitle": "Um lugar para todas as suas stacks.",
+		"pageBody": "Explore frameworks, linguagens e runtimes. Veja o tipo de integração disponível e exemplos de comandos para projetos existentes.",
+		"viewAll": "Explorar todas as stacks",
+		"count": "{count} stacks",
+		"preview": "WORKFLOW EM FOCO",
+		"example": "EXEMPLO",
+		"previous": "Stack anterior",
+		"next": "Próxima stack",
+		"pause": "Pausar animação",
+		"play": "Reproduzir animação",
+		"selectStack": "Escolher uma stack",
+		"officialDocs": "Documentação oficial",
+		"providerCommand": "Deploy conforme o provedor e a configuração do projeto.",
+		"projectCommand": "Etapa definida pela configuração do projeto.",
+		"commandNote": "Exemplos para projetos existentes. Ajuste os scripts, arquivos de entrada e a porta; {port} representa a porta atribuída pelo LocDev.",
+		"scopeNote": "O LocDev gerencia o servidor local. Instalação, build, testes e deploy ilustram o workflow das ferramentas de cada stack; não são operações automáticas do app.",
+		"directoryEyebrow": "EXPLORE O ECOSSISTEMA",
+		"directoryTitle": "Encontre sua próxima stack.",
+		"search": "Buscar framework, linguagem ou runtime...",
+		"clear": "Limpar busca",
+		"filterLabel": "Filtrar por integração",
+		"all": "Todas",
+		"supportNote": "Detecção nativa: reconhecida pelo app. Via package.json: usa scripts dev/start como projeto Node.js. Comando personalizado: requer runtime instalado e servidor configurado para a porta do LocDev.",
+		"viewWorkflow": "Ver workflow",
+		"emptyTitle": "Essa stack ainda não está aqui.",
+		"emptyBody": "Tente outro nome ou solicite uma integração ao projeto.",
+		"reset": "Limpar filtros",
+		"requestEyebrow": "CONSTRUA ESSE ECOSSISTEMA COM A GENTE",
+		"requestTitle": "Sua stack merece um lugar aqui.",
+		"requestBody": "Peça detecção automática, um runtime ou sugestões de comandos. O botão abre uma solicitação no GitHub para você revisar e enviar.",
+		"request": "Solicitar um framework",
+		"setup": "Como configurar um comando personalizado",
+		"support": {
+			"detected": "Detecção nativa",
+			"script": "Via package.json",
+			"custom": "Comando personalizado"
+		},
+		"categories": {
+			"frontend": "Frontend e aplicações web",
+			"backend": "Backend e APIs",
+			"runtime": "Linguagens e runtimes",
+			"tooling": "Ferramentas e sites estáticos"
+		},
+		"stages": {
+			"install": "Instalar",
+			"run": "Executar",
+			"build": "Build",
+			"test": "Testar",
+			"deploy": "Deploy"
+		},
+		"scrollPrevious": "Rolar lista para a esquerda",
+		"scrollNext": "Rolar lista para a direita",
+		"workflowTitle": "Workflow de {name}",
+		"workflowDescription": "Comandos de referência para um projeto existente, seguidos dos passos para executá-lo pelo LocDev. Execute os exemplos na pasta do projeto.",
+		"nativeCommands": "Comandos da stack",
+		"specificCommand": "Comando específico da stack",
+		"toolsNote": "Exige as ferramentas e dependências do projeto. Alguns exemplos, como wp, usam uma CLI instalada separadamente.",
+		"locdevCommands": "Rodar o site com a CLI do LocDev",
+		"locdevDescription": "Inicie o daemon, cadastre a pasta atual com o comando do servidor, suba o site e acompanhe os logs. O nome abaixo é um exemplo; escolha outro para cadastrar mais projetos.",
+		"missingServer": "Substitua <HTTP_SERVER_COMMAND> pelo comando real do seu servidor HTTP antes de executar locdev up. Essa linguagem, por si só, não define um servidor web.",
+		"portNote": "O servidor deve usar a porta atribuída pelo app: {port} é substituído pelo LocDev, que também fornece PORT. Para .test e HTTPS, configure o DNS e a confiança no certificado conforme a documentação.",
+		"closeWorkflow": "Fechar workflow",
+		"share": "Copiar link do workflow",
+		"configure": "Personalizar projeto",
+		"linkCopied": "Link copiado.",
+		"linkFailed": "Não foi possível copiar o link. Copie a URL do navegador.",
+		"loading": "Carregando stacks…"
+	},
+	"Releases": {
+		"connected": "Conectado às releases públicas",
+		"emptyTitle": "Nenhuma release publicada",
+		"emptyBody": "Ainda não há releases públicas publicadas. Os arquivos aparecerão aqui quando estiverem disponíveis.",
+		"unavailableTitle": "Releases indisponíveis no momento",
+		"notPublic": "O GitHub não disponibilizou dados públicos deste repositório. Consulte o projeto ou siga o guia pelo código-fonte.",
+		"unavailableBody": "Não foi possível consultar o GitHub. Tente atualizar ou abra as releases no repositório.",
+		"refreshInfo": "Atualizações podem levar até 15 minutos para aparecer. Somente releases publicadas são exibidas.",
+		"checked": "Última consulta:",
+		"refreshing": "Atualizando…",
+		"refresh": "Atualizar",
+		"system": "Sistema",
+		"architecture": "Arquitetura",
+		"channel": "Canal",
+		"stable": "Estável",
+		"preview": "Pré-lançamento",
+		"package": "Pacote",
+		"desktop": "Aplicativo desktop",
+		"cli": "CLI e daemon",
+		"notes": "Notas da versão",
+		"download": "Baixar arquivo",
+		"checksums": "Ver SHA256SUMS",
+		"noChecksum": "Checksum não publicado para este arquivo.",
+		"noAssetTitle": "Não há arquivo para esta combinação.",
+		"noChannelTitle": "Nenhuma release neste canal.",
+		"noAssetBody": "Escolha outro sistema, arquitetura ou canal. O guia também explica como compilar o projeto.",
+		"guide": "Abrir guia de instalação",
+		"allAssets": "Todos os arquivos publicados"
+	},
+	"Onboarding": {
+		"title": "Do download ao primeiro projeto.",
+		"body": "Escolha seu ambiente e siga os passos para instalar o LocDev e iniciar um projeto. Cada comando fica disponível para copiar.",
+		"eyebrow": "COMECE PELO SEU AMBIENTE",
+		"stepsLabel": "Etapas da instalação",
+		"choose": "Seu ambiente",
+		"install": "Instalação",
+		"firstProject": "Primeiro projeto",
+		"chooseTitle": "Como você vai usar o LocDev?",
+		"stack": "Stack do projeto",
+		"choiceNote": "Escolha a arquitetura da máquina onde o app será executado. A disponibilidade depende dos arquivos publicados no canal selecionado.",
+		"installTitle": "Instale do seu jeito.",
+		"publishedPackage": "Pacote publicado",
+		"desktopSteps": "Baixe o instalador correspondente, confira o SHA-256 e abra o arquivo. O app inclui CLI e daemon como sidecars. Para usar os comandos da próxima etapa, disponibilize a CLI no PATH ou instale o arquivo da CLI separadamente.",
+		"cliSteps": "Baixe o arquivo da CLI, extraia locdev e locdevd na mesma pasta e adicione essa pasta ao PATH. Confira o SHA-256 antes de usar.",
+		"noPackage": "Não há um pacote público correspondente neste momento. Você pode consultar o repositório ou compilar pelo código-fonte se tiver acesso.",
+		"sourceTitle": "Compilar pelo código-fonte",
+		"prerequisites": "Você precisa de Git, Rust estável e, para o desktop, Node.js 20+, pnpm e os pré-requisitos do Tauri para seu sistema.",
+		"platformPrerequisites": "Ver pré-requisitos do sistema",
+		"sourceDesktop": "Os instaladores são gerados em target/release/bundle. Abra o instalador da sua plataforma. Para usar os comandos da próxima etapa, disponibilize a CLI no PATH ou instale o arquivo da CLI separadamente.",
+		"sourceCli": "Os binários ficam em target/release (com .exe no Windows). Mantenha locdev e locdevd juntos e adicione a pasta ao PATH.",
+		"firstProjectTitle": "Seu primeiro projeto {name}.",
+		"pathNote": "Depois de instalar e configurar o PATH, entre na pasta de um projeto existente com suas dependências instaladas. Os nomes abaixo são exemplos.",
+		"missingCommand": "Substitua <HTTP_SERVER_COMMAND> pelo comando HTTP do projeto e configure a porta atribuída pelo LocDev.",
+		"finishNote": "O daemon fornece PORT e HOST. Servidores genéricos precisam usar esses valores ou a porta configurada. .localhost funciona sem configurar DNS; .test e HTTPS exigem a preparação descrita nas docs.",
+		"customize": "Personalizar configuração",
+		"readGuide": "Ler guia completo",
+		"back": "Voltar",
+		"next": "Continuar"
+	},
+	"Generator": {
+		"title": "Uma configuração com a sua cara.",
+		"body": "Defina seu projeto e gere os comandos da CLI ou um exemplo de projects.toml. Você revisa e copia; nada é executado pelo site.",
+		"eyebrow": "CONFIGURE SEU PRÓXIMO PROJETO",
+		"project": "Seu projeto",
+		"stack": "Stack",
+		"name": "Nome do site",
+		"path": "Pasta absoluta do projeto",
+		"command": "Comando do servidor HTTP",
+		"port": "Porta local",
+		"shell": "Shell dos comandos",
+		"autoStart": "Iniciar junto com o daemon",
+		"portHelp": "Use {port} no comando ou configure o servidor para ler PORT. Runtimes e dependências devem estar instalados.",
+		"preview": "Prévia da configuração",
+		"fixFields": "Revise os campos para gerar a configuração.",
+		"nameError": "Use de 1 a 63 letras minúsculas, números ou hífens, começando e terminando com letra ou número.",
+		"pathError": "Informe uma pasta absoluta válida, sem quebras de linha.",
+		"commandError": "Informe um comando em uma linha, sem caracteres de controle.",
+		"portError": "Use uma porta inteira entre 1024 e 65535.",
+		"save": "Salvar exemplo TOML",
+		"registryNote": "O TOML é um exemplo isolado. Não substitua um projects.toml existente: mescle o bloco [[project]] com cuidado e apenas com o daemon parado. Prefira a CLI para registrar o projeto.",
+		"privacy": "Os campos são processados no seu navegador. O site não envia sua pasta ou comando a um servidor."
+	},
+	"Changelog": {
+		"title": "O que mudou no LocDev.",
+		"body": "Cada versão do LocDev com novidades, mudanças, correções e segurança, tirada do CHANGELOG.pt-BR.md do repositório.",
+		"eyebrow": "ACOMPANHE A EVOLUÇÃO",
+		"github": "Histórico completo no GitHub",
+		"assets": "{count} arquivos publicados",
+		"noNotes": "Esta release não tem notas publicadas.",
+		"fullRelease": "Abrir release completa",
+		"unreleased": "Ainda não publicado",
+		"notPublished": "Teste interno",
+		"source": "Fonte: CHANGELOG.pt-BR.md do repositório. O lançamento inicial reúne tudo o que passou por testes internos e com usuários selecionados desde a 0.1.0."
+	},
+	"Contribute": {
+		"title": "Faça parte do próximo passo.",
+		"body": "Código, documentação, traduções e feedback ajudam o LocDev a evoluir. Escolha como contribuir e leve sua experiência para o projeto.",
+		"eyebrow": "CONSTRUÍDO COM A COMUNIDADE",
+		"codeTitle": "Contribua com código",
+		"codeBody": "Explore as mudanças em discussão, combine o escopo e envie uma contribuição com validação e contexto.",
+		"bugsTitle": "Relate um problema",
+		"bugsBody": "Informe versão, sistema, passos para reproduzir e o comportamento esperado. Remova dados pessoais e segredos dos logs.",
+		"frameworksTitle": "Peça um framework",
+		"frameworksBody": "Conte qual stack você usa, como inicia o servidor e qual integração tornaria seu trabalho mais simples.",
+		"docsTitle": "Melhore a documentação",
+		"docsBody": "Aponte uma instrução confusa, uma página desatualizada ou um exemplo que poderia funcionar melhor.",
+		"translationsTitle": "Ajude com traduções",
+		"translationsBody": "Sugira correções em português, inglês, espanhol ou japonês, incluindo a página e o texto que precisa de revisão.",
+		"fundingTitle": "Apoie a manutenção",
+		"fundingBody": "Conheça os objetivos de manutenção e o estado das contribuições financeiras na página de apoio.",
+		"openGithub": "Abrir no GitHub",
+		"viewFunding": "Conhecer o apoio",
+		"startEyebrow": "DA IDEIA À CONTRIBUIÇÃO",
+		"startTitle": "Um bom começo não precisa ser grande.",
+		"step1": "Procure uma discussão relacionada antes de abrir outra.",
+		"step2": "Descreva o problema e combine uma mudança pequena e clara.",
+		"step3": "Crie um fork e uma branch para trabalhar na alteração.",
+		"step4": "Execute as verificações relevantes e abra um pull request com o que mudou e como foi validado.",
+		"reviewNote": "Os links de problemas abrem formulários para você revisar e enviar. Nenhuma solicitação é publicada automaticamente.",
+		"checks": "Verificações do workspace Rust",
+		"ciNote": "Comandos usados pelo CI do app. Alterações no desktop também exigem os checks e pré-requisitos descritos no repositório."
+	},
+	"Services": {
+		"eyebrow": "ALÉM DO SERVIDOR HTTP",
+		"planned": "Bancos, caches, filas e workers marcados já rodam no LocDev; o resto é proposta.",
+		"title": "Tudo que roda junto do seu projeto.",
+		"body": "Dados, filas, workers, tarefas agendadas e tempo real de cada stack. Os marcados já funcionam no LocDev (instâncias gerenciadas, processos auxiliares, Mailbox, Database Manager); os demais são propostas, ainda não implementadas.",
+		"select": "Explorar serviços por stack",
+		"scope": "Sugestões opcionais do ecossistema. Dependem das bibliotecas e da configuração do projeto. Em stacks de interface, bancos e filas pertencem ao backend associado; não ao navegador.",
+		"requires": "Pré-requisitos:",
+		"example": "Comando de referência, com dependências já instaladas. Substitua {module} pelo módulo real do projeto.",
+		"embeddedNote": "Integrado ao processo da aplicação ou ao driver. Não precisa de um daemon separado: a configuração depende do projeto.",
+		"customNote": "O comando de inicialização depende da instalação e do projeto.",
+		"docs": "Documentação oficial",
+		"note": "Portas são exemplos e devem ser ajustadas para evitar conflitos. Workers alternativos não devem consumir a mesma fila sem uma escolha explícita. SQLite é um arquivo local, não um servidor. Nenhum serviço é instalado ou executado pelo site.",
+		"request": "Sugerir serviço ou integração",
+		"workflowTitle": "Serviços desta stack",
+		"homeLink": "Explorar serviços por stack",
+		"categories": {
+			"database": "Bancos e cache",
+			"background": "Filas, jobs e agendamentos",
+			"realtime": "WebSockets e tempo real",
+			"tooling": "Ferramentas de desenvolvimento"
+		},
+		"modes": {
+			"process": "Processo separado",
+			"embedded": "Na aplicação",
+			"external": "Instalação externa"
+		},
+		"requirements": {
+			"sqlserver": "SQL Server · plataforma compatível · credenciais locais",
+			"postgres": "PostgreSQL · diretório de dados · credenciais locais",
+			"mysql": "MySQL · diretório de dados · credenciais locais",
+			"mariadb": "MariaDB · diretório de dados · credenciais locais",
+			"sqlite": "SQLite driver · arquivo do banco",
+			"redis": "Redis · configuração de desenvolvimento local",
+			"valkey": "Valkey · configuração de desenvolvimento local",
+			"mongodb": "MongoDB · diretório de dados · credenciais locais",
+			"rabbitmq": "RabbitMQ · Erlang · credenciais locais",
+			"mailpit": "Mailpit · configuração SMTP",
+			"meilisearch": "Meilisearch · chave principal local · diretório de dados",
+			"s3": "endpoint S3 local · bucket · credenciais",
+			"reverb": "laravel/reverb · configuração de broadcasting",
+			"queue": "conexão de fila · classes de jobs · banco de dados ou Redis",
+			"horizon": "laravel/horizon · Redis · sistema operacional compatível",
+			"scheduler": "tarefas agendadas · um scheduler por projeto",
+			"vite": "Vite · script dev no package.json · lockfile do projeto",
+			"solidqueue": "Solid Queue · bin/jobs · banco da fila · recurring.yml",
+			"sidekiq": "Sidekiq · Redis · classes de jobs",
+			"cable": "Rails · config/cable.yml · adaptador configurado",
+			"celery": "Celery · módulo da aplicação · broker Redis ou RabbitMQ",
+			"beat": "Celery · módulo da aplicação · agendamentos · uma única instância do Beat",
+			"channels": "Channels · servidor ASGI · channels_redis opcional",
+			"bullmq": "BullMQ · Redis · entrypoint do worker do projeto",
+			"socketio": "Socket.IO · entrypoint do backend · proxy WebSocket",
+			"nestcron": "@nestjs/schedule · módulo da aplicação configurado",
+			"wpcron": "WP-CLI · banco do WordPress · agendamento explícito",
+			"messenger": "Symfony Messenger · transporte async configurado",
+			"asynq": "Asynq · Redis · entrypoint do worker Go",
+			"apalis": "Apalis · armazenamento configurado · binário do worker Rust",
+			"springjobs": "Spring Batch or @Scheduled · aplicação configurada",
+			"hangfire": "host do worker .NET configurado · provedor de armazenamento escolhido",
+			"signalr": "ASP.NET Core · hubs configurados",
+			"storybook": "Storybook · script storybook no package.json · framework compatível",
+			"mock": "MSW · handlers de requisições do projeto"
+		},
+		"pageTitle": "Serviços para seu ambiente local",
+		"directoryTitle": "Explore os serviços",
+		"count": "{count} serviços",
+		"search": "Buscar serviço…",
+		"clear": "Limpar busca",
+		"all": "Todos",
+		"allStacks": "Todas as stacks",
+		"filterLabel": "Filtrar serviços por categoria",
+		"viewDetails": "Ver detalhes",
+		"close": "Fechar detalhes",
+		"relatedStacks": "Stacks relacionadas",
+		"empty": "Nenhum serviço encontrado.",
+		"reset": "Limpar filtros",
+		"viewAll": "Explorar serviços",
+		"ecosystemLogo": "Logo do ecossistema {name}",
+		"categoryIcon": "Ícone da categoria",
+		"logoNote": "Logos disponíveis no SVGL. Serviços sem marca própria usam a logo identificada do ecossistema ou um ícone de categoria.",
+		"supportShort": {
+			"instances": "No LocDev",
+			"process": "No LocDev",
+			"devServer": "No LocDev",
+			"mailbox": "No LocDev",
+			"browser": "No LocDev",
+			"proposed": "Planejado"
+		},
+		"support": {
+			"instances": "Instâncias gerenciadas pelo LocDev",
+			"process": "Processo auxiliar do site",
+			"devServer": "Servidor auxiliar do site",
+			"mailbox": "Substituído pelo Mailbox do LocDev",
+			"browser": "Aberto pelo Database Manager",
+			"proposed": "Planejado · ainda não implementado"
+		},
+		"supportNote": {
+			"instances": "O LocDev cria instâncias com dados, porta e log próprios, só em 127.0.0.1, usando uma instalação do sistema ou uma versão baixada com SHA-256 verificado.",
+			"process": "Quando o projeto tem a biblioteca, o adaptador oferece o processo; nada roda antes da sua escolha (manual, com o site ou nunca).",
+			"devServer": "O LocDev detecta o servidor auxiliar e pergunta antes de rodá-lo ao lado do servidor principal.",
+			"mailbox": "O LocDev tem o próprio SMTP de captura (Mailbox), ligado pelo ambiente dos processos do site; não é preciso instalar o Mailpit.",
+			"browser": "Um arquivo do projeto: não há servidor. O Database Manager do LocDev abre, consulta e edita.",
+			"proposed": "Ainda não há integração no LocDev; a futura integração deverá revisar caminhos, portas, credenciais e armazenamento antes de iniciar."
+		}
+	},
+	"MegaMenu": {
+		"groups": {
+			"build": "Comece a construir",
+			"ecosystem": "Ecossistema",
+			"community": "Projeto e comunidade"
+		},
+		"footer": "Local-first. Código aberto. Seu ambiente sob seu controle.",
+		"descriptions": {
+			"contact": "Uma dúvida, uma ideia ou algo que pode melhorar? Escolha o caminho para falar com quem constrói o LocDev.",
+			"getStarted": "Escolha sua plataforma e prepare o primeiro projeto.",
+			"configure": "Gere comandos e um exemplo TOML para seu projeto.",
+			"docs": "Guias de instalação, CLI, domínios e HTTPS.",
+			"stacks": "Explore frameworks e seus comandos de desenvolvimento.",
+			"services": "Bancos, filas e workers de cada stack, e o que já roda no LocDev.",
+			"roadmap": "O que mudou em cada versão do app.",
+			"changelog": "Acompanhe versões e notas oficiais de lançamento.",
+			"contribute": "Contribua com código, traduções e relatos de bugs.",
+			"donate": "Ajude a manter o desenvolvimento do LocDev.",
+			"about": "Feito e mantido por triooo",
+			"support": "Instalação, CLI, domínios, HTTPS e configuração em um lugar.",
+			"faq": "Respostas sobre instalação, uso local e manutenção.",
+			"compare": "Compare arquiteturas, plataformas e serviços com fontes."
+		}
+	},
+	"Loading": {
+		"page": "Carregando conteúdo…"
+	},
+	"PageError": {
+		"title": "Não foi possível carregar esta página.",
+		"body": "Ocorreu um erro ao buscar o conteúdo. Você pode tentar novamente ou voltar ao início.",
+		"retry": "Tentar novamente",
+		"home": "Voltar ao início"
+	},
+	"About": {
+		"eyebrow": "POR TRÁS DO LOCDEV",
+		"title": "Menos configuração. Mais espaço para criar.",
+		"body": "LocDev organiza o ambiente de desenvolvimento local: projetos, processos, domínios e HTTPS. A proposta é aproximar o que você faz no terminal da experiência do desktop, com escolhas visíveis e controle nas suas mãos.",
+		"localTitle": "Seu ambiente, na sua máquina",
+		"localBody": "O daemon e a CLI trabalham com os projetos locais. O site apresenta o app e a documentação; ele não executa comandos na sua máquina.",
+		"controlTitle": "Controle antes da automação",
+		"controlBody": "Comandos, permissões e alterações sensíveis precisam ser compreensíveis. Integrações ainda não entregues continuam identificadas como planejadas.",
+		"openTitle": "Um projeto que pode evoluir com você",
+		"openBody": "A licença Apache-2.0 permite usar, modificar e distribuir o código conforme suas condições. O repositório e o changelog dão contexto para contribuir.",
+		"maintainerTitle": "Feito e mantido por triooo",
+		"maintainerBody": "A triooo mantém o LocDev e este site. O objetivo é melhorar a experiência de desenvolvimento e sustentar a evolução do app ao longo do tempo.",
+		"participateTitle": "Ajude a escolher os próximos passos",
+		"participateBody": "Relatos reproduzíveis, melhorias na documentação, traduções e contribuições de código ajudam o projeto. O apoio financeiro ainda não está disponível no site.",
+		"contribute": "Contribuir",
+		"donate": "Conhecer o apoio",
+		"repository": "Repositório",
+		"roadmap": "Changelog"
+	},
+	"Support": {
+		"findAnswer": "Encontrar uma resposta",
+		"quickCheck": "Comece pelo diagnóstico",
+		"topicsEyebrow": "GUIAS POR ASSUNTO",
+		"topicsTitle": "O que você precisa resolver?",
+		"topicsBody": "Abra um assunto para encontrar a orientação e o guia correspondente.",
+		"openGuide": "Abrir guia",
+		"diagnosticCommands": "Diagnóstico no terminal",
+		"doctorGuide": "Entenda a saída do doctor",
+		"topics": {
+			"installation": {
+				"title": "Instalar ou abrir o LocDev",
+				"body": "Confira o sistema, a arquitetura e o formato do pacote. O guia reúne os instaladores do app, a CLI e a compilação pelo Git."
+			},
+			"projects": {
+				"title": "Um projeto não inicia",
+				"body": "Confira a pasta, o comando de inicialização e a saída do processo. O runtime e as dependências do projeto precisam estar disponíveis no ambiente."
+			},
+			"domains": {
+				"title": "O domínio .test não abre",
+				"body": "Use locdev doctor para verificar o DNS e possíveis conflitos. Depois, confira o domínio configurado e se o projeto está em execução."
+			},
+			"https": {
+				"title": "O navegador não confia no HTTPS",
+				"body": "Confira a configuração da autoridade certificadora local e a confiança do navegador. O guia explica a autorização dos certificados por sistema."
+			},
+			"runtime": {
+				"title": "PHP, Node ou outro runtime",
+				"body": "Revise o runtime selecionado no projeto e as versões disponíveis. O guia explica como usar os runtimes do sistema e as versões gerenciadas pelo LocDev."
+			},
+			"updates": {
+				"title": "Atualizar ou revisar uma versão",
+				"body": "Confira as notas de lançamento e o canal de atualização antes de trocar de versão. Mantenha uma cópia dos arquivos de configuração importantes."
+			}
+		},
+		"eyebrow": "SUPORTE E DIAGNÓSTICO",
+		"title": "Encontre o próximo passo para resolver.",
+		"body": "Comece pelo guia certo, reúna evidências e compartilhe um relato que possa ser reproduzido. Esta central conecta a documentação, o diagnóstico e os canais do projeto.",
+		"docsTitle": "Encontre o guia",
+		"docsBody": "Instalação, CLI, domínios, HTTPS e configuração em um lugar.",
+		"doctorTitle": "Verifique o ambiente",
+		"doctorBody": "Use o doctor para investigar DNS, TLS, portas e conflitos.",
+		"installTitle": "Revise a instalação",
+		"installBody": "Escolha sistema, arquitetura e modo de uso antes de começar.",
+		"checkTitle": "Antes de abrir um relato",
+		"checkBody": "Execute o diagnóstico dentro do ambiente afetado. Revise a saída antes de compartilhá-la; ela pode conter caminhos e informações locais.",
+		"step1": "Anote a versão do LocDev, sistema operacional e arquitetura.",
+		"step2": "Registre a stack, o comando usado e a sequência que reproduz o problema.",
+		"step3": "Compare o resultado do doctor com os guias de DNS, HTTPS e configuração.",
+		"step4": "Remova tokens, senhas, dados pessoais e caminhos sensíveis dos logs.",
+		"reportTitle": "Um bug que outras pessoas conseguem reproduzir",
+		"reportBody": "O botão abre um formulário no repositório configurado. Revise e envie pelo GitHub; o site não publica o relato automaticamente.",
+		"reportAction": "Preparar relato de bug",
+		"noSla": "O suporte acompanha a disponibilidade dos mantenedores. Não há prazo de atendimento garantido.",
+		"securityTitle": "Suspeita de vulnerabilidade?",
+		"securityBody": "Não publique detalhes de exploração, credenciais ou dados sensíveis em uma issue pública. Use o canal privado de segurança.",
+		"privateReport": "Como relatar em privado",
+		"securityPending": "O canal privado ainda está sendo confirmado. Aguarde sua publicação antes de enviar detalhes sensíveis.",
+		"securityDocs": "Segurança do aplicativo",
+		"knownTitle": "Problemas conhecidos e requisitos",
+		"knownBody": "Consulte os relatos existentes e as notas das versões antes de abrir uma nova issue. A disponibilidade de pacotes e os requisitos dependem do sistema, da arquitetura e da versão do app.",
+		"issues": "Relatos no GitHub",
+		"changelog": "Notas de lançamento",
+		"requirements": "Downloads e requisitos",
+		"maintenanceTitle": "Guias para cuidar do ambiente",
+		"troubleshooting": "Solução de problemas",
+		"updating": "Atualizar o app",
+		"uninstalling": "Desinstalar com cuidado"
+	},
+	"Privacy": {
+		"eyebrow": "PRIVACIDADE DO SITE",
+		"title": "Entenda o que acontece com seus dados.",
+		"body": "Estas informações descrevem o site do LocDev, mantido pela triooo. Elas distinguem o conteúdo processado no navegador, as conexões externas e a infraestrutura de hospedagem.",
+		"pending": "Informações operacionais em confirmação. Esta página ainda não deve ser tratada como uma política concluída.",
+		"browserTitle": "Preferências no navegador",
+		"browserBody": "O tema é salvo no localStorage, na chave theme. A navegação de idiomas pode gravar o cookie funcional NEXT_LOCALE. Você pode remover esses dados nas configurações do navegador; isso redefine suas preferências. O Google Analytics, pelo Google Tag Manager, só é carregado se você o ativar no painel de cookies; o site não integra publicidade. A escolha do aviso de cookies é salva neste navegador ou somente na aba, conforme sua preferência, e pode ser revista pelo botão de cookies.",
+		"generatorTitle": "O gerador trabalha localmente",
+		"generatorBody": "Nome, caminho, comando e porta informados em Configure são processados no navegador. O código do gerador não envia esses campos ao servidor. Copiar comandos e baixar um exemplo TOML são ações explícitas; o site não executa o projeto nem altera seus arquivos.",
+		"externalTitle": "Conexões e links externos",
+		"externalBody": "Os releases públicos são consultados pelo servidor na API do GitHub. Ao abrir GitHub, triooo ou outra documentação externa, passam a valer as práticas desses sites. Fontes, logos e screenshots usados no site são servidos pelo próprio projeto. Não há checkout ou pagamento ativo.",
+		"hostingTitle": "Hospedagem e registros técnicos",
+		"hostingBody": "A hospedagem prevista é a Vercel. A infraestrutura pode processar informações de requisições e registros técnicos para operar, proteger e diagnosticar o serviço. Isso é distinto do processamento local do gerador; não prometemos ausência de logs na plataforma.",
+		"provider": "Hospedagem",
+		"retention": "Retenção de registros",
+		"unconfirmed": "Ainda não confirmado",
+		"retentionDefault": "A disponibilidade e a retenção dos logs variam conforme o plano e as configurações da Vercel. Não publicamos um prazo universal; entre em contato para esclarecer a configuração aplicável.",
+		"hostingDocs": "Documentação de logs da Vercel",
+		"hostingPrivacy": "Privacidade na Vercel",
+		"appTitle": "O aplicativo é um contexto separado",
+		"appBody": "O desktop, a CLI e o daemon trabalham com o ambiente local e têm seus próprios limites de acesso. Esta página não substitui a documentação de segurança do app nem descreve integrações futuras como se já estivessem disponíveis.",
+		"appDocs": "Conhecer a segurança do app",
+		"contactTitle": "Fale com a triooo",
+		"contactBody": "Para dúvidas sobre o tratamento de dados neste site ou sobre suas informações, entre em contato com a triooo. Envie apenas o necessário para entendermos sua solicitação.",
+		"contactAction": "{contact}",
+		"contactPending": "O contato de privacidade será publicado após confirmação.",
+		"changes": "Estas informações devem ser revisadas quando a hospedagem, as integrações ou os fluxos de dados do site mudarem."
+	},
+	"SecurityReporting": {
+		"prepare": "Prepare seu relato",
+		"prepareBody": "Reúna as informações que ajudam os mantenedores a entender e reproduzir o problema.",
+		"stepTitle1": "Ambiente afetado",
+		"stepTitle2": "Reprodução segura",
+		"stepTitle3": "Impacto e evidências",
+		"processTitle": "Depois do envio",
+		"limitsTitle": "Escopo e limites",
+		"resourcesTitle": "Entenda a segurança do LocDev",
+		"supportAction": "Suporte para outros problemas",
+		"eyebrow": "REPORTE RESPONSÁVEL",
+		"title": "Um canal privado para relatos de segurança.",
+		"body": "Se você identificou uma possível vulnerabilidade no LocDev ou neste site, compartilhe os detalhes com a triooo por e-mail antes de divulgá-los publicamente.",
+		"privateTitle": "Relate de forma privada",
+		"privateBody": "Use {contact}. Não abra uma issue pública com detalhes de exploração e não inclua senhas, tokens, arquivos .env ou dados de terceiros.",
+		"action": "Enviar e-mail à triooo",
+		"includeTitle": "O que incluir no relato",
+		"step1": "Versão afetada, sistema operacional e componente: site, desktop, CLI ou daemon.",
+		"step2": "Passos mínimos para reproduzir e uma demonstração segura em um ambiente que você controla.",
+		"step3": "Impacto observado e evidências com dados sensíveis removidos.",
+		"process": "A triooo analisa o relato e pode solicitar informações adicionais. Combine a divulgação com os mantenedores para permitir a investigação e uma eventual correção antes da exposição pública.",
+		"limits": "Não há prazo de resposta, recompensa financeira ou correção garantidos. Este canal não autoriza testes contra sistemas de terceiros, interrupção de serviços ou acesso a dados alheios.",
+		"docs": "Limites de segurança do aplicativo"
+	},
+	"Cookies": {
+		"title": "Sua privacidade, suas escolhas.",
+		"body": "Usamos armazenamento funcional para lembrar o tema e o idioma e, se você permitir, o Google Analytics (pelo Google Tag Manager) para entender o uso do site.",
+		"noTracking": "Analytics só com o seu consentimento. Sem publicidade.",
+		"privacy": "Ler política de privacidade",
+		"close": "Fechar sem consentir",
+		"customize": "Personalizar",
+		"consent": "Aceitar analytics",
+		"reopen": "Preferências de cookies",
+		"preferencesTitle": "Configure suas preferências.",
+		"preferencesBody": "Este painel descreve o armazenamento usado pelo site. Fechar o aviso não significa consentir.",
+		"functional": "Preferências funcionais",
+		"alwaysOn": "Sempre ativas",
+		"functionalBody": "Mantêm o tema e a escolha de idioma. Você pode remover esses dados nas configurações do navegador.",
+		"optional": "Analytics",
+		"optionalBody": "Google Analytics, carregado pelo Google Tag Manager, mede visitas e páginas. Só é carregado se você ativar abaixo; o site não usa publicidade.",
+		"remember": "Lembrar minha escolha neste navegador",
+		"rememberBody": "Se desmarcado, a escolha será mantida somente nesta aba. Você pode reabrir este painel pelo botão de cookies.",
+		"sessionOnly": "Somente nesta aba",
+		"save": "Salvar preferências",
+		"storageUnavailable": "Escolha aplicada nesta página. Não foi possível salvá-la no navegador.",
+		"necessaryOnly": "Só o necessário",
+		"analytics": "Permitir o Google Analytics",
+		"analyticsBody": "Desativado por padrão. Você pode desligar a qualquer momento pelo botão de cookies."
+	},
+	"NotFound": {
+		"storyConnecting": "Conectando…",
+		"storyElapsed": "Tempo total: {time}",
+		"storyProbe": "Consultar rotas",
+		"storyRecover": "Tentar reconectar",
+		"storyEyebrow": "Uma rota perdida no ambiente local",
+		"storyLooking": "Procurando o caminho.",
+		"storyMainMissing": "A rota principal não foi encontrada.",
+		"storyReconnecting": "Tentando encontrar outro caminho.",
+		"storyProbeHint": "Algumas rotas existem. A página que procuramos ainda não apareceu.",
+		"storyRecoverHint": "A conexão funciona. Mas a página continua não sendo encontrada.",
+		"storyResultHint": "O servidor foi encontrado. A página, não.",
+		"storyLocalRequest": "Requisições ilustrativas · somente local",
+		"storyPrimary": "Página principal",
+		"storyEndpoint": "Endpoint da API",
+		"storyOptional": "Rota alternativa",
+		"storyRecoveryTerminal": "Terminal de recuperação",
+		"storyRetryStart": "Repetindo a requisição à página principal…",
+		"storyAttempt": "Tentativa {attempt} de 3",
+		"storyFailed": "Falhou",
+		"storyRetryExhausted": "Tentativas esgotadas. Rota não encontrada.",
+		"storyFinalMessage": "Mesmo depois das novas tentativas, a rota principal continuou retornando 404.",
+		"storyFound": "{count} rotas encontradas",
+		"storyAttemptsFailed": "{count} tentativas sem sucesso",
+		"storyScanning": "Consultando rotas locais",
+		"storyRetrying": "Repetindo a requisição",
+		"storyFinished": "Rastreio concluído",
+		"views": "Visualizações da animação",
+		"mapView": "Mapa",
+		"servicesView": "Serviços",
+		"terminalView": "Terminal",
+		"replay": "Reiniciar sequência",
+		"pipeline": "Processos auxiliares",
+		"simulation": "Cenário ilustrativo · sem conexões reais",
+		"queue": "Fila",
+		"queueError": "Job #404 preso na fila.",
+		"workerError": "3 tentativas. Nenhum destino.",
+		"mailError": "Conexão SMTP local recusada.",
+		"socketError": "WebSocket fechado. Reconectando…",
+		"pageMissing": "Página não encontrada",
+		"jobFailed": "Falha ao processar job",
+		"localOnly": "SOMENTE LOCAL",
+		"traceLabel": "Rastreamento de rotas",
+		"client": "Cliente",
+		"localProxy": "Proxy local",
+		"noRule": "sem regra",
+		"traceResult": "Resultado do rastreio",
+		"wildcardOff": "Wildcard desativado. Sem destino.",
+		"router": "roteador",
+		"workspace": "ÁREA DE TRABALHO",
+		"routeNotFound": "ROTA NÃO ENCONTRADA",
+		"title": "Esse caminho não foi encontrado.",
+		"body": "A página pode ter mudado de endereço ou o link pode estar incompleto. Continue pelo início, pela documentação ou pela central de suporte.",
+		"home": "Voltar ao início",
+		"docs": "Abrir documentação",
+		"support": "Encontrar ajuda",
+		"sceneHint": "Nenhum destino encontrado para esta rota.",
+		"illustration": "ROTEADOR LOCAL / ILUSTRAÇÃO",
+		"pauseMotion": "Pausar animação",
+		"resumeMotion": "Retomar animação",
+		"motionOff": "Movimento reduzido"
+	},
+	"DocsVersion": {
+		"label": "Versão da documentação",
+		"current": "Atual"
+	},
+	"FaqPage": {
+		"title": "Perguntas frequentes",
+		"body": "Dúvidas antes de começar ou durante o uso? Encontre respostas e o próximo guia para consultar.",
+		"eyebrow": "CENTRAL DE RESPOSTAS",
+		"topics": "Tópicos",
+		"basics": "Antes de começar",
+		"daily": "No dia a dia",
+		"docs": "Documentação",
+		"servicesQuestion": "Os serviços do catálogo já estão implementados?",
+		"servicesAnswer": {
+			"p1": "Parte deles. O LocDev já roda instâncias de PostgreSQL, MySQL/MariaDB, MongoDB, Redis e Valkey, tem um Mailbox próprio para capturar e-mails e oferece filas, agendadores, Horizon, Reverb, Sidekiq e Celery como processos auxiliares do site. Os demais itens do catálogo continuam como propostas, e a página de serviços marca cada um.",
+			"p2": "Algumas instalações dependem do sistema: MySQL e Redis não têm binários oficiais verificáveis, então o LocDev usa os do sistema (ou MariaDB e Valkey, que ele baixa com SHA-256 verificado). O download gerenciado ainda não foi validado de ponta a ponta.",
+			"p3": "Antes de depender de uma integração, confira o estado dela na página de serviços, na documentação e no changelog da versão em uso."
+		},
+		"servicesAction": "Consultar serviços e disponibilidade",
+		"offlineQuestion": "Posso trabalhar sem internet?",
+		"offlineAnswer": {
+			"p1": "Sim, para as tarefas locais já configuradas. O daemon, o proxy, a resolução de domínios locais, o HTTPS e os processos dos seus projetos operam na própria máquina, sem precisar de uma conexão permanente com a internet.",
+			"p2": "A conexão ainda pode ser necessária para baixar o aplicativo, instalar runtimes e dependências, atualizar pacotes, clonar repositórios ou utilizar APIs e serviços externos. Além disso, um projeto pode depender de bancos, autenticação ou recursos hospedados fora do computador.",
+			"p3": "Em resumo: o LocDev não exige uma conta online para controlar seus sites locais, mas a autonomia offline de cada aplicação depende das dependências e integrações que ela utiliza."
+		},
+		"offlineAction": "Entender o funcionamento local",
+		"updatesQuestion": "Como atualizo ou removo o LocDev?",
+		"updatesAnswer": {
+			"p1": "Consulte a documentação de atualização e as notas da release antes de substituir os binários. Verifique requisitos e mudanças de configuração, especialmente enquanto o projeto estiver em pré-lançamento.",
+			"p2": "Antes de atualizar, faça backup das configurações e dos dados importantes e encerre processos quando o procedimento exigir. Na desinstalação, remova as integrações de DNS e a confiança da autoridade certificadora local usando os comandos do LocDev enquanto a CLI ainda estiver disponível.",
+			"p3": "A remoção do registro de um site não apaga os arquivos do projeto. Ainda assim, consulte o guia específico de desinstalação para entender quais arquivos, serviços de inicialização e certificados precisam ser removidos em seu sistema."
+		},
+		"updatesAction": "Ver os guias de atualização",
+		"helpQuestion": "O que faço se meu projeto não iniciar?",
+		"helpAnswer": {
+			"p1": "Comece verificando se o daemon está ativo. Execute `locdev status` e `locdev doctor` para procurar problemas de configuração, DNS, HTTPS e conflitos com outros programas.",
+			"p2": "Depois, confira o comando de inicialização, as versões de PHP ou Node.js utilizadas, as dependências instaladas, as portas e a saída do processo com `locdev logs <site>`. Lembre-se de que o projeto pode precisar de ajustes próprios, como permissões de host no Vite.",
+			"p3": "Se o problema persistir, abra uma issue com o sistema operacional, a versão do LocDev, os passos para reproduzir e os logs relevantes. Remova senhas, tokens e dados pessoais antes de compartilhar qualquer informação. Vulnerabilidades devem ser relatadas pelo canal privado de segurança."
+		},
+		"helpAction": "Abrir solução de problemas",
+		"supportTitle": "Não encontrou sua resposta?",
+		"supportBody": "Use a central de suporte para escolher entre diagnóstico, reporte de bug e relato privado de segurança.",
+		"supportAction": "Ir para suporte",
+		"menuDescription": "Respostas sobre instalação, uso local e manutenção."
+	},
+	"Comparison": {
+		"menuDescription": "Compare arquiteturas, plataformas e serviços com fontes."
+	},
+	"ComparisonMatrix": {
+		"page": {
+			"eyebrow": "LOCDEV / COMPARAR",
+			"title": "Um ambiente. Todas as suas stacks.",
+			"body": "Do Laravel ao Next.js. Do PHP ao Node.js. Compare os ambientes de desenvolvimento local, recurso por recurso.",
+			"docsAction": "Explorar documentação",
+			"roadmapAction": "Ver o changelog",
+			"statsTools": "Ferramentas comparadas",
+			"statsStacks": "Stacks principais atuais",
+			"statsOpenSource": "Filosofia do LocDev",
+			"openSourceValue": "Código aberto",
+			"fairTitle": "Comparação transparente.",
+			"fairBody": "Nosso objetivo não é afirmar que uma ferramenta substitui todas as outras. Cada ambiente possui especialidades, limitações e diferentes modelos de execução.",
+			"fairDetails": "Recursos planejados do LocDev não são contabilizados como implementados. Funcionalidades que exigem configuração adicional são identificadas separadamente.",
+			"evolutionTitle": "Uma ferramenta em evolução.",
+			"evolutionBody": "O LocDev está evoluindo para reunir runtimes, serviços, automação e ferramentas de desenvolvimento em uma interface multiplataforma integrada.",
+			"evolutionAction": "Acompanhe o desenvolvimento",
+			"correctionTitle": "Encontrou alguma informação incorreta?",
+			"correctionBody": "A comparação foi revisada em {date}. Documentações e funcionalidades podem mudar. Contribuições e correções são bem-vindas.",
+			"correctionAction": "Sugerir correção",
+			"metaTitle": "Comparar ambientes de desenvolvimento",
+			"metaDescription": "Compare LocDev, Herd, Yerd, Lerd, Laragon, DDEV, Lando, Sail, Valet e Docker Compose em detalhes.",
+			"titleLine1": "Um ambiente.",
+			"titleLine2": "Todas as suas stacks.",
+			"statsFeatures": "Funcionalidades comparadas"
+		},
+		"ui": {
+			"eyebrow": "COMPARAÇÃO COMPLETA",
+			"title": "Recurso por recurso.",
+			"description": "Todos os ambientes, lado a lado. Comparação baseada no código disponível e na documentação oficial.",
+			"search": "Buscar funcionalidade...",
+			"searchLabel": "Buscar funcionalidade",
+			"feature": "Funcionalidade",
+			"baseline": "Referência",
+			"count": "{count} de {total} funcionalidades · {tools} ferramentas",
+			"reviewed": "Revisão: {date}",
+			"empty": "Nenhuma funcionalidade encontrada.",
+			"tableLabel": "Comparação técnica de ambientes de desenvolvimento",
+			"tableCaption": "Comparação das funcionalidades do LocDev e de nove outros ambientes de desenvolvimento.",
+			"sourceAction": "Abrir fonte",
+			"disclaimer": "Clique em um indicador para consultar sua fonte. “Não verificado” não significa ausência. “Parcial” pode representar configuração manual, integração limitada ou suporte experimental. Os estados descrevem a funcionalidade específica, não a possibilidade genérica de executar uma ferramenta externa.",
+			"compareWith": "Comparar LocDev com",
+			"mobileHint": "No celular, escolha uma ferramenta para comparar lado a lado. As observações aparecem abaixo de cada indicador."
+		},
+		"status": {
+			"yes": "Suportado",
+			"partial": "Parcial / configurável",
+			"no": "Não integrado",
+			"planned": "Planejado",
+			"unknown": "Não verificado"
+		},
+		"groups": {
+			"platforms": {
+				"title": "Sistemas operacionais",
+				"description": "Disponibilidade da ferramenta principal por plataforma."
+			},
+			"stacks": {
+				"title": "Frameworks e stacks",
+				"description": "Detecção nativa ou capacidade de executar projetos."
+			},
+			"network": {
+				"title": "Rede e infraestrutura",
+				"description": "Como as aplicações são expostas no ambiente local."
+			},
+			"workflow": {
+				"title": "Gerenciamento e produtividade",
+				"description": "Ferramentas para controlar o desenvolvimento diário."
+			},
+			"services": {
+				"title": "Serviços de desenvolvimento",
+				"description": "Serviços provisionados ou integrados diretamente."
+			},
+			"advanced": {
+				"title": "Ferramentas avançadas",
+				"description": "Observabilidade, debug e automação."
+			}
+		},
+		"features": {
+			"linux": {
+				"label": "Linux",
+				"description": "Suporte oficial em Linux"
+			},
+			"macos": {
+				"label": "macOS",
+				"description": "Suporte oficial em macOS"
+			},
+			"windows": {
+				"label": "Windows",
+				"description": "Suporte oficial em Windows"
+			},
+			"laravel": {
+				"label": "Laravel",
+				"description": "Executar aplicações Laravel"
+			},
+			"wordpress": {
+				"label": "WordPress",
+				"description": "Executar projetos WordPress"
+			},
+			"php": {
+				"label": "PHP genérico",
+				"description": "Executar aplicações PHP"
+			},
+			"next": {
+				"label": "Next.js",
+				"description": "Servidor de desenvolvimento Next.js"
+			},
+			"node": {
+				"label": "Node.js",
+				"description": "Aplicações e servidores Node"
+			},
+			"react": {
+				"label": "React / Vite",
+				"description": "Projetos React com servidor Vite"
+			},
+			"python": {
+				"label": "Python",
+				"description": "Executar aplicações Python"
+			},
+			"static": {
+				"label": "Sites estáticos",
+				"description": "Servir HTML e arquivos estáticos"
+			},
+			"native": {
+				"label": "Execução sem contêiner obrigatório",
+				"description": "Fluxo principal sem Docker ou Podman"
+			},
+			"domains": {
+				"label": "Domínios .test",
+				"description": "Endereços locais com resolução automática"
+			},
+			"https": {
+				"label": "HTTPS local",
+				"description": "TLS para desenvolvimento local"
+			},
+			"websocket": {
+				"label": "Proxy WebSocket",
+				"description": "Encaminhamento para HMR e conexões WebSocket"
+			},
+			"subdomains": {
+				"label": "Subdomínios locais",
+				"description": "Endereços como api.projeto.test"
+			},
+			"cli": {
+				"label": "CLI",
+				"description": "Interface de linha de comando"
+			},
+			"desktop": {
+				"label": "Interface desktop",
+				"description": "Aplicativo gráfico dedicado"
+			},
+			"daemon": {
+				"label": "Gerenciamento em segundo plano",
+				"description": "Processos ou serviços supervisionados"
+			},
+			"logs": {
+				"label": "Logs dos projetos",
+				"description": "Visualização de saída dos processos"
+			},
+			"runtime": {
+				"label": "Gerenciar versões PHP",
+				"description": "Detectar, selecionar ou instalar versões PHP"
+			},
+			"nodeversions": {
+				"label": "Gerenciar versões Node.js",
+				"description": "Instalar ou selecionar versões Node"
+			},
+			"worktrees": {
+				"label": "Git worktrees integradas",
+				"description": "Worktrees gerenciadas pela própria ferramenta"
+			},
+			"diagnostics": {
+				"label": "Diagnóstico integrado",
+				"description": "Verificação de problemas do ambiente"
+			},
+			"mysql": {
+				"label": "MySQL / MariaDB",
+				"description": "Gerenciamento de instâncias locais"
+			},
+			"postgres": {
+				"label": "PostgreSQL",
+				"description": "Gerenciamento de PostgreSQL"
+			},
+			"redis": {
+				"label": "Redis / Valkey",
+				"description": "Serviço de cache gerenciado"
+			},
+			"mail": {
+				"label": "Captura de e-mails",
+				"description": "Mailpit ou alternativa integrada"
+			},
+			"metrics": {
+				"label": "Métricas de requisições",
+				"description": "Latência e análise de rotas na interface"
+			},
+			"tinker": {
+				"label": "Laravel Tinker integrado",
+				"description": "REPL disponibilizado pela ferramenta"
+			},
+			"env": {
+				"label": "Variáveis globais compartilhadas",
+				"description": "Secrets injetados em múltiplos projetos sem editar .env"
+			},
+			"creator": {
+				"label": "Assistente de criação multistack",
+				"description": "Criação de novos projetos por interface nativa"
+			},
+			"git": {
+				"label": "Git visual",
+				"description": "Diffs, staging, commits, branches e stashes na interface"
+			},
+			"github": {
+				"label": "GitHub integrado",
+				"description": "Conta, repositório e operações GitHub na interface"
+			},
+			"actions": {
+				"label": "Editor de GitHub Actions",
+				"description": "Templates, validação e prévia antes de salvar workflows"
+			},
+			"emailstudio": {
+				"label": "Email Studio",
+				"description": "Descoberta, edição, prévia e histórico de templates de e-mail"
+			},
+			"debugcenter": {
+				"label": "Debug Center multistack",
+				"description": "Erros de processos, Laravel, proxy e jobs agrupados por projeto"
+			},
+			"redaction": {
+				"label": "Ocultação de segredos no debug",
+				"description": "Valores sensíveis removidos dos eventos antes do armazenamento"
+			},
+			"dumps": {
+				"label": "Captura de dump() / dd()",
+				"description": "Inspeção de dumps PHP no aplicativo"
+			},
+			"dbbrowser": {
+				"label": "Explorador de banco de dados",
+				"description": "Conexões, tabelas e consultas pela interface do aplicativo"
+			},
+			"tunnels": {
+				"label": "Túneis públicos",
+				"description": "Compartilhamento de projetos com provedores externos"
+			},
+			"deploy": {
+				"label": "Deploy Vercel / Netlify",
+				"description": "Vincular projetos, iniciar deploys e solicitar rollback"
+			},
+			"opensource": {
+				"label": "Código aberto",
+				"description": "Código-fonte publicado sob licença aberta"
+			},
+			"phpext": {
+				"label": "Extensões PHP por pacote",
+				"description": "Extensões exigidas e recomendadas pelos pacotes do projeto contra o que o PHP carrega"
+			},
+			"workflowaudit": {
+				"label": "Auditoria e histórico de workflows",
+				"description": "Todos os workflows verificados (segurança e boas práticas com correção) e versões locais"
+			},
+			"installers": {
+				"label": "Instaladores pelo aplicativo",
+				"description": "CLIs e versões de serviços instalados sem abrir um terminal"
+			}
+		},
+		"notes": {
+			"platforms": {
+				"windows": {
+					"locdev": "Nativo, sem WSL nem Docker: validado no Windows 11 com sites estáticos e Laravel pelo proxy, DNS .test (NRPT), Tinker, worktrees, métricas e o instalador do Laravel.",
+					"lerd": "Via WSL2, em beta.",
+					"sail": "Via WSL2."
+				},
+				"opensource": {
+					"locdev": "Apache-2.0, sem planos pagos nem recursos bloqueados."
+				}
+			},
+			"stacks": {
+				"wordpress": {
+					"sail": "Exige adaptação; Sail é voltado a Laravel."
+				},
+				"next": {
+					"locdev": "Detecta Next.js e sugere comando de execução.",
+					"herd": "Suporta Node.js; integração específica deve ser configurada conforme o projeto.",
+					"laragon": "Suporta Node.js; fluxo Next.js depende do projeto.",
+					"ddev": "Pode usar servidor genérico; requer configuração.",
+					"sail": "Possível via customização dos contêineres."
+				},
+				"react": {
+					"locdev": "Integração nativa com o Vite: porta, host, hosts permitidos e HMR pelo proxy.",
+					"ddev": "Requer configuração de portas e servidor."
+				},
+				"python": {
+					"locdev": "Django, Flask e FastAPI com comando de desenvolvimento e o venv do projeto; sem gerenciar versões do Python.",
+					"laragon": "Gerenciamento de runtimes Python documentado."
+				},
+				"static": {
+					"locdev": "Detecta index.html e serve com o servidor estático próprio (URLs limpas, 404.html), sem Python nem Node."
+				}
+			},
+			"workflow": {
+				"cli": {
+					"locdev": "Todos os recursos do app também pelo terminal, mais uma TUI em tela cheia (`locdev`)."
+				},
+				"desktop": {
+					"lerd": "Disponibiliza interfaces web, TUI e integração desktop.",
+					"compose": "Docker Desktop oferece interface gráfica."
+				},
+				"runtime": {
+					"locdev": "Detecção, pins por site e instalação de builds oficiais (StaticPHP, windows.php.net) só com o SHA-256 do publicador; lista as extensões de cada versão."
+				},
+				"worktrees": {
+					"locdev": "Cada branch numa pasta ao lado, opcionalmente como site próprio (.test) e com os .env copiados; remoção com prévia e backup."
+				}
+			},
+			"advanced": {
+				"env": {
+					"compose": "Suporta env_file e variáveis; não equivale a um gerenciador global de secrets."
+				},
+				"creator": {
+					"locdev": "Laravel (com as mesmas perguntas do laravel new: starter kit, autenticação, Livewire, times), Symfony, Bedrock, Next.js, Vite, Nuxt, Astro, SvelteKit, NestJS, Django, Rails e ASP.NET Core pelo instalador oficial de cada um."
+				},
+				"metrics": {
+					"locdev": "Pelo proxy: status por classe, p50/p95/p99, requisições por minuto, caminhos mais acessados e as últimas requisições."
+				},
+				"tinker": {
+					"locdev": "Editor com execução (php artisan tinker --execute) e console interativo, com o PHP e o ambiente do site."
+				},
+				"installers": {
+					"locdev": "Comando oficial de cada ferramenta (Laravel, Symfony, Bun, uv, WP-CLI, Rust, .NET…) num terminal do app, depois de mostrado."
+				}
+			},
+			"services": {
+				"mysql": {
+					"locdev": "MariaDB baixada com SHA-256 verificado; MySQL 8.0, 8.4 ou o mais recente instalado pelo app via Homebrew, apt ou winget."
+				},
+				"redis": {
+					"locdev": "Valkey baixado com SHA-256 verificado; Redis (várias versões) instalado pelo app via Homebrew ou apt."
+				},
+				"mail": {
+					"locdev": "Mailbox próprio: SMTP só de captura em loopback."
+				}
+			}
+		},
+		"why": {
+			"eyebrow": "Por que escolher o LocDev?",
+			"title": "Um fluxo integrado do projeto local ao deploy",
+			"body": "O diferencial está na combinação: execução nativa, várias stacks e ferramentas de desenvolvimento no mesmo aplicativo. A matriz mostra onde há equivalência e onde a integração dos concorrentes não foi verificada.",
+			"nativeTitle": "Desenvolva sem contêiner obrigatório",
+			"nativeBody": "PHP, Node.js e projetos Python com domínio local, HTTPS e proxy. Evite montar um ambiente Docker quando seus projetos podem rodar nativamente.",
+			"gitTitle": "Código e automação no mesmo lugar",
+			"gitBody": "Revise diffs, faça commits e gerencie branches. Conecte o GitHub e prepare workflows com templates, validação e prévia das alterações.",
+			"emailTitle": "E-mails além da captura",
+			"emailBody": "Use o Mailbox para receber mensagens locais e o Email Studio para descobrir, editar e visualizar templates com histórico de alterações.",
+			"debugTitle": "Investigue e compartilhe",
+			"debugBody": "Centralize erros e dumps no Debug Center com ocultação de segredos. Compartilhe por túneis e conecte projetos à Vercel ou Netlify.",
+			"limitsTitle": "Confira os requisitos do seu projeto",
+			"limitsBody": "Git e provedores externos exigem suas próprias ferramentas ou credenciais. Túneis e deploys dependem desses provedores e de seus planos. Versões do Python não são gerenciadas, e Redis no Windows não tem build oficial (use Valkey em outro sistema, WSL ou Memurai). O Debug Center e as métricas captam o que passa pelo proxy, mas não substituem um profiler completo.",
+			"evidence": "Recursos verificados no código; disponibilidade na versão instalada pode variar."
+		},
+		"experience": {
+			"title": "Seu ambiente.",
+			"titleAccent": "Sua escolha.",
+			"intro": "Compare o LocDev com as ferramentas que você já conhece. Escolha um app, veja as diferenças e encontre o fluxo que combina com seus projetos.",
+			"startAction": "Conheça o LocDev",
+			"choose": "Com qual app você quer comparar?",
+			"alternatives": "{count} alternativas",
+			"pair": "LocDev vs {name}",
+			"yourEnvironment": "Seu próximo ambiente",
+			"selected": "App selecionado",
+			"officialSite": "Site oficial",
+			"overview": "{count} recursos · {groups} categorias",
+			"explore": "Explorar recursos",
+			"resultsEyebrow": "FRENTE A FRENTE",
+			"resultsBody": "Veja o que cada ambiente oferece. Toque em um recurso para conferir observações e consultar as fontes.",
+			"clearSearch": "Limpar busca",
+			"filterLabel": "Filtrar comparação",
+			"categoryLabel": "Filtrar por categoria",
+			"allCategories": "Todas as categorias",
+			"resultCount": "{count} de {total} recursos",
+			"detailsHint": "Toque em um recurso para ver os detalhes.",
+			"details": "Detalhes",
+			"checkSource": "Conferir fonte",
+			"emptyHelp": "Tente outra busca ou remova os filtros para ver mais recursos.",
+			"reset": "Limpar filtros",
+			"filterNote": "Diferenças considera apenas status verificados. Vantagens do LocDev mostra recursos suportados no LocDev e parciais ou não integrados no outro app. Não verificado nunca conta como ausência.",
+			"methodEyebrow": "COMO COMPARAMOS",
+			"readStatuses": "Como interpretar os resultados?",
+			"ctaEyebrow": "SEU PRÓXIMO PROJETO",
+			"ctaTitle": "Menos ferramentas dispersas. Mais desenvolvimento.",
+			"ctaBody": "Explore o LocDev no seu próprio fluxo. Consulte a documentação e confira a versão disponível para o seu sistema.",
+			"downloadAction": "Baixar LocDev",
+			"loading": "Carregando comparação…",
+			"views": {
+				"all": "Todos os recursos",
+				"differences": "Diferenças",
+				"advantages": "Vantagens do LocDev"
+			},
+			"tools": {
+				"locdev": "Execução nativa, múltiplas stacks e ferramentas de desenvolvimento no mesmo lugar.",
+				"herd": "Ambiente nativo para PHP e Laravel, com ferramentas gratuitas e recursos Pro.",
+				"yerd": "Ambiente PHP nativo para macOS e Linux.",
+				"lerd": "Ambiente PHP com contêineres e ferramentas integradas de desenvolvimento.",
+				"laragon": "Ambiente de desenvolvimento focado no Windows.",
+				"ddev": "Ambiente de desenvolvimento local baseado em contêineres.",
+				"lando": "Ambientes locais configuráveis com receitas e contêineres.",
+				"sail": "Ambiente Docker para Laravel. Marca do ecossistema Laravel.",
+				"valet": "Ambiente PHP leve para macOS. Marca do ecossistema Laravel.",
+				"compose": "Composição de serviços em contêineres. Marca do ecossistema Docker."
+			}
+		}
+	},
+	"AboutApp": {
+		"subtitle": "Versões, licença e linha de comando",
+		"cli": "linha de comando",
+		"cliBody": "A CLI locdev conversa com o mesmo daemon; você também controla seus projetos pelo terminal. Rode locdev sozinho para abrir a interface de terminal.",
+		"cliInstall": "No app, a seção Sobre mostra a versão e o caminho da CLI e permite adicionar o locdev ao terminal por usuário, sem direitos de administrador.",
+		"commands": "Referência de comandos",
+		"cliDownload": "Downloads da CLI avulsa",
+		"maintained": "Desenvolvido e mantido por",
+		"contributors": "e colaboradores",
+		"description": "O LocDev reúne seus projetos e servidores de desenvolvimento em um só lugar. Inicie e pare projetos, acompanhe logs e acesse cada site por um domínio .test com HTTPS local, pelo app ou pela CLI. Open source para Linux, macOS e Windows.",
+		"build": "build",
+		"app": "App",
+		"channel": "Canal de atualização",
+		"stable": "estável · releases do GitHub",
+		"credits": "licença e créditos",
+		"creditsBody": "O LocDev é open source sob a Apache License 2.0. Ele é feito com software open source: Tauri, React, tokio, hyper e rustls do Rust, e centenas de outros, cada um com sua licença.",
+		"history": "Histórico de versões",
+		"documentation": "Documentação",
+		"updates": "Procurar atualizações",
+		"thirdParty": "Software de terceiros",
+		"packagesBody": "Os pacotes dentro do app, do daemon e da CLI do LocDev, com as licenças que os autores declaram. Cada um mantém seu próprio copyright e licença.",
+		"rust": "Crates Rust",
+		"npm": "Pacotes npm",
+		"version": "Version",
+		"license": "License",
+		"installation": "Dados da instalação",
+		"installationBody": "A versão do daemon em execução, o commit e a data de build, o sistema e a pasta de configuração da sua instalação podem ser consultados em Sobre, no app.",
+		"package": "Pacote",
+		"releaseNote": "Dados da versão publicada; os créditos abaixo correspondem ao inventário incluído no código-fonte do app."
+	},
+	"Contact": {
+		"eyebrow": "Contato",
+		"title": "Vamos conversar.",
+		"accent": "O próximo passo começa aqui.",
+		"body": "Uma dúvida, uma ideia ou algo que pode melhorar? Escolha o caminho para falar com quem constrói o LocDev.",
+		"primary": "Abrir uma conversa no GitHub",
+		"signal": "uma conversa de cada vez",
+		"signature": "feito por pessoas, para quem desenvolve",
+		"channels": "Encontre o canal certo",
+		"channelsBody": "Cada conversa tem seu lugar.",
+		"githubTitle": "Bugs e sugestões",
+		"githubBody": "Conte o que aconteceu ou compartilhe uma ideia. As issues são públicas e ajudam outras pessoas também.",
+		"githubAction": "Abrir uma issue",
+		"supportTitle": "Precisa de uma mão?",
+		"supportBody": "Guias de instalação, diagnóstico e respostas para continuar desenvolvendo.",
+		"supportAction": "Encontrar ajuda",
+		"trioooTitle": "Fale com a Triooo",
+		"trioooBody": "Para conhecer o estúdio que mantém o LocDev e conversar sobre projetos e parcerias.",
+		"trioooAction": "Visitar a Triooo",
+		"note": "Ao relatar um problema, inclua sua versão do LocDev, sistema e passos para reproduzir. Compartilhe apenas logs sem senhas, tokens ou dados pessoais.",
+		"maintained": "Desenvolvido e mantido por"
+	},
+	"InstallationGuide": {
+		"heroTitle": "Seu ambiente local.",
+		"heroAccent": "Do seu jeito.",
+		"heroBody": "Instale o LocDev pelo aplicativo, pelo terminal ou a partir do código-fonte. Escolha seu sistema e siga os comandos correspondentes.",
+		"environment": "Prepare seu ambiente",
+		"environmentBody": "Escolha o sistema da máquina em que você vai instalar.",
+		"unavailable": "Não foi possível consultar os downloads agora. Tente a página de downloads ou compile pelo Git.",
+		"noRelease": "Nenhuma versão publicada neste canal. A compilação pelo Git continua disponível.",
+		"method": "Escolha como instalar",
+		"methodBody": "App completo, CLI avulsa ou compilação local: três caminhos para começar.",
+		"app": "Aplicativo",
+		"terminal": "Terminal / CLI",
+		"appTitle": "Instale o aplicativo completo",
+		"app_linux": "Baixe o .deb para Debian/Ubuntu, o .rpm para Fedora ou o AppImage para executar sem instalação.",
+		"app_macos": "Abra o .dmg e arraste o LocDev para a pasta Aplicativos.",
+		"app_windows": "Execute o instalador .exe ou .msi e siga as instruções na tela.",
+		"included": "O app inclui o daemon e a CLI. Em Configurações → Sobre, você pode adicionar o locdev ao terminal.",
+		"downloadThenRun": "Após baixar, abra o terminal na pasta do arquivo e execute:",
+		"allDownloads": "Ver todos os downloads",
+		"terminalTitle": "Instale pelo terminal",
+		"terminalBody": "O script oficial instala locdev e locdevd, sem interface gráfica nem administrador, e verifica o arquivo com SHA256SUMS. Detecta a arquitetura da máquina automaticamente.",
+		"windowsArm": "O instalador da CLI para Windows fornece apenas x64. Para ARM64, confira os downloads disponíveis ou compile nativamente pelo Git.",
+		"windowsPath": "Instala em %LOCALAPPDATA%\\LocDev\\cli e adiciona a pasta ao Path do usuário. Abra um novo terminal após instalar.",
+		"unixPath": "Instala em ~/.local/bin. O comando export abaixo ajusta o PATH da sessão; adicione a pasta ao perfil do seu shell para persistir.",
+		"cmd": "Usando o Prompt de Comando (CMD)",
+		"previewMissing": "Não há uma prévia publicada. Selecione o canal estável ou compile pelo Git.",
+		"requiresRelease": "Este comando depende de uma versão publicada com o script, a CLI da plataforma e SHA256SUMS.",
+		"verify": "Depois de instalar, confira a versão e o ambiente:",
+		"sourceBody": "Clone o repositório e gere o app ou a CLI na sua máquina.",
+		"desktopPrereqs": "Pré-requisitos: Git, Rust estável, Node.js 20+, pnpm e as dependências do Tauri para o seu sistema.",
+		"cliPrereqs": "Pré-requisitos: Git, Rust estável e as ferramentas de compilação do sistema.",
+		"desktopOutput": "Os instaladores ficam em target/release/bundle ou target/<alvo>/release/bundle. O build inclui a CLI e o daemon automaticamente.",
+		"cliOutput": "Os binários locdev e locdevd ficam em target/release. Mantenha os dois na mesma pasta e adicione-a ao PATH se quiser usá-los de qualquer diretório.",
+		"nativeBuild": "Compile no sistema e na arquitetura de destino. Estes comandos usam as ferramentas nativas da máquina; não fazem compilação cruzada."
+	},
+	"PageImprovements": {
+		"featureSections": "Navegue pelos recursos",
+		"architecture": "Arquitetura",
+		"workflows": "Fluxos de trabalho",
+		"control": "Controle e segurança",
+		"faqSearch": "Buscar nas perguntas e respostas",
+		"clear": "Limpar busca",
+		"faqCount": "{count, plural, one {# resposta encontrada} other {# respostas encontradas}}",
+		"faqEmpty": "Nenhuma resposta encontrada",
+		"faqEmptyBody": "Tente outra palavra ou limpe a busca para ver todas as perguntas.",
+		"downloadTitle": "Escolha sua instalação",
+		"downloadBody": "Baixe o aplicativo completo ou use a CLI avulsa no seu terminal.",
+		"desktopDescription": "Interface desktop com o daemon e a CLI incluídos.",
+		"cliDescription": "CLI e daemon para usar o LocDev pelo terminal, sem interface gráfica.",
+		"outputReady": "Configuração pronta para revisar",
+		"outputReview": "Revise os campos destacados",
+		"configureTitle": "Defina. Revise. Use.",
+		"configureBody": "Preencha os dados do projeto e confira a configuração ao lado. Copie os comandos ou salve o exemplo TOML quando estiver pronto."
+	}
+}

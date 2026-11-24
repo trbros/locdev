@@ -1,0 +1,160 @@
+{
+	"PostgreSQL": {
+		"paths": {
+			"light": "/brands/services/postgresql.svg",
+			"dark": "/brands/services/postgresql.svg"
+		},
+		"source": "https://svgl.app/library/postgresql.svg"
+	},
+	"MySQL": {
+		"paths": {
+			"light": "/brands/services/mysql-icon-light.svg",
+			"dark": "/brands/services/mysql-icon-dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/mysql-icon-light.svg",
+			"dark": "https://svgl.app/library/mysql-icon-dark.svg"
+		}
+	},
+	"SQLite": {
+		"paths": {
+			"light": "/brands/services/sqlite.svg",
+			"dark": "/brands/services/sqlite.svg"
+		},
+		"source": "https://svgl.app/library/sqlite.svg"
+	},
+	"Redis": {
+		"paths": {
+			"light": "/brands/services/redis.svg",
+			"dark": "/brands/services/redis.svg"
+		},
+		"source": "https://svgl.app/library/redis.svg"
+	},
+	"MongoDB": {
+		"paths": {
+			"light": "/brands/services/mongodb-icon-light.svg",
+			"dark": "/brands/services/mongodb-icon-dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/mongodb-icon-light.svg",
+			"dark": "https://svgl.app/library/mongodb-icon-dark.svg"
+		}
+	},
+	"Microsoft SQL Server": {
+		"paths": {
+			"light": "/brands/services/sql-server.svg",
+			"dark": "/brands/services/sql-server.svg"
+		},
+		"source": "https://svgl.app/library/sql-server.svg"
+	},
+	"Laravel": {
+		"paths": {
+			"light": "/brands/services/laravel.svg",
+			"dark": "/brands/services/laravel.svg"
+		},
+		"source": "https://svgl.app/library/laravel.svg"
+	},
+	"Ruby": {
+		"paths": {
+			"light": "/brands/services/ruby.svg",
+			"dark": "/brands/services/ruby.svg"
+		},
+		"source": "https://svgl.app/library/ruby.svg"
+	},
+	"Python": {
+		"paths": {
+			"light": "/brands/services/python.svg",
+			"dark": "/brands/services/python.svg"
+		},
+		"source": "https://svgl.app/library/python.svg"
+	},
+	"NestJS": {
+		"paths": {
+			"light": "/brands/services/nestjs.svg",
+			"dark": "/brands/services/nestjs.svg"
+		},
+		"source": "https://svgl.app/library/nestjs.svg"
+	},
+	"WordPress": {
+		"paths": {
+			"light": "/brands/services/wordpress.svg",
+			"dark": "/brands/services/wordpress.svg"
+		},
+		"source": "https://svgl.app/library/wordpress.svg"
+	},
+	"Php": {
+		"paths": {
+			"light": "/brands/services/php.svg",
+			"dark": "/brands/services/php_dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/php.svg",
+			"dark": "https://svgl.app/library/php_dark.svg"
+		}
+	},
+	"Go": {
+		"paths": {
+			"light": "/brands/services/golang.svg",
+			"dark": "/brands/services/golang_dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/golang.svg",
+			"dark": "https://svgl.app/library/golang_dark.svg"
+		}
+	},
+	"Rust": {
+		"paths": {
+			"light": "/brands/services/rust.svg",
+			"dark": "/brands/services/rust_dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/rust.svg",
+			"dark": "https://svgl.app/library/rust_dark.svg"
+		}
+	},
+	"Spring": {
+		"paths": {
+			"light": "/brands/services/spring.svg",
+			"dark": "/brands/services/spring.svg"
+		},
+		"source": "https://svgl.app/library/spring.svg"
+	},
+	"Microsoft .NET": {
+		"paths": {
+			"light": "/brands/services/dotnet.svg",
+			"dark": "/brands/services/dotnet.svg"
+		},
+		"source": "https://svgl.app/library/dotnet.svg"
+	},
+	"Storybook": {
+		"paths": {
+			"light": "/brands/services/storybook.svg",
+			"dark": "/brands/services/storybook.svg"
+		},
+		"source": "https://svgl.app/library/storybook.svg"
+	},
+	"Vite": {
+		"paths": {
+			"light": "/brands/services/vite.svg",
+			"dark": "/brands/services/vite.svg"
+		},
+		"source": "https://svgl.app/library/vite.svg"
+	},
+	"Socket.IO": {
+		"paths": {
+			"light": "/brands/services/socketio-icon-light.svg",
+			"dark": "/brands/services/socketio-icon-dark.svg"
+		},
+		"source": {
+			"light": "https://svgl.app/library/socketio-icon-light.svg",
+			"dark": "https://svgl.app/library/socketio-icon-dark.svg"
+		}
+	},
+	"Django": {
+		"paths": {
+			"light": "/brands/services/django.svg",
+			"dark": "/brands/services/django.svg"
+		},
+		"source": "https://svgl.app/library/django.svg"
+	}
+}

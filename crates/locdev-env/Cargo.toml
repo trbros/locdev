@@ -1,0 +1,20 @@
+[package]
+name = "locdev-env"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+keyring = "4"
+ring.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio.workspace = true
+
+[lints]
+workspace = true

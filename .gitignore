@@ -1,0 +1,19 @@
+/target/
+.env
+.env.*
+!.env.example
+.dev/
+.definitions-keys/
+.updater-keys/
+/dist/
+
+/AGENTS.md
+/CLAUDE.md
+/.claude/
+/PLAN-ecosystem.md
+/DECISIONS.md
+/PLAN-v0.3.md
+/PROGRESS.md
+
+# Retired PHP builds signing key (local only)
+.php-builds-keys/

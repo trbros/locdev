@@ -1,0 +1,116 @@
+# Publishes LocDev's framework definitions, signed, to the `definitions`
+# pre-release of this repository, and watches the package registries for
+# new major versions of the frameworks they cover.
+#
+# LocDev only uses a set signed by the key in
+# crates/locdev-frameworks/definitions-source.toml, in a format it
+# understands, and newer than any set it has seen.
+#
+# One-time setup: `cargo run -p definitions -- keygen --repo <owner/name>`,
+# then `gh secret set DEFINITIONS_SIGNING_KEY < .definitions-keys/definitions.key`.
+# Publishing uses the workflow token. The release stays a pre-release so
+# `releases/latest` (installers, updater) keeps pointing at the app.
+name: Framework definitions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - crates/locdev-frameworks/definitions/frameworks.toml
+  workflow_dispatch:
+  schedule:
+    # Weekly: new major releases upstream.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: definitions
+
+env:
+  RELEASE_TAG: definitions
+
+jobs:
+  publish:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PUBLISH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Validate and build
+        run: |
+          cargo test -p locdev-frameworks
+          cargo run -p definitions -- build --out dist/frameworks.json
+      - name: Sign and verify
+        env:
+          DEFINITIONS_SIGNING_KEY: ${{ secrets.DEFINITIONS_SIGNING_KEY }}
+        run: |
+          test -n "$DEFINITIONS_SIGNING_KEY" || { echo "DEFINITIONS_SIGNING_KEY is not set"; exit 1; }
+          cargo run -p definitions -- sign dist/frameworks.json
+          cargo run -p definitions -- verify dist/frameworks.json
+      - name: Refuse a revision that isn't newer than the published one
+        run: |
+          mkdir -p previous
+          if gh release download "$RELEASE_TAG" --repo "$PUBLISH_REPO" --pattern 'frameworks.json' --dir previous 2>/dev/null; then
+            old=$(jq .revision previous/frameworks.json)
+            new=$(jq .revision dist/frameworks.json)
+            if [ "$new" -le "$old" ]; then
+              echo "revision $new is not newer than the published $old; bump revision in frameworks.toml"
+              exit 1
+            fi
+          fi
+      - name: Publish
+        run: |
+          gh release view "$RELEASE_TAG" --repo "$PUBLISH_REPO" >/dev/null 2>&1 || gh release create "$RELEASE_TAG" \
+            --repo "$PUBLISH_REPO" --target "$GITHUB_SHA" --prerelease --latest=false \
+            --title "Framework definitions for LocDev" \
+            --notes "Signed framework definitions LocDev downloads to recognize and run projects. LocDev checks the minisign signature before using them."
+          gh release upload "$RELEASE_TAG" dist/frameworks.json dist/frameworks.json.minisig \
+            --repo "$PUBLISH_REPO" --clobber
+
+  upstream:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Check the registries
+        id: check
+        run: |
+          set +e
+          cargo run -q -p definitions -- upstream | tee upstream.txt
+          echo "status=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+      - name: Open an issue for new major versions
+        if: steps.check.outputs.status == '2'
+        run: |
+          title="Framework definitions: new major versions upstream"
+          if gh issue list --state open --search "$title in:title" --json number -q '.[0].number' | grep -q .; then
+            echo "an issue is already open"
+            exit 0
+          fi
+          {
+            echo "The weekly check found new major releases. Review their definitions (commands, flags, config files, env rules), then run \`cargo run -p definitions -- upstream --update\` and bump \`revision\`."
+            echo
+            echo '```'
+            cat upstream.txt
+            echo '```'
+          } > body.md
+          gh issue create --title "$title" --body-file body.md
+      - name: Fail on registry errors
+        if: steps.check.outputs.status != '0' && steps.check.outputs.status != '2'
+        run: exit 1

@@ -1,0 +1,11 @@
+export { AboutSection } from "@/sections/about-section";
+export { AppearanceSection } from "@/sections/appearance-section";
+export { AutomationsSection } from "@/sections/automation-section";
+export { CliSection } from "@/sections/cli-section";
+export { DaemonSection } from "@/sections/daemon-section";
+export { DomainsSection } from "@/sections/domains-section";
+export { FoldersSection } from "@/sections/folders-section";
+export { SiteHttpsSection } from "@/sections/https-section";
+export { OverviewSection } from "@/sections/overview-section";
+export { ProxySection } from "@/sections/proxy-section";
+export { DnsSection } from "@/sections/dns-section";

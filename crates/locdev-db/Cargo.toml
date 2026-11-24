@@ -1,0 +1,21 @@
+[package]
+name = "locdev-db"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+locdev-env = { path = "../locdev-env" }
+mysql_async = { version = "0.37", default-features = false, features = ["minimal-rust"] }
+rusqlite = { version = "0.43", features = ["bundled"] }
+serde.workspace = true
+tokio.workspace = true
+tokio-postgres = "0.7"
+
+[dev-dependencies]
+serde_json.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

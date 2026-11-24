@@ -1,0 +1,298 @@
+/* The launch splash (splash.html). Plain CSS, no Tailwind: it loads before
+   anything else and should cost next to nothing. Colors mirror index.css. */
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+:root {
+  --background: oklch(0.975 0.006 85);
+  --foreground: oklch(0.24 0.012 60);
+  --muted: oklch(0.94 0.008 80);
+  --muted-foreground: oklch(0.5 0.016 65);
+  --ember: oklch(0.55 0.17 45);
+  --ember-foreground: oklch(0.99 0.004 85);
+  --phosphor: oklch(0.58 0.15 150);
+  --amber: oklch(0.66 0.15 70);
+  --destructive: oklch(0.56 0.2 28);
+  --grain: 0.05;
+}
+
+.dark {
+  --background: oklch(0.175 0.006 60);
+  --foreground: oklch(0.93 0.01 80);
+  --muted: oklch(0.24 0.008 60);
+  --muted-foreground: oklch(0.66 0.016 70);
+  --ember: oklch(0.73 0.16 48);
+  --ember-foreground: oklch(0.18 0.01 50);
+  --phosphor: oklch(0.8 0.17 148);
+  --amber: oklch(0.82 0.14 78);
+  --destructive: oklch(0.67 0.19 28);
+  --grain: 0.07;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+/* Breadboard dots fading out from the center, then film grain on top. */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(closest-side, black, transparent);
+  opacity: 0.6;
+}
+body::after {
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -18px;
+  transition:
+    opacity 260ms ease-in,
+    transform 260ms ease-in;
+}
+
+/* ── The logo settles in; a sheen cut to its shape runs while the steps do. ── */
+.mark {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 10px 26px color-mix(in oklch, #e0103e 40%, transparent));
+  animation: settle 520ms cubic-bezier(0.3, 1.3, 0.5, 1) both;
+}
+.mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mark .sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  mask: url("/logo.png") center / contain no-repeat;
+  animation: sheen 2.4s 700ms cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+/* …and the logo presses down once everything is in: the site is served. */
+[data-state="ready"] .mark {
+  animation: press 380ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+[data-state="ready"] .mark .sheen {
+  animation: none;
+  opacity: 0;
+}
+
+h1 {
+  margin-top: 14px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  animation: fade 500ms 300ms ease-out both;
+}
+
+/* ── Boot trace: nodes joined by a line that lights up behind each step. ── */
+.trace {
+  display: flex;
+  gap: 0;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+  animation: fade 500ms 450ms ease-out both;
+}
+.trace li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 64px;
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+/* The connector to the previous node. */
+.trace li + li::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: calc(50% + 7px);
+  width: calc(100% - 14px);
+  height: 1px;
+  background: linear-gradient(to right, var(--ember) 50%, color-mix(in oklch, var(--foreground) 14%, transparent) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 380ms ease-out;
+}
+.trace li[data-state]::before {
+  background-position: 0 0;
+}
+.trace i {
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  transition:
+    background 200ms,
+    box-shadow 200ms;
+}
+/* The step being waited on breathes. */
+.trace li:not([data-state]) i {
+  animation: wait 1.4s ease-in-out infinite;
+}
+.trace li[data-state] i {
+  color: var(--phosphor);
+  background: currentColor;
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, currentColor 30%, transparent),
+    0 0 9px 1px color-mix(in oklch, currentColor 55%, transparent);
+  animation: lit 360ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.trace li[data-state="warn"] i {
+  color: var(--amber);
+}
+.trace li[data-state="fail"] i {
+  color: var(--destructive);
+}
+.trace li[data-state] span {
+  color: var(--foreground);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: 11.5px;
+  color: var(--muted-foreground);
+  animation: fade 500ms 600ms ease-out both;
+}
+[data-state="failed"] #status {
+  color: var(--destructive);
+}
+
+/* The exit: everything settles, then the window swaps for the app. */
+[data-state="ready"] main {
+  opacity: 0;
+  transform: scale(0.98);
+  transition-delay: 220ms;
+}
+
+footer {
+  position: absolute;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  animation: fade 700ms ease-out both;
+}
+footer span {
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.triooo {
+  height: 18px;
+  width: auto;
+  color: #0a0a0a;
+}
+.dark .triooo {
+  color: #ffffff;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.92);
+  }
+}
+@keyframes sheen {
+  0% {
+    background-position: 150% 0;
+  }
+  55%,
+  100% {
+    background-position: -50% 0;
+  }
+}
+@keyframes press {
+  40% {
+    transform: translateY(2.5px);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes wait {
+  50% {
+    box-shadow: inset 0 0 0 1.5px var(--ember);
+  }
+}
+@keyframes lit {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+/* Reduced motion: the same states, no movement. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) *,
+  :root:not([data-motion="full"]) *::before,
+  :root:not([data-motion="full"]) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  :root:not([data-motion="full"]) .mark .sheen {
+    opacity: 0;
+  }
+}
+:root[data-motion="reduce"] *,
+:root[data-motion="reduce"] *::before,
+:root[data-motion="reduce"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+:root[data-motion="reduce"] .mark .sheen {
+  opacity: 0;
+}

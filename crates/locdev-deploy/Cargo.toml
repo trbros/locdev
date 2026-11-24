@@ -1,0 +1,21 @@
+[package]
+name = "locdev-deploy"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-config = { path = "../locdev-config" }
+locdev-core.workspace = true
+locdev-deps = { path = "../locdev-deps" }
+locdev-env = { path = "../locdev-env" }
+locdev-git = { path = "../locdev-git" }
+serde_json.workspace = true
+sha2 = "0.11"
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

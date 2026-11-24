@@ -1,0 +1,18 @@
+[package]
+name = "locdev-email"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-config = { path = "../locdev-config" }
+locdev-core.workspace = true
+serde_json.workspace = true
+sha2 = "0.11"
+similar = "3"
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

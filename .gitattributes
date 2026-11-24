@@ -1,0 +1,3 @@
+# Same bytes on every OS: committed files are compared byte for byte
+# (generated catalogs, fixtures) and some are embedded and signed.
+* text=auto eol=lf

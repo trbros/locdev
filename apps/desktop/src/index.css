@@ -1,0 +1,289 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ember: var(--ember);
+  --color-ember-foreground: var(--ember-foreground);
+  --color-phosphor: var(--phosphor);
+  --color-amber: var(--amber);
+  --color-signal: var(--signal);
+  --color-well: var(--well);
+  --color-chrome: var(--chrome);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/*
+ * LocDev identity: warm carbon (dark) and paper (light) surfaces, an ember
+ * accent (a nod to Rust), phosphor-green LEDs for live processes.
+ *   --chrome  window frame: rail and status bar
+ *   --well    recessed areas: terminal, inputs, list background
+ */
+:root {
+  --background: oklch(0.975 0.006 85);
+  --foreground: oklch(0.24 0.012 60);
+  --card: oklch(0.993 0.004 85);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.995 0.003 85);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.26 0.012 60);
+  --primary-foreground: oklch(0.98 0.005 85);
+  --secondary: oklch(0.94 0.008 80);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.94 0.008 80);
+  --muted-foreground: oklch(0.5 0.016 65);
+  --accent: oklch(0.93 0.012 75);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.56 0.2 28);
+  --border: oklch(0.24 0.012 60 / 11%);
+  --input: oklch(0.24 0.012 60 / 15%);
+  --ring: oklch(0.55 0.17 45 / 55%);
+  --ember: oklch(0.55 0.17 45);
+  --ember-foreground: oklch(0.99 0.004 85);
+  --phosphor: oklch(0.58 0.15 150);
+  --amber: oklch(0.66 0.15 70);
+  --signal: oklch(0.56 0.12 235);
+  /* Code editors (CodeMirror): built on the identity colors. */
+  --syntax-keyword: var(--ember);
+  --syntax-string: oklch(0.5 0.14 150);
+  --syntax-number: oklch(0.56 0.14 65);
+  --syntax-property: var(--signal);
+  --syntax-function: oklch(0.5 0.16 300);
+  --syntax-type: oklch(0.52 0.1 195);
+  --syntax-comment: oklch(0.5 0.016 65 / 85%);
+  --well: oklch(0.955 0.008 82);
+  --chrome: oklch(0.935 0.01 78);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: oklch(0.175 0.006 60);
+  --foreground: oklch(0.93 0.01 80);
+  --card: oklch(0.205 0.007 60);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.225 0.008 60);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.93 0.01 80);
+  --primary-foreground: oklch(0.2 0.006 60);
+  --secondary: oklch(0.25 0.008 60);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.24 0.008 60);
+  --muted-foreground: oklch(0.66 0.016 70);
+  --accent: oklch(0.26 0.01 60);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.67 0.19 28);
+  --border: oklch(0.93 0.01 80 / 8%);
+  --input: oklch(0.93 0.01 80 / 12%);
+  --ring: oklch(0.73 0.16 48 / 55%);
+  --ember: oklch(0.73 0.16 48);
+  --ember-foreground: oklch(0.18 0.01 50);
+  --phosphor: oklch(0.8 0.17 148);
+  --amber: oklch(0.82 0.14 78);
+  --signal: oklch(0.74 0.11 230);
+  --syntax-keyword: var(--ember);
+  --syntax-string: var(--phosphor);
+  --syntax-number: var(--amber);
+  --syntax-property: var(--signal);
+  --syntax-function: oklch(0.78 0.12 300);
+  --syntax-type: oklch(0.78 0.1 190);
+  --syntax-comment: oklch(0.66 0.016 70 / 80%);
+  --well: oklch(0.145 0.005 60);
+  --chrome: oklch(0.155 0.006 60);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50 select-none;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    @apply font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+  input,
+  textarea,
+  [data-selectable] {
+    user-select: text;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--ember) 35%, transparent);
+  }
+}
+
+@layer components {
+  /* Film grain over the app canvas: breaks up flat fills without noise in text. */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .dark .grain::before {
+    opacity: 0.07;
+  }
+
+  /* Dotted "breadboard" field used behind empty states. */
+  .dots {
+    background-image: radial-gradient(color-mix(in oklch, var(--foreground) 14%, transparent) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  /* Status LED: a lit diode with a soft halo. */
+  .led {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background: currentColor;
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, currentColor 30%, transparent),
+      0 0 8px 1px color-mix(in oklch, currentColor 55%, transparent);
+  }
+  .led[data-off] {
+    background: transparent;
+    box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  }
+  .led[data-live] {
+    animation: led-breathe 2.4s ease-in-out infinite;
+  }
+
+  /* Staggered entrance for list rows; set --i per row. */
+  .rise {
+    animation: rise 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 35ms);
+  }
+}
+
+@keyframes led-breathe {
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, currentColor 30%, transparent),
+      0 0 14px 3px color-mix(in oklch, currentColor 35%, transparent);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Motion follows the OS unless Appearance overrides it (data-motion on <html>). */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) :is(.led[data-live], .rise, .animate-in) {
+    animation: none;
+  }
+}
+:root[data-motion="reduce"] :is(.led[data-live], .rise, .animate-in) {
+  animation: none;
+}
+:root[data-motion="reduce"] * {
+  transition-duration: 0s !important;
+}
+
+/* xterm.js paints its scroll area black by default; match the terminal's well. */
+.xterm,
+.xterm .xterm-viewport,
+.xterm .xterm-scrollable-element {
+  background-color: var(--well) !important;
+}
+
+/* Scrollbars: every scroll container (pages, code editor, terminal, menus)
+   gets the same thin rounded thumb as ScrollArea instead of the platform's
+   own bars (WebView2, WKWebView and WebKitGTK all honor these). No
+   scrollbar-width/scrollbar-color here: Chromium would ignore the rest. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  min-height: 32px;
+  min-width: 32px;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background-clip: content-box;
+  background-color: color-mix(in oklch, var(--muted-foreground) 28%, transparent);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: color-mix(in oklch, var(--ember) 70%, transparent);
+}
+
+/* Strips that scroll sideways without a bar (tabs, chips). */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,807 @@
+# LocDev framework definitions (format 2: adds `processes`).
+#
+# Pure data read by the native engine in crates/locdev-frameworks: how each
+# stack is recognized, where its version comes from, how its dev server takes
+# a host and port, and how it loads .env files. Nothing here is run during
+# detection; `install`/`build`/`test` are shown to the user, never run.
+# `{pm}` in those three is the project's package manager.
+#
+# Published signed (tools/definitions) so LocDev can update these without a
+# new release. Bump `revision` on every change; add a field or rule kind only
+# together with the engine, and then bump `format`.
+
+format = 2
+revision = 2026112301
+min_locdev = "0.1.0"
+
+# ── PHP ─────────────────────────────────────────────────────────────────────
+
+[[framework]]
+id = "laravel"
+name = "Laravel"
+category = "framework"
+family = "laravel"
+priority = 100
+docs = "https://laravel.com/docs"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mariadb", "queue", "horizon", "scheduler", "reverb", "mailpit", "s3", "meilisearch", "vite"]
+runtimes = ["php", "composer"]
+detect.all = [{ file = "artisan" }, { file = "composer.json" }]
+version = [{ composer = "laravel/framework" }]
+supported = ">=10"
+# --no-reload: otherwise `serve` drops every variable in $_ENV that isn't on
+# its passthrough list before starting `php -S` (PHP builds default to
+# variables_order=EGPCS), which loses what LocDev injects. LocDev restarts
+# the site instead; edits to .env need a restart.
+dev = [{ command = "php artisan serve --host=127.0.0.1 --port={port} --no-reload" }]
+notes = ["artisan serve runs with --no-reload so the variables LocDev injects reach the PHP server; restart the site after editing .env."]
+helper = "vite"
+install = "composer install"
+test = "php artisan test"
+config_files = ["config/app.php", "config/database.php", "phpunit.xml", "vite.config.js", "vite.config.ts"]
+implies = ["php"]
+processes = [
+  { id = "queue", name = "Queue worker", kind = "worker", run = [{ command = "php artisan queue:work" }], conflicts = ["horizon"], note = "Restart it after changing job code: a running worker keeps the old code in memory." },
+  { id = "horizon", name = "Horizon", kind = "worker", requires_any = [{ composer = "laravel/horizon" }], run = [{ command = "php artisan horizon" }], conflicts = ["queue"], note = "Horizon runs the Redis queue workers itself; don't run queue:work next to it." },
+  { id = "scheduler", name = "Scheduler", kind = "scheduler", run = [{ command = "php artisan schedule:work" }] },
+  { id = "reverb", name = "Reverb", kind = "websocket", requires_any = [{ composer = "laravel/reverb" }], run = [{ command = "php artisan reverb:start" }], note = "Reverb listens on REVERB_SERVER_HOST/REVERB_SERVER_PORT from .env (8080 by default); give each project its own port there." },
+]
+
+[[framework]]
+id = "wordpress"
+name = "WordPress"
+category = "framework"
+family = "wordpress"
+priority = 95
+docs = "https://developer.wordpress.org/advanced-administration/"
+services = ["mysql", "mariadb", "redis", "wpcron", "mailpit"]
+runtimes = ["php"]
+detect.any = [{ file = "wp-config.php" }, { file = "wp-load.php" }]
+dev = [{ command = "php -S 127.0.0.1:{port} -t ." }]
+config_files = ["wp-config.php"]
+implies = ["php"]
+notes = ["PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing."]
+
+[[framework]]
+id = "php"
+name = "PHP"
+category = "language"
+family = "php"
+priority = 20
+docs = "https://www.php.net/manual/en/features.commandline.webserver.php"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "mariadb", "rabbitmq", "messenger", "mailpit", "s3", "meilisearch"]
+runtimes = ["php"]
+detect.any = [{ file = "composer.json" }, { file = "index.php" }, { file = "public/index.php" }]
+dev = [
+  { when = [{ file = "public/index.php" }], command = "php -S 127.0.0.1:{port} -t public" },
+  { command = "php -S 127.0.0.1:{port} -t ." },
+]
+install = "composer install"
+config_files = ["composer.json", "phpunit.xml"]
+
+[[framework]]
+id = "livewire"
+name = "Livewire"
+category = "tool"
+docs = "https://livewire.laravel.com/docs"
+detect.any = [{ composer = "livewire/livewire" }]
+version = [{ composer = "livewire/livewire" }]
+
+[[framework]]
+id = "inertia"
+name = "Inertia"
+category = "tool"
+docs = "https://inertiajs.com/"
+detect.any = [
+  { composer = "inertiajs/inertia-laravel" },
+  { npm = "@inertiajs/react" },
+  { npm = "@inertiajs/vue3" },
+  { npm = "@inertiajs/svelte" },
+]
+version = [{ composer = "inertiajs/inertia-laravel" }, { npm = "@inertiajs/react" }, { npm = "@inertiajs/vue3" }]
+
+# ── JavaScript meta-frameworks ──────────────────────────────────────────────
+
+[[framework]]
+id = "nextjs"
+name = "Next.js"
+category = "framework"
+family = "next"
+priority = 90
+docs = "https://nextjs.org/docs/app/api-reference/cli/next"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "next" }]
+version = [{ npm = "next" }]
+supported = ">=13"
+dev = [{ script = ["dev"], args = "--hostname 127.0.0.1 --port {port}" }]
+dev_tool = "next"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["next.config.ts", "next.config.mjs", "next.config.js", "tsconfig.json", "eslint.config.mjs", "postcss.config.mjs"]
+implies = ["nodejs", "react"]
+
+[[framework]]
+id = "nuxt"
+name = "Nuxt"
+category = "framework"
+family = "nuxt"
+priority = 90
+docs = "https://nuxt.com/docs/4.x/api/commands/dev"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "nuxt" }]
+version = [{ npm = "nuxt" }]
+supported = ">=3"
+dev = [{ script = ["dev"], args = "--port {port} --host 127.0.0.1" }]
+dev_tool = "nuxt"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["nuxt.config.ts", "app.config.ts", "tsconfig.json"]
+implies = ["nodejs", "vue"]
+
+[[framework]]
+id = "astro"
+name = "Astro"
+category = "framework"
+family = "astro"
+priority = 85
+docs = "https://docs.astro.build/en/reference/cli-reference/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "astro" }]
+version = [{ npm = "astro" }]
+dev = [{ script = ["dev", "start"], script_contains = "astro", args = "--port {port} --host 127.0.0.1" }]
+dev_tool = "astro"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["astro.config.mjs", "astro.config.ts", "tsconfig.json"]
+implies = ["nodejs"]
+
+[[framework]]
+id = "sveltekit"
+name = "SvelteKit"
+category = "framework"
+family = "sveltekit"
+priority = 85
+docs = "https://svelte.dev/docs/kit/cli"
+runtimes = ["node"]
+detect.any = [{ npm = "@sveltejs/kit" }]
+version = [{ npm = "@sveltejs/kit" }]
+dev = [{ script = ["dev"], args = "--port {port} --strictPort --host 127.0.0.1" }]
+dev_tool = "vite"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["svelte.config.js", "vite.config.ts", "vite.config.js"]
+implies = ["nodejs", "svelte", "vite"]
+
+[[framework]]
+id = "remix"
+name = "Remix / React Router"
+category = "framework"
+family = "vite"
+priority = 85
+docs = "https://reactrouter.com/start/framework/installation"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "@remix-run/dev" }, { npm = "@react-router/dev" }]
+version = [{ npm = "@react-router/dev" }, { npm = "@remix-run/dev" }]
+dev = [
+  { script = ["dev"], script_contains = "remix vite:dev", args = "--port {port} --strictPort --host 127.0.0.1" },
+  { script = ["dev"], script_contains = "react-router dev", args = "--port {port} --strictPort --host 127.0.0.1" },
+  { script = ["dev"], script_contains = "remix dev", port = "env", note = "The classic Remix compiler takes the port from PORT." },
+]
+dev_tool = "vite"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["vite.config.ts", "react-router.config.ts", "remix.config.js"]
+implies = ["nodejs", "react"]
+
+[[framework]]
+id = "qwik"
+name = "Qwik"
+category = "framework"
+family = "vite"
+priority = 85
+docs = "https://qwik.dev/docs/getting-started/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "@builder.io/qwik" }, { npm = "@qwik.dev/core" }]
+version = [{ npm = "@builder.io/qwik" }, { npm = "@qwik.dev/core" }]
+dev = [{ script = ["dev", "start"], script_contains = "vite", args = "--port {port} --strictPort --host 127.0.0.1" }]
+dev_tool = "vite"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["vite.config.ts"]
+implies = ["nodejs", "vite"]
+
+[[framework]]
+id = "solid-start"
+name = "SolidStart"
+category = "framework"
+family = "vite"
+priority = 85
+docs = "https://docs.solidjs.com/solid-start"
+runtimes = ["node"]
+detect.any = [{ npm = "@solidjs/start" }]
+version = [{ npm = "@solidjs/start" }]
+dev = [{ script = ["dev"], args = "--port {port} --host 127.0.0.1" }]
+dev_tool = "vite"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["app.config.ts"]
+implies = ["nodejs", "solid"]
+
+[[framework]]
+id = "angular"
+name = "Angular"
+category = "framework"
+family = "node"
+priority = 85
+docs = "https://angular.dev/tools/cli"
+services = ["storybook", "mock"]
+runtimes = ["node"]
+detect.any = [{ file = "angular.json" }, { npm = "@angular/core" }]
+version = [{ npm = "@angular/core" }]
+dev = [
+  { script = ["start", "dev"], script_contains = "ng serve", args = "--host 127.0.0.1 --port {port}" },
+  { command = "npx ng serve --host 127.0.0.1 --port {port}" },
+]
+install = "{pm} install"
+build = "npx ng build"
+test = "npx ng test"
+config_files = ["angular.json", "tsconfig.json"]
+implies = ["nodejs", "typescript"]
+notes = ["The Angular dev server checks the Host header: if requests through the site's domain are refused, add it to allowedHosts in angular.json."]
+
+[[framework]]
+id = "gatsby"
+name = "Gatsby"
+category = "framework"
+family = "node"
+priority = 85
+docs = "https://www.gatsbyjs.com/docs/reference/gatsby-cli/"
+services = ["mock"]
+runtimes = ["node"]
+detect.any = [{ npm = "gatsby" }]
+version = [{ npm = "gatsby" }]
+dev = [
+  { script = ["develop", "dev", "start"], script_contains = "gatsby develop", args = "-H 127.0.0.1 -p {port}" },
+  { command = "npx gatsby develop -H 127.0.0.1 -p {port}" },
+]
+install = "{pm} install"
+build = "npx gatsby build"
+config_files = ["gatsby-config.ts", "gatsby-config.js"]
+implies = ["nodejs", "react"]
+
+[[framework]]
+id = "ember"
+name = "Ember"
+category = "framework"
+family = "node"
+priority = 85
+docs = "https://cli.emberjs.com/release/basic-use/cli-commands/"
+services = ["mock"]
+runtimes = ["node"]
+detect.any = [{ npm = "ember-source" }, { npm = "ember-cli" }]
+version = [{ npm = "ember-source" }]
+dev = [
+  { script = ["start", "dev"], script_contains = "ember serve", args = "--host 127.0.0.1 --port {port}" },
+  { command = "npx ember serve --host 127.0.0.1 --port {port}" },
+]
+install = "{pm} install"
+build = "npx ember build"
+test = "npx ember test"
+config_files = ["ember-cli-build.js", "config/environment.js"]
+implies = ["nodejs"]
+
+[[framework]]
+id = "redwood"
+name = "RedwoodJS"
+category = "framework"
+family = "node"
+priority = 90
+docs = "https://docs.redwoodjs.com/docs/cli-commands/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node", "yarn"]
+detect.any = [{ file = "redwood.toml" }]
+version = [{ npm = "@redwoodjs/core" }]
+dev = [{ command = "yarn rw dev", port = "config", note = "Redwood takes its web and API ports from redwood.toml ([web] port, [api] port); set [web] port to this site's port so the proxy reaches it." }]
+install = "yarn install"
+build = "yarn rw build"
+test = "yarn rw test"
+config_files = ["redwood.toml"]
+implies = ["nodejs", "react"]
+
+# ── Node.js servers ─────────────────────────────────────────────────────────
+
+[[framework]]
+id = "nestjs"
+name = "NestJS"
+category = "framework"
+family = "node"
+priority = 80
+docs = "https://docs.nestjs.com/first-steps"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "nestcron", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "@nestjs/core" }]
+version = [{ npm = "@nestjs/core" }]
+dev = [{ script = ["start:dev", "dev", "start"], port = "env", note = "Nest listens on what main.ts passes to app.listen(); the default template uses process.env.PORT." }]
+install = "{pm} install"
+build = "{pm} run build"
+test = "{pm} run test"
+config_files = ["nest-cli.json", "tsconfig.json"]
+implies = ["nodejs", "typescript"]
+
+[[framework]]
+id = "fastify"
+name = "Fastify"
+category = "framework"
+family = "node"
+priority = 70
+docs = "https://fastify.dev/docs/latest/Guides/Getting-Started/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "fastify" }]
+version = [{ npm = "fastify" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "Fastify listens where listen() says; read process.env.PORT (fastify-cli does) and bind 127.0.0.1." }]
+install = "{pm} install"
+implies = ["nodejs"]
+
+[[framework]]
+id = "express"
+name = "Express"
+category = "framework"
+family = "node"
+priority = 65
+docs = "https://expressjs.com/en/starter/installing.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "express" }]
+version = [{ npm = "express" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "Express listens where app.listen() says; use process.env.PORT." }]
+install = "{pm} install"
+implies = ["nodejs"]
+
+[[framework]]
+id = "hono"
+name = "Hono"
+category = "framework"
+family = "node"
+priority = 70
+docs = "https://hono.dev/docs/getting-started/basic"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ npm = "hono" }]
+version = [{ npm = "hono" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "With @hono/node-server pass process.env.PORT to serve(); on Bun or Deno export the port from the entry file." }]
+install = "{pm} install"
+implies = ["nodejs"]
+
+[[framework]]
+id = "elysia"
+name = "ElysiaJS"
+category = "framework"
+family = "node"
+priority = 75
+docs = "https://elysiajs.com/quick-start.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mailpit", "s3", "mock"]
+runtimes = ["bun"]
+requires = ["bun"]
+detect.any = [{ npm = "elysia" }]
+version = [{ npm = "elysia" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "Elysia listens on what .listen() gets; use process.env.PORT." }]
+install = "bun install"
+test = "bun test"
+implies = ["bun"]
+
+[[framework]]
+id = "nodejs"
+name = "Node.js"
+category = "runtime"
+family = "node"
+priority = 10
+docs = "https://nodejs.org/en/learn/command-line/run-nodejs-scripts-from-the-command-line"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+runtimes = ["node"]
+detect.any = [{ file = "package.json" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "The server must listen on process.env.PORT; LocDev sets it." }]
+install = "{pm} install"
+
+[[framework]]
+id = "bun"
+name = "Bun"
+category = "runtime"
+family = "node"
+priority = 15
+docs = "https://bun.sh/docs/runtime"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mailpit", "s3", "mock"]
+runtimes = ["bun"]
+requires = ["bun"]
+detect.any = [{ file = "bun.lock" }, { file = "bun.lockb" }, { file = "bunfig.toml" }]
+dev = [{ script = ["dev", "start"], port = "env", note = "Bun.serve() reads PORT by default." }]
+install = "bun install"
+test = "bun test"
+env = { files = [".env.local", ".env.development", ".env"], loader = "Bun", notes = ["Bun loads .env files by itself; a variable already in the environment wins."] }
+
+[[framework]]
+id = "deno"
+name = "Deno"
+category = "runtime"
+priority = 30
+docs = "https://docs.deno.com/runtime/reference/cli/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mailpit", "s3", "mock"]
+runtimes = ["deno"]
+requires = ["deno"]
+detect.any = [{ file = "deno.json" }, { file = "deno.jsonc" }]
+dev = [
+  { when = [{ contains = ["deno.json", "\"dev\""] }], command = "deno task dev", port = "env", note = "Deno.serve() reads PORT only when the code passes it; use Deno.env.get(\"PORT\")." },
+  { when = [{ contains = ["deno.jsonc", "\"dev\""] }], command = "deno task dev", port = "env", note = "Deno.serve() reads PORT only when the code passes it; use Deno.env.get(\"PORT\")." },
+]
+install = "deno install"
+test = "deno test"
+env = { loader = "none", notes = ["Deno reads .env only with --env-file in the task."] }
+
+# ── UI libraries and build tools (components; Vite runs them) ───────────────
+
+[[framework]]
+id = "vite"
+name = "Vite"
+category = "tool"
+family = "vite"
+priority = 60
+docs = "https://vite.dev/guide/"
+services = ["storybook", "mock"]
+runtimes = ["node"]
+detect.any = [
+  { npm = "vite" },
+  { file = "vite.config.ts" },
+  { file = "vite.config.js" },
+  { file = "vite.config.mjs" },
+  { file = "vite.config.mts" },
+  { file = "vite.config.cjs" },
+  { file = "vite.config.cts" },
+]
+version = [{ npm = "vite" }]
+dev = [{ script = ["dev"], script_contains = "vite", args = "--port {port} --strictPort --host 127.0.0.1" }]
+dev_tool = "vite"
+install = "{pm} install"
+build = "{pm} run build"
+config_files = ["vite.config.ts", "vite.config.js", "vite.config.mjs"]
+
+[[framework]]
+id = "react"
+name = "React"
+category = "ui"
+docs = "https://react.dev/learn/build-a-react-app-from-scratch"
+services = ["storybook", "mock"]
+detect.any = [{ npm = "react" }]
+version = [{ npm = "react" }]
+
+[[framework]]
+id = "vue"
+name = "Vue"
+category = "ui"
+docs = "https://vuejs.org/guide/quick-start.html"
+services = ["storybook", "mock"]
+detect.any = [{ npm = "vue" }]
+version = [{ npm = "vue" }]
+
+[[framework]]
+id = "svelte"
+name = "Svelte"
+category = "ui"
+docs = "https://svelte.dev/docs/svelte/overview"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "bullmq", "socketio", "mailpit", "s3", "meilisearch"]
+detect.any = [{ npm = "svelte" }]
+version = [{ npm = "svelte" }]
+
+[[framework]]
+id = "solid"
+name = "SolidJS"
+category = "ui"
+docs = "https://docs.solidjs.com/quick-start"
+services = ["storybook", "mock"]
+detect.any = [{ npm = "solid-js" }]
+version = [{ npm = "solid-js" }]
+
+[[framework]]
+id = "preact"
+name = "Preact"
+category = "ui"
+docs = "https://preactjs.com/guide/v10/getting-started/"
+services = ["storybook", "mock"]
+detect.any = [{ npm = "preact" }]
+version = [{ npm = "preact" }]
+
+[[framework]]
+id = "storybook"
+name = "Storybook"
+category = "tool"
+docs = "https://storybook.js.org/docs/api/cli-options"
+detect.any = [{ npm = "storybook" }, { dir = ".storybook" }]
+version = [{ npm = "storybook" }]
+processes = [
+  { id = "storybook", name = "Storybook", kind = "tool", port = true, run = [{ script = ["storybook"], args = "--port {port} --host 127.0.0.1 --no-open" }] },
+]
+
+[[framework]]
+id = "tailwind"
+name = "Tailwind CSS"
+category = "tool"
+docs = "https://tailwindcss.com/docs/installation"
+detect.any = [
+  { npm = "tailwindcss" },
+  { file = "tailwind.config.js" },
+  { file = "tailwind.config.ts" },
+]
+version = [{ npm = "tailwindcss" }]
+config_files = ["tailwind.config.js", "tailwind.config.ts", "postcss.config.js", "postcss.config.mjs"]
+notes = ["Tailwind CSS 4 is configured in CSS (@theme); tailwind.config.js is only read when the CSS points to it with @config."]
+
+[[framework]]
+id = "typescript"
+name = "TypeScript"
+category = "language"
+docs = "https://www.typescriptlang.org/docs/handbook/compiler-options.html"
+services = ["storybook", "mock"]
+detect.any = [{ file = "tsconfig.json" }, { npm = "typescript" }]
+version = [{ npm = "typescript" }]
+config_files = ["tsconfig.json"]
+
+[[framework]]
+id = "javascript"
+name = "JavaScript"
+category = "language"
+docs = "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+services = ["storybook", "mock"]
+detect.any = [{ file = "package.json" }]
+detect.none = [{ file = "tsconfig.json" }, { npm = "typescript" }]
+config_files = ["jsconfig.json", "eslint.config.js", "eslint.config.mjs", "biome.json", "prettier.config.js"]
+
+[[framework]]
+id = "html"
+name = "HTML5"
+category = "language"
+family = "static"
+priority = 1
+docs = "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server"
+services = ["mock"]
+detect.any = [{ file = "index.html" }, { file = "public/index.html" }]
+# LocDev's own static server (`locdevd static`): loopback only, clean URLs,
+# 404.html; no Python or Node needed.
+dev = [
+  { when = [{ file = "index.html" }], command = "locdevd static --port {port}" },
+  { command = "locdevd static --port {port} --root public" },
+]
+notes = ["Served by LocDev's built-in static server (clean URLs, 404.html, no cache); change the command with `locdev edit` to use another one."]
+
+# ── Python ──────────────────────────────────────────────────────────────────
+
+[[framework]]
+id = "django"
+name = "Django"
+category = "framework"
+priority = 90
+docs = "https://docs.djangoproject.com/en/stable/ref/django-admin/#runserver"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "celery", "beat", "channels", "mailpit", "s3", "meilisearch"]
+runtimes = ["python"]
+requires = ["python3"]
+venv = true
+detect.all = [{ file = "manage.py" }]
+version = [{ python = "django" }]
+dev = [{ command = "python3 manage.py runserver 127.0.0.1:{port}", command_windows = "python manage.py runserver 127.0.0.1:{port}" }]
+install = "python3 -m pip install -r requirements.txt"
+test = "python3 manage.py test"
+implies = ["python"]
+notes = ["Add the site's domain to ALLOWED_HOSTS when DEBUG is off."]
+processes = [
+  { id = "celery", name = "Celery worker", kind = "worker", requires_any = [{ python = "celery" }], run = [{ command = "celery -A {django_module} worker -l info" }], note = "Celery needs its broker running (Redis or RabbitMQ, CELERY_BROKER_URL)." },
+  { id = "beat", name = "Celery beat", kind = "scheduler", requires_any = [{ python = "celery" }], run = [{ command = "celery -A {django_module} beat -l info" }], note = "Run a single beat per project, or tasks are scheduled twice." },
+]
+env = { if_any = [{ python = "django-environ" }, { python = "python-dotenv" }, { python = "django-dotenv" }], files = [".env"], loader = "python-dotenv/django-environ", notes = ["Django reads .env only through django-environ or python-dotenv, which keep a variable already in the environment."] }
+
+[[framework]]
+id = "flask"
+name = "Flask"
+category = "framework"
+priority = 80
+docs = "https://flask.palletsprojects.com/en/stable/cli/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "celery", "beat", "mailpit", "s3", "meilisearch"]
+runtimes = ["python"]
+requires = ["flask"]
+venv = true
+detect.any = [{ python = "flask" }]
+version = [{ python = "flask" }]
+dev = [
+  { when = [{ file = "app.py" }], command = "flask --app app run --host 127.0.0.1 --port {port}" },
+  { when = [{ file = "wsgi.py" }], command = "flask --app wsgi run --host 127.0.0.1 --port {port}" },
+  { when = [{ file = "app/__init__.py" }], command = "flask --app app run --host 127.0.0.1 --port {port}" },
+]
+install = "python3 -m pip install -r requirements.txt"
+implies = ["python"]
+env = { if_any = [{ python = "python-dotenv" }], files = [".env", ".flaskenv"], loader = "Flask CLI (python-dotenv)", notes = ["The flask command loads .env and .flaskenv when python-dotenv is installed; a variable already in the environment wins."] }
+
+[[framework]]
+id = "fastapi"
+name = "FastAPI"
+category = "framework"
+priority = 80
+docs = "https://fastapi.tiangolo.com/fastapi-cli/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "celery", "beat", "mailpit", "s3", "meilisearch"]
+runtimes = ["python"]
+requires = ["fastapi"]
+venv = true
+detect.any = [{ python = "fastapi" }]
+version = [{ python = "fastapi" }]
+dev = [
+  { when = [{ file = "main.py" }], command = "fastapi dev main.py --host 127.0.0.1 --port {port}" },
+  { when = [{ file = "app/main.py" }], command = "fastapi dev app/main.py --host 127.0.0.1 --port {port}" },
+]
+install = "python3 -m pip install -r requirements.txt"
+implies = ["python"]
+notes = ["`fastapi dev` comes with the fastapi[standard] extra."]
+env = { if_any = [{ python = "pydantic-settings" }, { python = "python-dotenv" }], files = [".env"], loader = "pydantic-settings/python-dotenv", notes = ["FastAPI reads .env only through pydantic-settings or python-dotenv; the environment wins over the file."] }
+
+[[framework]]
+id = "python"
+name = "Python"
+category = "language"
+priority = 5
+docs = "https://docs.python.org/3/library/venv.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "celery", "beat", "mailpit", "s3", "meilisearch"]
+runtimes = ["python"]
+requires = ["python3"]
+venv = true
+detect.any = [{ file = "requirements.txt" }, { file = "pyproject.toml" }, { file = "Pipfile" }, { file = "setup.py" }]
+install = "python3 -m pip install -r requirements.txt"
+notes = ["Python alone doesn't define an HTTP server; set the command that starts yours."]
+
+# ── Ruby ────────────────────────────────────────────────────────────────────
+
+[[framework]]
+id = "rails"
+name = "Ruby on Rails"
+category = "framework"
+priority = 90
+docs = "https://guides.rubyonrails.org/command_line.html#bin-rails-server"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "solidqueue", "sidekiq", "cable", "mailpit", "s3"]
+runtimes = ["ruby"]
+requires = ["ruby", "bundle"]
+detect.any = [{ gem = "rails" }, { file = "config/application.rb" }]
+detect.all = [{ file = "Gemfile" }]
+version = [{ gem = "rails" }]
+dev = [{ command = "bin/rails server -b 127.0.0.1 -p {port}", command_windows = "ruby bin/rails server -b 127.0.0.1 -p {port}" }]
+install = "bundle install"
+build = "bin/rails assets:precompile"
+test = "bin/rails test"
+config_files = ["config/database.yml", "config/application.rb", "Gemfile"]
+implies = ["ruby"]
+processes = [
+  { id = "jobs", name = "Solid Queue", kind = "worker", requires_any = [{ gem = "solid_queue" }], run = [{ when = [{ file = "bin/jobs" }], command = "bin/jobs" }], conflicts = ["sidekiq"], note = "Solid Queue's supervisor also runs recurring tasks (config/recurring.yml)." },
+  { id = "sidekiq", name = "Sidekiq", kind = "worker", requires_any = [{ gem = "sidekiq" }], run = [{ command = "bundle exec sidekiq" }], conflicts = ["jobs"], note = "Sidekiq needs Redis (REDIS_URL)." },
+]
+notes = ["Rails checks the Host header in development: add the site's domain with config.hosts << \".test\" in config/environments/development.rb."]
+env = { if_any = [{ gem = "dotenv" }, { gem = "dotenv-rails" }], files = [".env.development.local", ".env.local", ".env.development", ".env"], loader = "dotenv", notes = ["Rails reads .env files only through the dotenv gem, which keeps a variable already in the environment."] }
+
+[[framework]]
+id = "ruby"
+name = "Ruby"
+category = "language"
+priority = 5
+docs = "https://bundler.io/guides/getting_started.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "sidekiq", "mailpit", "s3", "meilisearch"]
+runtimes = ["ruby"]
+requires = ["ruby"]
+detect.any = [{ file = "Gemfile" }]
+install = "bundle install"
+notes = ["Ruby alone doesn't define an HTTP server; set the command that starts yours (rackup -p {port}, puma…)."]
+
+# ── Compiled languages ──────────────────────────────────────────────────────
+
+[[framework]]
+id = "go"
+name = "Go"
+category = "language"
+priority = 30
+docs = "https://go.dev/doc/tutorial/"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "asynq", "mailpit", "s3", "meilisearch"]
+runtimes = ["go"]
+requires = ["go"]
+detect.any = [{ file = "go.mod" }]
+dev = [{ command = "go run .", port = "env", note = "Go has no standard port flag; the program must read PORT (os.Getenv(\"PORT\"))." }]
+install = "go mod download"
+build = "go build ./..."
+test = "go test ./..."
+config_files = ["go.mod"]
+
+[[framework]]
+id = "rust"
+name = "Rust"
+category = "language"
+priority = 30
+docs = "https://doc.rust-lang.org/cargo/commands/index.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "rabbitmq", "apalis", "mailpit", "s3", "meilisearch"]
+runtimes = ["rust"]
+requires = ["cargo"]
+detect.any = [{ file = "Cargo.toml" }]
+# A workspace root without [package] has nothing to run; its members are listed instead.
+dev = [{ when = [{ contains = ["Cargo.toml", "[package]"] }], command = "cargo run", port = "env", note = "Cargo has no port flag; the program must read PORT (std::env::var(\"PORT\"))." }]
+install = "cargo fetch"
+build = "cargo build --release"
+test = "cargo test"
+config_files = ["Cargo.toml"]
+
+[[framework]]
+id = "spring"
+name = "Spring Boot"
+category = "framework"
+priority = 90
+docs = "https://docs.spring.io/spring-boot/maven-plugin/run.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "sqlserver", "rabbitmq", "springjobs", "mailpit", "s3", "meilisearch"]
+runtimes = ["java"]
+requires = ["java"]
+detect.any = [{ maven = "spring-boot" }, { gradle = "org.springframework.boot" }]
+version = [{ maven = "spring-boot-starter-parent" }, { gradle = "org.springframework.boot" }]
+dev = [
+  { when = [{ file = "mvnw" }], command = "./mvnw spring-boot:run", command_windows = "mvnw.cmd spring-boot:run", port = "env", port_env = ["SERVER_PORT", "SERVER_ADDRESS=127.0.0.1"] },
+  { when = [{ file = "gradlew" }], command = "./gradlew bootRun", command_windows = "gradlew.bat bootRun", port = "env", port_env = ["SERVER_PORT", "SERVER_ADDRESS=127.0.0.1"] },
+  { when = [{ file = "pom.xml" }], command = "mvn spring-boot:run", port = "env", port_env = ["SERVER_PORT", "SERVER_ADDRESS=127.0.0.1"] },
+  { command = "gradle bootRun", port = "env", port_env = ["SERVER_PORT", "SERVER_ADDRESS=127.0.0.1"] },
+]
+install = "./mvnw dependency:resolve"
+build = "./mvnw package"
+test = "./mvnw test"
+config_files = ["src/main/resources/application.properties", "src/main/resources/application.yml", "pom.xml", "build.gradle"]
+implies = ["java"]
+notes = ["The port reaches Spring Boot through SERVER_PORT (relaxed binding of server.port)."]
+env = { loader = "none", notes = ["Spring Boot doesn't read .env files by itself."] }
+
+[[framework]]
+id = "java"
+name = "Java"
+category = "language"
+priority = 5
+docs = "https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "sqlserver", "rabbitmq", "mailpit", "s3", "meilisearch"]
+runtimes = ["java"]
+requires = ["java"]
+detect.any = [{ file = "pom.xml" }, { file = "build.gradle" }, { file = "build.gradle.kts" }]
+install = "./mvnw dependency:resolve"
+build = "./mvnw package"
+test = "./mvnw test"
+notes = ["Java alone doesn't define an HTTP server; set the command that starts yours."]
+
+[[framework]]
+id = "dotnet"
+name = ".NET"
+category = "framework"
+priority = 30
+docs = "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/endpoints"
+services = ["postgres", "mysql", "sqlite", "redis", "valkey", "mongodb", "sqlserver", "rabbitmq", "hangfire", "signalr", "mailpit", "s3", "meilisearch"]
+runtimes = ["dotnet"]
+requires = ["dotnet"]
+detect.any = [{ glob = "*.csproj" }, { glob = "*.fsproj" }, { glob = "*.sln" }]
+version = [{ nuget = "TargetFramework" }]
+dev = [{ command = "dotnet run --no-launch-profile", port = "env", port_env = ["ASPNETCORE_URLS=http://127.0.0.1:{port}"], note = "--no-launch-profile keeps launchSettings.json from replacing the address; with several projects in a solution, set the command to `dotnet run --project <path>`." }]
+install = "dotnet restore"
+build = "dotnet build"
+test = "dotnet test"
+config_files = ["appsettings.json", "appsettings.Development.json"]
+env = { loader = "none", notes = [".NET doesn't read .env files by itself."] }
+
+# ── Static site generators ──────────────────────────────────────────────────
+
+[[framework]]
+id = "hugo"
+name = "Hugo"
+category = "framework"
+priority = 80
+docs = "https://gohugo.io/commands/hugo_server/"
+services = ["mock"]
+requires = ["hugo"]
+detect.any = [{ file = "hugo.toml" }, { file = "hugo.yaml" }, { file = "hugo.json" }, { file = "archetypes/default.md" }]
+dev = [{ command = "hugo server --bind 127.0.0.1 --port {port}" }]
+build = "hugo --minify"
+config_files = ["hugo.toml", "hugo.yaml", "config.toml"]
+notes = ["Live reload connects to the server's own port; it works at http://127.0.0.1:<port>, and through the proxy only with --liveReloadPort set to the proxy's port."]
+env = { loader = "none", notes = ["Hugo reads HUGO_* variables from the environment, not .env files."] }

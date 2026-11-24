@@ -1,0 +1,19 @@
+[package]
+name = "definitions"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+locdev-frameworks.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+minisign = "0.10"
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip", "json"] }
+
+[lints]
+workspace = true

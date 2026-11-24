@@ -1,0 +1,60 @@
+[package]
+name = "locdev-daemon"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "locdevd"
+path = "src/main.rs"
+
+[dependencies]
+locdev-core.workspace = true
+locdev-deps = { path = "../locdev-deps" }
+locdev-env = { path = "../locdev-env" }
+locdev-frameworks.workspace = true
+locdev-services.workspace = true
+locdev-config.workspace = true
+locdev-db.workspace = true
+locdev-mail.workspace = true
+locdev-email.workspace = true
+locdev-deploy.workspace = true
+locdev-actions = { path = "../locdev-actions" }
+locdev-git = { path = "../locdev-git" }
+locdev-github = { path = "../locdev-github" }
+locdev-ipc.workspace = true
+locdev-dns.workspace = true
+locdev-platform.workspace = true
+locdev-proxy.workspace = true
+locdev-runtimes.workspace = true
+locdev-tls.workspace = true
+anyhow.workspace = true
+argon2 = "0.6"
+futures-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+# File events for parked folders (inotify, FSEvents, ReadDirectoryChangesW).
+notify = "9"
+notify-rust = { version = "4.18", default-features = false, features = ["z-with-tokio"] }
+tokio.workspace = true
+tokio-util.workspace = true
+tokio-rustls.workspace = true
+toml.workspace = true
+tempfile.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+portable-pty = "0.9"
+locdev-scaffold = { path = "../locdev-scaffold" }
+locdev-tunnel = { path = "../locdev-tunnel" }
+locdev-observe = { path = "../locdev-observe" }
+keyring = "4"
+
+[target.'cfg(unix)'.dependencies]
+nix.workspace = true
+
+[dev-dependencies]
+locdev-ipc.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

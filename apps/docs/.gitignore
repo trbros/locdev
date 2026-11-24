@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.env*
+!.env.example
+.DS_Store
+
+# Local cache of the impeccable design hook (absolute local paths)
+.impeccable/
+
+# pnpm only: npm/yarn lockfiles would make Dependabot and Vercel pick npm.
+package-lock.json
+yarn.lock

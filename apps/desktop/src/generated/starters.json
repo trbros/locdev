@@ -1,0 +1,1253 @@
+[
+  {
+    "id": "laravel",
+    "name": "Laravel",
+    "family": "php",
+    "framework": "laravel",
+    "description": "PHP framework; starter kits with React, Vue, Svelte or Livewire and authentication.",
+    "docs": "https://laravel.com/docs/installation",
+    "methods": [
+      {
+        "id": "installer",
+        "label": "Laravel installer",
+        "tool": "laravel",
+        "note": "`laravel new`, the official installer."
+      },
+      {
+        "id": "composer",
+        "label": "Composer",
+        "tool": "composer",
+        "note": "`composer create-project` with the skeleton or a starter kit package."
+      }
+    ],
+    "options": [
+      {
+        "id": "starter_kit",
+        "label": "Do you want to use a starter kit?",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": []
+      },
+      {
+        "id": "stack",
+        "label": "Which frontend stack do you want to build on?",
+        "help": null,
+        "choices": [
+          {
+            "value": "blade",
+            "label": "Blade (no additional frontend scaffolding)"
+          },
+          {
+            "value": "react",
+            "label": "React (Inertia, Tailwind)"
+          },
+          {
+            "value": "svelte",
+            "label": "Svelte (Inertia, Tailwind)"
+          },
+          {
+            "value": "vue",
+            "label": "Vue (Inertia, Tailwind)"
+          },
+          {
+            "value": "livewire",
+            "label": "Livewire (Tailwind)"
+          }
+        ],
+        "default": "blade",
+        "methods": [],
+        "when": [
+          {
+            "option": "starter_kit",
+            "values": [
+              "false"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kit",
+        "label": "Which frontend stack should your starter kit use?",
+        "help": null,
+        "choices": [
+          {
+            "value": "react",
+            "label": "React"
+          },
+          {
+            "value": "svelte",
+            "label": "Svelte"
+          },
+          {
+            "value": "vue",
+            "label": "Vue"
+          },
+          {
+            "value": "livewire",
+            "label": "Livewire"
+          }
+        ],
+        "default": "react",
+        "methods": [],
+        "when": [
+          {
+            "option": "starter_kit",
+            "values": [
+              "true"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "auth",
+        "label": "Which authentication provider do you prefer?",
+        "help": null,
+        "choices": [
+          {
+            "value": "laravel",
+            "label": "Laravel's built-in authentication"
+          },
+          {
+            "value": "workos",
+            "label": "WorkOS (requires a WorkOS account)"
+          }
+        ],
+        "default": "laravel",
+        "methods": [],
+        "when": [
+          {
+            "option": "starter_kit",
+            "values": [
+              "true"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "single_file",
+        "label": "Would you like to use single-file Livewire components?",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": [],
+        "when": [
+          {
+            "option": "starter_kit",
+            "values": [
+              "true"
+            ]
+          },
+          {
+            "option": "kit",
+            "values": [
+              "livewire"
+            ]
+          },
+          {
+            "option": "auth",
+            "values": [
+              "laravel"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "teams",
+        "label": "Would you like to add teams support to your application?",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": [],
+        "when": [
+          {
+            "option": "starter_kit",
+            "values": [
+              "true"
+            ]
+          },
+          {
+            "option": "auth",
+            "values": [
+              "laravel"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "testing",
+        "label": "Tests",
+        "help": null,
+        "choices": [
+          {
+            "value": "pest",
+            "label": "Pest"
+          },
+          {
+            "value": "phpunit",
+            "label": "PHPUnit"
+          }
+        ],
+        "default": "pest",
+        "methods": [
+          "installer"
+        ]
+      },
+      {
+        "id": "database",
+        "label": "Database driver",
+        "help": "Choosing a LocDev database below sets this for you.",
+        "choices": [
+          {
+            "value": "sqlite",
+            "label": "SQLite"
+          },
+          {
+            "value": "mysql",
+            "label": "MySQL"
+          },
+          {
+            "value": "mariadb",
+            "label": "MariaDB"
+          },
+          {
+            "value": "pgsql",
+            "label": "PostgreSQL"
+          }
+        ],
+        "default": "sqlite",
+        "methods": [
+          "installer"
+        ]
+      },
+      {
+        "id": "node",
+        "label": "Front-end dependencies",
+        "help": null,
+        "choices": [
+          {
+            "value": "npm",
+            "label": "npm"
+          },
+          {
+            "value": "pnpm",
+            "label": "pnpm"
+          },
+          {
+            "value": "bun",
+            "label": "Bun"
+          },
+          {
+            "value": "none",
+            "label": "Don't install"
+          }
+        ],
+        "default": "npm",
+        "methods": []
+      },
+      {
+        "id": "boost",
+        "label": "Laravel Boost (AI guidelines and MCP)",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": [
+          "installer"
+        ]
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": [
+          "installer"
+        ]
+      }
+    ],
+    "packages": "packagist",
+    "database": true
+  },
+  {
+    "id": "symfony",
+    "name": "Symfony",
+    "family": "php",
+    "framework": "php",
+    "description": "PHP framework; a full web app or a minimal skeleton for APIs and microservices.",
+    "docs": "https://symfony.com/doc/current/setup.html",
+    "methods": [
+      {
+        "id": "cli",
+        "label": "Symfony CLI",
+        "tool": "symfony",
+        "note": null
+      },
+      {
+        "id": "composer",
+        "label": "Composer",
+        "tool": "composer",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "type",
+        "label": "Kind of project",
+        "help": null,
+        "choices": [
+          {
+            "value": "webapp",
+            "label": "Web application (--webapp)"
+          },
+          {
+            "value": "skeleton",
+            "label": "Skeleton (API, microservice, console)"
+          }
+        ],
+        "default": "webapp",
+        "methods": []
+      }
+    ],
+    "packages": "packagist",
+    "database": false
+  },
+  {
+    "id": "php",
+    "name": "PHP",
+    "family": "php",
+    "framework": "php",
+    "description": "Plain PHP: a public/index.php served by PHP's built-in server.",
+    "docs": "https://www.php.net/manual/en/features.commandline.webserver.php",
+    "methods": [
+      {
+        "id": "files",
+        "label": "LocDev starter",
+        "tool": "php",
+        "note": "LocDev's starter file (public/index.php); no installer."
+      }
+    ],
+    "options": [
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "wordpress",
+    "name": "WordPress",
+    "family": "php",
+    "framework": "wordpress",
+    "description": "WordPress itself, downloaded by WP-CLI; finish the setup in the browser.",
+    "docs": "https://developer.wordpress.org/cli/commands/core/download/",
+    "methods": [
+      {
+        "id": "wpcli",
+        "label": "WP-CLI",
+        "tool": "wp",
+        "note": "`wp core download` (WP-CLI checks the download's hash)."
+      }
+    ],
+    "options": [
+      {
+        "id": "locale",
+        "label": "Language",
+        "help": null,
+        "choices": [
+          {
+            "value": "en_US",
+            "label": "English (US)"
+          },
+          {
+            "value": "pt_BR",
+            "label": "Português (Brasil)"
+          },
+          {
+            "value": "es_ES",
+            "label": "Español"
+          },
+          {
+            "value": "ja",
+            "label": "日本語"
+          }
+        ],
+        "default": "en_US",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "bedrock",
+    "name": "WordPress (Bedrock)",
+    "family": "php",
+    "framework": "wordpress",
+    "description": "WordPress managed with Composer, configured through .env.",
+    "docs": "https://roots.io/bedrock/docs/installation/",
+    "methods": [
+      {
+        "id": "composer",
+        "label": "Composer",
+        "tool": "composer",
+        "note": null
+      }
+    ],
+    "options": [],
+    "packages": "packagist",
+    "database": false
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "family": "javascript",
+    "framework": "nextjs",
+    "description": "React framework with server rendering and the App Router.",
+    "docs": "https://nextjs.org/docs/app/api-reference/cli/create-next-app",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "language",
+        "label": "Language",
+        "help": null,
+        "choices": [
+          {
+            "value": "ts",
+            "label": "TypeScript"
+          },
+          {
+            "value": "js",
+            "label": "JavaScript"
+          }
+        ],
+        "default": "ts",
+        "methods": []
+      },
+      {
+        "id": "tailwind",
+        "label": "Tailwind CSS",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      },
+      {
+        "id": "linter",
+        "label": "Linter",
+        "help": null,
+        "choices": [
+          {
+            "value": "eslint",
+            "label": "ESLint"
+          },
+          {
+            "value": "biome",
+            "label": "Biome"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "eslint",
+        "methods": []
+      },
+      {
+        "id": "app",
+        "label": "App Router",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      },
+      {
+        "id": "src",
+        "label": "src/ folder",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "vite",
+    "name": "Vite",
+    "family": "javascript",
+    "framework": "vite",
+    "description": "Front-end with Vite: React, Vue, Svelte, Solid, Preact, Lit or plain.",
+    "docs": "https://vite.dev/guide/#scaffolding-your-first-vite-project",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "framework",
+        "label": "Framework",
+        "help": null,
+        "choices": [
+          {
+            "value": "react",
+            "label": "React"
+          },
+          {
+            "value": "vue",
+            "label": "Vue"
+          },
+          {
+            "value": "svelte",
+            "label": "Svelte"
+          },
+          {
+            "value": "solid",
+            "label": "Solid"
+          },
+          {
+            "value": "preact",
+            "label": "Preact"
+          },
+          {
+            "value": "lit",
+            "label": "Lit"
+          },
+          {
+            "value": "vanilla",
+            "label": "Vanilla"
+          }
+        ],
+        "default": "react",
+        "methods": []
+      },
+      {
+        "id": "language",
+        "label": "Language",
+        "help": null,
+        "choices": [
+          {
+            "value": "ts",
+            "label": "TypeScript"
+          },
+          {
+            "value": "js",
+            "label": "JavaScript"
+          }
+        ],
+        "default": "ts",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "vue",
+    "name": "Vue",
+    "family": "javascript",
+    "framework": "vue",
+    "description": "Vue's official project setup (`create-vue`), with Vite.",
+    "docs": "https://vuejs.org/guide/quick-start.html#creating-a-vue-application",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "language",
+        "label": "Language",
+        "help": null,
+        "choices": [
+          {
+            "value": "ts",
+            "label": "TypeScript"
+          },
+          {
+            "value": "js",
+            "label": "JavaScript"
+          }
+        ],
+        "default": "ts",
+        "methods": []
+      },
+      {
+        "id": "router",
+        "label": "Vue Router",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      },
+      {
+        "id": "pinia",
+        "label": "Pinia (state management)",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": []
+      },
+      {
+        "id": "vitest",
+        "label": "Vitest (unit tests)",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": []
+      },
+      {
+        "id": "eslint",
+        "label": "ESLint",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "family": "javascript",
+    "framework": "angular",
+    "description": "Angular workspace from the Angular CLI (`ng new`).",
+    "docs": "https://angular.dev/cli/new",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "style",
+        "label": "Styles",
+        "help": null,
+        "choices": [
+          {
+            "value": "css",
+            "label": "CSS"
+          },
+          {
+            "value": "scss",
+            "label": "SCSS"
+          },
+          {
+            "value": "sass",
+            "label": "Sass"
+          },
+          {
+            "value": "less",
+            "label": "Less"
+          },
+          {
+            "value": "tailwind",
+            "label": "Tailwind CSS"
+          }
+        ],
+        "default": "css",
+        "methods": []
+      },
+      {
+        "id": "routing",
+        "label": "Routing",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      },
+      {
+        "id": "ssr",
+        "label": "Server-side rendering",
+        "help": null,
+        "choices": [],
+        "default": "false",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "nuxt",
+    "name": "Nuxt",
+    "family": "javascript",
+    "framework": "nuxt",
+    "description": "Vue framework with server rendering.",
+    "docs": "https://nuxt.com/docs/4.x/api/commands/init",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "astro",
+    "name": "Astro",
+    "family": "javascript",
+    "framework": "astro",
+    "description": "Content sites and islands.",
+    "docs": "https://docs.astro.build/en/install-and-setup/",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "template",
+        "label": "Template",
+        "help": null,
+        "choices": [
+          {
+            "value": "basics",
+            "label": "Basics"
+          },
+          {
+            "value": "blog",
+            "label": "Blog"
+          },
+          {
+            "value": "portfolio",
+            "label": "Portfolio"
+          },
+          {
+            "value": "minimal",
+            "label": "Minimal"
+          }
+        ],
+        "default": "basics",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "sveltekit",
+    "name": "SvelteKit",
+    "family": "javascript",
+    "framework": "sveltekit",
+    "description": "Svelte's application framework (`sv create`).",
+    "docs": "https://svelte.dev/docs/cli/sv-create",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "template",
+        "label": "Template",
+        "help": null,
+        "choices": [
+          {
+            "value": "minimal",
+            "label": "Minimal"
+          },
+          {
+            "value": "demo",
+            "label": "Demo"
+          }
+        ],
+        "default": "minimal",
+        "methods": []
+      },
+      {
+        "id": "types",
+        "label": "Type checking",
+        "help": null,
+        "choices": [
+          {
+            "value": "ts",
+            "label": "TypeScript"
+          },
+          {
+            "value": "jsdoc",
+            "label": "JSDoc"
+          }
+        ],
+        "default": "ts",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "nestjs",
+    "name": "NestJS",
+    "family": "javascript",
+    "framework": "nestjs",
+    "description": "Node.js server framework.",
+    "docs": "https://docs.nestjs.com/first-steps",
+    "methods": [
+      {
+        "id": "npm",
+        "label": "npm",
+        "tool": "npm",
+        "note": null
+      },
+      {
+        "id": "pnpm",
+        "label": "pnpm",
+        "tool": "pnpm",
+        "note": null
+      },
+      {
+        "id": "bun",
+        "label": "Bun",
+        "tool": "bun",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "language",
+        "label": "Language",
+        "help": null,
+        "choices": [
+          {
+            "value": "ts",
+            "label": "TypeScript"
+          },
+          {
+            "value": "js",
+            "label": "JavaScript"
+          }
+        ],
+        "default": "ts",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": "npm",
+    "database": false
+  },
+  {
+    "id": "django",
+    "name": "Django",
+    "family": "python",
+    "framework": "django",
+    "description": "Python web framework, in a virtual environment inside the project.",
+    "docs": "https://docs.djangoproject.com/en/stable/intro/tutorial01/",
+    "methods": [
+      {
+        "id": "venv",
+        "label": "Python venv + pip",
+        "tool": "python",
+        "note": "A `.venv` in the project, Django installed with pip, then `django-admin startproject`."
+      }
+    ],
+    "options": [],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "flask",
+    "name": "Flask",
+    "family": "python",
+    "framework": "flask",
+    "description": "Python micro-framework: LocDev's app.py, Flask from pip in the project's .venv.",
+    "docs": "https://flask.palletsprojects.com/en/stable/installation/",
+    "methods": [
+      {
+        "id": "venv",
+        "label": "Python venv + pip",
+        "tool": "python",
+        "note": "LocDev's app.py and requirements.txt, a `.venv`, then `pip install -r requirements.txt`."
+      }
+    ],
+    "options": [
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "family": "python",
+    "framework": "fastapi",
+    "description": "Python APIs: LocDev's main.py, fastapi[standard] from pip in the project's .venv.",
+    "docs": "https://fastapi.tiangolo.com/#installation",
+    "methods": [
+      {
+        "id": "venv",
+        "label": "Python venv + pip",
+        "tool": "python",
+        "note": "LocDev's main.py and requirements.txt, a `.venv`, then `pip install -r requirements.txt`."
+      }
+    ],
+    "options": [
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "rust",
+    "name": "Rust web server",
+    "family": "rust",
+    "framework": "rust",
+    "description": "A Cargo project with Axum or Actix Web, reading its port from PORT.",
+    "docs": "https://doc.rust-lang.org/cargo/commands/cargo-init.html",
+    "methods": [
+      {
+        "id": "cargo",
+        "label": "Cargo",
+        "tool": "cargo",
+        "note": "LocDev's src/main.rs, then `cargo init` and `cargo add`."
+      }
+    ],
+    "options": [
+      {
+        "id": "framework",
+        "label": "Framework",
+        "help": null,
+        "choices": [
+          {
+            "value": "axum",
+            "label": "Axum"
+          },
+          {
+            "value": "actix",
+            "label": "Actix Web"
+          }
+        ],
+        "default": "axum",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "rails",
+    "name": "Ruby on Rails",
+    "family": "ruby",
+    "framework": "rails",
+    "description": "Ruby web framework.",
+    "docs": "https://guides.rubyonrails.org/getting_started.html",
+    "methods": [
+      {
+        "id": "rails",
+        "label": "rails new",
+        "tool": "rails",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "database",
+        "label": "Database",
+        "help": null,
+        "choices": [
+          {
+            "value": "sqlite3",
+            "label": "SQLite"
+          },
+          {
+            "value": "postgresql",
+            "label": "PostgreSQL"
+          },
+          {
+            "value": "mysql",
+            "label": "MySQL"
+          }
+        ],
+        "default": "sqlite3",
+        "methods": []
+      },
+      {
+        "id": "css",
+        "label": "CSS",
+        "help": null,
+        "choices": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "tailwind",
+            "label": "Tailwind"
+          },
+          {
+            "value": "bootstrap",
+            "label": "Bootstrap"
+          },
+          {
+            "value": "sass",
+            "label": "Sass"
+          }
+        ],
+        "default": "none",
+        "methods": []
+      },
+      {
+        "id": "javascript",
+        "label": "JavaScript",
+        "help": null,
+        "choices": [
+          {
+            "value": "importmap",
+            "label": "Import maps"
+          },
+          {
+            "value": "esbuild",
+            "label": "esbuild"
+          },
+          {
+            "value": "bun",
+            "label": "Bun"
+          }
+        ],
+        "default": "importmap",
+        "methods": []
+      },
+      {
+        "id": "git",
+        "label": "Initialize a Git repository",
+        "help": null,
+        "choices": [],
+        "default": "true",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  },
+  {
+    "id": "dotnet",
+    "name": "ASP.NET Core",
+    "family": "dotnet",
+    "framework": "dotnet",
+    "description": ".NET web apps and APIs (`dotnet new`).",
+    "docs": "https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates",
+    "methods": [
+      {
+        "id": "dotnet",
+        "label": ".NET SDK",
+        "tool": "dotnet",
+        "note": null
+      }
+    ],
+    "options": [
+      {
+        "id": "template",
+        "label": "Template",
+        "help": null,
+        "choices": [
+          {
+            "value": "webapp",
+            "label": "Web App (Razor Pages)"
+          },
+          {
+            "value": "mvc",
+            "label": "Web App (MVC)"
+          },
+          {
+            "value": "webapi",
+            "label": "Web API"
+          },
+          {
+            "value": "blazor",
+            "label": "Blazor Web App"
+          },
+          {
+            "value": "web",
+            "label": "Empty"
+          }
+        ],
+        "default": "webapp",
+        "methods": []
+      }
+    ],
+    "packages": null,
+    "database": false
+  }
+]

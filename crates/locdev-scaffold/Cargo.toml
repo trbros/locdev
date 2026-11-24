@@ -1,0 +1,17 @@
+[package]
+name = "locdev-scaffold"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+serde_json.workspace = true
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip", "json"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+locdev-frameworks.workspace = true
+
+[lints]
+workspace = true

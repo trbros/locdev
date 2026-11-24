@@ -1,0 +1,74 @@
+# Dependabot version updates. Security updates (PRs for open alerts) are
+# enabled in the repository settings and ignore the schedule, grouping and
+# cooldown below.
+version: 2
+
+updates:
+  # Rust workspace: CLI, daemon, crates, tools and the Tauri app.
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    # Don't pick up a release in its first days: most compromised or broken
+    # versions are yanked within that window.
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    ignore:
+      # Tauri 2 builds on the GTK3 bindings (gtk 0.18), which need glib 0.18;
+      # a newer glib only adds a second copy. Lift this when Tauri moves on.
+      - dependency-name: glib
+        versions: [">=0.19"]
+    groups:
+      # oxc crates share types (SourceType, …): bumping one alone breaks the build.
+      oxc:
+        patterns: ["oxc_*"]
+      cargo-minor-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "deps(cargo)"
+
+  # pnpm: Dependabot has no separate value for it; "npm" covers pnpm (v7-v12)
+  # and picks it from pnpm-lock.yaml and packageManager, updating that lockfile.
+  # Keep no package-lock.json next to it.
+  - package-ecosystem: npm
+    directory: /apps/desktop
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      desktop-minor-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "deps(desktop)"
+
+  - package-ecosystem: npm
+    directory: /apps/docs
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      docs-minor-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "deps(docs)"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "deps(actions)"

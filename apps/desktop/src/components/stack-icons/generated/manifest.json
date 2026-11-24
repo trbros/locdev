@@ -1,0 +1,451 @@
+{
+  "source": "https://api.svgl.app",
+  "generatedAt": "2026-11-03T06:03:26.407Z",
+  "total": 47,
+  "matched": 40,
+  "missing": 7,
+  "entries": [
+    {
+      "id": "laravel",
+      "name": "Laravel",
+      "status": "svgl",
+      "svglTitle": "Laravel",
+      "source": {
+        "light": "https://svgl.app/library/laravel.svg",
+        "dark": "https://svgl.app/library/laravel.svg"
+      }
+    },
+    {
+      "id": "wordpress",
+      "name": "WordPress",
+      "status": "svgl",
+      "svglTitle": "WordPress",
+      "source": {
+        "light": "https://svgl.app/library/wordpress.svg",
+        "dark": "https://svgl.app/library/wordpress.svg"
+      }
+    },
+    {
+      "id": "php",
+      "name": "PHP",
+      "status": "svgl",
+      "svglTitle": "Php",
+      "source": {
+        "light": "https://svgl.app/library/php.svg",
+        "dark": "https://svgl.app/library/php_dark.svg"
+      }
+    },
+    {
+      "id": "livewire",
+      "name": "Livewire",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "inertia",
+      "name": "Inertia",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "nextjs",
+      "name": "Next.js",
+      "status": "svgl",
+      "svglTitle": "Next.js",
+      "source": {
+        "light": "https://svgl.app/library/nextjs_icon_dark.svg",
+        "dark": "https://svgl.app/library/nextjs_icon_dark.svg"
+      }
+    },
+    {
+      "id": "nuxt",
+      "name": "Nuxt",
+      "status": "svgl",
+      "svglTitle": "Nuxt",
+      "source": {
+        "light": "https://svgl.app/library/nuxt.svg",
+        "dark": "https://svgl.app/library/nuxt.svg"
+      }
+    },
+    {
+      "id": "astro",
+      "name": "Astro",
+      "status": "svgl",
+      "svglTitle": "Astro",
+      "source": {
+        "light": "https://svgl.app/library/astro-icon-light.svg",
+        "dark": "https://svgl.app/library/astro-icon-dark.svg"
+      }
+    },
+    {
+      "id": "sveltekit",
+      "name": "SvelteKit",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "remix",
+      "name": "Remix / React Router",
+      "status": "svgl",
+      "svglTitle": "React Router",
+      "source": {
+        "light": "https://svgl.app/library/reactrouter.svg",
+        "dark": "https://svgl.app/library/reactrouter.svg"
+      }
+    },
+    {
+      "id": "qwik",
+      "name": "Qwik",
+      "status": "svgl",
+      "svglTitle": "Qwik",
+      "source": {
+        "light": "https://svgl.app/library/qwik.svg",
+        "dark": "https://svgl.app/library/qwik.svg"
+      }
+    },
+    {
+      "id": "solid-start",
+      "name": "SolidStart",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "angular",
+      "name": "Angular",
+      "status": "svgl",
+      "svglTitle": "Angular",
+      "source": {
+        "light": "https://svgl.app/library/angular.svg",
+        "dark": "https://svgl.app/library/angular.svg"
+      }
+    },
+    {
+      "id": "gatsby",
+      "name": "Gatsby",
+      "status": "svgl",
+      "svglTitle": "Gatsby",
+      "source": {
+        "light": "https://svgl.app/library/gatsby.svg",
+        "dark": "https://svgl.app/library/gatsby.svg"
+      }
+    },
+    {
+      "id": "ember",
+      "name": "Ember",
+      "status": "svgl",
+      "svglTitle": "Ember",
+      "source": {
+        "light": "https://svgl.app/library/ember.svg",
+        "dark": "https://svgl.app/library/ember.svg"
+      }
+    },
+    {
+      "id": "redwood",
+      "name": "RedwoodJS",
+      "status": "svgl",
+      "svglTitle": "RedwoodJS",
+      "source": {
+        "light": "https://svgl.app/library/redwoodjs.svg",
+        "dark": "https://svgl.app/library/redwoodjs.svg"
+      }
+    },
+    {
+      "id": "nestjs",
+      "name": "NestJS",
+      "status": "svgl",
+      "svglTitle": "NestJS",
+      "source": {
+        "light": "https://svgl.app/library/nestjs.svg",
+        "dark": "https://svgl.app/library/nestjs.svg"
+      }
+    },
+    {
+      "id": "fastify",
+      "name": "Fastify",
+      "status": "svgl",
+      "svglTitle": "Fastify",
+      "source": {
+        "light": "https://svgl.app/library/fastify.svg",
+        "dark": "https://svgl.app/library/fastify_dark.svg"
+      }
+    },
+    {
+      "id": "express",
+      "name": "Express",
+      "status": "svgl",
+      "svglTitle": "Express.js",
+      "source": {
+        "light": "https://svgl.app/library/expressjs.svg",
+        "dark": "https://svgl.app/library/expressjs_dark.svg"
+      }
+    },
+    {
+      "id": "hono",
+      "name": "Hono",
+      "status": "svgl",
+      "svglTitle": "Hono",
+      "source": {
+        "light": "https://svgl.app/library/hono.svg",
+        "dark": "https://svgl.app/library/hono.svg"
+      }
+    },
+    {
+      "id": "elysia",
+      "name": "ElysiaJS",
+      "status": "svgl",
+      "svglTitle": "ElysiaJS",
+      "source": {
+        "light": "https://svgl.app/library/elysiajs.svg",
+        "dark": "https://svgl.app/library/elysiajs.svg"
+      }
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "status": "svgl",
+      "svglTitle": "Node.js",
+      "source": {
+        "light": "https://svgl.app/library/nodejs.svg",
+        "dark": "https://svgl.app/library/nodejs.svg"
+      }
+    },
+    {
+      "id": "bun",
+      "name": "Bun",
+      "status": "svgl",
+      "svglTitle": "Bun",
+      "source": {
+        "light": "https://svgl.app/library/bun.svg",
+        "dark": "https://svgl.app/library/bun.svg"
+      }
+    },
+    {
+      "id": "deno",
+      "name": "Deno",
+      "status": "svgl",
+      "svglTitle": "Deno",
+      "source": {
+        "light": "https://svgl.app/library/deno.svg",
+        "dark": "https://svgl.app/library/deno_dark.svg"
+      }
+    },
+    {
+      "id": "vite",
+      "name": "Vite",
+      "status": "svgl",
+      "svglTitle": "Vite",
+      "source": {
+        "light": "https://svgl.app/library/vite.svg",
+        "dark": "https://svgl.app/library/vite.svg"
+      }
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "status": "svgl",
+      "svglTitle": "React",
+      "source": {
+        "light": "https://svgl.app/library/react_light.svg",
+        "dark": "https://svgl.app/library/react_dark.svg"
+      }
+    },
+    {
+      "id": "vue",
+      "name": "Vue",
+      "status": "svgl",
+      "svglTitle": "Vue",
+      "source": {
+        "light": "https://svgl.app/library/vue.svg",
+        "dark": "https://svgl.app/library/vue.svg"
+      }
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "status": "svgl",
+      "svglTitle": "Svelte",
+      "source": {
+        "light": "https://svgl.app/library/svelte.svg",
+        "dark": "https://svgl.app/library/svelte.svg"
+      }
+    },
+    {
+      "id": "solid",
+      "name": "SolidJS",
+      "status": "svgl",
+      "svglTitle": "Solidjs",
+      "source": {
+        "light": "https://svgl.app/library/solidjs.svg",
+        "dark": "https://svgl.app/library/solidjs.svg"
+      }
+    },
+    {
+      "id": "preact",
+      "name": "Preact",
+      "status": "svgl",
+      "svglTitle": "Preact",
+      "source": {
+        "light": "https://svgl.app/library/preact.svg",
+        "dark": "https://svgl.app/library/preact.svg"
+      }
+    },
+    {
+      "id": "storybook",
+      "name": "Storybook",
+      "status": "svgl",
+      "svglTitle": "Storybook",
+      "source": {
+        "light": "https://svgl.app/library/storybook.svg",
+        "dark": "https://svgl.app/library/storybook.svg"
+      }
+    },
+    {
+      "id": "tailwind",
+      "name": "Tailwind CSS",
+      "status": "svgl",
+      "svglTitle": "Tailwind CSS",
+      "source": {
+        "light": "https://svgl.app/library/tailwindcss.svg",
+        "dark": "https://svgl.app/library/tailwindcss.svg"
+      }
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "status": "svgl",
+      "svglTitle": "TypeScript",
+      "source": {
+        "light": "https://svgl.app/library/typescript.svg",
+        "dark": "https://svgl.app/library/typescript.svg"
+      }
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "status": "svgl",
+      "svglTitle": "JavaScript",
+      "source": {
+        "light": "https://svgl.app/library/javascript.svg",
+        "dark": "https://svgl.app/library/javascript.svg"
+      }
+    },
+    {
+      "id": "html",
+      "name": "HTML5",
+      "status": "svgl",
+      "svglTitle": "HTML5",
+      "source": {
+        "light": "https://svgl.app/library/html5.svg",
+        "dark": "https://svgl.app/library/html5.svg"
+      }
+    },
+    {
+      "id": "django",
+      "name": "Django",
+      "status": "svgl",
+      "svglTitle": "Django",
+      "source": {
+        "light": "https://svgl.app/library/django.svg",
+        "dark": "https://svgl.app/library/django.svg"
+      }
+    },
+    {
+      "id": "flask",
+      "name": "Flask",
+      "status": "svgl",
+      "svglTitle": "Flask",
+      "source": {
+        "light": "https://svgl.app/library/flask-light.svg",
+        "dark": "https://svgl.app/library/flask-dark.svg"
+      }
+    },
+    {
+      "id": "fastapi",
+      "name": "FastAPI",
+      "status": "svgl",
+      "svglTitle": "FastAPI",
+      "source": {
+        "light": "https://svgl.app/library/fastapi.svg",
+        "dark": "https://svgl.app/library/fastapi.svg"
+      }
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "status": "svgl",
+      "svglTitle": "Python",
+      "source": {
+        "light": "https://svgl.app/library/python.svg",
+        "dark": "https://svgl.app/library/python.svg"
+      }
+    },
+    {
+      "id": "rails",
+      "name": "Ruby on Rails",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "status": "svgl",
+      "svglTitle": "Ruby",
+      "source": {
+        "light": "https://svgl.app/library/ruby.svg",
+        "dark": "https://svgl.app/library/ruby.svg"
+      }
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "status": "svgl",
+      "svglTitle": "Go",
+      "source": {
+        "light": "https://svgl.app/library/golang.svg",
+        "dark": "https://svgl.app/library/golang_dark.svg"
+      }
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "status": "svgl",
+      "svglTitle": "Rust",
+      "source": {
+        "light": "https://svgl.app/library/rust.svg",
+        "dark": "https://svgl.app/library/rust_dark.svg"
+      }
+    },
+    {
+      "id": "spring",
+      "name": "Spring Boot",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "status": "svgl",
+      "svglTitle": "Java",
+      "source": {
+        "light": "https://svgl.app/library/java.svg",
+        "dark": "https://svgl.app/library/java.svg"
+      }
+    },
+    {
+      "id": "dotnet",
+      "name": ".NET",
+      "status": "missing",
+      "source": null
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo",
+      "status": "svgl",
+      "svglTitle": "Hugo",
+      "source": {
+        "light": "https://svgl.app/library/hugo.svg",
+        "dark": "https://svgl.app/library/hugo.svg"
+      }
+    }
+  ]
+}

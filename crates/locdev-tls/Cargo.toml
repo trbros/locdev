@@ -1,0 +1,20 @@
+[package]
+name = "locdev-tls"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+rcgen.workspace = true
+ring.workspace = true
+rustls.workspace = true
+rustls-native-certs.workspace = true
+time = "0.3"
+tracing.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

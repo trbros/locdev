@@ -1,0 +1,20 @@
+[package]
+name = "locdev-services"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+locdev-runtimes.workspace = true
+flate2 = "1"
+serde.workspace = true
+serde_json.workspace = true
+tar = "0.4"
+toml.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

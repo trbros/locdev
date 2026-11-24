@@ -1,0 +1,55 @@
+[workspace]
+members = ["apps/locdev", "apps/desktop/src-tauri", "crates/*", "tools/*"]
+# The desktop app needs the platform webview toolchain (webkit2gtk on Linux);
+# keep it out of plain `cargo build`/`cargo test` so the core stays buildable anywhere.
+default-members = ["apps/locdev", "crates/*", "tools/*"]
+
+resolver = "3"
+
+[workspace.package]
+version = "0.18.1"
+edition = "2024"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+locdev-core = { path = "crates/locdev-core" }
+locdev-ipc = { path = "crates/locdev-ipc" }
+locdev-dns = { path = "crates/locdev-dns" }
+locdev-frameworks = { path = "crates/locdev-frameworks" }
+locdev-services = { path = "crates/locdev-services" }
+locdev-config = { path = "crates/locdev-config" }
+locdev-db = { path = "crates/locdev-db" }
+locdev-deploy = { path = "crates/locdev-deploy" }
+locdev-mail = { path = "crates/locdev-mail" }
+locdev-email = { path = "crates/locdev-email" }
+locdev-platform = { path = "crates/locdev-platform" }
+locdev-proxy = { path = "crates/locdev-proxy" }
+locdev-runtimes = { path = "crates/locdev-runtimes" }
+locdev-tls = { path = "crates/locdev-tls" }
+
+anyhow = "1"
+bytes = "1"
+clap = { version = "4", features = ["derive"] }
+directories = "6"
+futures-util = { version = "0.3", features = ["sink"] }
+http-body-util = "0.1"
+hyper = { version = "1", features = ["client", "http1", "http2", "server"] }
+hyper-util = { version = "0.1", features = ["client-legacy", "http1", "http2", "server-auto", "tokio"] }
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "pem", "ring", "x509-parser"] }
+ring = "0.17"
+rustls = { version = "0.23", default-features = false, features = ["logging", "ring", "std", "tls12"] }
+rustls-native-certs = "0.8"
+nix = { version = "0.32", features = ["signal", "process"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+thiserror = "2"
+tokio = { version = "1", features = ["io-util", "macros", "net", "process", "rt-multi-thread", "signal", "sync", "time"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["logging", "ring", "tls12"] }
+toml = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

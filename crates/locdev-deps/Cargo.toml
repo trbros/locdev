@@ -1,0 +1,18 @@
+[package]
+name = "locdev-deps"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_norway = "0.9"
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip", "json"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

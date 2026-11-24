@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    name: Rust (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+
+  desktop:
+    name: Desktop app
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/desktop
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: apps/desktop/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - name: Translations (every UI string in pt-BR, es and ja)
+        run: pnpm test:i18n
+      - run: pnpm build
+      - name: UI smoke test (every page, against the mock daemon)
+        run: pnpm exec playwright install --with-deps chromium && pnpm test:ui
+      - name: Accessibility (WCAG 2.2 AA with axe, both themes, keyboard focus)
+        run: pnpm test:a11y
+      - name: Install Tauri system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      # tauri-build requires the sidecar binaries to exist.
+      - run: node scripts/prepare-sidecars.mjs --debug
+      - run: cargo clippy -p locdev-desktop -- -D warnings
+
+  # The site reads the repository root (CHANGELOG.md, Cargo.toml, crates), so
+  # it runs on every push instead of only on apps/docs changes. Vercel
+  # publishes it (Root Directory: apps/docs).
+  docs:
+    name: Docs site
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/docs
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: apps/docs/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: apps/docs/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      # Public placeholders only; the tests and the build read .env.
+      - run: cp .env.example .env
+      - run: pnpm typecheck
+      # Content, translations, routes, the changelog copy and the /compare
+      # LocDev column against this repository.
+      - run: pnpm test
+      - run: pnpm check:comparison
+      - run: pnpm check:routes
+      - run: pnpm build

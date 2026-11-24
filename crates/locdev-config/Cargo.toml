@@ -1,0 +1,27 @@
+[package]
+name = "locdev-config"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jsonc-parser = { version = "0.34", features = ["cst", "serde_json", "preserve_order"] }
+locdev-core.workspace = true
+locdev-deps = { path = "../locdev-deps" }
+oxc_allocator = "0.160"
+oxc_ast = "0.160"
+oxc_parser = "0.160"
+oxc_span = "0.160"
+quick-xml = "0.42"
+serde.workspace = true
+serde_json.workspace = true
+serde_norway = "0.9"
+sha2 = "0.11"
+similar = "3"
+toml.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

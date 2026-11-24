@@ -1,0 +1,1533 @@
+{
+	"Meta": {
+		"title": "LocDev — ローカル開発に、限界はいらない",
+		"description": "Rust製のオープンソースローカル開発環境。.testドメイン、HTTPS、ランタイム、開発ワークフローを一元管理。"
+	},
+	"Nav": {
+		"contact": "お問い合わせ",
+		"product": "製品",
+		"features": "機能",
+		"download": "導入する",
+		"roadmap": "変更履歴",
+		"docs": "ドキュメント",
+		"github": "GitHub",
+		"menu": "メニューを開く",
+		"close": "メニューを閉じる",
+		"language": "言語を選択",
+		"lightTheme": "ライトテーマに切り替え",
+		"darkTheme": "ダークテーマに切り替え",
+		"skip": "本文へスキップ",
+		"mainNav": "メインナビゲーション",
+		"mobileNav": "モバイルナビゲーション",
+		"donate": "支援",
+		"stacks": "技術スタック",
+		"getStarted": "はじめる",
+		"configure": "プロジェクト設定",
+		"changelog": "更新履歴",
+		"contribute": "貢献する",
+		"explore": "その他",
+		"services": "サービス",
+		"about": "プロジェクトについて",
+		"support": "サポート",
+		"privacy": "プライバシー",
+		"securityReporting": "脆弱性を報告",
+		"faq": "よくある質問",
+		"compare": "比較"
+	},
+	"Hero": {
+		"eyebrow": "ローカル開発を、再設計する",
+		"version": "{version} · 開発中",
+		"titlePrimary": "ローカルは、始まり。",
+		"titleAccent": "可能性は、あなた次第。",
+		"body": "プロジェクトも、ドメインも、環境もあなたのもの。RustデーモンがCLI、デスクトップ、DNS、HTTPSを接続。必須のクラウドも、サブスクも不要。",
+		"primary": "LocDev をはじめる",
+		"secondary": "CLIを見る",
+		"badge1": "100% オープンソース",
+		"badge2": "Linux · macOS · Windows",
+		"scroll": "スクロールして探索",
+		"caption": "あなたの環境。あなたのルール。",
+		"corner": "開発者のための設計"
+	},
+	"Ticker": {
+		"label": "あなたの技術スタックに"
+	},
+	"Capabilities": {
+		"eyebrow": "01 / フルコントロール",
+		"title": "設定を減らして。",
+		"titleAccent": "コードを書く。",
+		"body": "OSを尊重し、本格的なローカルプロジェクトを動かすために必要なものをひとつに。",
+		"domainsTag": "01 / ドメイン",
+		"domainsTitle": "localhost:3000に、さようなら。",
+		"domainsBody": "各プロジェクトに.testドメインを。サブドメインとリバースプロキシにも対応。",
+		"domainsFooter": "ローカルDNS + リバースプロキシ",
+		"httpsTag": "02 / セキュリティ",
+		"httpsTitle": "ローカルでも本物のHTTPS。",
+		"httpsBody": ".testと.localhostのみに制限されたCAによるローカル証明書。信頼の追加は明示的に。",
+		"processTag": "03 / プロセス",
+		"processTitle": "ひとつのデーモンですべて管理。",
+		"processBody": "デスクトップとターミナルからプロジェクトを起動・停止・監視。",
+		"privilegeTag": "04 / 透明性",
+		"privilegeTitle": "管理者権限は承認したときだけ。",
+		"privilegeBody": "システム変更前に実行内容を表示し、明示的な承認を求めます。",
+		"runtimesTag": "05 / ランタイム",
+		"runtimesTitle": "プロジェクトに合うバージョン。",
+		"runtimesBody": "Node.jsとPHPをプロジェクト別に管理。既存のインストールも検出。",
+		"doctorTag": "06 / 診断",
+		"doctorTitle": "Doctorは推測せず検証。",
+		"doctorBody": "DNS、TLS、ポート、競合を証拠に基づいて診断します。"
+	},
+	"Demo": {
+		"eyebrow": "02 / プレビュー",
+		"title": "開発者の考え方に合うUI。",
+		"body": "無駄に複雑なダッシュボードは不要。プロジェクトとプロセスの状態をリアルタイムで把握。",
+		"desktop": "デスクトップ / LOCDEV",
+		"sites": "サイト",
+		"runtimes": "ランタイム",
+		"services": "サービス",
+		"settings": "設定",
+		"workspace": "ワークスペース",
+		"allSites": "プロジェクト",
+		"online": "3件稼働中",
+		"status": "RUNNING",
+		"siteDetail": "プロジェクト詳細",
+		"logs": "プロセスログ",
+		"healthy": "正常稼働",
+		"realTime": "LIVE",
+		"cliLabel": "CLI + デスクトップ + デーモン",
+		"mock": "UIプレビュー"
+	},
+	"Workflow": {
+		"eyebrow": "03 / ワークフロー",
+		"title": "ターミナルからブラウザへ。",
+		"titleAccent": "寄り道なし。",
+		"body": "3つのコマンドで、開発環境が動き始めます。",
+		"tabOne": "設定",
+		"tabTwo": "起動",
+		"tabThree": "診断",
+		"copy": "コマンドをコピー",
+		"copied": "コピーしました",
+		"step1": "インストールしてデーモンを起動",
+		"step2": "プロジェクトを登録して起動",
+		"step3": "Doctorで環境を確認",
+		"note": "実際のCLIに基づくコマンド例です。"
+	},
+	"Security": {
+		"eyebrow": "意図あるエンジニアリング",
+		"title": "あなたの環境。あなたのデータ。不要な依存関係なし。",
+		"body": "デーモンはローカルで待機し、特権操作は明示的。ルート証明書にはドメイン制約があります。",
+		"cta": "アーキテクチャを見る",
+		"item1": "100% ローカル",
+		"item2": "制限付きCA",
+		"item3": "アカウント不要"
+	},
+	"Platform": {
+		"eyebrow": "04 / プラットフォーム",
+		"title": "どのOSも歓迎します。",
+		"body": "Rustをベースに、3つのデスクトップOSへネイティブに統合します。",
+		"linux": "Linux",
+		"mac": "macOS",
+		"windows": "Windows",
+		"note": "インストーラーの配布と検証はまだ進行中です。"
+	},
+	"FAQ": {
+		"eyebrow": "よくある質問",
+		"title": "隠れた条件はありません。",
+		"q1": "LocDevは無料ですか？",
+		"a1": {
+			"p1": "はい。LocDev は Apache-2.0 ライセンスで公開されている無料のオープンソースソフトウェアです。ローカル開発環境の基本機能を利用するためにサブスクリプションは必要ありません。",
+			"p2": "個人・学習・業務・商用プロジェクトや顧客向けの開発にも利用できます。ライセンスの条件に従い、必要なライセンス表示を保持することで、ソースコードの調査・改変・再配布が可能です。",
+			"p3": "目指しているのは、重要な機能を有料契約で制限することなく、さまざまな技術スタックを一つのツールで扱える自由な開発環境です。一部の機能は開発中で、利用できる範囲はインストールしたバージョンによって異なります。GitHub で開発状況を確認し、改善提案や貢献を行えます。"
+		},
+		"q2": "Dockerは必要ですか？",
+		"a2": {
+			"p1": "いいえ。LocDev の基本的な利用に Docker、Podman、仮想マシンは必要ありません。開発サーバーはコンピューター上のネイティブプロセスとして実行され、ローカルデーモンによって管理されます。",
+			"p2": "CLI とデスクトップアプリは同じデーモンと通信します。デーモンはプロジェクトの登録、プロセスの起動・停止、プロキシ経由のリクエスト転送、ローカルドメインや HTTPS の提供を行います。Laravel や Next.js などの開発に、サイトごとのコンテナーを必ずしも用意する必要はありません。",
+			"p3": "ただし、すべてのプロジェクトが追加の依存関係なしで動くわけではありません。使用する技術に応じて PHP、Node.js、データベースなどが必要になる場合があります。LocDev はコンテナーを使わず、すべてをネイティブのプロセスとして動かします。"
+		},
+		"q3": "Linux、Windows、macOSに対応していますか？",
+		"a3": {
+			"p1": "LocDev は Linux、Windows、macOS を対象に設計されています。共通の Rust 基盤がデーモン、CLI、主要機能を担い、デスクトップアプリには Tauri を使用しています。",
+			"p2": "インストール方法や動作は OS によって異なります。ローカル DNS の設定、HTTPS 証明書の信頼設定、自動起動サービス、必要な依存関係には、それぞれの OS 固有の仕組みが使われます。",
+			"p3": "各プラットフォームへの対応は継続的に改善されており、インストーラーや一部の操作の検証は完了していない場合があります。インストール前に要件、配布ファイル、リリースノートを確認し、お使いの環境との互換性をご確認ください。"
+		},
+		"q4": "インストーラーは安定版ですか？",
+		"a4": {
+			"p1": "現時点では、重要な環境で使う安定版としてインストーラーを扱うことは推奨していません。LocDev はプレリリース段階で、パッケージング、互換性、バイナリ署名の検証を進めています。",
+			"p2": "公開されているビルドは、アプリを試したり機能を確認したり、不具合を報告したりする用途に適しています。ただし、インストーラーやソースコード上の機能が存在しても、すべての OS や利用状況で検証済みとは限りません。",
+			"p3": "安全に試すため、OS ごとの要件とリリースノートを読み、重要な設定のバックアップを取ってください。ダウンロードページから公開済みのリリースにアクセスできます。各バージョンで変わったことは変更履歴で確認できます。"
+		},
+		"link1": "Apache-2.0 ライセンスを読む",
+		"link2": "アーキテクチャを見る",
+		"link3": "要件とインストール手順を確認する",
+		"link4": "リリースと利用方法を見る"
+	},
+	"CTA": {
+		"eyebrow": "新しい開発体験へ",
+		"title": "ローカルを、",
+		"accent": "最高の環境に。",
+		"body": "ソースコードを見て、開発に参加して、理想の開発環境を一緒に作りましょう。",
+		"primary": "変更履歴を見る",
+		"secondary": "GitHubを見る"
+	},
+	"Download": {
+		"eyebrow": "BUILD / RELEASES",
+		"title": "あらゆるマシンに、あなたの環境を。",
+		"body": "LocDevはLinux、macOS、Windows向けに開発中です。成果物と検証状況を確認できます。",
+		"developmentNotice": "プレリリース：インストーラーとコード署名は検証中です。安定版として扱わないでください。",
+		"osTitle": "プラットフォームを選択",
+		"windows": "Windows",
+		"windowsDetail": "MSI / NSIS形式を計画中",
+		"mac": "macOS",
+		"macDetail": "DMG形式を計画中",
+		"linux": "Linux",
+		"linuxDetail": "DEB、RPM、AppImage形式を計画中",
+		"release": "リリースを見る",
+		"sourceTitle": "ソースからビルドする。",
+		"sourceBody": "CLI、デーモン、Tauriデスクトップが含まれます。Rust、Node.js、およびOSごとの依存関係が必要です。リポジトリへのアクセスには権限が必要な場合があります。",
+		"sourceLink": "手順を確認",
+		"disclaimer": "バイナリの提供状況はリリースごとの公開と検証に依存します。",
+		"version": "現在：開発進行中",
+		"step1": "お使いの OS を選びます。",
+		"step2": "リリースで公開されているファイルを確認します。",
+		"step3": "OS に合ったインストールガイドに従います。",
+		"sourceEyebrow": "ソースコード / ビルド"
+	},
+	"Docs": {
+		"eyebrow": "リファレンス / 001",
+		"title": "開発者のためのドキュメント。",
+		"body": "ターミナル、デーモン、ブラウザ間で何が起きるかを基本から学べます。",
+		"start": "クイックスタート",
+		"startBody": "CLIを利用したローカルワークフロー。インストール前にREADMEの前提条件をご確認ください。",
+		"cli": "CLIクイックリファレンス",
+		"cliBody": "CLIとデスクトップは同じローカルデーモンに要求を送信します。",
+		"command": "コマンド",
+		"meaning": "説明",
+		"cmd1": "デーモンを起動",
+		"cmd2": "現在のプロジェクトを登録して起動",
+		"cmd3": "登録済みプロジェクトを一覧表示",
+		"cmd4": "プロセス出力を表示",
+		"cmd5": "DNS、HTTPS、競合を確認",
+		"cmd6": ".testの解決状態を確認",
+		"cmd7": "CAの信頼状態を確認",
+		"architecture": "レイヤードアーキテクチャ",
+		"arch1": "デスクトップ + CLI",
+		"arch2": "ローカルIPC / 共通プロトコル",
+		"arch3": "Rustデーモン / プロセス管理",
+		"arch4": "プロキシ + DNS + TLS + ランタイム",
+		"external": "リポジトリの資料を見る",
+		"tip": "インストール手順はOSによって異なります。管理者権限を許可する前にREADMEを確認してください。"
+	},
+	"Footer": {
+		"description": "HTTPS に対応し、アプリやターミナルから操作できるオープンソースのローカル開発環境。",
+		"help": "ドキュメント・ヘルプ",
+		"project": "運営情報",
+		"legal": "法的情報",
+		"tagline": "Local first. Developer always.",
+		"made": "作る人のために。",
+		"product": "製品",
+		"resources": "探索",
+		"rights": "オープンソース · Apache License 2.0",
+		"external": "GitHubリポジトリ",
+		"back": "先頭に戻る",
+		"maintainedBy": "開発・メンテナンス"
+	},
+	"Common": {
+		"learnMore": "詳しく見る",
+		"viewDocs": "ドキュメント",
+		"coming": "開発中",
+		"loading": "読み込み中",
+		"source": "ソースコード",
+		"status": "状態"
+	},
+	"Gallery": {
+		"eyebrow": "04 / 実際のアプリ",
+		"title": "見せるためではなく、使うために。",
+		"body": "サイト、ランタイム、診断を管理する画面を紹介します。詳しい操作はドキュメントのアプリツアーをご覧ください。",
+		"sites": "サイト一覧とリアルタイムログ",
+		"runtimes": "サイトごとの PHP・Node.js バージョン",
+		"doctor": "Doctor による環境診断",
+		"link": "アプリを詳しく見る"
+	},
+	"DocCode": {
+		"terminal": "ターミナル",
+		"copy": "コピー",
+		"copied": "コピーしました",
+		"copyFailed": "コピーできませんでした。コードを選択してコピーしてください。",
+		"running": "デーモン実行中",
+		"example": "出力例です。実際の状態はお使いの環境によって異なります。"
+	},
+	"DocsSearch": {
+		"title": "ドキュメントを検索",
+		"placeholder": "ドキュメントを検索…",
+		"description": "LocDev のドキュメントのページやセクションを検索できます。",
+		"clear": "検索をクリア",
+		"close": "検索を閉じる",
+		"empty": "該当するセクションがありません。別のキーワードをお試しください。",
+		"hint": "↑ ↓ 選択 · Enter 開く · Esc 閉じる"
+	},
+	"FeaturePage": {
+		"eyebrow": "機能 / 開発を支える仕組み",
+		"title": "開発環境をひとつに。操作をスムーズに。",
+		"body": "ドメインの登録からプロセスのログまで。デスクトップとターミナルから、同じローカル環境を操作できます。",
+		"primary": "LocDev をはじめる",
+		"preview": "デスクトップアプリの画面",
+		"architectureEyebrow": "各機能をつなぐ仕組み",
+		"architectureTitle": "共通の基盤。2つの操作方法。",
+		"desktop": "デスクトップアプリ",
+		"desktopBody": "プロジェクト、バージョン、診断をネイティブな画面で管理。",
+		"cli": "コマンドライン",
+		"cliBody": "ターミナルやスクリプトから、同じ操作を実行できます。",
+		"daemon": "ローカルデーモン",
+		"daemonBody": "アプリを閉じても、デーモンがサイトのプロセスを管理します。",
+		"network": "DNS + HTTPS",
+		"networkBody": "ローカルドメイン、リバースプロキシ、サイトごとの証明書。",
+		"workflowsLabel": "開発フローを見る",
+		"runtimesPreview": "プロジェクトごとのバージョンとツール",
+		"runtimesAlt": "LocDev アプリでのランタイムのバージョン管理。"
+	},
+	"License": {
+		"label": "ライセンス",
+		"eyebrow": "オープンソース / APACHE-2.0",
+		"title": "自由に使い、次の開発へ。",
+		"body": "LocDev アプリケーションは Apache License, Version 2.0 で提供されています。ライセンスの条件に従い、商用を含む利用、変更、再配布が可能です。",
+		"permissionsTitle": "開発のための自由。",
+		"useTitle": "利用する",
+		"useBody": "個人、組織内、商用のプロジェクトで利用できます。",
+		"modifyTitle": "変更する",
+		"modifyBody": "コードを変更し、派生物を作成できます。",
+		"shareTitle": "再配布する",
+		"shareBody": "ライセンスの条件に従い、元のソフトウェアや変更版を再配布できます。",
+		"conditionsTitle": "再配布時に必要なこと",
+		"condition1": "再配布する際はライセンスの写しを添付してください。",
+		"condition2": "変更したファイルを明示し、関連する著作権、特許、商標、帰属の表示を保持してください。",
+		"condition3": "配布物に NOTICE ファイルが含まれる場合は、該当する帰属表示を保持してください。",
+		"limitsTitle": "特許・商標・保証",
+		"limitsBody": "特許の許諾は第3条の範囲に従います。商標の使用が一般的に許諾されるわけではありません。ソフトウェアは現状のまま提供され、保証と責任については第7条・第8条が適用されます。",
+		"fullTitle": "ライセンスの全文",
+		"fullBody": "上記は参考のための要約です。Apache-2.0 の条件は、以下の公式の英語原文で定められています。",
+		"official": "公式の原文を見る",
+		"download": "ライセンスをダウンロード (.txt)",
+		"showText": "Apache License, Version 2.0 — 全文",
+		"spdx": "SPDX 識別子",
+		"dependencies": "サードパーティの依存関係やコンポーネントには、それぞれのライセンスや表示が適用される場合があります。"
+	},
+	"FeatureDetails": {
+		"eyebrow": "実際の開発フロー",
+		"title": "フォルダの登録から、開発環境の起動まで。",
+		"sitesLabel": "サイトとプロセス",
+		"sitesTitle": "プロジェクトのフォルダに、ローカルのアドレスを。",
+		"sitesBody": "プロジェクトを登録すると、LocDev がフレームワークを検出します。アプリや CLI からプロセスを管理でき、.localhost ドメインはシステムの DNS 設定なしで利用できます。",
+		"sitesItem1": "PHP、Laravel、WordPress、Node.js、Next.js のプロジェクトを検出。",
+		"sitesItem2": "サーバーごとの起動・停止とログの確認。",
+		"sitesItem3": "必要に応じて、明示的な承認のもとで .test と HTTPS を設定。",
+		"sitesAlt": "選択したプロジェクトとプロセスのログを表示するサイト画面。",
+		"runtimesLabel": "プロジェクトごとのランタイム",
+		"runtimesTitle": "システムを変えずに、プロジェクトに合うバージョンを。",
+		"runtimesBody": "サイトごとに Node.js と PHP を選べます。LocDev はプロセスの PATH に選択したバージョンを設定し、グローバルのインストールや他のプロジェクトへの影響を避けます。",
+		"runtimesItem1": "管理対象のバージョンと、検出された既存のインストールを利用。",
+		"runtimesItem2": "プロジェクトごとの固定と LocDev の既定値の設定。",
+		"runtimesItem3": "管理対象のダウンロードは、インストール前に検証。",
+		"runtimesAlt": "Node.js と PHP のバージョンを管理する LocDev の画面。",
+		"doctorLabel": "診断",
+		"doctorTitle": "環境を変更する前に、原因を確認。",
+		"doctorBody": "Doctor はデーモン、ポート、DNS リゾルバー、ローカル CA の信頼状態を確認します。結果から問題を把握し、次の対処を判断できます。",
+		"doctorItem1": "ポートの競合や不足している依存関係を検出。",
+		"doctorItem2": "DNS 設定と証明書の信頼状態を確認。",
+		"doctorItem3": "デスクトップと locdev doctor で同じ診断を実行。",
+		"doctorAlt": "ローカル環境の診断結果を表示する Doctor の画面。",
+		"controlEyebrow": "管理 / 明示的な許可",
+		"controlTitle": "環境の変更内容を、実行前に確認。",
+		"securityLink": "セキュリティの設計を見る",
+		"inspectTitle": "実行する内容を確認",
+		"inspectBody": "システムとの連携操作では、実行予定のスクリプトを表示します。",
+		"approveTitle": "必要な操作だけを承認",
+		"approveBody": "DNS のインストールや CA の信頼設定では、システムの変更前に確認を求めます。",
+		"undoTitle": "連携の設定を元に戻す",
+		"undoBody": "DNS のアンインストールや CA の信頼解除のコマンドで、設定を元に戻せます。",
+		"nextEyebrow": "次のステップ",
+		"nextTitle": "最初のローカル環境を作りましょう。",
+		"nextBody": "ガイドに沿ってデーモンを起動し、プロジェクトを登録して、ブラウザーでアドレスを開いてみましょう。",
+		"startLink": "はじめ方のガイドを読む",
+		"downloadLink": "インストール方法を選ぶ"
+	},
+	"LicenseReader": {
+		"contents": "ライセンスの目次",
+		"introduction": "概要",
+		"document": "Apache-2.0 ライセンスの全文",
+		"copy": "本文をコピー",
+		"copied": "コピーしました",
+		"copyError": "コピーできませんでした。本文を選択してコピーしてください。",
+		"textSize": "文字サイズを切り替える",
+		"download": "ライセンスをダウンロード",
+		"expand": "リーダーを拡大",
+		"close": "リーダーを閉じる",
+		"language": "公式原文 · 英語",
+		"original": "Apache License, Version 2.0 · 原文をそのまま表示"
+	},
+	"Donate": {
+		"label": "LocDev を支援する",
+		"eyebrow": "コミュニティ / アプリの保守",
+		"title": "開発をもっと快適に。そのための開発を、これからも。",
+		"body": "LocDev の開発を続けるには、不具合の修正、OS ごとの検証、ランタイムへの対応、操作性の改善に時間が必要です。この取り組みを継続できるよう、任意の支援を受け付ける方法を準備しています。",
+		"whyLink": "支援の目的を見る",
+		"otherWays": "今できること",
+		"status": "準備中",
+		"comingTitle": "金銭的な支援の受付を準備しています。",
+		"comingBody": "アプリの保守を支援いただける仕組みを準備中です。現在は決済をご利用いただけません。",
+		"comingButton": "支援の受付は準備中です",
+		"noPayment": "このページでは支払いを求めたり、決済を処理したりしません。",
+		"prioritiesEyebrow": "支援が役立つ取り組み",
+		"prioritiesTitle": "今ある機能を支え、次の開発へ。",
+		"prioritiesBody": "これらの優先事項は、LocDev の README、ビルドツール、変更履歴に書かれた作業に基づいています。支援があれば、より多くの時間とリソースを割けます。",
+		"roadmapLink": "変更履歴を見る",
+		"explore": "取り組みを見る",
+		"maintenanceTitle": "ローカル環境の保守",
+		"maintenanceBody": "デーモン、CLI、HTTP/HTTPS プロキシ、.test DNS、ローカル証明書の不具合修正や依存関係への対応を続けます。プロジェクトを動かす基盤にも、継続的な保守が必要です。",
+		"experienceTitle": "開発体験の改善",
+		"experienceBody": "デスクトップの操作、コマンドパレット、ログ、Doctor を改善します。メッセージ、アクセシビリティ、ドキュメントを整え、プロジェクトを開いてから開発を始めるまでの手間を減らします。",
+		"runtimesTitle": "ランタイムと検証済みビルド",
+		"runtimesBody": "プロジェクトごとの Node.js・PHP の管理を進め、PHP のビルド工程、署名付きマニフェスト、ダウンロードの検証を維持します。ツールの更新に合わせた継続的な対応が必要な部分です。",
+		"releasesTitle": "3つの OS での品質向上",
+		"releasesBody": "Linux、macOS、Windows での実機テストを広げ、インストーラーの検証やバイナリの署名を進めます。パッケージングと互換性の確認も、安定版に向けた重要な取り組みです。",
+		"principlesEyebrow": "任意の支援 / オープンソース",
+		"principlesTitle": "約束の購入ではなく、開発を支えるために。",
+		"voluntary": "LocDev は Apache-2.0 のオープンソースアプリです。支援は任意であり、ローカル開発の基本機能を利用するための条件にはしません。",
+		"plans": "高度な診断とワークスペースはまだアプリにありません。支援によって優先度が買えたり、機能や提供日が保証されたりすることはありません。",
+		"licenseLink": "Apache-2.0 ライセンスを読む",
+		"otherEyebrow": "ほかにもできること",
+		"otherTitle": "金銭的な支援以外にも、できることがあります。",
+		"testTitle": "試して、不具合を報告する",
+		"testBody": "公開済みのビルドを試し、OS、発生した現象、再現手順をお知らせください。実際の環境での問題が、修正につながります。",
+		"testLink": "LocDev の試し方を見る",
+		"docsTitle": "知識を共有する",
+		"docsBody": "ガイドを利用して分かりにくい手順を指摘したり、説明や翻訳の改善に協力したりできます。分かりやすいドキュメントも、開発体験を支えます。",
+		"docsLink": "ドキュメントを見る",
+		"codeTitle": "プロジェクトに協力する",
+		"codeBody": "不具合修正、レビュー、UI の改善もプロジェクトの前進につながります。アクセスや貢献方法は、リポジトリの公開状況と案内に従ってください。",
+		"codeLink": "リポジトリを開く",
+		"sourceNote": "優先事項は LocDev リポジトリの README、変更履歴、ビルドのドキュメントに基づいています。まだ提供されていない項目は、実装と検証が前提です。"
+	},
+	"Stacks": {
+		"eyebrow": "コードも、使う技術も、自由に。",
+		"homeTitle": "スタックが変わっても、開発はスムーズに。",
+		"homeBody": "Laravel から Rust まで、各エコシステムの開発フローを紹介します。LocDev はローカルサーバーに .test ドメイン、HTTPS、プロセス管理を提供します。",
+		"pageTitle": "さまざまな技術スタックを、ひとつの環境で。",
+		"pageBody": "フレームワーク、言語、ランタイムを一覧で確認できます。連携方法と、既存プロジェクトで使うコマンド例をご覧ください。",
+		"viewAll": "すべてのスタックを見る",
+		"count": "{count} 件のスタック",
+		"preview": "開発フローのプレビュー",
+		"example": "コマンド例",
+		"previous": "前のスタック",
+		"next": "次のスタック",
+		"pause": "アニメーションを一時停止",
+		"play": "アニメーションを再生",
+		"selectStack": "スタックを選択",
+		"officialDocs": "公式ドキュメント",
+		"providerCommand": "デプロイ方法は、利用するサービスとプロジェクトの設定に従います。",
+		"projectCommand": "この工程のコマンドはプロジェクトの設定によって異なります。",
+		"commandNote": "既存プロジェクト向けの例です。スクリプト、エントリーファイル、ポートを調整してください。{port} は LocDev が割り当てるポートです。",
+		"scopeNote": "LocDev が管理するのはローカルサーバーです。インストール、ビルド、テスト、デプロイは各ツールの開発フローを示しており、アプリが自動実行する機能ではありません。",
+		"directoryEyebrow": "エコシステムを探す",
+		"directoryTitle": "次に使うスタックを見つけましょう。",
+		"search": "フレームワーク・言語・ランタイムを検索...",
+		"clear": "検索をクリア",
+		"filterLabel": "連携方法で絞り込む",
+		"all": "すべて",
+		"supportNote": "自動検出：アプリがプロジェクトを認識します。package.json 経由：Node.js プロジェクトとして dev/start スクリプトを使用します。カスタムコマンド：ランタイムをインストールし、LocDev のポートに合わせてサーバーを設定する必要があります。",
+		"viewWorkflow": "開発フローを見る",
+		"emptyTitle": "このスタックはまだ掲載されていません。",
+		"emptyBody": "別の名前で検索するか、連携機能をリクエストしてください。",
+		"reset": "絞り込みを解除",
+		"requestEyebrow": "一緒にエコシステムを広げましょう",
+		"requestTitle": "使いたいスタックを教えてください。",
+		"requestBody": "自動検出、ランタイム、コマンドの提案機能をリクエストできます。ボタンを押すと GitHub の Issue 作成画面が開き、内容を確認してから送信できます。",
+		"request": "フレームワークをリクエスト",
+		"setup": "カスタムコマンドの設定方法",
+		"support": {
+			"detected": "自動検出",
+			"script": "package.json 経由",
+			"custom": "カスタムコマンド"
+		},
+		"categories": {
+			"frontend": "フロントエンド・Web アプリ",
+			"backend": "バックエンド・API",
+			"runtime": "言語・ランタイム",
+			"tooling": "ツール・静的サイト"
+		},
+		"stages": {
+			"install": "インストール",
+			"run": "起動",
+			"build": "ビルド",
+			"test": "テスト",
+			"deploy": "デプロイ"
+		},
+		"scrollPrevious": "スタック一覧を左にスクロール",
+		"scrollNext": "スタック一覧を右にスクロール",
+		"workflowTitle": "{name} の開発フロー",
+		"workflowDescription": "既存プロジェクトのコマンド例と、LocDev で起動する手順です。プロジェクトのディレクトリ内で実行してください。",
+		"nativeCommands": "スタックのコマンド",
+		"specificCommand": "スタック固有のコマンド",
+		"toolsNote": "プロジェクトのツールと依存関係が必要です。wp など、一部の例では別途 CLI のインストールが必要です。",
+		"locdevCommands": "LocDev CLI でサイトを起動",
+		"locdevDescription": "デーモンを起動し、サーバーコマンドとともに現在のディレクトリを登録して、サイトを起動しログを確認します。名前は例です。別のプロジェクトには異なる名前を指定してください。",
+		"missingServer": "locdev up を実行する前に、<HTTP_SERVER_COMMAND> を実際の HTTP サーバー起動コマンドに置き換えてください。言語だけでは Web サーバーは決まりません。",
+		"portNote": "サーバーはアプリが割り当てるポートを使用する必要があります。LocDev は {port} を置き換え、環境変数 PORT も渡します。.test と HTTPS の利用には、ドキュメントに従って DNS と証明書の信頼を設定してください。",
+		"closeWorkflow": "開発フローを閉じる",
+		"share": "開発フローのリンクをコピー",
+		"configure": "プロジェクトを設定",
+		"linkCopied": "リンクをコピーしました。",
+		"linkFailed": "コピーできませんでした。ブラウザーの URL をコピーしてください。",
+		"loading": "スタックを読み込み中…"
+	},
+	"Releases": {
+		"connected": "公開リリースに接続済み",
+		"emptyTitle": "公開済みリリースはまだありません",
+		"emptyBody": "公開されたリリースが利用可能になると、ここにファイルが表示されます。",
+		"unavailableTitle": "リリース情報を取得できません",
+		"notPublic": "GitHub からこのリポジトリの公開情報を取得できませんでした。プロジェクトを確認するか、ソースからのビルド手順をご覧ください。",
+		"unavailableBody": "GitHub に接続できませんでした。更新するか、リポジトリのリリースを開いてください。",
+		"refreshInfo": "更新の反映には最大 15 分かかる場合があります。公開済みリリースのみ表示します。",
+		"checked": "最終確認：",
+		"refreshing": "更新中…",
+		"refresh": "更新",
+		"system": "OS",
+		"architecture": "アーキテクチャ",
+		"channel": "チャンネル",
+		"stable": "安定版",
+		"preview": "プレリリース",
+		"package": "パッケージ",
+		"desktop": "デスクトップアプリ",
+		"cli": "CLI とデーモン",
+		"notes": "リリースノート",
+		"download": "ファイルをダウンロード",
+		"checksums": "SHA256SUMS を表示",
+		"noChecksum": "このファイルのチェックサムは公開されていません。",
+		"noAssetTitle": "この組み合わせのファイルはありません。",
+		"noChannelTitle": "このチャンネルにリリースはありません。",
+		"noAssetBody": "別の OS、アーキテクチャ、チャンネルを選んでください。ガイドにはソースからのビルド手順もあります。",
+		"guide": "インストールガイドを開く",
+		"allAssets": "公開されている全ファイル"
+	},
+	"Onboarding": {
+		"title": "ダウンロードから、最初のプロジェクトまで。",
+		"body": "環境を選び、LocDev のインストールとプロジェクト起動の手順を確認できます。各コマンドをコピーして使えます。",
+		"eyebrow": "まずは環境を選択",
+		"stepsLabel": "インストールの手順",
+		"choose": "環境の選択",
+		"install": "インストール",
+		"firstProject": "最初のプロジェクト",
+		"chooseTitle": "LocDev をどう使いますか？",
+		"stack": "プロジェクトのスタック",
+		"choiceNote": "アプリを実行するマシンのアーキテクチャを選んでください。選択したチャンネルで公開されているファイルが対象です。",
+		"installTitle": "自分の環境に合う方法で。",
+		"publishedPackage": "公開パッケージ",
+		"desktopSteps": "対応するインストーラーをダウンロードし、SHA-256 を確認してから開いてください。アプリには CLI とデーモンが同梱されています。 次の手順で CLI コマンドを使うには、CLI を PATH に追加するか、CLI アーカイブを別途インストールしてください。",
+		"cliSteps": "CLI アーカイブをダウンロードし、locdev と locdevd を同じフォルダーに展開して PATH に追加してください。使用前に SHA-256 を確認してください。",
+		"noPackage": "対応する公開パッケージは現在ありません。リポジトリを確認するか、アクセス権がある場合はソースからビルドしてください。",
+		"sourceTitle": "ソースからビルド",
+		"prerequisites": "Git、安定版 Rust が必要です。デスクトップ版には Node.js 20 以降、pnpm、OS に対応する Tauri の前提条件も必要です。",
+		"platformPrerequisites": "OS ごとの前提条件を見る",
+		"sourceDesktop": "インストーラーは target/release/bundle に生成されます。使用する OS のインストーラーを開いてください。 次の手順で CLI コマンドを使うには、CLI を PATH に追加するか、CLI アーカイブを別途インストールしてください。",
+		"sourceCli": "バイナリは target/release にあります（Windows は .exe）。locdev と locdevd を同じフォルダーに置き、PATH に追加してください。",
+		"firstProjectTitle": "最初の {name} プロジェクト。",
+		"pathNote": "インストールと PATH の設定後、依存関係をインストール済みの既存プロジェクトのフォルダーへ移動してください。名前は例です。",
+		"missingCommand": "<HTTP_SERVER_COMMAND> を実際の HTTP サーバーコマンドに置き換え、LocDev が割り当てたポートを設定してください。",
+		"finishNote": "デーモンは PORT と HOST を渡します。汎用サーバーはこれらの値か設定済みのポートを使う必要があります。.localhost は DNS 設定不要です。.test と HTTPS はドキュメントの準備手順が必要です。",
+		"customize": "設定をカスタマイズ",
+		"readGuide": "詳しいガイドを見る",
+		"back": "戻る",
+		"next": "次へ"
+	},
+	"Generator": {
+		"title": "プロジェクトに合う設定を。",
+		"body": "プロジェクトの情報から CLI コマンドや projects.toml の例を生成します。内容を確認してコピーできます。サイト上で実行されることはありません。",
+		"eyebrow": "次のプロジェクトを設定",
+		"project": "プロジェクト",
+		"stack": "スタック",
+		"name": "サイト名",
+		"path": "プロジェクトの絶対パス",
+		"command": "HTTP サーバーの起動コマンド",
+		"port": "ローカルポート",
+		"shell": "コマンドのシェル",
+		"autoStart": "デーモンと同時に起動",
+		"portHelp": "コマンドに {port} を使うか、サーバーが PORT を読むよう設定してください。ランタイムと依存関係のインストールが必要です。",
+		"preview": "設定のプレビュー",
+		"fixFields": "設定を生成するには入力内容を確認してください。",
+		"nameError": "小文字の英数字とハイフンを 1～63 文字で指定し、先頭と末尾は英数字にしてください。",
+		"pathError": "改行を含まない有効な絶対パスを入力してください。",
+		"commandError": "制御文字を含まない 1 行のコマンドを入力してください。",
+		"portError": "1024～65535 の整数ポートを指定してください。",
+		"save": "TOML の例を保存",
+		"registryNote": "この TOML は単独の例です。既存の projects.toml を上書きせず、デーモンを停止してから [[project]] ブロックを慎重に統合してください。登録には CLI の利用を推奨します。",
+		"privacy": "入力内容はブラウザー内で処理します。フォルダーやコマンドをサーバーに送信しません。"
+	},
+	"Changelog": {
+		"title": "LocDev の更新情報。",
+		"body": "LocDev の各バージョンの追加・変更・修正・セキュリティ。リポジトリの CHANGELOG.ja.md から表示しています。",
+		"eyebrow": "進化を確認",
+		"github": "GitHub で全履歴を見る",
+		"assets": "公開ファイル {count} 件",
+		"noNotes": "このリリースにはノートがありません。",
+		"fullRelease": "リリース全体を開く",
+		"unreleased": "未公開",
+		"notPublished": "社内テスト",
+		"source": "出典: リポジトリの CHANGELOG.ja.md。初回リリースには、0.1.0 以降に社内と一部のユーザーでテストしたすべてが含まれます。"
+	},
+	"Contribute": {
+		"title": "次の一歩を、一緒に。",
+		"body": "コード、ドキュメント、翻訳、フィードバックが LocDev の改善につながります。自分に合う方法でプロジェクトに参加してください。",
+		"eyebrow": "コミュニティとともに開発",
+		"codeTitle": "コードで貢献",
+		"codeBody": "議論中の変更を確認し、範囲を相談してから、背景と検証結果を添えて貢献してください。",
+		"bugsTitle": "不具合を報告",
+		"bugsBody": "バージョン、OS、再現手順、期待する動作を記載してください。ログから個人情報や秘密情報を取り除いてください。",
+		"frameworksTitle": "フレームワークをリクエスト",
+		"frameworksBody": "使っているスタック、サーバーの起動方法、作業に役立つ連携機能を教えてください。",
+		"docsTitle": "ドキュメントを改善",
+		"docsBody": "分かりにくい手順、古いページ、改善できるサンプルをお知らせください。",
+		"translationsTitle": "翻訳を手伝う",
+		"translationsBody": "ポルトガル語、英語、スペイン語、日本語の修正を提案できます。ページと見直したい文章を記載してください。",
+		"fundingTitle": "メンテナンスを支援",
+		"fundingBody": "支援ページで、メンテナンスの目標と資金面での支援の受付状況を確認できます。",
+		"openGithub": "GitHub で開く",
+		"viewFunding": "支援について見る",
+		"startEyebrow": "アイデアを貢献へ",
+		"startTitle": "最初の一歩は、小さくて大丈夫。",
+		"step1": "新しい議論を作る前に、関連する議論を探してください。",
+		"step2": "問題を説明し、小さく明確な変更範囲を相談してください。",
+		"step3": "フォークと作業用ブランチを作成してください。",
+		"step4": "必要なチェックを実行し、変更内容と検証方法を説明するプルリクエストを作成してください。",
+		"reviewNote": "Issue のリンクは、内容を確認して送信するためのフォームを開きます。自動送信は行いません。",
+		"checks": "Rust ワークスペースのチェック",
+		"ciNote": "アプリの CI で使うコマンドです。デスクトップの変更には、リポジトリに記載された追加チェックと前提条件も必要です。"
+	},
+	"Services": {
+		"eyebrow": "HTTP サーバーの、その先へ",
+		"planned": "印の付いたデータベース、キャッシュ、キュー、ワーカーはすでに LocDev で動きます。それ以外は提案です。",
+		"title": "プロジェクトを支えるサービス。",
+		"body": "各スタックのデータ、キュー、ワーカー、定期タスク、リアルタイム。印の付いたものはすでに LocDev で動きます (管理されたインスタンス、補助プロセス、Mailbox、Database Manager)。それ以外は提案で、まだ実装されていません。",
+		"select": "スタック別のサービス",
+		"scope": "各エコシステムの任意の候補です。対応ライブラリとプロジェクト設定が必要です。UI スタックのデータベースやキューは、ブラウザーではなく関連するバックエンドで使用します。",
+		"requires": "前提条件：",
+		"example": "依存関係をインストール済みの場合の参考コマンドです。{module} は実際のアプリケーションモジュールに置き換えてください。",
+		"embeddedNote": "アプリケーションのプロセスまたはドライバー内で動作します。個別のデーモンは不要で、設定はプロジェクトによって異なります。",
+		"customNote": "起動コマンドはインストールとプロジェクトによって異なります。",
+		"docs": "公式ドキュメント",
+		"note": "ポートは例です。競合を避けるため調整してください。代替ワーカーで同じキューを処理する場合は明示的な選択が必要です。SQLite はローカルファイルであり、サーバーではありません。このサイトはサービスをインストール・実行しません。",
+		"request": "サービスや連携を提案",
+		"workflowTitle": "このスタックのサービス",
+		"homeLink": "スタックごとのサービスを見る",
+		"categories": {
+			"database": "データベースとキャッシュ",
+			"background": "キュー・ジョブ・定期タスク",
+			"realtime": "WebSocket とリアルタイム",
+			"tooling": "開発ツール"
+		},
+		"modes": {
+			"process": "個別のプロセス",
+			"embedded": "アプリケーション内",
+			"external": "外部インストール"
+		},
+		"requirements": {
+			"sqlserver": "SQL Server · 対応プラットフォーム · ローカル認証情報",
+			"postgres": "PostgreSQL · データディレクトリ · ローカル認証情報",
+			"mysql": "MySQL · データディレクトリ · ローカル認証情報",
+			"mariadb": "MariaDB · データディレクトリ · ローカル認証情報",
+			"sqlite": "SQLite ドライバー · データベースファイル",
+			"redis": "Redis · ローカル開発設定",
+			"valkey": "Valkey · ローカル開発設定",
+			"mongodb": "MongoDB · データディレクトリ · ローカル認証情報",
+			"rabbitmq": "RabbitMQ · Erlang · ローカル認証情報",
+			"mailpit": "Mailpit · SMTP 設定",
+			"meilisearch": "Meilisearch · ローカルマスターキー · データディレクトリ",
+			"s3": "ローカル S3 エンドポイント · バケット · 認証情報",
+			"reverb": "laravel/reverb · ブロードキャスト設定",
+			"queue": "キュー接続 · ジョブクラス · データベースまたは Redis",
+			"horizon": "laravel/horizon · Redis · 対応 OS",
+			"scheduler": "定期タスク · プロジェクトごとにスケジューラーは 1 つ",
+			"vite": "Vite · package.json の dev スクリプト · プロジェクトのロックファイル",
+			"solidqueue": "Solid Queue · bin/jobs · キューデータベース · recurring.yml",
+			"sidekiq": "Sidekiq · Redis · ジョブクラス",
+			"cable": "Rails · config/cable.yml · 設定済みアダプター",
+			"celery": "Celery · アプリケーションモジュール · Redis または RabbitMQ ブローカー",
+			"beat": "Celery · アプリケーションモジュール · スケジュール設定 · Beat インスタンスは 1 つ",
+			"channels": "Channels · ASGI サーバー · 任意の channels_redis",
+			"bullmq": "BullMQ · Redis · ワーカーのエントリーポイント",
+			"socketio": "Socket.IO · バックエンドのエントリーポイント · WebSocket プロキシ",
+			"nestcron": "@nestjs/schedule · 設定済みアプリケーションモジュール",
+			"wpcron": "WP-CLI · WordPress データベース · 明示的な実行スケジュール",
+			"messenger": "Symfony Messenger · 設定済み async トランスポート",
+			"asynq": "Asynq · Redis · Go ワーカーのエントリーポイント",
+			"apalis": "Apalis · 設定済みストレージ · Rust ワーカーバイナリ",
+			"springjobs": "Spring Batch or @Scheduled · 設定済みアプリケーション",
+			"hangfire": "設定済み .NET ワーカーホスト · 選択したストレージプロバイダー",
+			"signalr": "ASP.NET Core · 設定済みハブ",
+			"storybook": "Storybook · package.json の storybook スクリプト · 対応フレームワーク",
+			"mock": "MSW · プロジェクトのリクエストハンドラー"
+		},
+		"pageTitle": "ローカル環境のためのサービス",
+		"directoryTitle": "サービスを探す",
+		"count": "{count} 件のサービス",
+		"search": "サービスを検索…",
+		"clear": "検索をクリア",
+		"all": "すべて",
+		"allStacks": "すべてのスタック",
+		"filterLabel": "カテゴリで絞り込む",
+		"viewDetails": "詳細を見る",
+		"close": "詳細を閉じる",
+		"relatedStacks": "関連するスタック",
+		"empty": "サービスが見つかりません。",
+		"reset": "フィルターをクリア",
+		"viewAll": "サービスを見る",
+		"ecosystemLogo": "{name} エコシステムのロゴ",
+		"categoryIcon": "カテゴリのアイコン",
+		"logoNote": "SVGL にあるロゴを使用しています。独自のロゴがないサービスは、明記したエコシステムのロゴまたはカテゴリのアイコンを使用します。",
+		"supportShort": {
+			"instances": "LocDev で利用可",
+			"process": "LocDev で利用可",
+			"devServer": "LocDev で利用可",
+			"mailbox": "LocDev で利用可",
+			"browser": "LocDev で利用可",
+			"proposed": "計画中"
+		},
+		"support": {
+			"instances": "LocDev が管理するインスタンス",
+			"process": "サイトの補助プロセス",
+			"devServer": "サイトの補助サーバー",
+			"mailbox": "LocDev の Mailbox で代替",
+			"browser": "Database Manager で開く",
+			"proposed": "計画中 · まだ実装されていません"
+		},
+		"supportNote": {
+			"instances": "LocDev は専用のデータ、ポート、ログを持つインスタンスを 127.0.0.1 だけで作ります。システムのインストール、または SHA-256 を検証してダウンロードしたバージョンを使います。",
+			"process": "プロジェクトにライブラリがあると、アダプターがプロセスを提案します。あなたが選ぶまで (手動、サイトと一緒、使わない) 何も実行されません。",
+			"devServer": "LocDev は補助サーバーを検出し、メインサーバーの横で動かす前に確認します。",
+			"mailbox": "LocDev には専用のキャプチャ用 SMTP (Mailbox) があり、サイトのプロセスの環境で接続します。Mailpit をインストールする必要はありません。",
+			"browser": "プロジェクトのファイルで、サーバーはありません。LocDev の Database Manager で開き、クエリと編集ができます。",
+			"proposed": "LocDev にはまだ連携がありません。将来の連携では、起動前にパス、ポート、認証情報、保存先を確認する必要があります。"
+		}
+	},
+	"MegaMenu": {
+		"groups": {
+			"build": "開発を始める",
+			"ecosystem": "エコシステム",
+			"community": "プロジェクトとコミュニティ"
+		},
+		"footer": "ローカルファースト。オープンソース。環境を自分で管理。",
+		"descriptions": {
+			"contact": "質問、アイデア、改善の提案など、内容に合った窓口から LocDev の開発者にご連絡ください。",
+			"getStarted": "プラットフォームを選び、最初のプロジェクトを準備。",
+			"configure": "コマンドと TOML の設定例を生成。",
+			"docs": "インストール、CLI、ドメイン、HTTPS のガイド。",
+			"stacks": "フレームワークと開発コマンドを確認。",
+			"services": "スタックごとのデータベース、キュー、ワーカーと、LocDev ですでに動くもの。",
+			"roadmap": "アプリの各バージョンで変わったこと。",
+			"changelog": "バージョンと公式リリースノートを確認。",
+			"contribute": "コード、翻訳、不具合報告で貢献。",
+			"donate": "LocDev の継続的な開発を支援。",
+			"about": "triooo が制作・保守",
+			"support": "インストール、CLI、ドメイン、HTTPS、設定を確認。",
+			"faq": "インストール、ローカル開発、保守に関する回答。",
+			"compare": "出典に基づき設計、環境、サービスを比較。"
+		}
+	},
+	"Loading": {
+		"page": "コンテンツを読み込み中…"
+	},
+	"PageError": {
+		"title": "ページを読み込めませんでした。",
+		"body": "コンテンツの読み込み中にエラーが発生しました。再試行するか、ホームに戻ってください。",
+		"retry": "再試行",
+		"home": "ホームへ戻る"
+	},
+	"About": {
+		"eyebrow": "LOCDEV について",
+		"title": "設定を減らし、開発に集中。",
+		"body": "LocDev はプロジェクト、プロセス、ドメイン、HTTPS を通じてローカル開発を整理します。ターミナルとデスクトップの操作をつなぎ、選択肢と制御を利用者の手元に保ちます。",
+		"localTitle": "自分のマシンで動く環境",
+		"localBody": "デーモンと CLI はローカルプロジェクトを扱います。このサイトはアプリとドキュメントを紹介するもので、マシン上でコマンドを実行しません。",
+		"controlTitle": "自動化より先に、制御を",
+		"controlBody": "コマンド、権限、重要な変更を理解できることを重視します。未提供の連携は計画中として明記します。",
+		"openTitle": "一緒に育てられるプロジェクト",
+		"openBody": "Apache-2.0 では、その条件のもとでコードの使用、変更、配布ができます。貢献の背景はリポジトリと変更履歴にあります。",
+		"maintainerTitle": "triooo が制作・保守",
+		"maintainerBody": "triooo は LocDev とこのサイトを保守しています。開発体験を改善し、アプリを継続的に進化させることが目的です。",
+		"participateTitle": "次の一歩に参加",
+		"participateBody": "再現可能な報告、ドキュメント、翻訳、コードの貢献が役立ちます。このサイトではまだ金銭的支援を受け付けていません。",
+		"contribute": "貢献する",
+		"donate": "支援について",
+		"repository": "リポジトリ",
+		"roadmap": "変更履歴"
+	},
+	"Support": {
+		"findAnswer": "回答を探す",
+		"quickCheck": "まずは環境を診断",
+		"topicsEyebrow": "トピック別ガイド",
+		"topicsTitle": "何にお困りですか？",
+		"topicsBody": "トピックを開くと、確認するポイントとガイドへのリンクが表示されます。",
+		"openGuide": "ガイドを開く",
+		"diagnosticCommands": "ターミナルで診断",
+		"doctorGuide": "doctor の結果を確認",
+		"topics": {
+			"installation": {
+				"title": "LocDev のインストール・起動",
+				"body": "OS、アーキテクチャ、パッケージ形式を確認してください。アプリ、CLI、Git からのビルド方法を案内しています。"
+			},
+			"projects": {
+				"title": "プロジェクトが起動しない",
+				"body": "フォルダー、起動コマンド、プロセスの出力を確認してください。プロジェクトのランタイムと依存関係が必要です。"
+			},
+			"domains": {
+				"title": ".test ドメインにアクセスできない",
+				"body": "locdev doctor で DNS と競合を確認し、設定したドメインとプロジェクトの実行状態を確認してください。"
+			},
+			"https": {
+				"title": "ブラウザーが HTTPS を信頼しない",
+				"body": "ローカル認証局とブラウザーの信頼設定を確認してください。OS ごとの証明書の承認手順を案内しています。"
+			},
+			"runtime": {
+				"title": "PHP・Node などのランタイム",
+				"body": "プロジェクトで選択したランタイムと利用可能なバージョンを確認してください。システムと LocDev 管理のランタイムについて説明しています。"
+			},
+			"updates": {
+				"title": "アップデート・バージョンの確認",
+				"body": "更新前にリリースノートと更新チャネルを確認し、重要な設定ファイルをバックアップしてください。"
+			}
+		},
+		"eyebrow": "サポートと診断",
+		"title": "解決への次の一歩を。",
+		"body": "適切なガイドを読み、証拠を集め、再現可能な報告を共有しましょう。ドキュメント、診断、プロジェクトの窓口をここにまとめました。",
+		"docsTitle": "ガイドを探す",
+		"docsBody": "インストール、CLI、ドメイン、HTTPS、設定を確認。",
+		"doctorTitle": "環境を確認",
+		"doctorBody": "doctor で DNS、TLS、ポート、競合を調査。",
+		"installTitle": "インストールを確認",
+		"installBody": "開始前に OS、アーキテクチャ、利用方法を選択。",
+		"checkTitle": "報告する前に",
+		"checkBody": "問題が発生する環境で診断を実行してください。出力にはパスなどのローカル情報が含まれる場合があるため、共有前に確認してください。",
+		"step1": "LocDev のバージョン、OS、アーキテクチャを記録。",
+		"step2": "スタック、コマンド、再現手順を記録。",
+		"step3": "doctor の出力を DNS、HTTPS、設定のガイドと比較。",
+		"step4": "ログからトークン、パスワード、個人情報、機密のパスを削除。",
+		"reportTitle": "他の人が再現できる不具合報告",
+		"reportBody": "ボタンで設定済みリポジトリのフォームを開きます。GitHub で確認して送信してください。このサイトは報告を自動投稿しません。",
+		"reportAction": "不具合報告を準備",
+		"noSla": "対応はメンテナーの状況によります。回答期限は保証していません。",
+		"securityTitle": "脆弱性の疑いがある場合",
+		"securityBody": "悪用手順、認証情報、機密データを公開 issue に投稿しないでください。非公開のセキュリティ窓口を利用してください。",
+		"privateReport": "非公開での報告方法",
+		"securityPending": "非公開窓口は確認中です。公開されるまで機密の詳細を送信しないでください。",
+		"securityDocs": "アプリのセキュリティ",
+		"knownTitle": "既知の問題と要件",
+		"knownBody": "新しい issue を作成する前に、既存の報告とリリースノートを確認してください。パッケージと要件は OS、アーキテクチャ、バージョンで異なります。",
+		"issues": "GitHub の報告",
+		"changelog": "リリースノート",
+		"requirements": "ダウンロードと要件",
+		"maintenanceTitle": "環境をメンテナンスする",
+		"troubleshooting": "トラブルシューティング",
+		"updating": "アプリを更新",
+		"uninstalling": "安全にアンインストール"
+	},
+	"Privacy": {
+		"eyebrow": "サイトのプライバシー",
+		"title": "データの扱いを確認。",
+		"body": "triooo が保守する LocDev サイトについて、ブラウザー内処理、外部接続、ホスティングを区別して説明します。",
+		"pending": "運用情報を確認中です。現時点では完成した通知として扱わないでください。",
+		"browserTitle": "ブラウザーの設定",
+		"browserBody": "テーマは localStorage の theme キーに保存されます。言語の切り替えで機能的な NEXT_LOCALE Cookie が設定されることがあります。これらはブラウザーの設定で削除でき、その場合は設定がリセットされます。Google Analytics (Google Tag Manager 経由) は Cookie パネルで有効にした場合のみ読み込まれ、広告は組み込んでいません。Cookie 通知での選択は、設定に応じてこのブラウザーまたは現在のタブにのみ保存され、Cookie ボタンから見直せます。",
+		"generatorTitle": "ジェネレーターはローカル処理",
+		"generatorBody": "Configure に入力した名前、パス、コマンド、ポートはブラウザー内で処理します。ジェネレーターのコードはこれらをサーバーに送信しません。コピーと TOML のダウンロードは明示的な操作であり、サイトはプロジェクトの実行やファイルの変更をしません。",
+		"externalTitle": "外部接続とリンク",
+		"externalBody": "公開リリースはサーバーから GitHub API に問い合わせます。GitHub、triooo、外部ドキュメントを開くと、それぞれのサイトの取り扱いが適用されます。フォント、ロゴ、画像はこのプロジェクトから配信します。有効な決済機能はありません。",
+		"hostingTitle": "ホスティングと技術的な記録",
+		"hostingBody": "ホスティング先は Vercel を予定しています。基盤では運用、保護、診断のためにリクエスト情報や技術的な記録を処理する場合があります。これはジェネレーターのローカル処理とは別で、基盤にログが残らないとは保証していません。",
+		"provider": "ホスティング",
+		"retention": "ログの保持",
+		"unconfirmed": "未確認",
+		"retentionDefault": "ログの利用可能性と保持期間は Vercel のプランと設定によって異なります。一律の期間は示していません。該当する設定についてはお問い合わせください。",
+		"hostingDocs": "Vercel のログの説明",
+		"hostingPrivacy": "Vercel のプライバシー通知",
+		"appTitle": "アプリは別のコンテキスト",
+		"appBody": "デスクトップ、CLI、デーモンはローカル環境を扱い、それぞれアクセスの境界があります。このページはアプリのセキュリティ文書に代わるものではなく、将来の連携を提供済みとは扱いません。",
+		"appDocs": "アプリのセキュリティを見る",
+		"contactTitle": "triooo へのお問い合わせ",
+		"contactBody": "このサイトのデータ処理やご自身の情報については triooo にご連絡ください。内容を理解するために必要な情報だけを共有してください。",
+		"contactAction": "{contact}",
+		"contactPending": "確認後にプライバシー窓口を公開します。",
+		"changes": "ホスティング、連携、データの流れが変わった場合は、この情報を見直す必要があります。"
+	},
+	"SecurityReporting": {
+		"prepare": "報告の準備",
+		"prepareBody": "問題の理解と再現に役立つ情報をまとめてください。",
+		"stepTitle1": "影響する環境",
+		"stepTitle2": "安全な再現手順",
+		"stepTitle3": "影響と証拠",
+		"processTitle": "送信後の流れ",
+		"limitsTitle": "対象範囲と制限",
+		"resourcesTitle": "LocDev のセキュリティについて",
+		"supportAction": "その他の問題のサポート",
+		"eyebrow": "責任ある報告",
+		"title": "セキュリティを非公開で報告。",
+		"body": "LocDev またはこのサイトに脆弱性の可能性を見つけた場合、公開する前にメールで triooo へ詳細をお知らせください。",
+		"privateTitle": "非公開で報告する",
+		"privateBody": "{contact} をご利用ください。悪用手順を公開 issue に記載したり、パスワード、トークン、.env ファイル、第三者のデータを送信したりしないでください。",
+		"action": "triooo にメール",
+		"includeTitle": "報告に含める内容",
+		"step1": "影響するバージョン、OS、対象：サイト、デスクトップ、CLI、デーモン。",
+		"step2": "最小限の再現手順と、自分が管理する環境での安全な実証。",
+		"step3": "確認した影響と、機密データを取り除いた証拠。",
+		"process": "triooo が報告を確認し、追加情報をお願いする場合があります。調査や修正の機会を確保するため、公開時期はメンテナーと調整してください。",
+		"limits": "回答期限、報奨金、修正は保証していません。この窓口は第三者のシステムのテスト、サービスの妨害、他人のデータへのアクセスを許可するものではありません。",
+		"docs": "アプリのセキュリティ境界"
+	},
+	"Cookies": {
+		"title": "プライバシーの選択は、あなたに。",
+		"body": "テーマと言語を記憶するために機能的なストレージを使い、許可された場合はサイトの利用状況を把握するために Google Analytics (Google Tag Manager 経由) を使います。",
+		"noTracking": "アナリティクスは同意した場合のみ。広告はありません。",
+		"privacy": "プライバシーポリシーを読む",
+		"close": "同意せずに閉じる",
+		"customize": "カスタマイズ",
+		"consent": "アナリティクスを許可",
+		"reopen": "Cookie の設定",
+		"preferencesTitle": "プライバシー設定。",
+		"preferencesBody": "このパネルはサイトが使うストレージを説明します。通知を閉じても同意したことにはなりません。",
+		"functional": "機能用の設定",
+		"alwaysOn": "常に有効",
+		"functionalBody": "テーマと言語の選択を保持します。ブラウザーの設定から削除できます。",
+		"optional": "アナリティクス",
+		"optionalBody": "Google Tag Manager 経由で読み込まれる Google Analytics が訪問とページを計測します。下で有効にした場合のみ読み込まれ、広告は使いません。",
+		"remember": "このブラウザーで選択を記憶する",
+		"rememberBody": "オフにすると、このタブ内だけで選択を保持します。Cookie ボタンでいつでも設定を開けます。",
+		"sessionOnly": "このタブのみ",
+		"save": "設定を保存",
+		"storageUnavailable": "このページに選択を適用しましたが、ブラウザーには保存できませんでした。",
+		"necessaryOnly": "必要なもののみ",
+		"analytics": "Google Analytics を許可",
+		"analyticsBody": "既定ではオフです。Cookie ボタンからいつでもオフにできます。"
+	},
+	"NotFound": {
+		"storyConnecting": "接続中…",
+		"storyElapsed": "合計時間: {time}",
+		"storyProbe": "ルートを確認",
+		"storyRecover": "再接続を試行",
+		"storyEyebrow": "ローカル環境で迷子になったルート",
+		"storyLooking": "接続先を探しています。",
+		"storyMainMissing": "メインルートが見つかりません。",
+		"storyReconnecting": "別の接続先を探しています。",
+		"storyProbeHint": "一部のルートは存在します。目的のページはまだ見つかりません。",
+		"storyRecoverHint": "接続は正常ですが、ページは見つかりません。",
+		"storyResultHint": "サーバーは見つかりました。ページは見つかりませんでした。",
+		"storyLocalRequest": "リクエストのイメージ · ローカルのみ",
+		"storyPrimary": "メインページ",
+		"storyEndpoint": "API エンドポイント",
+		"storyOptional": "代替ルート",
+		"storyRecoveryTerminal": "復旧ターミナル",
+		"storyRetryStart": "メインページへのリクエストを再試行中…",
+		"storyAttempt": "3 回中 {attempt} 回目",
+		"storyFailed": "失敗",
+		"storyRetryExhausted": "試行終了。ルートが見つかりません。",
+		"storyFinalMessage": "再試行しても、メインルートは 404 を返し続けました。",
+		"storyFound": "{count} 件のルートを検出",
+		"storyAttemptsFailed": "{count} 回の試行に失敗",
+		"storyScanning": "ローカルルートを確認中",
+		"storyRetrying": "リクエストを再試行中",
+		"storyFinished": "トレース完了",
+		"views": "アニメーションの表示",
+		"mapView": "マップ",
+		"servicesView": "サービス",
+		"terminalView": "ターミナル",
+		"replay": "シーケンスを再生",
+		"pipeline": "バックグラウンドプロセス",
+		"simulation": "イメージ映像 · 実際の接続なし",
+		"queue": "キュー",
+		"queueError": "ジョブ #404 がキュー内で停止。",
+		"workerError": "3 回試行。接続先なし。",
+		"mailError": "ローカル SMTP 接続が拒否されました。",
+		"socketError": "WebSocket 切断。再接続中…",
+		"pageMissing": "ページが見つかりません",
+		"jobFailed": "ジョブの処理に失敗",
+		"localOnly": "ローカルのみ",
+		"traceLabel": "ルートのトレース",
+		"client": "クライアント",
+		"localProxy": "ローカルプロキシ",
+		"noRule": "ルールなし",
+		"traceResult": "トレース結果",
+		"wildcardOff": "ワイルドカード無効。接続先なし。",
+		"router": "ルーター",
+		"workspace": "ワークスペース",
+		"routeNotFound": "ルートが見つかりません",
+		"title": "このパスは見つかりませんでした。",
+		"body": "ページが移動したか、リンクが不完全な可能性があります。ホーム、ドキュメント、サポートから続けてください。",
+		"home": "ホームへ戻る",
+		"docs": "ドキュメント",
+		"support": "サポートを探す",
+		"sceneHint": "このルートの接続先が見つかりません。",
+		"illustration": "ローカルルーター / イメージ",
+		"pauseMotion": "アニメーションを停止",
+		"resumeMotion": "アニメーションを再開",
+		"motionOff": "動きを抑える設定"
+	},
+	"DocsVersion": {
+		"label": "ドキュメントのバージョン",
+		"current": "現在"
+	},
+	"FaqPage": {
+		"title": "よくある質問",
+		"body": "導入前の疑問や使用中の不明点について、回答と関連ガイドを確認できます。",
+		"eyebrow": "ヘルプセンター",
+		"topics": "トピック",
+		"basics": "導入前に",
+		"daily": "日常の使い方",
+		"docs": "ドキュメント",
+		"servicesQuestion": "カタログのサービスはもう実装されていますか?",
+		"servicesAnswer": {
+			"p1": "一部は実装済みです。LocDev はすでに PostgreSQL、MySQL/MariaDB、MongoDB、Redis、Valkey のインスタンスを動かし、メールをキャプチャする独自の Mailbox を持ち、キュー、スケジューラー、Horizon、Reverb、Sidekiq、Celery をサイトの補助プロセスとして提供します。カタログのほかの項目はまだ提案で、サービスのページでそれぞれ区別しています。",
+			"p2": "一部のインストールはシステムに依存します。MySQL と Redis には検証可能な公式バイナリがないため、LocDev はシステムのもの (または SHA-256 を検証してダウンロードする MariaDB と Valkey) を使います。管理対象のダウンロードは、まだ端から端まで検証していません。",
+			"p3": "連携を頼りにする前に、サービスのページ、ドキュメント、使用中のバージョンの変更履歴で状態を確認してください。"
+		},
+		"servicesAction": "サービスと対応状況を確認",
+		"offlineQuestion": "オフラインでも使えますか？",
+		"offlineAnswer": {
+			"p1": "はい。設定済みのローカル作業はオフラインで行えます。デーモン、プロキシ、ローカルドメインの名前解決、HTTPS、プロジェクトのプロセスは、常時インターネット接続がなくてもコンピューター上で動作します。",
+			"p2": "ただし、アプリのダウンロード、ランタイムや依存関係のインストール、パッケージの更新、リポジトリのクローン、外部 API の利用には接続が必要な場合があります。また、アプリケーション自体が外部のデータベースや認証などに依存することもあります。",
+			"p3": "つまり、LocDev でローカルサイトを管理するためにオンラインアカウントは必要ありませんが、各アプリケーションがオフラインで動くかどうかは、その依存サービスと連携内容によって異なります。"
+		},
+		"offlineAction": "ローカル動作の仕組み",
+		"updatesQuestion": "更新やアンインストールの手順は？",
+		"updatesAnswer": {
+			"p1": "バイナリの交換前に更新ドキュメントとリリースノートを確認してください。特にプレリリース期間中は、動作要件や設定変更に注意してください。",
+			"p2": "更新前には重要な設定とデータをバックアップし、手順で求められる場合はプロセスを停止してください。アンインストール時には CLI が使えるうちに LocDev のコマンドでローカル DNS 連携と証明書発行元への信頼設定を解除してください。",
+			"p3": "登録済みサイトを削除してもプロジェクトのファイルは削除されません。ただし、OS ごとに削除すべきファイル、自動起動サービス、証明書については専用のアンインストールガイドを確認してください。"
+		},
+		"updatesAction": "更新ガイドを読む",
+		"helpQuestion": "プロジェクトが起動しない場合は？",
+		"helpAnswer": {
+			"p1": "まずデーモンが起動しているか確認してください。`locdev status` と `locdev doctor` を実行し、設定、DNS、HTTPS、他のソフトウェアとの競合を確認します。",
+			"p2": "次に、起動コマンド、PHP または Node.js のバージョン、依存関係、ポートを確認し、`locdev logs <site>` でプロセスの出力を調べてください。Vite のホスト許可など、プロジェクト固有の設定が必要な場合もあります。",
+			"p3": "解決しない場合は、OS、LocDev のバージョン、再現手順、関連ログを添えて GitHub で Issue を作成してください。パスワード、トークン、個人情報は必ず削除してください。セキュリティ上の脆弱性は非公開の窓口から報告してください。"
+		},
+		"helpAction": "トラブルシューティング",
+		"supportTitle": "回答が見つかりませんか？",
+		"supportBody": "サポートセンターから診断、バグ報告、非公開のセキュリティ報告に進めます。",
+		"supportAction": "サポートへ",
+		"menuDescription": "インストール、ローカル開発、保守に関する回答。"
+	},
+	"Comparison": {
+		"menuDescription": "出典に基づき設計、環境、サービスを比較。"
+	},
+	"ComparisonMatrix": {
+		"page": {
+			"eyebrow": "LOCDEV / 比較",
+			"title": "ひとつの環境で、あらゆるスタックを。",
+			"body": "Laravel から Next.js まで。PHP から Node.js まで。ローカル開発環境を機能ごとに比較します。",
+			"docsAction": "ドキュメントを見る",
+			"roadmapAction": "変更履歴を見る",
+			"statsTools": "比較するツール",
+			"statsStacks": "現在の主なスタック",
+			"statsOpenSource": "LocDev の理念",
+			"openSourceValue": "オープンソース",
+			"fairTitle": "透明性のある比較。",
+			"fairBody": "ひとつのツールが他のすべてを置き換えると主張するものではありません。開発環境にはそれぞれ得意分野、制約、実行方式があります。",
+			"fairDetails": "LocDev の計画中の機能を実装済みとして数えません。追加設定が必要な機能も区別して示します。",
+			"evolutionTitle": "進化し続けるツール。",
+			"evolutionBody": "LocDev はランタイム、サービス、自動化、開発ツールを統合したマルチプラットフォームのインターフェースを目指して進化しています。",
+			"evolutionAction": "開発状況を見る",
+			"correctionTitle": "誤った情報がありましたか？",
+			"correctionBody": "この比較の確認日: {date}。ドキュメントや機能は変更される可能性があります。修正や貢献を歓迎します。",
+			"correctionAction": "修正を提案",
+			"metaTitle": "開発環境を比較",
+			"metaDescription": "LocDev、Herd、Yerd、Lerd、Laragon、DDEV、Lando、Sail、Valet、Docker Compose を詳しく比較します。",
+			"titleLine1": "ひとつの環境で。",
+			"titleLine2": "あらゆる技術スタックに対応。",
+			"statsFeatures": "比較する機能"
+		},
+		"ui": {
+			"eyebrow": "詳細比較",
+			"title": "機能ごとに比較。",
+			"description": "すべての環境を横並びで比較します。公開ソースコードと公式ドキュメントに基づきます。",
+			"search": "機能を検索...",
+			"searchLabel": "機能を検索",
+			"feature": "機能",
+			"baseline": "比較基準",
+			"count": "全 {total} 機能中 {count} 件 · {tools} ツール",
+			"reviewed": "確認日: {date}",
+			"empty": "該当する機能はありません。",
+			"tableLabel": "開発環境の技術比較",
+			"tableCaption": "LocDev とその他9つの開発環境の機能比較。",
+			"sourceAction": "出典を開く",
+			"disclaimer": "アイコンを選択すると出典を確認できます。「未確認」は「利用不可」を意味しません。「一部対応」は手動設定、限定的な統合、実験的な対応を示す場合があります。評価は各機能に対するものであり、外部ツールを一般的に実行できるかどうかを示すものではありません。",
+			"compareWith": "LocDev の比較対象",
+			"mobileHint": "モバイルでは比較するツールを1つ選べます。各項目の補足はステータスの下に表示されます。"
+		},
+		"status": {
+			"yes": "対応",
+			"partial": "一部対応 / 設定可能",
+			"no": "未統合",
+			"planned": "計画中",
+			"unknown": "未確認"
+		},
+		"groups": {
+			"platforms": {
+				"title": "対応 OS",
+				"description": "プラットフォーム別の主要ツールの提供状況。"
+			},
+			"stacks": {
+				"title": "フレームワークとスタック",
+				"description": "ネイティブ検出またはプロジェクトの実行能力。"
+			},
+			"network": {
+				"title": "ネットワークと基盤",
+				"description": "ローカルでアプリケーションを公開する方法。"
+			},
+			"workflow": {
+				"title": "管理と生産性",
+				"description": "日々の開発を支援するツール。"
+			},
+			"services": {
+				"title": "開発サービス",
+				"description": "直接提供または統合されるサービス。"
+			},
+			"advanced": {
+				"title": "高度なツール",
+				"description": "可観測性、デバッグ、自動化。"
+			}
+		},
+		"features": {
+			"linux": {
+				"label": "Linux",
+				"description": "Linux の公式サポート"
+			},
+			"macos": {
+				"label": "macOS",
+				"description": "macOS の公式サポート"
+			},
+			"windows": {
+				"label": "Windows",
+				"description": "Windows の公式サポート"
+			},
+			"laravel": {
+				"label": "Laravel",
+				"description": "Laravel アプリを実行"
+			},
+			"wordpress": {
+				"label": "WordPress",
+				"description": "WordPress プロジェクトを実行"
+			},
+			"php": {
+				"label": "一般的な PHP",
+				"description": "PHP アプリを実行"
+			},
+			"next": {
+				"label": "Next.js",
+				"description": "Next.js 開発サーバー"
+			},
+			"node": {
+				"label": "Node.js",
+				"description": "Node アプリとサーバー"
+			},
+			"react": {
+				"label": "React / Vite",
+				"description": "Vite サーバーを使う React プロジェクト"
+			},
+			"python": {
+				"label": "Python",
+				"description": "Python アプリを実行"
+			},
+			"static": {
+				"label": "静的サイト",
+				"description": "HTML と静的ファイルを配信"
+			},
+			"native": {
+				"label": "コンテナー必須ではない",
+				"description": "Docker や Podman を必須としない基本フロー"
+			},
+			"domains": {
+				"label": ".test ドメイン",
+				"description": "自動名前解決を使うローカルアドレス"
+			},
+			"https": {
+				"label": "ローカル HTTPS",
+				"description": "ローカル開発用 TLS"
+			},
+			"websocket": {
+				"label": "WebSocket プロキシ",
+				"description": "HMR と WebSocket 接続を転送"
+			},
+			"subdomains": {
+				"label": "ローカルサブドメイン",
+				"description": "api.project.test などのアドレス"
+			},
+			"cli": {
+				"label": "CLI",
+				"description": "コマンドラインインターフェース"
+			},
+			"desktop": {
+				"label": "デスクトップ UI",
+				"description": "専用の GUI アプリ"
+			},
+			"daemon": {
+				"label": "バックグラウンド管理",
+				"description": "プロセスやサービスの監視と管理"
+			},
+			"logs": {
+				"label": "プロジェクトログ",
+				"description": "プロセス出力を表示"
+			},
+			"runtime": {
+				"label": "PHP バージョン管理",
+				"description": "PHP バージョンの検出・選択・インストール"
+			},
+			"nodeversions": {
+				"label": "Node.js バージョン管理",
+				"description": "Node のバージョンをインストール・選択"
+			},
+			"worktrees": {
+				"label": "Git worktree 統合",
+				"description": "ツール内で worktree を管理"
+			},
+			"diagnostics": {
+				"label": "診断機能",
+				"description": "環境の問題を確認"
+			},
+			"mysql": {
+				"label": "MySQL / MariaDB",
+				"description": "ローカルインスタンスを管理"
+			},
+			"postgres": {
+				"label": "PostgreSQL",
+				"description": "PostgreSQL を管理"
+			},
+			"redis": {
+				"label": "Redis / Valkey",
+				"description": "管理されたキャッシュサービス"
+			},
+			"mail": {
+				"label": "メールの捕捉",
+				"description": "Mailpit または統合された代替機能"
+			},
+			"metrics": {
+				"label": "リクエストメトリクス",
+				"description": "UI でレイテンシーとルートを分析"
+			},
+			"tinker": {
+				"label": "Laravel Tinker 統合",
+				"description": "ツールから REPL を利用"
+			},
+			"env": {
+				"label": "共有グローバル環境変数",
+				"description": ".env を編集せず複数プロジェクトへシークレットを注入"
+			},
+			"creator": {
+				"label": "マルチスタック作成ウィザード",
+				"description": "ネイティブ UI から新規プロジェクトを作成"
+			},
+			"git": {
+				"label": "Git 操作画面",
+				"description": "差分、ステージング、コミット、ブランチ、スタッシュを画面で操作"
+			},
+			"github": {
+				"label": "GitHub 連携",
+				"description": "アカウント、リポジトリ、GitHub 操作を画面に統合"
+			},
+			"actions": {
+				"label": "GitHub Actions エディター",
+				"description": "テンプレート、検証、保存前の変更プレビュー"
+			},
+			"emailstudio": {
+				"label": "Email Studio",
+				"description": "メールテンプレートの検出、編集、プレビュー、変更履歴"
+			},
+			"debugcenter": {
+				"label": "複数スタック対応 Debug Center",
+				"description": "プロセス、Laravel、プロキシ、ジョブのエラーをプロジェクト別に集約"
+			},
+			"redaction": {
+				"label": "デバッグイベントの機密情報保護",
+				"description": "保存前にイベント内の機密値をマスク"
+			},
+			"dumps": {
+				"label": "dump() / dd() の収集",
+				"description": "アプリ内で PHP のダンプを確認"
+			},
+			"dbbrowser": {
+				"label": "データベースブラウザー",
+				"description": "アプリ画面で接続、テーブル、クエリを操作"
+			},
+			"tunnels": {
+				"label": "公開トンネル",
+				"description": "外部プロバイダー経由でプロジェクトを共有"
+			},
+			"deploy": {
+				"label": "Vercel / Netlify デプロイ",
+				"description": "プロジェクトの連携、デプロイ開始、ロールバックの要求"
+			},
+			"opensource": {
+				"label": "オープンソース",
+				"description": "オープンなライセンスでソースコードを公開"
+			},
+			"phpext": {
+				"label": "パッケージ別の PHP 拡張",
+				"description": "プロジェクトのパッケージが必須・推奨とする拡張と、PHP が読み込む拡張の比較"
+			},
+			"workflowaudit": {
+				"label": "ワークフローの監査と履歴",
+				"description": "全ワークフローをチェック (セキュリティとベストプラクティス、修正案付き) し、ローカルにバージョンを保存"
+			},
+			"installers": {
+				"label": "アプリからのインストール",
+				"description": "ターミナルを開かずに CLI やサービスのバージョンをインストール"
+			}
+		},
+		"notes": {
+			"platforms": {
+				"windows": {
+					"locdev": "ネイティブで WSL や Docker は不要: Windows 11 で、プロキシ経由の静的サイトと Laravel、.test DNS (NRPT)、Tinker、ワークツリー、メトリクス、Laravel インストーラーを検証済み。",
+					"lerd": "WSL2 経由。ベータ版です。",
+					"sail": "WSL2 経由。"
+				},
+				"opensource": {
+					"locdev": "Apache-2.0。有料プランや制限された機能はありません。"
+				}
+			},
+			"stacks": {
+				"wordpress": {
+					"sail": "調整が必要です。Sail は Laravel 向けです。"
+				},
+				"next": {
+					"locdev": "Next.js を検出し、起動コマンドを提案します。",
+					"herd": "Node.js に対応しますが、プロジェクト固有の設定が必要な場合があります。",
+					"laragon": "Node.js に対応します。Next.js の運用はプロジェクトによります。",
+					"ddev": "汎用サーバーを利用できますが、設定が必要です。",
+					"sail": "コンテナーのカスタマイズで対応できます。"
+				},
+				"react": {
+					"locdev": "Vite とのネイティブ連携: ポート、ホスト、許可ホスト、プロキシ経由の HMR。",
+					"ddev": "ポートとサーバーの設定が必要です。"
+				},
+				"python": {
+					"locdev": "Django、Flask、FastAPI を開発コマンドとプロジェクトの venv で実行。Python のバージョン管理はしない。",
+					"laragon": "Python ランタイム管理が公式資料に記載されています。"
+				},
+				"static": {
+					"locdev": "index.html を検出し、独自の静的サーバー (クリーン URL、404.html) で配信します。Python や Node は不要です。"
+				}
+			},
+			"workflow": {
+				"cli": {
+					"locdev": "アプリの全機能をターミナルからも利用でき、全画面の TUI（`locdev`）も備えます。"
+				},
+				"desktop": {
+					"lerd": "Web・TUI インターフェースとデスクトップ統合を提供します。",
+					"compose": "Docker Desktop に GUI があります。"
+				},
+				"runtime": {
+					"locdev": "検出、サイトごとのピン、公式ビルド (StaticPHP、windows.php.net) のインストール (公開元の SHA-256 が一致する場合のみ)。各バージョンの拡張も一覧表示します。"
+				},
+				"worktrees": {
+					"locdev": "各ブランチを隣のフォルダーに配置し、独自の .test サイトとして登録して .env をコピーすることもできます。削除時はプレビューとバックアップ付き。"
+				}
+			},
+			"advanced": {
+				"env": {
+					"compose": "env_file と環境変数に対応しますが、グローバルなシークレット管理機能とは異なります。"
+				},
+				"creator": {
+					"locdev": "Laravel (laravel new と同じ質問: スターターキット、認証、Livewire、チーム)、Symfony、Bedrock、Next.js、Vite、Nuxt、Astro、SvelteKit、NestJS、Django、Rails、ASP.NET Core をそれぞれの公式インストーラーで作成。"
+				},
+				"metrics": {
+					"locdev": "プロキシ経由: ステータス区分、p50/p95/p99、毎分のリクエスト数、アクセスの多いパス、最新のリクエスト。"
+				},
+				"tinker": {
+					"locdev": "コードを実行するエディター (php artisan tinker --execute) と対話型コンソール。サイトの PHP と環境を使います。"
+				},
+				"installers": {
+					"locdev": "各ツールの公式コマンド (Laravel、Symfony、Bun、uv、WP-CLI、Rust、.NET…) を、表示してからアプリのターミナルで実行。"
+				}
+			},
+			"services": {
+				"mysql": {
+					"locdev": "MariaDB は SHA-256 を検証してダウンロード。MySQL 8.0、8.4、最新版は Homebrew、apt、winget でアプリからインストール。"
+				},
+				"redis": {
+					"locdev": "Valkey は SHA-256 を検証してダウンロード。Redis (複数バージョン) は Homebrew または apt でアプリからインストール。"
+				},
+				"mail": {
+					"locdev": "組み込みの Mailbox: ループバックでキャプチャ専用の SMTP。"
+				}
+			}
+		},
+		"why": {
+			"eyebrow": "LocDev を選ぶ理由",
+			"title": "ローカル開発からデプロイまでを一つの流れに",
+			"body": "ネイティブ実行、複数のスタック、開発ツールを一つのアプリにまとめた点が強みです。比較表では同等の機能と、他製品で未確認の連携を区別しています。",
+			"nativeTitle": "コンテナーを必須にしない開発",
+			"nativeBody": "PHP、Node.js、Python のプロジェクトをローカルドメイン、HTTPS、プロキシと組み合わせて実行。ネイティブ実行できるプロジェクトでは Docker 環境の構築を省けます。",
+			"gitTitle": "コードと自動化を同じ場所で",
+			"gitBody": "差分の確認、コミット、ブランチ管理に対応。GitHub を接続し、テンプレート、検証、変更プレビューでワークフローを準備できます。",
+			"emailTitle": "メールの受信確認から編集まで",
+			"emailBody": "Mailbox でローカルのメールを受信。Email Studio ではテンプレートを検出、編集、プレビューし、変更履歴を確認できます。",
+			"debugTitle": "調査と共有をスムーズに",
+			"debugBody": "Debug Center でエラーとダンプを集約し、機密値をマスク。トンネルで共有し、プロジェクトを Vercel や Netlify に連携できます。",
+			"limitsTitle": "プロジェクトの要件を確認",
+			"limitsBody": "Git や外部プロバイダーには、それぞれのツールや認証情報が必要です。トンネルとデプロイはそれらのプロバイダーとプランに依存します。Python のバージョンは管理しません。Redis には Windows の公式ビルドがありません (WSL か Memurai を使ってください)。Debug Center とメトリクスはプロキシを通るものを捉えますが、本格的なプロファイラーの代わりにはなりません。",
+			"evidence": "ソースコードで機能を確認しています。インストール済みのバージョンによって利用可否が異なる場合があります。"
+		},
+		"experience": {
+			"title": "開発環境を比べて、",
+			"titleAccent": "自分に合う選択を。",
+			"intro": "使い慣れたツールと LocDev を比較できます。アプリを選び、機能の違いを確認して、プロジェクトに合う開発環境を見つけましょう。",
+			"startAction": "LocDev を知る",
+			"choose": "比較するアプリを選択",
+			"alternatives": "{count} 個の選択肢",
+			"pair": "LocDev と {name} を比較",
+			"yourEnvironment": "次の開発環境に",
+			"selected": "選択中のアプリ",
+			"officialSite": "公式サイト",
+			"overview": "{count} 機能・{groups} カテゴリー",
+			"explore": "機能を比較する",
+			"resultsEyebrow": "機能を詳しく比較",
+			"resultsBody": "各環境の対応状況を確認できます。機能を開くと、補足と情報源が表示されます。",
+			"clearSearch": "検索をクリア",
+			"filterLabel": "比較の絞り込み",
+			"categoryLabel": "カテゴリーで絞り込み",
+			"allCategories": "すべてのカテゴリー",
+			"resultCount": "{total} 機能中 {count} 件",
+			"detailsHint": "機能を開くと詳細が表示されます。",
+			"details": "詳細",
+			"checkSource": "情報源を確認",
+			"emptyHelp": "検索語を変えるか、絞り込みを解除してください。",
+			"reset": "絞り込みを解除",
+			"filterNote": "「違い」は確認済みの対応状況のみを比較します。「LocDev の強み」は、LocDev が対応し、相手が部分対応または未統合の機能を表示します。未確認の機能を「利用不可」とは扱いません。",
+			"methodEyebrow": "比較の基準",
+			"readStatuses": "結果の見方",
+			"ctaEyebrow": "次のプロジェクトへ",
+			"ctaTitle": "開発ツールをまとめて、開発に集中。",
+			"ctaBody": "いつもの開発で LocDev を試してみましょう。ドキュメントと、お使いの OS で利用できるバージョンをご確認ください。",
+			"downloadAction": "LocDev をダウンロード",
+			"loading": "比較を読み込み中…",
+			"views": {
+				"all": "すべての機能",
+				"differences": "違い",
+				"advantages": "LocDev の強み"
+			},
+			"tools": {
+				"locdev": "ネイティブ実行、複数のスタック、開発ツールを一つに。",
+				"herd": "PHP と Laravel 向けのネイティブ環境。無料機能と Pro 機能を提供。",
+				"yerd": "macOS と Linux 向けのネイティブ PHP 環境。",
+				"lerd": "コンテナーと開発ツールを統合した PHP 環境。",
+				"laragon": "Windows を中心とした開発環境。",
+				"ddev": "コンテナーベースのローカル開発環境。",
+				"lando": "レシピとコンテナーで構成するローカル開発環境。",
+				"sail": "Laravel 向け Docker 環境。Laravel のブランドマークを使用。",
+				"valet": "macOS 向けの軽量 PHP 環境。Laravel のブランドマークを使用。",
+				"compose": "コンテナーのサービス構成を管理。Docker のブランドマークを使用。"
+			}
+		}
+	},
+	"AboutApp": {
+		"subtitle": "バージョン、ライセンス、コマンドライン",
+		"cli": "コマンドライン",
+		"cliBody": "locdev CLI は同じデーモンと通信し、ターミナルからもプロジェクトを操作できます。locdev を引数なしで実行すると、ターミナルインターフェースが開きます。",
+		"cliInstall": "アプリの「About」で CLI のバージョンとパスを確認し、管理者権限なしでユーザーのターミナルに locdev を追加できます。",
+		"commands": "コマンドリファレンス",
+		"cliDownload": "単体 CLI のダウンロード",
+		"maintained": "開発・メンテナンス",
+		"contributors": "およびコントリビューター",
+		"description": "LocDev はプロジェクトと開発サーバーを一か所で管理できるツールです。アプリや CLI からプロジェクトを起動・停止し、ログを確認し、ローカル HTTPS に対応した .test ドメインで各サイトにアクセスできます。Linux、macOS、Windows 対応のオープンソースです。",
+		"build": "ビルド",
+		"app": "アプリ",
+		"channel": "アップデートチャネル",
+		"stable": "安定版 · GitHub リリース",
+		"credits": "ライセンスとクレジット",
+		"creditsBody": "LocDev は Apache License 2.0 のオープンソースです。Tauri、React、Rust の tokio、hyper、rustls など数百のオープンソースソフトウェアで作られており、それぞれ独自のライセンスがあります。",
+		"history": "バージョン履歴",
+		"documentation": "ドキュメント",
+		"updates": "アップデートを確認",
+		"thirdParty": "サードパーティソフトウェア",
+		"packagesBody": "LocDev のアプリ、デーモン、CLI に含まれるパッケージと、作者が宣言しているライセンスです。それぞれの著作権とライセンスはそのまま適用されます。",
+		"rust": "Rust クレート",
+		"npm": "npm パッケージ",
+		"version": "Version",
+		"license": "License",
+		"installation": "インストール情報",
+		"installationBody": "実行中のデーモンのバージョン、ビルドのコミットと日時、システム、設定フォルダーは、アプリの「About」で確認できます。",
+		"package": "パッケージ",
+		"releaseNote": "公開バージョンの情報です。以下のクレジットはアプリのソースコードに含まれる一覧に対応しています。"
+	},
+	"Contact": {
+		"eyebrow": "お問い合わせ",
+		"title": "話しましょう。",
+		"accent": "次の一歩を、ここから。",
+		"body": "質問、アイデア、改善の提案など、内容に合った窓口から LocDev の開発者にご連絡ください。",
+		"primary": "GitHub で相談する",
+		"signal": "ひとつの会話から",
+		"signature": "開発者のために、人の手で",
+		"channels": "お問い合わせ先",
+		"channelsBody": "内容に合った窓口をお選びください。",
+		"githubTitle": "不具合・機能の提案",
+		"githubBody": "起きた問題やアイデアをお寄せください。Issue は公開され、ほかのユーザーにも役立ちます。",
+		"githubAction": "Issue を作成する",
+		"supportTitle": "お困りですか？",
+		"supportBody": "インストールガイドや診断、よくある質問で開発をサポートします。",
+		"supportAction": "ヘルプを見る",
+		"trioooTitle": "Triooo へのご相談",
+		"trioooBody": "LocDev を開発・保守するスタジオの紹介と、プロジェクトや協業のご相談はこちら。",
+		"trioooAction": "Triooo のサイトへ",
+		"note": "不具合の報告には、LocDev のバージョン、OS、再現手順を含めてください。パスワード、トークン、個人情報を除いたログのみ共有してください。",
+		"maintained": "開発・メンテナンス"
+	},
+	"InstallationGuide": {
+		"heroTitle": "ローカル開発環境を、",
+		"heroAccent": "自分に合う方法で。",
+		"heroBody": "アプリ、ターミナル、ソースコードから LocDev をインストールできます。OS を選択して、対応する手順に進んでください。",
+		"environment": "環境を選択",
+		"environmentBody": "LocDev をインストールするマシンの OS を選んでください。",
+		"unavailable": "ダウンロードを確認できませんでした。ダウンロードページを開くか、Git からビルドしてください。",
+		"noRelease": "このチャネルには公開リリースがありません。Git からビルドできます。",
+		"method": "インストール方法を選択",
+		"methodBody": "アプリ、単体 CLI、ローカルビルドから選べます。",
+		"app": "アプリ",
+		"terminal": "ターミナル / CLI",
+		"appTitle": "アプリをインストール",
+		"app_linux": "Debian/Ubuntu は .deb、Fedora は .rpm を使用します。AppImage はインストールせずに実行できます。",
+		"app_macos": ".dmg を開き、LocDev をアプリケーションフォルダーにドラッグします。",
+		"app_windows": ".exe または .msi を実行し、画面の指示に従ってください。",
+		"included": "アプリにはデーモンと CLI が含まれます。「設定 → About」から locdev をターミナルに追加できます。",
+		"downloadThenRun": "ダウンロード後、ファイルのあるフォルダーで実行してください。",
+		"allDownloads": "すべてのダウンロード",
+		"terminalTitle": "ターミナルからインストール",
+		"terminalBody": "公式スクリプトは管理者権限なしで locdev と locdevd をインストールし、SHA256SUMS で検証します。GUI は含まれません。アーキテクチャは自動検出されます。",
+		"windowsArm": "Windows CLI インストーラーは x64 のみ対応しています。ARM64 はダウンロードを確認するか、Git からネイティブビルドしてください。",
+		"windowsPath": "%LOCALAPPDATA%\\LocDev\\cli に配置し、ユーザーの Path に追加します。完了後、新しいターミナルを開いてください。",
+		"unixPath": "~/.local/bin に配置します。下の export は現在のセッションの PATH を更新します。永続化にはシェルの設定に追加してください。",
+		"cmd": "コマンドプロンプト（CMD）",
+		"previewMissing": "プレビュー版は公開されていません。安定版を選択するか、Git からビルドしてください。",
+		"requiresRelease": "このコマンドには、スクリプト、対応 CLI、SHA256SUMS を含む公開リリースが必要です。",
+		"verify": "インストール後、バージョンと環境を確認します。",
+		"sourceBody": "リポジトリをクローンして、アプリまたは CLI をビルドします。",
+		"desktopPrereqs": "必要なもの：Git、安定版 Rust、Node.js 20 以降、pnpm、OS に対応した Tauri の依存関係。",
+		"cliPrereqs": "必要なもの：Git、安定版 Rust、OS のビルドツール。",
+		"desktopOutput": "インストーラーは target/release/bundle または target/<target>/release/bundle に生成されます。CLI とデーモンも自動的に含まれます。",
+		"cliOutput": "locdev と locdevd は target/release に生成されます。同じフォルダーに置き、必要に応じて PATH に追加してください。",
+		"nativeBuild": "対象の OS とアーキテクチャ上でビルドしてください。これらのコマンドはネイティブツールを使用し、クロスコンパイルは行いません。"
+	},
+	"PageImprovements": {
+		"featureSections": "機能を見る",
+		"architecture": "アーキテクチャ",
+		"workflows": "ワークフロー",
+		"control": "制御とセキュリティ",
+		"faqSearch": "質問と回答を検索",
+		"clear": "検索をクリア",
+		"faqCount": "{count} 件の回答",
+		"faqEmpty": "回答が見つかりませんでした",
+		"faqEmptyBody": "別のキーワードを試すか、検索をクリアしてすべての質問を表示してください。",
+		"downloadTitle": "インストール方法を選択",
+		"downloadBody": "アプリ全体をダウンロードするか、単体 CLI をターミナルで使用できます。",
+		"desktopDescription": "デーモンと CLI を含むデスクトップアプリです。",
+		"cliDescription": "GUI を使わず、ターミナルで LocDev を操作する CLI とデーモンです。",
+		"outputReady": "設定の確認ができます",
+		"outputReview": "入力内容を確認してください",
+		"configureTitle": "入力、確認、実行。",
+		"configureBody": "プロジェクトの情報を入力し、隣の設定を確認してください。準備ができたらコマンドをコピーするか、TOML の例を保存できます。"
+	}
+}

@@ -1,0 +1,1489 @@
+{
+  "definitions": [
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [
+        "config/app.php",
+        "config/database.php",
+        "phpunit.xml",
+        "vite.config.js",
+        "vite.config.ts"
+      ],
+      "dev": [
+        "php artisan serve --host=127.0.0.1 --port={port} --no-reload"
+      ],
+      "docs": "https://laravel.com/docs",
+      "id": "laravel",
+      "install": "composer install",
+      "integration": "native",
+      "name": "Laravel",
+      "notes": [
+        "artisan serve runs with --no-reload so the variables LocDev injects reach the PHP server; restart the site after editing .env."
+      ],
+      "requires": [],
+      "runtimes": [
+        "php",
+        "composer"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mariadb",
+        "queue",
+        "horizon",
+        "scheduler",
+        "reverb",
+        "mailpit",
+        "s3",
+        "meilisearch",
+        "vite"
+      ],
+      "supported": ">=10",
+      "test": "php artisan test"
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [
+        "wp-config.php"
+      ],
+      "dev": [
+        "php -S 127.0.0.1:{port} -t ."
+      ],
+      "docs": "https://developer.wordpress.org/advanced-administration/",
+      "id": "wordpress",
+      "install": null,
+      "integration": "native",
+      "name": "WordPress",
+      "notes": [
+        "PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing."
+      ],
+      "requires": [],
+      "runtimes": [
+        "php"
+      ],
+      "services": [
+        "mysql",
+        "mariadb",
+        "redis",
+        "wpcron",
+        "mailpit"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [
+        "composer.json",
+        "phpunit.xml"
+      ],
+      "dev": [
+        "php -S 127.0.0.1:{port} -t public",
+        "php -S 127.0.0.1:{port} -t ."
+      ],
+      "docs": "https://www.php.net/manual/en/features.commandline.webserver.php",
+      "id": "php",
+      "install": "composer install",
+      "integration": "native",
+      "name": "PHP",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "php"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "mariadb",
+        "rabbitmq",
+        "messenger",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "tool",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://livewire.laravel.com/docs",
+      "id": "livewire",
+      "install": null,
+      "integration": "none",
+      "name": "Livewire",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "tool",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://inertiajs.com/",
+      "id": "inertia",
+      "install": null,
+      "integration": "none",
+      "name": "Inertia",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "next.config.ts",
+        "next.config.mjs",
+        "next.config.js",
+        "tsconfig.json",
+        "eslint.config.mjs",
+        "postcss.config.mjs"
+      ],
+      "dev": [
+        "<pm> run dev --hostname 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://nextjs.org/docs/app/api-reference/cli/next",
+      "id": "nextjs",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Next.js",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": ">=13",
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "nuxt.config.ts",
+        "app.config.ts",
+        "tsconfig.json"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --host 127.0.0.1"
+      ],
+      "docs": "https://nuxt.com/docs/4.x/api/commands/dev",
+      "id": "nuxt",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Nuxt",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": ">=3",
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "astro.config.mjs",
+        "astro.config.ts",
+        "tsconfig.json"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --host 127.0.0.1"
+      ],
+      "docs": "https://docs.astro.build/en/reference/cli-reference/",
+      "id": "astro",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Astro",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "svelte.config.js",
+        "vite.config.ts",
+        "vite.config.js"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --strictPort --host 127.0.0.1"
+      ],
+      "docs": "https://svelte.dev/docs/kit/cli",
+      "id": "sveltekit",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "SvelteKit",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "vite.config.ts",
+        "react-router.config.ts",
+        "remix.config.js"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --strictPort --host 127.0.0.1",
+        "<pm> run dev --port {port} --strictPort --host 127.0.0.1",
+        "<pm> run dev"
+      ],
+      "docs": "https://reactrouter.com/start/framework/installation",
+      "id": "remix",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Remix / React Router",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "vite.config.ts"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --strictPort --host 127.0.0.1"
+      ],
+      "docs": "https://qwik.dev/docs/getting-started/",
+      "id": "qwik",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Qwik",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "app.config.ts"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --host 127.0.0.1"
+      ],
+      "docs": "https://docs.solidjs.com/solid-start",
+      "id": "solid-start",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "SolidStart",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "npx ng build",
+      "category": "framework",
+      "config_files": [
+        "angular.json",
+        "tsconfig.json"
+      ],
+      "dev": [
+        "<pm> run start --host 127.0.0.1 --port {port}",
+        "npx ng serve --host 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://angular.dev/tools/cli",
+      "id": "angular",
+      "install": "{pm} install",
+      "integration": "native",
+      "name": "Angular",
+      "notes": [
+        "The Angular dev server checks the Host header: if requests through the site's domain are refused, add it to allowedHosts in angular.json."
+      ],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": "npx ng test"
+    },
+    {
+      "build": "npx gatsby build",
+      "category": "framework",
+      "config_files": [
+        "gatsby-config.ts",
+        "gatsby-config.js"
+      ],
+      "dev": [
+        "<pm> run develop -H 127.0.0.1 -p {port}",
+        "npx gatsby develop -H 127.0.0.1 -p {port}"
+      ],
+      "docs": "https://www.gatsbyjs.com/docs/reference/gatsby-cli/",
+      "id": "gatsby",
+      "install": "{pm} install",
+      "integration": "native",
+      "name": "Gatsby",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "npx ember build",
+      "category": "framework",
+      "config_files": [
+        "ember-cli-build.js",
+        "config/environment.js"
+      ],
+      "dev": [
+        "<pm> run start --host 127.0.0.1 --port {port}",
+        "npx ember serve --host 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://cli.emberjs.com/release/basic-use/cli-commands/",
+      "id": "ember",
+      "install": "{pm} install",
+      "integration": "native",
+      "name": "Ember",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "mock"
+      ],
+      "supported": null,
+      "test": "npx ember test"
+    },
+    {
+      "build": "yarn rw build",
+      "category": "framework",
+      "config_files": [
+        "redwood.toml"
+      ],
+      "dev": [
+        "yarn rw dev"
+      ],
+      "docs": "https://docs.redwoodjs.com/docs/cli-commands/",
+      "id": "redwood",
+      "install": "yarn install",
+      "integration": "native",
+      "name": "RedwoodJS",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node",
+        "yarn"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "yarn rw test"
+    },
+    {
+      "build": "{pm} run build",
+      "category": "framework",
+      "config_files": [
+        "nest-cli.json",
+        "tsconfig.json"
+      ],
+      "dev": [
+        "<pm> run start:dev"
+      ],
+      "docs": "https://docs.nestjs.com/first-steps",
+      "id": "nestjs",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "NestJS",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "nestcron",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "{pm} run test"
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://fastify.dev/docs/latest/Guides/Getting-Started/",
+      "id": "fastify",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Fastify",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://expressjs.com/en/starter/installing.html",
+      "id": "express",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Express",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://hono.dev/docs/getting-started/basic",
+      "id": "hono",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Hono",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://elysiajs.com/quick-start.html",
+      "id": "elysia",
+      "install": "bun install",
+      "integration": "script",
+      "name": "ElysiaJS",
+      "notes": [],
+      "requires": [
+        "bun"
+      ],
+      "runtimes": [
+        "bun"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mailpit",
+        "s3",
+        "mock"
+      ],
+      "supported": null,
+      "test": "bun test"
+    },
+    {
+      "build": null,
+      "category": "runtime",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://nodejs.org/en/learn/command-line/run-nodejs-scripts-from-the-command-line",
+      "id": "nodejs",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Node.js",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "runtime",
+      "config_files": [],
+      "dev": [
+        "<pm> run dev"
+      ],
+      "docs": "https://bun.sh/docs/runtime",
+      "id": "bun",
+      "install": "bun install",
+      "integration": "script",
+      "name": "Bun",
+      "notes": [],
+      "requires": [
+        "bun"
+      ],
+      "runtimes": [
+        "bun"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mailpit",
+        "s3",
+        "mock"
+      ],
+      "supported": null,
+      "test": "bun test"
+    },
+    {
+      "build": null,
+      "category": "runtime",
+      "config_files": [],
+      "dev": [
+        "deno task dev",
+        "deno task dev"
+      ],
+      "docs": "https://docs.deno.com/runtime/reference/cli/",
+      "id": "deno",
+      "install": "deno install",
+      "integration": "native",
+      "name": "Deno",
+      "notes": [],
+      "requires": [
+        "deno"
+      ],
+      "runtimes": [
+        "deno"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mailpit",
+        "s3",
+        "mock"
+      ],
+      "supported": null,
+      "test": "deno test"
+    },
+    {
+      "build": "{pm} run build",
+      "category": "tool",
+      "config_files": [
+        "vite.config.ts",
+        "vite.config.js",
+        "vite.config.mjs"
+      ],
+      "dev": [
+        "<pm> run dev --port {port} --strictPort --host 127.0.0.1"
+      ],
+      "docs": "https://vite.dev/guide/",
+      "id": "vite",
+      "install": "{pm} install",
+      "integration": "script",
+      "name": "Vite",
+      "notes": [],
+      "requires": [],
+      "runtimes": [
+        "node"
+      ],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "ui",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://react.dev/learn/build-a-react-app-from-scratch",
+      "id": "react",
+      "install": null,
+      "integration": "none",
+      "name": "React",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "ui",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://vuejs.org/guide/quick-start.html",
+      "id": "vue",
+      "install": null,
+      "integration": "none",
+      "name": "Vue",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "ui",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://svelte.dev/docs/svelte/overview",
+      "id": "svelte",
+      "install": null,
+      "integration": "none",
+      "name": "Svelte",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "bullmq",
+        "socketio",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "ui",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://docs.solidjs.com/quick-start",
+      "id": "solid",
+      "install": null,
+      "integration": "none",
+      "name": "SolidJS",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "ui",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://preactjs.com/guide/v10/getting-started/",
+      "id": "preact",
+      "install": null,
+      "integration": "none",
+      "name": "Preact",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "tool",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://storybook.js.org/docs/api/cli-options",
+      "id": "storybook",
+      "install": null,
+      "integration": "none",
+      "name": "Storybook",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "tool",
+      "config_files": [
+        "tailwind.config.js",
+        "tailwind.config.ts",
+        "postcss.config.js",
+        "postcss.config.mjs"
+      ],
+      "dev": [],
+      "docs": "https://tailwindcss.com/docs/installation",
+      "id": "tailwind",
+      "install": null,
+      "integration": "none",
+      "name": "Tailwind CSS",
+      "notes": [
+        "Tailwind CSS 4 is configured in CSS (@theme); tailwind.config.js is only read when the CSS points to it with @config."
+      ],
+      "requires": [],
+      "runtimes": [],
+      "services": [],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [
+        "tsconfig.json"
+      ],
+      "dev": [],
+      "docs": "https://www.typescriptlang.org/docs/handbook/compiler-options.html",
+      "id": "typescript",
+      "install": null,
+      "integration": "custom",
+      "name": "TypeScript",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [
+        "jsconfig.json",
+        "eslint.config.js",
+        "eslint.config.mjs",
+        "biome.json",
+        "prettier.config.js"
+      ],
+      "dev": [],
+      "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "id": "javascript",
+      "install": null,
+      "integration": "custom",
+      "name": "JavaScript",
+      "notes": [],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "storybook",
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [],
+      "dev": [
+        "locdevd static --port {port}",
+        "locdevd static --port {port} --root public"
+      ],
+      "docs": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server",
+      "id": "html",
+      "install": null,
+      "integration": "native",
+      "name": "HTML5",
+      "notes": [
+        "Served by LocDev's built-in static server (clean URLs, 404.html, no cache); change the command with `locdev edit` to use another one."
+      ],
+      "requires": [],
+      "runtimes": [],
+      "services": [
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "python3 manage.py runserver 127.0.0.1:{port}"
+      ],
+      "docs": "https://docs.djangoproject.com/en/stable/ref/django-admin/#runserver",
+      "id": "django",
+      "install": "python3 -m pip install -r requirements.txt",
+      "integration": "native",
+      "name": "Django",
+      "notes": [
+        "Add the site's domain to ALLOWED_HOSTS when DEBUG is off."
+      ],
+      "requires": [
+        "python3"
+      ],
+      "runtimes": [
+        "python"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "celery",
+        "beat",
+        "channels",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "python3 manage.py test"
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "flask --app app run --host 127.0.0.1 --port {port}",
+        "flask --app wsgi run --host 127.0.0.1 --port {port}",
+        "flask --app app run --host 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://flask.palletsprojects.com/en/stable/cli/",
+      "id": "flask",
+      "install": "python3 -m pip install -r requirements.txt",
+      "integration": "native",
+      "name": "Flask",
+      "notes": [],
+      "requires": [
+        "flask"
+      ],
+      "runtimes": [
+        "python"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "celery",
+        "beat",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "framework",
+      "config_files": [],
+      "dev": [
+        "fastapi dev main.py --host 127.0.0.1 --port {port}",
+        "fastapi dev app/main.py --host 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://fastapi.tiangolo.com/fastapi-cli/",
+      "id": "fastapi",
+      "install": "python3 -m pip install -r requirements.txt",
+      "integration": "native",
+      "name": "FastAPI",
+      "notes": [
+        "`fastapi dev` comes with the fastapi[standard] extra."
+      ],
+      "requires": [
+        "fastapi"
+      ],
+      "runtimes": [
+        "python"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "celery",
+        "beat",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://docs.python.org/3/library/venv.html",
+      "id": "python",
+      "install": "python3 -m pip install -r requirements.txt",
+      "integration": "custom",
+      "name": "Python",
+      "notes": [
+        "Python alone doesn't define an HTTP server; set the command that starts yours."
+      ],
+      "requires": [
+        "python3"
+      ],
+      "runtimes": [
+        "python"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "celery",
+        "beat",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "bin/rails assets:precompile",
+      "category": "framework",
+      "config_files": [
+        "config/database.yml",
+        "config/application.rb",
+        "Gemfile"
+      ],
+      "dev": [
+        "bin/rails server -b 127.0.0.1 -p {port}"
+      ],
+      "docs": "https://guides.rubyonrails.org/command_line.html#bin-rails-server",
+      "id": "rails",
+      "install": "bundle install",
+      "integration": "native",
+      "name": "Ruby on Rails",
+      "notes": [
+        "Rails checks the Host header in development: add the site's domain with config.hosts << \".test\" in config/environments/development.rb."
+      ],
+      "requires": [
+        "ruby",
+        "bundle"
+      ],
+      "runtimes": [
+        "ruby"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "solidqueue",
+        "sidekiq",
+        "cable",
+        "mailpit",
+        "s3"
+      ],
+      "supported": null,
+      "test": "bin/rails test"
+    },
+    {
+      "build": null,
+      "category": "language",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://bundler.io/guides/getting_started.html",
+      "id": "ruby",
+      "install": "bundle install",
+      "integration": "custom",
+      "name": "Ruby",
+      "notes": [
+        "Ruby alone doesn't define an HTTP server; set the command that starts yours (rackup -p {port}, puma…)."
+      ],
+      "requires": [
+        "ruby"
+      ],
+      "runtimes": [
+        "ruby"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "sidekiq",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": null
+    },
+    {
+      "build": "go build ./...",
+      "category": "language",
+      "config_files": [
+        "go.mod"
+      ],
+      "dev": [
+        "go run ."
+      ],
+      "docs": "https://go.dev/doc/tutorial/",
+      "id": "go",
+      "install": "go mod download",
+      "integration": "native",
+      "name": "Go",
+      "notes": [],
+      "requires": [
+        "go"
+      ],
+      "runtimes": [
+        "go"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "asynq",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "go test ./..."
+    },
+    {
+      "build": "cargo build --release",
+      "category": "language",
+      "config_files": [
+        "Cargo.toml"
+      ],
+      "dev": [
+        "cargo run"
+      ],
+      "docs": "https://doc.rust-lang.org/cargo/commands/index.html",
+      "id": "rust",
+      "install": "cargo fetch",
+      "integration": "native",
+      "name": "Rust",
+      "notes": [],
+      "requires": [
+        "cargo"
+      ],
+      "runtimes": [
+        "rust"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "rabbitmq",
+        "apalis",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "cargo test"
+    },
+    {
+      "build": "./mvnw package",
+      "category": "framework",
+      "config_files": [
+        "src/main/resources/application.properties",
+        "src/main/resources/application.yml",
+        "pom.xml",
+        "build.gradle"
+      ],
+      "dev": [
+        "./mvnw spring-boot:run",
+        "./gradlew bootRun",
+        "mvn spring-boot:run",
+        "gradle bootRun"
+      ],
+      "docs": "https://docs.spring.io/spring-boot/maven-plugin/run.html",
+      "id": "spring",
+      "install": "./mvnw dependency:resolve",
+      "integration": "native",
+      "name": "Spring Boot",
+      "notes": [
+        "The port reaches Spring Boot through SERVER_PORT (relaxed binding of server.port)."
+      ],
+      "requires": [
+        "java"
+      ],
+      "runtimes": [
+        "java"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "sqlserver",
+        "rabbitmq",
+        "springjobs",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "./mvnw test"
+    },
+    {
+      "build": "./mvnw package",
+      "category": "language",
+      "config_files": [],
+      "dev": [],
+      "docs": "https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html",
+      "id": "java",
+      "install": "./mvnw dependency:resolve",
+      "integration": "custom",
+      "name": "Java",
+      "notes": [
+        "Java alone doesn't define an HTTP server; set the command that starts yours."
+      ],
+      "requires": [
+        "java"
+      ],
+      "runtimes": [
+        "java"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "sqlserver",
+        "rabbitmq",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "./mvnw test"
+    },
+    {
+      "build": "dotnet build",
+      "category": "framework",
+      "config_files": [
+        "appsettings.json",
+        "appsettings.Development.json"
+      ],
+      "dev": [
+        "dotnet run --no-launch-profile"
+      ],
+      "docs": "https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/endpoints",
+      "id": "dotnet",
+      "install": "dotnet restore",
+      "integration": "native",
+      "name": ".NET",
+      "notes": [],
+      "requires": [
+        "dotnet"
+      ],
+      "runtimes": [
+        "dotnet"
+      ],
+      "services": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "redis",
+        "valkey",
+        "mongodb",
+        "sqlserver",
+        "rabbitmq",
+        "hangfire",
+        "signalr",
+        "mailpit",
+        "s3",
+        "meilisearch"
+      ],
+      "supported": null,
+      "test": "dotnet test"
+    },
+    {
+      "build": "hugo --minify",
+      "category": "framework",
+      "config_files": [
+        "hugo.toml",
+        "hugo.yaml",
+        "config.toml"
+      ],
+      "dev": [
+        "hugo server --bind 127.0.0.1 --port {port}"
+      ],
+      "docs": "https://gohugo.io/commands/hugo_server/",
+      "id": "hugo",
+      "install": null,
+      "integration": "native",
+      "name": "Hugo",
+      "notes": [
+        "Live reload connects to the server's own port; it works at http://127.0.0.1:<port>, and through the proxy only with --liveReloadPort set to the proxy's port."
+      ],
+      "requires": [
+        "hugo"
+      ],
+      "runtimes": [],
+      "services": [
+        "mock"
+      ],
+      "supported": null,
+      "test": null
+    }
+  ],
+  "revision": 2026112301
+}

@@ -1,0 +1,238 @@
+# Builds LocDev for Windows, macOS and Linux when a version tag (`v1.2.3`,
+# `v1.2.3-rc.1` for a preview) is pushed, and publishes one GitHub release
+# with everything:
+#
+# - the desktop app (it bundles locdevd + locdev): .exe/.msi (Windows), .dmg
+#   for Apple silicon and Intel (macOS), .AppImage/.deb/.rpm for x86_64 and
+#   ARM64 (Linux), plus the updater's signed latest.json;
+# - the standalone CLI (locdev + locdevd) for each system, with install.sh /
+#   install.ps1;
+# - SHA256SUMS of every file, and versions.json (app and daemon versions).
+#
+# The release is created as a draft and published only when every build
+# succeeded, so the site's download page (/download, which lists published
+# releases) and installed apps never see a half-built one. A tag with a `-`
+# is published as a pre-release: the site's "preview" channel.
+#
+# Secrets: TAURI_SIGNING_PRIVATE_KEY (+ _PASSWORD) sign the updater files;
+# the APPLE_* ones are optional (unsigned builds still install, with a
+# warning). The repository must be public for the site and installed apps
+# to read the releases.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  # The draft's text. tauri-action (v1+) rewrites the name and body of the
+  # release it uploads to, so it gets the same text.
+  RELEASE_NOTES: "See the assets below. Verify downloads against SHA256SUMS. The standalone CLI (locdev-*.tar.gz / .zip) needs no app: unpack it, or use install.sh / install.ps1."
+
+jobs:
+  # One draft for both jobs below, so neither races to create it.
+  draft:
+    name: Draft release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # The tag names the app's version: the app updater's latest.json and
+      # the daemon's update check both rely on it.
+      - name: Check the tag against the versions
+        shell: bash
+        run: |
+          app=$(node -p 'require("./apps/desktop/package.json").version')
+          daemon=$(sed -n '/^\[workspace.package\]/,/^\[/s/^version = "\(.*\)"/\1/p' Cargo.toml)
+          if [ "$GITHUB_REF_NAME" != "v$app" ]; then
+            echo "::error::tag $GITHUB_REF_NAME is not the app version v$app (apps/desktop/package.json)"; exit 1
+          fi
+          printf '{"app":"%s","daemon":"%s"}\n' "$app" "$daemon" > versions.json
+          cat versions.json
+      - name: Create the draft (once)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          preview=""; [[ "$GITHUB_REF_NAME" == *-* ]] && preview="--prerelease"
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 ||
+            gh release create "$GITHUB_REF_NAME" --draft $preview --title "LocDev $GITHUB_REF_NAME" \
+              --notes "$RELEASE_NOTES"
+          # Which app and daemon/CLI versions this release carries.
+          gh release upload "$GITHUB_REF_NAME" versions.json --clobber
+
+  app:
+    name: App · ${{ matrix.name }}
+    needs: draft
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86_64
+            os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - name: Linux ARM64
+            os: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-gnu
+          - name: macOS Apple Silicon
+            os: macos-latest
+            target: aarch64-apple-darwin
+          - name: macOS Intel
+            os: macos-15-intel
+            target: x86_64-apple-darwin
+          - name: Windows x86_64
+            os: windows-latest
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: apps/desktop/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: apps/desktop
+
+      # Optional macOS signing; unsigned builds still work but warn on install.
+      # Only the secrets that exist are exported: Tauri treats a set but empty
+      # APPLE_CERTIFICATE as a certificate to import, and the bundle fails.
+      - name: Apple signing (when configured)
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set=""
+          for v in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+            if [ -n "${!v}" ]; then
+              { echo "$v<<__APPLE_EOF__"; printf '%s\n' "${!v}"; echo "__APPLE_EOF__"; } >> "$GITHUB_ENV"
+              set="$set $v"
+            fi
+          done
+          echo "Apple signing variables:${set:- none (unsigned build)}"
+
+      # Builds the app; its beforeBuildCommand builds locdevd + locdev for the
+      # same target and bundles them as sidecars (the app's Settings → About
+      # can put that locdev on the user's PATH).
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Signs the updater files (createUpdaterArtifacts in tauri.conf.json);
+          # tauri-action then attaches latest.json, which installed apps read.
+          # The public half is plugins.updater.pubkey.
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: apps/desktop
+          tauriScript: pnpm tauri
+          args: --target ${{ matrix.target }}
+          tagName: ${{ github.ref_name }}
+          releaseName: LocDev ${{ github.ref_name }}
+          releaseBody: ${{ env.RELEASE_NOTES }}
+          releaseDraft: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+
+  cli:
+    name: CLI · ${{ matrix.target }}
+    needs: draft
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - os: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-gnu
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: cli-${{ matrix.target }}
+
+      - run: cargo build --release --locked -p locdev -p locdev-daemon --target ${{ matrix.target }}
+
+      - name: Package
+        shell: bash
+        run: |
+          dir="locdev-${GITHUB_REF_NAME}-${{ matrix.target }}"
+          mkdir "$dir"
+          ext=""; [[ "${{ matrix.target }}" == *windows* ]] && ext=".exe"
+          cp "target/${{ matrix.target }}/release/locdev$ext" "target/${{ matrix.target }}/release/locdevd$ext" README.md "$dir/"
+          if [ -f LICENSE ]; then cp LICENSE "$dir/"; fi
+          # The CLI's own version is the daemon's (Cargo workspace), not the
+          # app's: logged so the release notes can say which one shipped.
+          "$dir/locdev$ext" --version
+          if [[ "$ext" == ".exe" ]]; then 7z a "$dir.zip" "$dir"; else tar czf "$dir.tar.gz" "$dir"; fi
+
+      - name: Upload
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          shopt -s nullglob
+          gh release upload "$GITHUB_REF_NAME" locdev-*.tar.gz locdev-*.zip --clobber
+
+  checksums:
+    name: Install scripts + SHA256SUMS
+    needs: [app, cli]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Attach the install scripts, then checksum every asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release upload "$GITHUB_REF_NAME" apps/locdev/install/install.sh apps/locdev/install/install.ps1 --clobber
+          mkdir assets && cd assets
+          gh release download "$GITHUB_REF_NAME" --pattern '*'
+          rm -f SHA256SUMS
+          sha256sum * > SHA256SUMS
+          gh release upload "$GITHUB_REF_NAME" SHA256SUMS --clobber
+
+  # Every build and the checksums made it: the release goes public, and the
+  # site's download page and installed apps pick it up.
+  publish:
+    name: Publish the release
+    needs: [app, cli, checksums]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          latest="--latest"; [[ "$GITHUB_REF_NAME" == *-* ]] && latest="--latest=false"
+          gh release edit "$GITHUB_REF_NAME" --draft=false $latest
+          gh release view "$GITHUB_REF_NAME" --json url,assets --jq '"\(.url) · \(.assets | length) files"'

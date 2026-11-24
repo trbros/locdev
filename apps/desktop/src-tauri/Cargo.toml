@@ -1,0 +1,33 @@
+[package]
+name = "locdev-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "locdev_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+locdev-core.workspace = true
+locdev-ipc.workspace = true
+locdev-mail.workspace = true
+locdev-platform.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-updater = "2"
+tokio.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# Already in the tree through GTK; used to filter one library warning.
+glib = "0.18"
+
+[lints]
+workspace = true

@@ -1,0 +1,15 @@
+[package]
+name = "locdev-github"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+locdev-core.workspace = true
+keyring = "4"
+serde.workspace = true
+serde_json.workspace = true
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip", "json"] }
+
+[lints]
+workspace = true
