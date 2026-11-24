@@ -18,7 +18,7 @@ locdev stack inspect shop          # a site, with evidence, versions and prerequ
 | custom command      | the framework was recognized, but the start command has to come from you (`locdev edit <site> --command`)                                 |
 | component           | runs through another (React through Vite, Tailwind through the build)                                                                     |
 
-Some adapters also pass the port in the framework's own variables: Spring Boot gets `SERVER_PORT` and `SERVER_ADDRESS`, and .NET gets `ASPNETCORE_URLS=http://127.0.0.1:<port>` (with `--no-launch-profile`, so `launchSettings.json` doesn't change the address). Python projects with `.venv/` (or `venv/`) run with the virtual environment first on `PATH` and `VIRTUAL_ENV` set.
+Some adapters also pass the port in the framework's own variables: Spring Boot gets `SERVER_PORT` and `SERVER_ADDRESS`, and .NET gets `ASPNETCORE_URLS=http://127.0.0.1:<port>` (with `--no-launch-profile`, so `launchSettings.json` doesn't change the address), plus `ASPNETCORE_ENVIRONMENT=Development`, which the launch profile would set, unless the site already has that variable. Python projects with `.venv/` (or `venv/`) run with the virtual environment first on `PATH` and `VIRTUAL_ENV` set.
 
 When several frameworks match (a NestJS app also has Express), the highest-priority one **that knows how to start this project** wins. A Vite installed with no script that runs it, for example, doesn't become the primary; generic Node.js takes over. Versions older than the adapter supports show up as a warning, without blocking.
 

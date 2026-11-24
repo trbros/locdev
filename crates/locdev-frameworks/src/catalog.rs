@@ -292,7 +292,9 @@ pub struct DevVariant {
     #[serde(default)]
     pub port: PortMode,
     /// More variables for the port: `SERVER_PORT` (gets the number) or
-    /// `ASPNETCORE_URLS=http://127.0.0.1:{port}` (a template).
+    /// `ASPNETCORE_URLS=http://127.0.0.1:{port}` (a template). An entry
+    /// without `{port}` (`ASPNETCORE_ENVIRONMENT=Development`) is a default
+    /// the site's own variables override.
     #[serde(default)]
     pub port_env: Vec<String>,
     #[serde(default)]

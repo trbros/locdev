@@ -31,12 +31,38 @@ use tracing::{debug, info, warn};
 use super::Daemon;
 use crate::events::EventStore;
 
-/// The prepend shim (see `ensure_dump_shim`).
-const DUMP_SHIM: &str = r#"<?php
-// Managed by LocDev. Copies VAR_DUMPER_FORMAT and VAR_DUMPER_SERVER from the
-// environment into $_SERVER (PHP's built-in server leaves them out), so
-// Symfony VarDumper sends dump()/dd() to LocDev's Debug Center. Then runs
-// the auto_prepend_file that was set before this one, if any.
+/// The prepend shim every PHP site runs (see `ensure_php_shim`).
+const PHP_SHIM: &str = r#"<?php
+// Managed by LocDev. Runs before every request of the PHP sites LocDev runs.
+//
+// HTTPS: LocDev's proxy ends TLS and reaches PHP's built-in server over
+// plain HTTP, naming the original scheme and port in X-Forwarded-Proto and
+// X-Forwarded-Port. Frameworks read those headers only from proxies they
+// were told to trust (Laravel's TrustProxies, Symfony's trusted_proxies),
+// so a page opened over https:// got http:// links to its own assets and was
+// blocked as mixed content. A request from the proxy (loopback, where it
+// always sets those headers) gets the variables a TLS server would set, in
+// every project, without touching its code.
+//
+// Dumps: copies VAR_DUMPER_FORMAT and VAR_DUMPER_SERVER from the environment
+// into $_SERVER (PHP's built-in server leaves them out), so Symfony VarDumper
+// sends dump()/dd() to LocDev's Debug Center when the site has dumps on.
+//
+// Then runs the auto_prepend_file that was set before this one, if any.
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+    && in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true)
+) {
+    if ('https' === strtolower($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        $_SERVER['HTTPS'] = 'on';
+        $_SERVER['REQUEST_SCHEME'] = 'https';
+    } else {
+        unset($_SERVER['HTTPS']);
+        $_SERVER['REQUEST_SCHEME'] = 'http';
+    }
+    if (isset($_SERVER['HTTP_X_FORWARDED_PORT']) && ctype_digit($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+        $_SERVER['SERVER_PORT'] = $_SERVER['HTTP_X_FORWARDED_PORT'];
+    }
+}
 foreach (['VAR_DUMPER_FORMAT', 'VAR_DUMPER_SERVER'] as $locdevKey) {
     if (!isset($_SERVER[$locdevKey]) && false !== ($locdevValue = getenv($locdevKey))) {
         $_SERVER[$locdevKey] = $locdevValue;
@@ -50,6 +76,11 @@ if (false !== ($locdevNext = getenv('LOCDEV_PREPEND_NEXT')) && '' !== $locdevNex
     unset($locdevNext);
 }
 "#;
+
+/// File names of the shim, now and when it only handled dumps, so neither is
+/// taken for a prepend file the user set.
+const PHP_SHIM_FILE: &str = "locdev-prepend.php";
+const OLD_SHIM_FILE: &str = "locdev-dumps.php";
 
 /// Output stays quiet this long → whatever was being read is complete.
 const IDLE: Duration = Duration::from_millis(400);
@@ -268,30 +299,30 @@ impl Daemon {
         *self.debug.dump_server.lock().unwrap()
     }
 
-    fn dumps_dir(&self) -> PathBuf {
-        self.paths.data_dir.join("php-dumps")
+    fn php_shim_dir(&self) -> PathBuf {
+        self.paths.data_dir.join("php-prepend")
     }
 
     /// LocDev's prepend shim and the ini that loads it (rewritten only when
     /// they differ). Under PHP's built-in server (`php -S`, `artisan serve`)
-    /// environment variables don't reach `$_SERVER`, the only place
-    /// VarDumper looks; the shim copies its two variables there.
-    fn ensure_dump_shim(&self) -> std::io::Result<PathBuf> {
-        let dir = self.dumps_dir();
+    /// the shim gives proxied HTTPS requests the server variables PHP's
+    /// frameworks look for, and copies VarDumper's variables to `$_SERVER`.
+    fn ensure_php_shim(&self) -> std::io::Result<PathBuf> {
+        let dir = self.php_shim_dir();
         std::fs::create_dir_all(&dir)?;
-        let shim = dir.join("locdev-dumps.php");
-        let ini = dir.join("95-locdev-dumps.ini");
+        let shim = dir.join(PHP_SHIM_FILE);
+        let ini = dir.join("95-locdev-prepend.ini");
         let write = |path: &Path, text: &str| -> std::io::Result<()> {
             if std::fs::read_to_string(path).ok().as_deref() != Some(text) {
                 std::fs::write(path, text)?;
             }
             Ok(())
         };
-        write(&shim, DUMP_SHIM)?;
+        write(&shim, PHP_SHIM)?;
         write(
             &ini,
             &format!(
-                "; {}: loads the shim that lets dump()/dd() reach LocDev's Debug Center.\nauto_prepend_file=\"{}\"\n",
+                "; {}: loads the shim that tells PHP a request came over HTTPS and lets dump()/dd() reach LocDev's Debug Center.\nauto_prepend_file=\"{}\"\n",
                 locdev_platform::MARKER,
                 shim.display()
             ),
@@ -317,14 +348,18 @@ impl Daemon {
         };
         let out = command.stdin(std::process::Stdio::null()).output().ok()?;
         let value = String::from_utf8_lossy(&out.stdout).trim().to_string();
-        (out.status.success() && !value.is_empty() && !value.ends_with("locdev-dumps.php"))
-            .then_some(value)
+        (out.status.success()
+            && !value.is_empty()
+            && !value.ends_with(PHP_SHIM_FILE)
+            && !value.ends_with(OLD_SHIM_FILE))
+        .then_some(value)
     }
 
-    /// What a PHP site gets when its dumps go to LocDev: VarDumper's two
-    /// variables, and LocDev's ini folder added to PHP_INI_SCAN_DIR (the
-    /// shim, chaining any prepend file already set). Nothing in the project.
-    pub(super) fn dump_env(&self, project: &Project, env: &mut Vec<(String, String)>) {
+    /// What every PHP site gets: LocDev's ini folder added to
+    /// PHP_INI_SCAN_DIR (the shim, chaining any prepend file already set),
+    /// and VarDumper's two variables when its dumps go to LocDev. Nothing in
+    /// the project.
+    pub(super) fn php_shim_env(&self, project: &Project, env: &mut Vec<(String, String)>) {
         let stack = self.stack_of(project);
         let php = runtime_of(
             stack.kind,
@@ -333,15 +368,17 @@ impl Daemon {
         )
         .as_deref()
             == Some("php");
-        let Some(addr) = self.dump_server().filter(|_| project.dumps && php) else {
+        if !php {
             return;
-        };
-        env.push(("VAR_DUMPER_FORMAT".into(), "server".into()));
-        env.push(("VAR_DUMPER_SERVER".into(), addr.to_string()));
-        let dir = match self.ensure_dump_shim() {
+        }
+        if let Some(addr) = self.dump_server().filter(|_| project.dumps) {
+            env.push(("VAR_DUMPER_FORMAT".into(), "server".into()));
+            env.push(("VAR_DUMPER_SERVER".into(), addr.to_string()));
+        }
+        let dir = match self.ensure_php_shim() {
             Ok(dir) => dir,
             Err(error) => {
-                warn!(%error, "could not write the dump shim; dumps work only where $_SERVER has the environment");
+                warn!(%error, "could not write the PHP shim; HTTPS pages may link to http:// assets and dumps work only where $_SERVER has the environment");
                 return;
             }
         };
@@ -826,5 +863,66 @@ mod tests {
                 .iter()
                 .any(|v| v == "127.0.0.1" || v == "3306" || v == "true" || v == "Shop")
         );
+    }
+
+    /// The shim under PHP's built-in server: a proxied HTTPS request looks
+    /// like HTTPS to PHP, a plain one doesn't. Skipped without `php`.
+    #[test]
+    fn php_shim_marks_proxied_https() {
+        let probe = std::process::Command::new("php").arg("-v").output();
+        if !probe.is_ok_and(|o| o.status.success()) {
+            eprintln!("php not found; skipped");
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let shim = dir.path().join(PHP_SHIM_FILE);
+        std::fs::write(&shim, PHP_SHIM).unwrap();
+        let root = dir.path().join("public");
+        std::fs::create_dir(&root).unwrap();
+        std::fs::write(
+            root.join("index.php"),
+            r#"<?php echo ($_SERVER['HTTPS'] ?? '-'), ' ', $_SERVER['REQUEST_SCHEME'] ?? '-', ' ', $_SERVER['SERVER_PORT'];"#,
+        )
+        .unwrap();
+        let port = std::net::TcpListener::bind("127.0.0.1:0")
+            .unwrap()
+            .local_addr()
+            .unwrap()
+            .port();
+        let mut server = std::process::Command::new("php")
+            .arg("-d")
+            .arg(format!("auto_prepend_file={}", shim.display()))
+            .args(["-S", &format!("127.0.0.1:{port}"), "-t"])
+            .arg(&root)
+            .env_remove("LOCDEV_PREPEND_NEXT")
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn()
+            .unwrap();
+        let get = |headers: &str| -> String {
+            use std::io::{Read, Write};
+            for _ in 0..50 {
+                if let Ok(mut s) = std::net::TcpStream::connect(("127.0.0.1", port)) {
+                    write!(
+                        s,
+                        "GET / HTTP/1.1\r\nHost: shop.test\r\n{headers}Connection: close\r\n\r\n"
+                    )
+                    .unwrap();
+                    let mut out = String::new();
+                    s.read_to_string(&mut out).unwrap();
+                    return out.rsplit("\r\n\r\n").next().unwrap_or("").to_string();
+                }
+                std::thread::sleep(Duration::from_millis(100));
+            }
+            panic!("php -S did not answer");
+        };
+        let https = get("X-Forwarded-Proto: https\r\nX-Forwarded-Port: 443\r\n");
+        let http = get("X-Forwarded-Proto: http\r\nX-Forwarded-Port: 80\r\n");
+        let direct = get("");
+        let _ = server.kill();
+        let _ = server.wait();
+        assert_eq!(https, "on https 443");
+        assert_eq!(http, "- http 80");
+        assert_eq!(direct, format!("- - {port}"));
     }
 }

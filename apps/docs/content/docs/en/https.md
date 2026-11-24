@@ -11,6 +11,14 @@ Each site's certificate is issued in memory on first access, from the name reque
 
 Certificates are valid for 397 days and are reissued on every daemon restart.
 
+## Links and assets over HTTPS (_mixed content_)
+
+The proxy ends TLS and speaks plain HTTP to the site's dev server, passing the original scheme and port in `X-Forwarded-Proto` and `X-Forwarded-Port` (plus `X-Forwarded-Host` and `X-Forwarded-For`). Frameworks read those headers only from proxies they were told to trust (Laravel's `TrustProxies`, Symfony's `trusted_proxies`). Without that, a page opened over `https://` links to its own assets with `http://`, and the browser blocks them as _mixed content_. LocDev handles this in every project, without changing its files:
+
+- **PHP (Laravel, Symfony, WordPress, Bedrock, plain PHP):** every PHP site loads LocDev's `auto_prepend_file` (in `<data>/php-prepend/`, marked "Managed by LocDev", added through `PHP_INI_SCAN_DIR`). On a request that reached the proxy over HTTPS, it sets `$_SERVER['HTTPS'] = 'on'`, `REQUEST_SCHEME` and `SERVER_PORT` as a TLS server would. `asset()` and `url()`, Symfony's toolbar (`/_wdt`) and WordPress's `is_ssl()` then produce `https://`. It trusts those headers only on connections from loopback, where the proxy talks from, and the proxy always overwrites them. If your PHP already had an `auto_prepend_file`, it still runs right after.
+- **Redirects (every stack):** on an HTTPS request, a response with `Location: http://<the same host>/…` points to `https://` instead. This covers apps that build the URL from an `http://` setting (such as Bedrock's `WP_HOME`) and keeps an HTTPS-only site from bouncing between the two schemes. Other hosts and relative locations don't change.
+- **Vite next to Laravel:** the certificate handed to Vite also covers `localhost`, `127.0.0.1` and `::1` (see **Dev servers**).
+
 ## Why trusting this CA is low risk
 
 The CA is issued with **Name Constraints** (`permitted: test, localhost`) and `pathlen:0`. Browsers and TLS libraries reject any certificate it signs for another domain. Even if the key leaked, it couldn't be used to intercept `google.com` or your bank.

@@ -3,6 +3,7 @@
 
 use std::path::{Path, PathBuf};
 
+use locdev_core::TLD;
 use locdev_core::scaffold::{NewProject, PackageRegistry, PlannedFile, ProjectPlan, Starter, Step};
 
 use crate::catalog::starters;
@@ -485,7 +486,7 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 "composer",
                 &["create-project", "roots/bedrock", name, "--no-interaction"],
             ));
-            notes.push("Bedrock reads the database and URLs from .env (DB_NAME, DB_USER, WP_HOME…); fill it in before installing WordPress.".into());
+            notes.push("Bedrock reads the database from .env (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST); fill it in before installing WordPress.".into());
         }
         "nextjs" => {
             let (program, base) = runner(m);
@@ -647,6 +648,9 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 .map(String::from),
             );
             args.push(opt(project, starter, "language").into());
+            // The Nest CLI asks about @nestjs/observe and agent skills;
+            // nobody is there to answer.
+            args.extend(["--no-observe", "--skip-skills", "--no-interactive"].map(String::from));
             if !on(project, starter, "git") {
                 args.push("--skip-git".into());
             }
@@ -767,6 +771,7 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
             &["artisan", "migrate", "--no-interaction"],
         ));
     }
+    actions.extend(after_steps_actions(&project.starter, name));
     if project.register {
         actions.push(format!("Register the folder as the site {name}"));
     }
@@ -784,6 +789,67 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
         notes,
         missing: Vec::new(),
     })
+}
+
+/// What [`after_steps`] does to a new project, for the plan.
+fn after_steps_actions(starter: &str, name: &str) -> Vec<String> {
+    match starter {
+        "django" => vec![format!(
+            "In config/settings.py, under `if DEBUG:`, let the site answer at {name}.{TLD} (ALLOWED_HOSTS) and see HTTPS through LocDev's proxy (SECURE_PROXY_SSL_HEADER)"
+        )],
+        "bedrock" => vec![format!(
+            "Create .env from .env.example if the installer didn't, with WP_HOME=http://{name}.{TLD}"
+        )],
+        _ => Vec::new(),
+    }
+}
+
+/// Django's settings for a site behind LocDev's proxy, appended to a new
+/// project's settings. With ALLOWED_HOSTS empty and DEBUG on, Django answers
+/// only localhost; once the list has entries, its localhost defaults are gone,
+/// so they're listed too. The proxy always sets X-Forwarded-Proto, so a page
+/// opened over HTTPS builds https:// links and passes the CSRF origin check.
+const DJANGO_SETTINGS: &str = r#"
+
+# LocDev: the site answers at <name>.test through LocDev's proxy, which talks
+# plain HTTP to runserver and passes the browser's scheme in X-Forwarded-Proto.
+# Development only: behind another proxy, trust the header only if that proxy
+# sets it on every request.
+if DEBUG:
+    ALLOWED_HOSTS += [".test", ".localhost", "127.0.0.1", "[::1]"]
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+"#;
+
+/// Edits a project LocDev just created once its installer has run (see
+/// [`after_steps_actions`]); what was done, for the terminal. Nothing is
+/// done twice: a file that already has the change is left alone.
+pub fn after_steps(starter: &str, name: &str, dir: &Path) -> std::io::Result<Vec<String>> {
+    let mut done = Vec::new();
+    match starter {
+        "django" => {
+            let settings = dir.join("config").join("settings.py");
+            let text = std::fs::read_to_string(&settings)?;
+            if !text.contains("HTTP_X_FORWARDED_PROTO") {
+                std::fs::write(&settings, format!("{}{DJANGO_SETTINGS}", text.trim_end()))?;
+                done.push("Set ALLOWED_HOSTS and SECURE_PROXY_SSL_HEADER for development in config/settings.py".into());
+            }
+        }
+        "bedrock" => {
+            let env = dir.join(".env");
+            let text = match std::fs::read_to_string(&env) {
+                Ok(text) => text,
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                    std::fs::read_to_string(dir.join(".env.example"))?
+                }
+                Err(e) => return Err(e),
+            };
+            let home = format!("'http://{name}.{TLD}'");
+            std::fs::write(&env, set_env(&text, &[("WP_HOME".into(), home.clone())]))?;
+            done.push(format!("Set WP_HOME={home} in .env"));
+        }
+        _ => {}
+    }
+    Ok(done)
 }
 
 const PHP_INDEX: &str = include_str!("../templates/php/public/index.php");

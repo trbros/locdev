@@ -260,7 +260,9 @@ fn javascript_starters_follow_each_tools_cli() {
     );
     assert_eq!(
         cmd("nestjs", "npm", &[("git", "false")]),
-        ["npx --yes @nestjs/cli@latest new shop --package-manager npm --language ts --skip-git"]
+        [
+            "npx --yes @nestjs/cli@latest new shop --package-manager npm --language ts --no-observe --skip-skills --no-interactive --skip-git"
+        ]
     );
 }
 
@@ -550,4 +552,59 @@ fn starter_files_are_found_by_detection() {
         assert_eq!(stack.adapter.as_deref(), Some(adapter), "{starter}");
         assert!(stack.command.is_some(), "{starter} has a dev command");
     }
+}
+
+#[test]
+fn django_and_bedrock_are_set_up_for_the_proxy_after_their_installers() {
+    use crate::plan::after_steps;
+    let dir = tempfile::tempdir().unwrap();
+
+    // Django: ALLOWED_HOSTS and the proxy's scheme, in development only, once.
+    let config = dir.path().join("config");
+    std::fs::create_dir(&config).unwrap();
+    std::fs::write(
+        config.join("settings.py"),
+        "DEBUG = True\n\nALLOWED_HOSTS = []\n",
+    )
+    .unwrap();
+    assert_eq!(after_steps("django", "shop", dir.path()).unwrap().len(), 1);
+    let settings = std::fs::read_to_string(config.join("settings.py")).unwrap();
+    assert!(settings.starts_with("DEBUG = True\n\nALLOWED_HOSTS = []\n\n"));
+    assert!(settings.contains("if DEBUG:\n    ALLOWED_HOSTS += [\".test\", \".localhost\""));
+    assert!(settings.contains("SECURE_PROXY_SSL_HEADER = (\"HTTP_X_FORWARDED_PROTO\", \"https\")"));
+    assert!(
+        after_steps("django", "shop", dir.path())
+            .unwrap()
+            .is_empty()
+    );
+    assert_eq!(
+        std::fs::read_to_string(config.join("settings.py")).unwrap(),
+        settings
+    );
+
+    // Bedrock: .env from .env.example when missing, WP_HOME for the site.
+    std::fs::write(
+        dir.path().join(".env.example"),
+        "DB_NAME='database_name'\nWP_HOME='http://example.com'\nWP_SITEURL=\"${WP_HOME}/wp\"\n",
+    )
+    .unwrap();
+    after_steps("bedrock", "shop", dir.path()).unwrap();
+    assert_eq!(
+        std::fs::read_to_string(dir.path().join(".env")).unwrap(),
+        "DB_NAME='database_name'\nWP_HOME='http://shop.test'\nWP_SITEURL=\"${WP_HOME}/wp\"\n"
+    );
+    // An existing .env is kept, only WP_HOME changes.
+    std::fs::write(dir.path().join(".env"), "DB_NAME='shop'\n").unwrap();
+    after_steps("bedrock", "shop", dir.path()).unwrap();
+    assert_eq!(
+        std::fs::read_to_string(dir.path().join(".env")).unwrap(),
+        "DB_NAME='shop'\nWP_HOME='http://shop.test'\n"
+    );
+
+    // Other starters: nothing.
+    assert!(
+        after_steps("laravel", "shop", dir.path())
+            .unwrap()
+            .is_empty()
+    );
 }

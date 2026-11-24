@@ -8,6 +8,41 @@ LocDev の最初の公開バージョンは 0.19.0 です。デスクトップ�
 
 形式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に従います。項目は追加、変更、修正、セキュリティ、互換性のない変更です。インストーラーの提供状況は[公開済みリリース](https://github.com/trbros/locdev/releases)で確認してください。[ドキュメント](https://locdev.app/ja/docs)。
 
+## [0.19.2] - 2026-11-24
+
+アプリ 0.19.2、デーモンと CLI 0.18.2。
+
+### 修正
+
+- HTTPS で開いた PHP サイト (Laravel、Symfony、WordPress、Bedrock、素の
+  PHP) が自分のアセットやフォント、Symfony のツールバーを `http://` で参照し、
+  ブラウザが _mixed content_ としてブロックしていました。すべての PHP サイトが
+  LocDev の `auto_prepend_file` を読み込むようになり、HTTPS でプロキシに届いた
+  リクエストには TLS サーバーが設定するサーバー変数 (`HTTPS`、`REQUEST_SCHEME`、
+  `SERVER_PORT`) が渡されます。プロジェクトのファイルは変更しません。
+- HTTPS のリクエストで、同じホストの `http://` へのリダイレクトは `https://` を
+  指すようになりました。`http://` の URL 設定を持つアプリ (Bedrock の
+  `WP_HOME`) でも、ブラウザが HTTP に戻されなくなります。
+- Vite 補助付きの Laravel: Vite 8.3 以降ではページが
+  `https://127.0.0.1:<port>` からアセットを読み込み、Vite の証明書がその
+  アドレスをカバーしていませんでした。証明書に `localhost`、`127.0.0.1`、`::1`
+  も含めるようにしました。
+- Nuxt 4.1 以降: 開発モードのエラーバッジ (`/__nuxt_dev__/…`) が
+  `<site>.test` で 403 を返していました。
+- Django: 新しいプロジェクトが `<site>.test` で 400 (`DisallowedHost`) を
+  返していました。LocDev は新しいプロジェクトの設定に、`if DEBUG:` の中で
+  `ALLOWED_HOSTS` への `.test` とプロキシのスキーム
+  (`SECURE_PROXY_SSL_HEADER`) を追加します。既存のプロジェクト向けの注記に、
+  追加する内容を記載しています。
+- ASP.NET Core: `dotnet run --no-launch-profile` が Production で動いていた
+  ため、静的アセットが 500 を返していました。サイトが設定していない場合、
+  LocDev は `ASPNETCORE_ENVIRONMENT=Development` を設定します。
+- NestJS: プロジェクトの作成が Nest CLI の新しい質問 (`@nestjs/observe`、
+  エージェントのスキル) で止まっていました。
+- Bedrock: 素の PHP として検出され、`web/` ではなくプロジェクトのルートから
+  提供されていました。`web/` から提供される WordPress サイトとして扱うように
+  なり、新しいプロジェクトにはサイトの `WP_HOME` を含む `.env` を作成します。
+
 ## [0.19.1] - 2026-11-24
 
 アプリ 0.19.1、デーモンと CLI 0.18.1。

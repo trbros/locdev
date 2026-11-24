@@ -62,12 +62,19 @@ impl Daemon {
         env: &mut Vec<(String, String)>,
     ) {
         env.extend(self.mail_env(project));
-        self.dump_env(project, env);
+        // LocDev's PHP settings first, so a prepend file set there is the one
+        // the shim chains (the shim's folder comes last and wins).
         self.php_ini_env(project, env);
+        self.php_shim_env(project, env);
         let stack = self.stack_of(project);
         if let Some(port) = port {
             for entry in &stack.port_env {
                 let (name, template) = entry.split_once('=').unwrap_or((entry, "{port}"));
+                // A fixed value (`ASPNETCORE_ENVIRONMENT=Development`) is a
+                // default: the site's own variables keep theirs.
+                if !template.contains("{port}") && env.iter().any(|(k, _)| k == name) {
+                    continue;
+                }
                 env.push((
                     name.to_string(),
                     template.replace("{port}", &port.to_string()),

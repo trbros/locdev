@@ -8,6 +8,42 @@ O daemon/CLI e o app desktop têm numeração separada: mudanças somente na int
 
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Seções: Adicionado, Alterado, Corrigido, Segurança e Mudanças incompatíveis. A disponibilidade dos instaladores depende das [releases publicadas](https://github.com/trbros/locdev/releases). [Documentação completa](https://locdev.app/pt-BR/docs).
 
+## [0.19.2] - 2026-11-24
+
+App 0.19.2 com daemon e CLI 0.18.2.
+
+### Corrigido
+
+- Sites PHP abertos em HTTPS (Laravel, Symfony, WordPress, Bedrock, PHP
+  puro) apontavam os próprios assets, fontes e a toolbar do Symfony com
+  `http://`, e o navegador os bloqueava como _mixed content_. Todo site PHP
+  agora carrega o `auto_prepend_file` do LocDev, que dá às requisições que
+  chegaram ao proxy por HTTPS as variáveis de servidor que um servidor TLS
+  define (`HTTPS`, `REQUEST_SCHEME`, `SERVER_PORT`). Nenhum arquivo do
+  projeto muda.
+- Numa requisição HTTPS, um redirecionamento para `http://` no mesmo host
+  passa a apontar para `https://`, então apps com URL configurada em
+  `http://` (o `WP_HOME` do Bedrock) não levam mais o navegador de volta ao
+  HTTP.
+- Laravel com o auxiliar Vite: no Vite 8.3 ou mais novo, a página carregava
+  os assets de `https://127.0.0.1:<porta>`, que o certificado do Vite não
+  cobria. O certificado agora inclui `localhost`, `127.0.0.1` e `::1`.
+- Nuxt 4.1 ou mais novo: o selo de erros do modo dev (`/__nuxt_dev__/…`)
+  respondia 403 em `<site>.test`.
+- Django: projetos novos respondiam 400 (`DisallowedHost`) em
+  `<site>.test`. O LocDev agora acrescenta `.test` ao `ALLOWED_HOSTS` e o
+  protocolo do proxy (`SECURE_PROXY_SSL_HEADER`) às configurações dos
+  projetos novos, dentro de `if DEBUG:`; a nota para projetos existentes
+  diz o que acrescentar.
+- ASP.NET Core: os assets estáticos respondiam 500, porque o `dotnet run
+  --no-launch-profile` rodava em Production. O LocDev define
+  `ASPNETCORE_ENVIRONMENT=Development`, a menos que o site defina.
+- NestJS: a criação do projeto parava nas perguntas novas do Nest CLI
+  (`@nestjs/observe`, skills de agentes).
+- Bedrock: era detectado como PHP genérico e servido da raiz do projeto em
+  vez de `web/`. Agora é um site WordPress servido de `web/`, e projetos
+  novos recebem um `.env` com o `WP_HOME` do site.
+
 ## [0.19.1] - 2026-11-24
 
 App 0.19.1 com daemon e CLI 0.18.1.

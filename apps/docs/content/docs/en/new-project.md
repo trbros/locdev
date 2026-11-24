@@ -102,8 +102,8 @@ locdev tools install laravel
 
 ## Limits
 
-- Validated end to end on Linux, creating the project and serving the site through LocDev: Laravel 13 with the Laravel installer (with a new PostgreSQL instance, the database created, `.env` pointed at it and the migrations), Vue, Angular, Flask, FastAPI, plain PHP, Axum and Actix Web, and creating with a chosen PHP version (pinned on the site). The other frameworks have their commands tested but weren't run here; WordPress wasn't run because WP-CLI wasn't installed.
-- For Django, Flask and FastAPI, a `.venv` inside the project gets the packages from `pip`; Django's settings package is called `config`.
+- Validated end to end on Linux, creating the project and serving the site through LocDev: Laravel 13 with the Laravel installer (with a new PostgreSQL instance, the database created, `.env` pointed at it and the migrations), Vue, Angular, Flask, FastAPI, plain PHP, Axum and Actix Web, and creating with a chosen PHP version (pinned on the site). Also checked in a browser over HTTPS and HTTP, with no console errors: Laravel (with and without a starter kit, with the Vite helper), Symfony (Composer), Bedrock, Next.js, Nuxt, Vite, Vue, Astro, SvelteKit, Angular, NestJS, Django (including the admin login over HTTPS), Flask, FastAPI, Rails, ASP.NET Core and Axum. WordPress through WP-CLI wasn't run because WP-CLI wasn't installed.
+- For Django, Flask and FastAPI, a `.venv` inside the project gets the packages from `pip`; Django's settings package is called `config`, and its `settings.py` gets, under `if DEBUG:`, `.test` in `ALLOWED_HOSTS` and `SECURE_PROXY_SSL_HEADER` for LocDev's proxy.
 - `create-vue` only skips its questions when some option is on; with everything off and JavaScript, it asks in the terminal.
 - Added packages run the install scripts their package manager would normally run.
 - Windows and macOS haven't been tested yet (the terminal uses ConPTY on Windows).

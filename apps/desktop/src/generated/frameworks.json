@@ -49,9 +49,12 @@
       "build": null,
       "category": "framework",
       "config_files": [
-        "wp-config.php"
+        "wp-config.php",
+        "config/application.php",
+        ".env"
       ],
       "dev": [
+        "php -S 127.0.0.1:{port} -t web",
         "php -S 127.0.0.1:{port} -t ."
       ],
       "docs": "https://developer.wordpress.org/advanced-administration/",
@@ -60,7 +63,8 @@
       "integration": "native",
       "name": "WordPress",
       "notes": [
-        "PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing."
+        "PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing.",
+        "Bedrock is served from web/ (WordPress itself in web/wp, the admin at /wp/wp-admin); its database and WP_HOME come from .env."
       ],
       "requires": [],
       "runtimes": [
@@ -1045,7 +1049,7 @@
       "integration": "native",
       "name": "Django",
       "notes": [
-        "Add the site's domain to ALLOWED_HOSTS when DEBUG is off."
+        "Django answers only the hosts in ALLOWED_HOSTS (with it empty and DEBUG on, only localhost): add \".test\" for the site's address, and SECURE_PROXY_SSL_HEADER = (\"HTTP_X_FORWARDED_PROTO\", \"https\") so pages and CSRF checks see HTTPS behind LocDev's proxy. Projects LocDev creates get both, under `if DEBUG:`."
       ],
       "requires": [
         "python3"
@@ -1485,5 +1489,5 @@
       "test": null
     }
   ],
-  "revision": 2026112301
+  "revision": 2026112401
 }

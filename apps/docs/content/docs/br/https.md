@@ -11,6 +11,14 @@ O certificado de cada site é emitido em memória no primeiro acesso, a partir d
 
 Os certificados valem 397 dias e são reemitidos a cada reinício do daemon.
 
+## Links e assets em HTTPS (_mixed content_)
+
+O proxy encerra o TLS e fala HTTP simples com o servidor de desenvolvimento do site, informando o protocolo e a porta originais em `X-Forwarded-Proto` e `X-Forwarded-Port` (além de `X-Forwarded-Host` e `X-Forwarded-For`). Os frameworks só leem esses cabeçalhos de proxies em que foram configurados para confiar (o `TrustProxies` do Laravel, o `trusted_proxies` do Symfony). Sem isso, uma página aberta em `https://` gera links `http://` para os próprios assets, e o navegador os bloqueia como _mixed content_. O LocDev resolve isso em todos os projetos, sem alterar arquivos deles:
+
+- **PHP (Laravel, Symfony, WordPress, Bedrock, PHP puro):** todo site PHP carrega o `auto_prepend_file` do LocDev (em `<dados>/php-prepend/`, marcado "Managed by LocDev" e adicionado pelo `PHP_INI_SCAN_DIR`). Numa requisição que chegou ao proxy por HTTPS, ele define `$_SERVER['HTTPS'] = 'on'`, `REQUEST_SCHEME` e `SERVER_PORT` como um servidor TLS faria. Com isso, `asset()` e `url()`, a toolbar do Symfony (`/_wdt`) e o `is_ssl()` do WordPress passam a gerar `https://`. Ele só confia nesses cabeçalhos quando a conexão vem do loopback, que é de onde o proxy fala, e o proxy sempre os sobrescreve. Se o seu PHP já tinha um `auto_prepend_file`, ele continua rodando logo depois.
+- **Redirecionamentos (todas as stacks):** numa requisição HTTPS, uma resposta com `Location: http://<o mesmo host>/…` passa a apontar para `https://`. Isso cobre apps que montam a URL a partir de uma configuração em `http://` (como o `WP_HOME` do Bedrock) e evita que um site HTTPS-only fique alternando entre os dois protocolos. Outros hosts e endereços relativos não mudam.
+- **Vite ao lado do Laravel:** o certificado entregue ao Vite cobre também `localhost`, `127.0.0.1` e `::1` (veja **Servidores de desenvolvimento**).
+
 ## Por que confiar nessa CA é de baixo risco
 
 A CA é emitida com **Name Constraints** (`permitted: test, localhost`) e `pathlen:0`. Navegadores e bibliotecas TLS rejeitam qualquer certificado assinado por ela para outro domínio. Mesmo que a chave vazasse, ela não serviria para interceptar `google.com` ou o seu banco.

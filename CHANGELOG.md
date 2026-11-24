@@ -17,6 +17,39 @@ Sections: Added, Changed, Fixed, Security, Breaking.
 
 Installer availability depends on [published releases](https://github.com/trbros/locdev/releases). [Full documentation](https://locdev.app/en/docs).
 
+## [0.19.2] - 2026-11-24
+
+App 0.19.2 with daemon and CLI 0.18.2.
+
+### Fixed
+
+- PHP sites opened over HTTPS (Laravel, Symfony, WordPress, Bedrock, plain
+  PHP) linked their own assets, fonts and Symfony's toolbar with `http://`,
+  which the browser blocked as mixed content. Every PHP site now loads
+  LocDev's `auto_prepend_file`, which gives requests that reached the proxy
+  over HTTPS the server variables a TLS server sets (`HTTPS`,
+  `REQUEST_SCHEME`, `SERVER_PORT`). No project file changes.
+- On an HTTPS request, a redirect to `http://` on the same host now points
+  to `https://`, so apps with an `http://` URL setting (Bedrock's `WP_HOME`)
+  no longer drop the browser back to HTTP.
+- Laravel with the Vite helper: on Vite 8.3+ the page loaded its assets from
+  `https://127.0.0.1:<port>`, which the Vite certificate didn't cover. The
+  certificate now also names `localhost`, `127.0.0.1` and `::1`.
+- Nuxt 4.1+: the dev error badge (`/__nuxt_dev__/…`) answered 403 at
+  `<site>.test`.
+- Django: new projects answered 400 (`DisallowedHost`) at `<site>.test`.
+  LocDev now adds `.test` to `ALLOWED_HOSTS` and the proxy's scheme
+  (`SECURE_PROXY_SSL_HEADER`) to new projects' settings, under `if DEBUG:`;
+  the note for existing projects says what to add.
+- ASP.NET Core: static assets answered 500, because `dotnet run
+  --no-launch-profile` ran in Production. LocDev sets
+  `ASPNETCORE_ENVIRONMENT=Development` unless the site sets it.
+- NestJS: creating a project stopped at the Nest CLI's new questions
+  (`@nestjs/observe`, agent skills).
+- Bedrock: it was detected as plain PHP and served from the project root
+  instead of `web/`. It's now a WordPress site served from `web/`, and new
+  projects get a `.env` with the site's `WP_HOME`.
+
 ## [0.19.1] - 2026-11-24
 
 App 0.19.1 with daemon and CLI 0.18.1.

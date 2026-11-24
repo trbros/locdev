@@ -11,7 +11,7 @@
 # together with the engine, and then bump `format`.
 
 format = 2
-revision = 2026112301
+revision = 2026112401
 min_locdev = "0.1.0"
 
 # ── PHP ─────────────────────────────────────────────────────────────────────
@@ -55,11 +55,16 @@ priority = 95
 docs = "https://developer.wordpress.org/advanced-administration/"
 services = ["mysql", "mariadb", "redis", "wpcron", "mailpit"]
 runtimes = ["php"]
-detect.any = [{ file = "wp-config.php" }, { file = "wp-load.php" }]
-dev = [{ command = "php -S 127.0.0.1:{port} -t ." }]
-config_files = ["wp-config.php"]
+# Bedrock (roots/bedrock) keeps WordPress under web/ and its settings in
+# config/application.php and .env.
+detect.any = [{ file = "wp-config.php" }, { file = "wp-load.php" }, { file = "web/wp-config.php" }]
+dev = [
+  { when = [{ file = "web/wp-config.php" }], command = "php -S 127.0.0.1:{port} -t web" },
+  { command = "php -S 127.0.0.1:{port} -t ." },
+]
+config_files = ["wp-config.php", "config/application.php", ".env"]
 implies = ["php"]
-notes = ["PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing."]
+notes = ["PHP's built-in server ignores .htaccess; pretty permalinks work only through index.php routing.", "Bedrock is served from web/ (WordPress itself in web/wp, the admin at /wp/wp-admin); its database and WP_HOME come from .env."]
 
 [[framework]]
 id = "php"
@@ -593,7 +598,7 @@ dev = [{ command = "python3 manage.py runserver 127.0.0.1:{port}", command_windo
 install = "python3 -m pip install -r requirements.txt"
 test = "python3 manage.py test"
 implies = ["python"]
-notes = ["Add the site's domain to ALLOWED_HOSTS when DEBUG is off."]
+notes = ["Django answers only the hosts in ALLOWED_HOSTS (with it empty and DEBUG on, only localhost): add \".test\" for the site's address, and SECURE_PROXY_SSL_HEADER = (\"HTTP_X_FORWARDED_PROTO\", \"https\") so pages and CSRF checks see HTTPS behind LocDev's proxy. Projects LocDev creates get both, under `if DEBUG:`."]
 processes = [
   { id = "celery", name = "Celery worker", kind = "worker", requires_any = [{ python = "celery" }], run = [{ command = "celery -A {django_module} worker -l info" }], note = "Celery needs its broker running (Redis or RabbitMQ, CELERY_BROKER_URL)." },
   { id = "beat", name = "Celery beat", kind = "scheduler", requires_any = [{ python = "celery" }], run = [{ command = "celery -A {django_module} beat -l info" }], note = "Run a single beat per project, or tasks are scheduled twice." },
@@ -782,7 +787,7 @@ runtimes = ["dotnet"]
 requires = ["dotnet"]
 detect.any = [{ glob = "*.csproj" }, { glob = "*.fsproj" }, { glob = "*.sln" }]
 version = [{ nuget = "TargetFramework" }]
-dev = [{ command = "dotnet run --no-launch-profile", port = "env", port_env = ["ASPNETCORE_URLS=http://127.0.0.1:{port}"], note = "--no-launch-profile keeps launchSettings.json from replacing the address; with several projects in a solution, set the command to `dotnet run --project <path>`." }]
+dev = [{ command = "dotnet run --no-launch-profile", port = "env", port_env = ["ASPNETCORE_URLS=http://127.0.0.1:{port}", "ASPNETCORE_ENVIRONMENT=Development"], note = "--no-launch-profile keeps launchSettings.json from replacing the address, so LocDev sets ASPNETCORE_ENVIRONMENT=Development (what the launch profile sets; static assets and the developer error page need it) unless the site's environment already has it; with several projects in a solution, set the command to `dotnet run --project <path>`." }]
 install = "dotnet restore"
 build = "dotnet build"
 test = "dotnet test"

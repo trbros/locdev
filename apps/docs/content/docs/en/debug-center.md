@@ -46,7 +46,7 @@ For PHP sites with Symfony VarDumper (Laravel, Symfony), pick the site on the le
 How it works, without changing any project file:
 
 - LocDev sets `VAR_DUMPER_FORMAT=server` and `VAR_DUMPER_SERVER=127.0.0.1:<port>` **in the site's process environment only**. It's VarDumper's own `server` format, which Laravel honors.
-- PHP's built-in server (`php -S`, which `artisan serve` uses) doesn't pass environment variables to `$_SERVER`, the only place VarDumper looks. So for those sites only, LocDev adds its own `auto_prepend_file` (in `data/php-dumps/`, marked "Managed by LocDev") that copies the two variables into `$_SERVER`. If your PHP already had an `auto_prepend_file` (Herd's, for instance), it still runs right after.
+- PHP's built-in server (`php -S`, which `artisan serve` uses) doesn't pass environment variables to `$_SERVER`, the only place VarDumper looks. So the `auto_prepend_file` LocDev adds to PHP sites (in `data/php-prepend/`, marked "Managed by LocDev"; it also marks HTTPS requests, see **HTTPS and the local CA**) copies the two variables into `$_SERVER`. If your PHP already had an `auto_prepend_file` (Herd's, for instance), it still runs right after.
 - If LocDev's dump server doesn't answer, VarDumper prints the dump as usual.
 - `dd()` still ends the request: LocDev shows the value but doesn't keep whatever would have run after it.
 

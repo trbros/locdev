@@ -18,7 +18,7 @@ locdev stack inspect shop          # サイト (根拠、バージョン、前�
 | カスタムコマンド          | フレームワークは認識したが、起動コマンドはあなたが指定する (`locdev edit <site> --command`)                                                       |
 | コンポーネント            | ほかのものを通して動く (React は Vite 経由、Tailwind はビルド経由)                                                                                |
 
-一部のアダプターはフレームワーク独自の変数でもポートを渡します。Spring Boot には `SERVER_PORT` と `SERVER_ADDRESS`、.NET には `ASPNETCORE_URLS=http://127.0.0.1:<port>` を渡します (`launchSettings.json` がアドレスを変えないよう `--no-launch-profile` 付き)。`.venv/` (または `venv/`) のある Python プロジェクトは、仮想環境を `PATH` の先頭に置き、`VIRTUAL_ENV` を設定して動かします。
+一部のアダプターはフレームワーク独自の変数でもポートを渡します。Spring Boot には `SERVER_PORT` と `SERVER_ADDRESS`、.NET には `ASPNETCORE_URLS=http://127.0.0.1:<port>` を渡します (`launchSettings.json` がアドレスを変えないよう `--no-launch-profile` 付き)。起動プロファイルが設定するはずの `ASPNETCORE_ENVIRONMENT=Development` も、サイトがその変数を持っていなければ渡します。`.venv/` (または `venv/`) のある Python プロジェクトは、仮想環境を `PATH` の先頭に置き、`VIRTUAL_ENV` を設定して動かします。
 
 複数のフレームワークが一致した場合 (NestJS には Express も含まれる)、**このプロジェクトを起動できるもの**のうち優先度が最も高いものが選ばれます。たとえば、Vite がインストールされていても実行するスクリプトがなければメインにはならず、汎用の Node.js が使われます。アダプターがサポートするより古いバージョンは警告として表示されますが、ブロックはしません。
 

@@ -46,7 +46,7 @@ Para sites PHP com o Symfony VarDumper (Laravel, Symfony), escolha o site à esq
 Como funciona, sem mudar nenhum arquivo do projeto:
 
 - O LocDev define `VAR_DUMPER_FORMAT=server` e `VAR_DUMPER_SERVER=127.0.0.1:<porta>` **só no ambiente do processo do site**. É o formato `server` do próprio VarDumper, e o Laravel o respeita.
-- O servidor embutido do PHP (`php -S`, que é o que `artisan serve` usa) não repassa variáveis de ambiente para `$_SERVER`, que é onde o VarDumper procura. Por isso o LocDev acrescenta, só para esses sites, um `auto_prepend_file` próprio (em `data/php-dumps/`, marcado "Managed by LocDev") que copia essas duas variáveis para `$_SERVER`. Se o seu PHP já tinha um `auto_prepend_file` (do Herd, por exemplo), ele continua rodando logo depois.
+- O servidor embutido do PHP (`php -S`, que é o que `artisan serve` usa) não repassa variáveis de ambiente para `$_SERVER`, que é onde o VarDumper procura. Por isso o `auto_prepend_file` que o LocDev acrescenta aos sites PHP (em `data/php-prepend/`, marcado "Managed by LocDev"; ele também marca as requisições HTTPS, veja **HTTPS e CA local**) copia essas duas variáveis para `$_SERVER`. Se o seu PHP já tinha um `auto_prepend_file` (do Herd, por exemplo), ele continua rodando logo depois.
 - Se o servidor de dumps do LocDev não responder, o VarDumper imprime o dump normalmente, como antes.
 - O `dd()` continua encerrando a requisição: o LocDev mostra o valor, mas não preserva o que viria depois.
 

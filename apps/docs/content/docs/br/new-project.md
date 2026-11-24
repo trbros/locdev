@@ -102,8 +102,8 @@ locdev tools install laravel
 
 ## Limites
 
-- Validado de ponta a ponta no Linux, criando e servindo o site pelo LocDev: Laravel 13 pelo instalador do Laravel (com uma instância nova de PostgreSQL, o banco criado, o `.env` apontado e as migrações), Vue, Angular, Flask, FastAPI, PHP puro, Axum e Actix Web, e a criação com uma versão de PHP escolhida (fixada no site). Os outros frameworks têm os comandos testados, mas não foram executados aqui; o WordPress não foi executado porque o WP-CLI não estava instalado.
-- Para Django, Flask e FastAPI, um `.venv` dentro do projeto recebe os pacotes pelo `pip`; o pacote de configurações do Django se chama `config`.
+- Validado de ponta a ponta no Linux, criando e servindo o site pelo LocDev: Laravel 13 pelo instalador do Laravel (com uma instância nova de PostgreSQL, o banco criado, o `.env` apontado e as migrações), Vue, Angular, Flask, FastAPI, PHP puro, Axum e Actix Web, e a criação com uma versão de PHP escolhida (fixada no site). Também conferidos no navegador, em HTTPS e HTTP, sem erros no console: Laravel (com e sem starter kit, com o auxiliar Vite), Symfony (Composer), Bedrock, Next.js, Nuxt, Vite, Vue, Astro, SvelteKit, Angular, NestJS, Django (incluindo o login do admin em HTTPS), Flask, FastAPI, Rails, ASP.NET Core e Axum. O WordPress pelo WP-CLI não foi executado porque o WP-CLI não estava instalado.
+- Para Django, Flask e FastAPI, um `.venv` dentro do projeto recebe os pacotes pelo `pip`; o pacote de configurações do Django se chama `config`, e o `settings.py` recebe, dentro de `if DEBUG:`, `.test` no `ALLOWED_HOSTS` e o `SECURE_PROXY_SSL_HEADER` para o proxy do LocDev.
 - O `create-vue` só pula as perguntas dele quando alguma opção está ligada; com tudo desligado e JavaScript, ele pergunta no terminal.
 - Os pacotes adicionados rodam os scripts de instalação que o gerenciador rodaria normalmente.
 - Windows e macOS ainda não foram testados (o terminal usa ConPTY no Windows).

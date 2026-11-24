@@ -102,8 +102,8 @@ locdev tools install laravel
 
 ## 制限
 
-- Linux でプロジェクトの作成から LocDev によるサイトの配信までエンドツーエンドで検証済み: Laravel インストーラーによる Laravel 13 (新しい PostgreSQL インスタンス、データベース作成、`.env` の設定、マイグレーションを含む)、Vue、Angular、Flask、FastAPI、素の PHP、Axum、Actix Web、そして PHP のバージョンを選んでの作成 (サイトに固定)。ほかのフレームワークはコマンドをテストしていますが、ここでは実行していません。WordPress は WP-CLI がインストールされていなかったため実行していません。
-- Django、Flask、FastAPI では、プロジェクト内の `.venv` に `pip` でパッケージを入れます。Django の設定パッケージ名は `config` です。
+- Linux でプロジェクトの作成から LocDev によるサイトの配信までエンドツーエンドで検証済み: Laravel インストーラーによる Laravel 13 (新しい PostgreSQL インスタンス、データベース作成、`.env` の設定、マイグレーションを含む)、Vue、Angular、Flask、FastAPI、素の PHP、Axum、Actix Web、そして PHP のバージョンを選んでの作成 (サイトに固定)。さらに、ブラウザで HTTPS と HTTP の両方をコンソールエラーなしで確認済み: Laravel (スターターキットあり・なし、Vite 補助付き)、Symfony (Composer)、Bedrock、Next.js、Nuxt、Vite、Vue、Astro、SvelteKit、Angular、NestJS、Django (HTTPS での管理画面ログインを含む)、Flask、FastAPI、Rails、ASP.NET Core、Axum。WP-CLI による WordPress は、WP-CLI がインストールされていなかったため実行していません。
+- Django、Flask、FastAPI では、プロジェクト内の `.venv` に `pip` でパッケージを入れます。Django の設定パッケージ名は `config` で、その `settings.py` には `if DEBUG:` の中で、LocDev のプロキシ向けに `ALLOWED_HOSTS` への `.test` と `SECURE_PROXY_SSL_HEADER` が追加されます。
 - `create-vue` は、何かのオプションがオンのときだけ質問を省略します。すべてオフで JavaScript の場合は、ターミナルで質問します。
 - 追加したパッケージは、パッケージマネージャーが通常実行するインストールスクリプトを実行します。
 - Windows と macOS はまだテストしていません (Windows のターミナルは ConPTY を使います)。

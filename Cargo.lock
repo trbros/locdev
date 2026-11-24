@@ -1237,7 +1237,7 @@ dependencies = [
 
 [[package]]
 name = "definitions"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "anyhow",
  "clap",
@@ -3163,7 +3163,7 @@ checksum = "4744e383959f0db86ede514b809b1c53251889093803c05267acc7d4e7030d70"
 
 [[package]]
 name = "locdev"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "anyhow",
  "clap",
@@ -3180,7 +3180,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-actions"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "locdev-frameworks",
@@ -3194,7 +3194,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-config"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "jsonc-parser",
  "locdev-core",
@@ -3215,7 +3215,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-core"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "directories",
  "serde",
@@ -3227,7 +3227,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-daemon"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "anyhow",
  "argon2",
@@ -3272,7 +3272,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-db"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "locdev-env",
@@ -3287,7 +3287,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-deploy"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-config",
  "locdev-core",
@@ -3302,7 +3302,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-deps"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "serde",
@@ -3314,7 +3314,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-desktop"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "glib",
  "locdev-core",
@@ -3334,7 +3334,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-dns"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "tokio",
  "tracing",
@@ -3342,7 +3342,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-email"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-config",
  "locdev-core",
@@ -3354,7 +3354,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-env"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "keyring",
  "locdev-core",
@@ -3368,7 +3368,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-frameworks"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "minisign",
@@ -3383,7 +3383,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-git"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "serde",
@@ -3392,7 +3392,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-github"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "keyring",
  "locdev-core",
@@ -3403,7 +3403,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-ipc"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "futures-util",
  "locdev-core",
@@ -3418,7 +3418,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-mail"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "locdev-env",
@@ -3433,7 +3433,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-observe"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "serde",
@@ -3443,7 +3443,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-platform"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "serde",
@@ -3453,7 +3453,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-proxy"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "bytes",
  "http-body-util",
@@ -3470,7 +3470,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-runtimes"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "base64 0.23.1",
  "flate2",
@@ -3486,7 +3486,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-scaffold"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "locdev-frameworks",
@@ -3497,7 +3497,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-services"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "flate2",
  "locdev-core",
@@ -3511,7 +3511,7 @@ dependencies = [
 
 [[package]]
 name = "locdev-tls"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "locdev-core",
  "rcgen",
@@ -3521,11 +3521,12 @@ dependencies = [
  "tempfile",
  "time",
  "tracing",
+ "x509-parser",
 ]
 
 [[package]]
 name = "locdev-tunnel"
-version = "0.18.1"
+version = "0.18.2"
 dependencies = [
  "flate2",
  "locdev-core",

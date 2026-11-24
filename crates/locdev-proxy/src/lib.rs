@@ -360,6 +360,7 @@ impl Proxy {
         strip_hop_by_hop(headers, upgrade);
         add_forwarded(headers, host, peer, listen.https);
         relabel_next_dev_origin(headers, host, &shown_path);
+        relabel_nuxt_dev_host(headers, host, &shown_path);
 
         let mut response = match self.client.request(req).await {
             Ok(response) => response,
@@ -394,6 +395,9 @@ impl Proxy {
             });
         } else {
             strip_hop_by_hop(response.headers_mut(), false);
+        }
+        if listen.https {
+            keep_redirect_on_https(response.headers_mut(), host);
         }
         if response.status().is_server_error() {
             self.report(failure(response.status().as_u16(), false));
@@ -503,6 +507,54 @@ fn relabel_next_dev_origin(headers: &mut HeaderMap, host: &str, path: &str) {
     }
 }
 
+/// The Nuxt CLI (4.1+) answers its own endpoints (`/__nuxt_dev__/…`, the
+/// error badge every page loads) only for a `Host` it was told about in
+/// `nuxt.config` (`devServer.allowedHosts`) or on the command line, besides
+/// `localhost`, `*.localhost` and IP addresses; `<site>.test` gets a 403. Those
+/// requests carry the `.localhost` twin as `Host`; everything else, Vite's
+/// assets and the app's own routes included, keeps the site's name.
+fn relabel_nuxt_dev_host(headers: &mut HeaderMap, host: &str, path: &str) {
+    if !path.starts_with("/__nuxt_dev__/") {
+        return;
+    }
+    let name = host::strip_port(host);
+    let Some(base) = name.strip_suffix(&format!(".{}", locdev_core::TLD)) else {
+        return;
+    };
+    let port = host.strip_prefix(name).unwrap_or("");
+    if let Ok(value) = HeaderValue::from_str(&format!("{base}.localhost{port}")) {
+        headers.insert(header::HOST, value);
+    }
+}
+
+/// A redirect to `http://` on the very host an HTTPS request came in for
+/// points back to HTTPS. Dev servers behind the proxy speak plain HTTP and,
+/// unless told to trust `X-Forwarded-Proto`, build absolute redirects with
+/// `http://` (WordPress with an `http://` `WP_HOME`, a framework's own URL
+/// setting): the browser would leave HTTPS, or, on an HTTPS-only site, bounce
+/// between the two. The port the app saw (its own, or none) gives way to the
+/// one the browser used. Other hosts and relative locations are untouched.
+fn keep_redirect_on_https(headers: &mut HeaderMap, host: &str) {
+    let Some(location) = headers.get(header::LOCATION).and_then(|v| v.to_str().ok()) else {
+        return;
+    };
+    let Some(rest) = location
+        .get(..7)
+        .filter(|scheme| scheme.eq_ignore_ascii_case("http://"))
+        .map(|_| &location[7..])
+    else {
+        return;
+    };
+    let end = rest.find(['/', '?', '#']).unwrap_or(rest.len());
+    let (authority, path) = rest.split_at(end);
+    if !host::strip_port(authority).eq_ignore_ascii_case(host::strip_port(host)) {
+        return;
+    }
+    if let Ok(value) = HeaderValue::from_str(&format!("https://{host}{path}")) {
+        headers.insert(header::LOCATION, value);
+    }
+}
+
 /// `https://host[:port]/path`, the port omitted when it's 443.
 fn https_location(host: &str, port: u16, path: &str) -> String {
     let port = if port == 443 {
@@ -548,6 +600,72 @@ mod tests {
         headers.insert(header::ORIGIN, HeaderValue::from_str(origin).unwrap());
         relabel_next_dev_origin(&mut headers, host, path);
         headers[header::ORIGIN].to_str().unwrap().to_string()
+    }
+
+    fn nuxt_host_after(host: &str, path: &str) -> String {
+        let mut headers = HeaderMap::new();
+        headers.insert(header::HOST, HeaderValue::from_str(host).unwrap());
+        relabel_nuxt_dev_host(&mut headers, host, path);
+        headers[header::HOST].to_str().unwrap().to_string()
+    }
+
+    #[test]
+    fn nuxt_dev_endpoints_see_a_localhost_host() {
+        assert_eq!(
+            nuxt_host_after("shop.test", "/__nuxt_dev__/error/badge.js?v=1"),
+            "shop.localhost"
+        );
+        assert_eq!(
+            nuxt_host_after("api.shop.test:7443", "/__nuxt_dev__/x"),
+            "api.shop.localhost:7443"
+        );
+        for (host, path) in [
+            ("shop.test", "/"),
+            ("shop.test", "/_nuxt/app.js"),
+            ("shop.test", "/a/__nuxt_dev__/x"),
+            ("shop.localhost", "/__nuxt_dev__/x"),
+        ] {
+            assert_eq!(nuxt_host_after(host, path), host);
+        }
+    }
+
+    fn location_after(location: &str, host: &str) -> String {
+        let mut headers = HeaderMap::new();
+        headers.insert(header::LOCATION, HeaderValue::from_str(location).unwrap());
+        keep_redirect_on_https(&mut headers, host);
+        headers[header::LOCATION].to_str().unwrap().to_string()
+    }
+
+    #[test]
+    fn redirects_to_the_same_host_stay_on_https() {
+        assert_eq!(
+            location_after("http://shop.test/wp-admin/install.php", "shop.test"),
+            "https://shop.test/wp-admin/install.php"
+        );
+        // The app's own port, or none, becomes the one the browser used.
+        assert_eq!(
+            location_after("http://shop.test:8100/a?b=1", "shop.test:7443"),
+            "https://shop.test:7443/a?b=1"
+        );
+        assert_eq!(
+            location_after("HTTP://Shop.Test", "shop.test"),
+            "https://shop.test"
+        );
+        assert_eq!(
+            location_after("http://api.shop.test/x", "api.shop.test"),
+            "https://api.shop.test/x"
+        );
+        // Other hosts, relative and HTTPS locations are left alone.
+        for kept in [
+            "http://other.test/x",
+            "http://shop.test.evil.com/",
+            "/login",
+            "//shop.test/x",
+            "https://shop.test/x",
+            "http://127.0.0.1:8100/x",
+        ] {
+            assert_eq!(location_after(kept, "shop.test"), kept);
+        }
     }
 
     #[test]

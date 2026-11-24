@@ -11,6 +11,14 @@
 
 証明書の有効期間は 397 日で、デーモンを再起動するたびに再発行されます。
 
+## HTTPS でのリンクとアセット (_mixed content_)
+
+プロキシは TLS を終端し、サイトの開発サーバーとは平文の HTTP で通信します。元のスキームとポートは `X-Forwarded-Proto` と `X-Forwarded-Port` (ほかに `X-Forwarded-Host` と `X-Forwarded-For`) で伝えます。フレームワークは、信頼するよう設定されたプロキシ (Laravel の `TrustProxies`、Symfony の `trusted_proxies`) からしかこれらのヘッダーを読みません。そのままでは `https://` で開いたページが自分のアセットを `http://` で参照し、ブラウザが _mixed content_ としてブロックします。LocDev はすべてのプロジェクトで、ファイルを変更せずにこれに対処します。
+
+- **PHP (Laravel、Symfony、WordPress、Bedrock、素の PHP):** すべての PHP サイトが LocDev の `auto_prepend_file` (`<data>/php-prepend/` にあり、"Managed by LocDev" の印付き。`PHP_INI_SCAN_DIR` で追加) を読み込みます。HTTPS でプロキシに届いたリクエストでは、TLS サーバーと同じように `$_SERVER['HTTPS'] = 'on'`、`REQUEST_SCHEME`、`SERVER_PORT` を設定します。これで `asset()` や `url()`、Symfony のツールバー (`/_wdt`)、WordPress の `is_ssl()` が `https://` を生成します。これらのヘッダーを信頼するのは、プロキシが接続してくるループバックからの接続だけで、プロキシは常にヘッダーを上書きします。PHP にすでに `auto_prepend_file` があった場合、そのすぐ後に引き続き実行されます。
+- **リダイレクト (すべてのスタック):** HTTPS のリクエストで、`Location: http://<同じホスト>/…` を返すレスポンスは `https://` を指すように書き換えられます。`http://` の設定 (Bedrock の `WP_HOME` など) から URL を組み立てるアプリに対応し、HTTPS のみのサイトが 2 つのスキームの間を行き来するのを防ぎます。ほかのホストや相対パスは変わりません。
+- **Laravel と並ぶ Vite:** Vite に渡す証明書は `localhost`、`127.0.0.1`、`::1` もカバーします (**開発サーバー** を参照)。
+
 ## この CA を信頼してもリスクが小さい理由
 
 CA は **Name Constraints** (`permitted: test, localhost`) と `pathlen:0` 付きで発行されます。ブラウザーと TLS ライブラリは、この CA がほかのドメイン用に署名した証明書をすべて拒否します。万一鍵が漏れても、`google.com` や銀行の通信を傍受することはできません。

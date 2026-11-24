@@ -147,11 +147,20 @@ impl Authority {
 
     /// Writes a certificate and key for `site` into `dir` (`<site>.pem`,
     /// `<site>-key.pem`, the key readable only by this user) for dev tools
-    /// that serve HTTPS themselves. Files younger than `REUSE_DAYS` are reused.
+    /// that serve HTTPS themselves. Files younger than `REUSE_DAYS` that name
+    /// the same hosts are reused.
+    ///
+    /// Besides the site's names, the certificate names the loopback addresses
+    /// such a tool listens on: Laravel's Vite plugin on Vite 8.3+ writes
+    /// `https://127.0.0.1:<port>` to `public/hot` when it's started with
+    /// `--host 127.0.0.1` (the host it sets for the site's name is lost), and
+    /// the page then loads its scripts and styles from that address.
     pub fn issue_files(&self, site: &str, dir: &Path) -> Result<(PathBuf, PathBuf), TlsError> {
         const REUSE_DAYS: u64 = 30;
         let cert_path = dir.join(format!("{site}.pem"));
         let key_path = dir.join(format!("{site}-key.pem"));
+        let mut names = Self::site_names(Some(site));
+        names.extend(LOOPBACK_NAMES.iter().map(|n| n.to_string()));
         let fresh = |path: &Path| {
             std::fs::metadata(path)
                 .and_then(|m| m.modified())
@@ -159,14 +168,21 @@ impl Authority {
                 .and_then(|t| t.elapsed().ok())
                 .is_some_and(|age| age.as_secs() < REUSE_DAYS * 86_400)
         };
-        if fresh(&cert_path) && fresh(&key_path) {
+        // The names a certificate was issued for, next to it.
+        let names_path = dir.join(format!("{site}.names"));
+        let listed = names.join("\n");
+        if fresh(&cert_path)
+            && fresh(&key_path)
+            && std::fs::read_to_string(&names_path).is_ok_and(|n| n == listed)
+        {
             return Ok((cert_path, key_path));
         }
 
         std::fs::create_dir_all(dir)?;
-        let (cert, key) = self.sign(Self::site_names(Some(site)))?;
+        let (cert, key) = self.sign(names)?;
         write_private(&key_path, key.serialize_pem().as_bytes())?;
         std::fs::write(&cert_path, cert.pem())?;
+        std::fs::write(&names_path, listed)?;
         Ok((cert_path, key_path))
     }
 
@@ -209,6 +225,9 @@ impl Authority {
         Ok((cert, key))
     }
 }
+
+/// Loopback names a dev tool's own certificate covers (see `issue_files`).
+const LOOPBACK_NAMES: &[&str] = &["localhost", "127.0.0.1", "::1"];
 
 fn ca_params() -> CertificateParams {
     let mut params = CertificateParams::default();
@@ -434,6 +453,47 @@ mod tests {
         }
         // Reused while fresh.
         assert_eq!(ca.issue_files("blog", &out).unwrap(), (cert.clone(), key));
+        assert_eq!(std::fs::read_to_string(&cert).unwrap(), pem);
+    }
+
+    #[test]
+    fn site_files_name_loopback_and_replace_older_ones() {
+        let dir = tempfile::tempdir().unwrap();
+        let ca = Authority::load_or_create(&dir.path().join("ca")).unwrap();
+        let out = dir.path().join("sites");
+        // A fresh file from before the loopback names: replaced, not reused.
+        std::fs::create_dir_all(&out).unwrap();
+        let (old, old_key) = ca.sign(Authority::site_names(Some("blog"))).unwrap();
+        std::fs::write(out.join("blog.pem"), old.pem()).unwrap();
+        std::fs::write(out.join("blog-key.pem"), old_key.serialize_pem()).unwrap();
+
+        let (cert, _) = ca.issue_files("blog", &out).unwrap();
+        let pem = std::fs::read_to_string(&cert).unwrap();
+        assert_ne!(pem, old.pem());
+        let (_, der) = x509_parser::pem::parse_x509_pem(pem.as_bytes()).unwrap();
+        let parsed = der.parse_x509().unwrap();
+        let sans: Vec<String> = parsed
+            .subject_alternative_name()
+            .unwrap()
+            .unwrap()
+            .value
+            .general_names
+            .iter()
+            .map(|name| match name {
+                x509_parser::extensions::GeneralName::DNSName(n) => n.to_string(),
+                x509_parser::extensions::GeneralName::IPAddress(b) => match b.len() {
+                    4 => std::net::Ipv4Addr::from(<[u8; 4]>::try_from(*b).unwrap()).to_string(),
+                    _ => std::net::Ipv6Addr::from(<[u8; 16]>::try_from(*b).unwrap()).to_string(),
+                },
+                other => format!("{other:?}"),
+            })
+            .collect();
+        for want in ["blog.test", "*.blog.test", "localhost", "127.0.0.1", "::1"] {
+            assert!(sans.iter().any(|s| s == want), "{want} in {sans:?}");
+        }
+        // Reused from now on.
+        assert_eq!(std::fs::read_to_string(&cert).unwrap(), pem);
+        ca.issue_files("blog", &out).unwrap();
         assert_eq!(std::fs::read_to_string(&cert).unwrap(), pem);
     }
 

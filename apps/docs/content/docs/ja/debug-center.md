@@ -46,7 +46,7 @@ Symfony VarDumper を使う PHP サイト(Laravel、Symfony)では、左でサ�
 プロジェクトのファイルを変えずに、次のように動作します:
 
 - LocDev は `VAR_DUMPER_FORMAT=server` と `VAR_DUMPER_SERVER=127.0.0.1:<ポート>` を **サイトのプロセスの環境だけに** 設定します。VarDumper 自身の `server` 形式で、Laravel もこれに従います。
-- PHP の組み込みサーバー(`php -S`。`artisan serve` もこれを使います)は環境変数を `$_SERVER` に渡しませんが、VarDumper は `$_SERVER` しか見ません。そのため、これらのサイトに限り、LocDev は独自の `auto_prepend_file`(`data/php-dumps/` にあり、"Managed by LocDev" の印付き)を追加し、2 つの変数を `$_SERVER` にコピーします。PHP にすでに `auto_prepend_file` があった場合(Herd のものなど)、そのすぐ後に引き続き実行されます。
+- PHP の組み込みサーバー(`php -S`。`artisan serve` もこれを使います)は環境変数を `$_SERVER` に渡しませんが、VarDumper は `$_SERVER` しか見ません。そのため、LocDev が PHP サイトに追加する `auto_prepend_file`(`data/php-prepend/` にあり、"Managed by LocDev" の印付き。HTTPS のリクエストの印付けも行います。**HTTPS とローカル CA** を参照)が、2 つの変数を `$_SERVER` にコピーします。PHP にすでに `auto_prepend_file` があった場合(Herd のものなど)、そのすぐ後に引き続き実行されます。
 - LocDev のダンプサーバーが応答しない場合、VarDumper は従来どおりダンプを出力します。
 - `dd()` は従来どおりリクエストを終了します。LocDev は値を表示しますが、その後に続くはずだった処理は残しません。
 

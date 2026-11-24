@@ -320,6 +320,18 @@ impl Daemon {
             session.finish(code);
             return;
         }
+        match locdev_scaffold::plan::after_steps(&project.starter, &project.name, &plan.dir) {
+            Ok(done) => {
+                for line in done {
+                    session.note(&line);
+                }
+            }
+            Err(error) => {
+                session.note(&format!("Could not finish the project's settings: {error}"));
+                session.finish(Some(1));
+                return;
+            }
+        }
         if let Some(db) = &project.database {
             if let Err(error) = self
                 .scaffold_database(&session, &project, db, &plan.dir)

@@ -11,6 +11,14 @@ El certificado de cada sitio se emite en memoria en el primer acceso, a partir d
 
 Los certificados valen 397 días y se vuelven a emitir en cada reinicio del daemon.
 
+## Enlaces y assets en HTTPS (_mixed content_)
+
+El proxy termina el TLS y habla HTTP simple con el servidor de desarrollo del sitio, indicando el protocolo y el puerto originales en `X-Forwarded-Proto` y `X-Forwarded-Port` (además de `X-Forwarded-Host` y `X-Forwarded-For`). Los frameworks solo leen esas cabeceras de proxies en los que se les indicó confiar (el `TrustProxies` de Laravel, el `trusted_proxies` de Symfony). Sin eso, una página abierta en `https://` enlaza sus propios assets con `http://`, y el navegador los bloquea como _mixed content_. LocDev lo resuelve en todos los proyectos, sin modificar sus archivos:
+
+- **PHP (Laravel, Symfony, WordPress, Bedrock, PHP puro):** todo sitio PHP carga el `auto_prepend_file` de LocDev (en `<datos>/php-prepend/`, marcado "Managed by LocDev" y añadido mediante `PHP_INI_SCAN_DIR`). En una petición que llegó al proxy por HTTPS, define `$_SERVER['HTTPS'] = 'on'`, `REQUEST_SCHEME` y `SERVER_PORT` como lo haría un servidor TLS. Así, `asset()` y `url()`, la barra de Symfony (`/_wdt`) y el `is_ssl()` de WordPress generan `https://`. Solo confía en esas cabeceras en conexiones desde loopback, desde donde habla el proxy, y el proxy siempre las sobrescribe. Si tu PHP ya tenía un `auto_prepend_file`, sigue ejecutándose justo después.
+- **Redirecciones (todas las stacks):** en una petición HTTPS, una respuesta con `Location: http://<el mismo host>/…` pasa a apuntar a `https://`. Esto cubre las apps que arman la URL a partir de una configuración en `http://` (como el `WP_HOME` de Bedrock) y evita que un sitio solo HTTPS rebote entre los dos protocolos. Otros hosts y las direcciones relativas no cambian.
+- **Vite junto a Laravel:** el certificado que recibe Vite cubre también `localhost`, `127.0.0.1` y `::1` (ver **Servidores de desarrollo**).
+
 ## Por qué confiar en esta CA es de bajo riesgo
 
 La CA se emite con **Name Constraints** (`permitted: test, localhost`) y `pathlen:0`. Los navegadores y las bibliotecas TLS rechazan cualquier certificado firmado por ella para otro dominio. Aunque la clave se filtrara, no serviría para interceptar `google.com` ni tu banco.

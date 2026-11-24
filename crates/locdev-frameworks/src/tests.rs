@@ -183,6 +183,24 @@ fn unknown_has_no_command() {
 // ── New adapters ─────────────────────────────────────────────────────────────
 
 #[test]
+fn bedrock_is_wordpress_served_from_web() {
+    let bedrock = project(&[
+        ("composer.json", r#"{"name":"roots/bedrock"}"#),
+        ("config/application.php", "<?php"),
+        ("web/wp-config.php", "<?php"),
+        ("web/index.php", "<?php"),
+    ]);
+    let s = stack(bedrock.path());
+    assert_eq!(s.kind, ProjectKind::Wordpress);
+    assert_eq!(s.command.as_deref(), Some("php -S 127.0.0.1:{port} -t web"));
+
+    let classic = project(&[("wp-config.php", "<?php"), ("wp-load.php", "<?php")]);
+    let s = stack(classic.path());
+    assert_eq!(s.kind, ProjectKind::Wordpress);
+    assert_eq!(s.command.as_deref(), Some("php -S 127.0.0.1:{port} -t ."));
+}
+
+#[test]
 fn django_uses_the_venv_and_runserver() {
     let dir = project(&[
         ("manage.py", ""),
@@ -294,7 +312,10 @@ fn dotnet_go_rust_hugo() {
     assert_eq!(s.command.as_deref(), Some("dotnet run --no-launch-profile"));
     assert_eq!(
         s.port_env,
-        vec!["ASPNETCORE_URLS=http://127.0.0.1:{port}".to_string()]
+        vec![
+            "ASPNETCORE_URLS=http://127.0.0.1:{port}".to_string(),
+            "ASPNETCORE_ENVIRONMENT=Development".to_string()
+        ]
     );
     assert_eq!(s.components[0].version.as_deref(), Some("9.0"));
 

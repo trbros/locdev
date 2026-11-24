@@ -102,8 +102,8 @@ locdev tools install laravel
 
 ## Límites
 
-- Validado de punta a punta en Linux, creando el proyecto y sirviendo el sitio con LocDev: Laravel 13 con el instalador de Laravel (con una instancia nueva de PostgreSQL, la base de datos creada, el `.env` apuntado y las migraciones), Vue, Angular, Flask, FastAPI, PHP puro, Axum y Actix Web, y la creación con una versión de PHP elegida (fijada en el sitio). Los demás frameworks tienen los comandos probados, pero no se ejecutaron aquí; WordPress no se ejecutó porque WP-CLI no estaba instalado.
-- Para Django, Flask y FastAPI, un `.venv` dentro del proyecto recibe los paquetes con `pip`; el paquete de configuración de Django se llama `config`.
+- Validado de punta a punta en Linux, creando el proyecto y sirviendo el sitio con LocDev: Laravel 13 con el instalador de Laravel (con una instancia nueva de PostgreSQL, la base de datos creada, el `.env` apuntado y las migraciones), Vue, Angular, Flask, FastAPI, PHP puro, Axum y Actix Web, y la creación con una versión de PHP elegida (fijada en el sitio). También comprobados en el navegador, por HTTPS y HTTP, sin errores en la consola: Laravel (con y sin starter kit, con el auxiliar Vite), Symfony (Composer), Bedrock, Next.js, Nuxt, Vite, Vue, Astro, SvelteKit, Angular, NestJS, Django (incluido el login del admin por HTTPS), Flask, FastAPI, Rails, ASP.NET Core y Axum. WordPress con WP-CLI no se ejecutó porque WP-CLI no estaba instalado.
+- Para Django, Flask y FastAPI, un `.venv` dentro del proyecto recibe los paquetes con `pip`; el paquete de configuración de Django se llama `config`, y su `settings.py` recibe, dentro de `if DEBUG:`, `.test` en `ALLOWED_HOSTS` y `SECURE_PROXY_SSL_HEADER` para el proxy de LocDev.
 - `create-vue` solo omite sus preguntas cuando alguna opción está activada; con todo desactivado y JavaScript, pregunta en la terminal.
 - Los paquetes añadidos ejecutan los scripts de instalación que su gestor ejecutaría normalmente.
 - Windows y macOS aún no se probaron (la terminal usa ConPTY en Windows).

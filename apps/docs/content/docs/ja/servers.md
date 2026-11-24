@@ -48,7 +48,7 @@ locdev dev logs -f
 
 - **許可するホスト:** Vite は未知のホストを拒否します (`.localhost` は常に許可)。LocDev は `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=<site>.test,.<site>.test` 変数をプロセスに渡し、Vite がそれを読みます。プロジェクトの `vite.config` は編集せず、ほかのホストも許可しません。
 - **HMR:** Vite のクライアントはページと同じホストとプロトコルに接続するので、WebSocket はプロキシを通ります (`ws://` または `wss://`)。Vite 8 で確認済みです。ファイルを編集すると、`101` ハンドシェイクと `full-reload` がプロキシ経由で届きます。
-- **HTTPS での Laravel + Vite:** ページは `https://<site>.test` から、アセットは Vite から届きます。LocDev の CA が信頼され、`*.test` が LocDev に解決される場合、Vite のプロセスには `VITE_DEV_SERVER_CERT`、`VITE_DEV_SERVER_KEY` (ローカル CA が発行したサイトの証明書。鍵はあなたのユーザーだけが読める) と `APP_URL=https://<site>.test` が渡されます。すると `laravel-vite-plugin` がアセットを HTTPS で提供し、_mixed content_ になりません。条件を満たさない場合、Vite は `http://127.0.0.1:<port>` のままですが、ループバックなので Chrome と Firefox は HTTPS のページでも受け付けます。
+- **HTTPS での Laravel + Vite:** ページは `https://<site>.test` から、アセットは Vite から届きます。LocDev の CA が信頼され、`*.test` が LocDev に解決される場合、Vite のプロセスには `VITE_DEV_SERVER_CERT`、`VITE_DEV_SERVER_KEY` (ローカル CA が発行したサイトの証明書。鍵はあなたのユーザーだけが読める) と `APP_URL=https://<site>.test` が渡されます。すると `laravel-vite-plugin` がアセットを HTTPS で提供し、_mixed content_ になりません。証明書は `localhost`、`127.0.0.1`、`::1` もカバーします。Vite 8.3 以降では、Vite に `--host 127.0.0.1` を渡すとプラグインが設定するサイトのホストが失われ、プラグインは `public/hot` に `https://127.0.0.1:<port>` を書き込み、ページはそのアドレスからアセットを読み込むためです。条件を満たさない場合、Vite は `http://127.0.0.1:<port>` のままですが、ループバックなので Chrome と Firefox は HTTPS のページでも受け付けます。
 - プラグインは `*.test` のオリジンに対して CORS も許可します。
 
 どれもプロジェクトのファイルは変更しません。すべてプロセスの環境にだけ渡されます。
