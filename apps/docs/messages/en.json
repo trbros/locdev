@@ -572,7 +572,8 @@
 		"fullRelease": "Open full release",
 		"unreleased": "Not published yet",
 		"notPublished": "Internal testing",
-		"source": "Source: CHANGELOG.md in the repository. The initial release brings together everything tested internally and with selected users since 0.1.0."
+		"source": "Source: CHANGELOG.md in the repository. The initial release brings together everything tested internally and with selected users since 0.1.0.",
+		"since": "Changes since {version}"
 	},
 	"Contribute": {
 		"title": "Help shape what comes next.",
@@ -970,7 +971,9 @@
 	},
 	"DocsVersion": {
 		"label": "Documentation version",
-		"current": "Current"
+		"current": "Current",
+		"changes": "What changed",
+		"whatsNew": "What's new in {version}"
 	},
 	"FaqPage": {
 		"title": "Frequently asked questions",

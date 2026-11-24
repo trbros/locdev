@@ -572,7 +572,8 @@
 		"fullRelease": "リリース全体を開く",
 		"unreleased": "未公開",
 		"notPublished": "社内テスト",
-		"source": "出典: リポジトリの CHANGELOG.ja.md。初回リリースには、0.1.0 以降に社内と一部のユーザーでテストしたすべてが含まれます。"
+		"source": "出典: リポジトリの CHANGELOG.ja.md。初回リリースには、0.1.0 以降に社内と一部のユーザーでテストしたすべてが含まれます。",
+		"since": "{version} からの変更"
 	},
 	"Contribute": {
 		"title": "次の一歩を、一緒に。",
@@ -970,7 +971,9 @@
 	},
 	"DocsVersion": {
 		"label": "ドキュメントのバージョン",
-		"current": "現在"
+		"current": "現在",
+		"changes": "変更点",
+		"whatsNew": "{version} の変更点"
 	},
 	"FaqPage": {
 		"title": "よくある質問",

@@ -1,10 +1,11 @@
-import { ArrowUpRight, BookOpen, LifeBuoy } from "lucide-react";
+import { ArrowUpRight, BookOpen, History, LifeBuoy } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { docIcons } from "@/components/docs/doc-icons";
 import { DocsNavScroll } from "@/components/docs/docs-nav-scroll";
 import { DocsVersionSelector } from "@/components/docs/docs-version-selector";
 import { Link } from "@/i18n/navigation";
 import { appVersion } from "@/lib/app-version";
+import { getChangelog } from "@/lib/changelog";
 import { docGroups } from "@/lib/docs";
 import { getDocLabels } from "@/lib/docs-labels";
 import { repository } from "@/lib/repository";
@@ -20,13 +21,25 @@ export async function DocsSidebar({
 	const labels = getDocLabels(locale);
 	const versionLabels = await getTranslations("DocsVersion");
 	const support = await getTranslations("Support");
+	// The current version first, then the earlier ones from the changelog.
+	const earlier = (await getChangelog(locale))
+		.map((entry) => `v${entry.version}`)
+		.filter((version) => version !== "vUnreleased" && version !== appVersion);
+	const versions = [appVersion, ...earlier].map((version) => ({
+		value: version,
+		label: `${version} · ${versionLabels(version === appVersion ? "current" : "changes")}`,
+	}));
 	const navigation = (
 		<nav aria-label={labels.all} className="docs-sidebar-navigation">
 			<DocsVersionSelector
 				version={appVersion}
+				versions={versions}
 				label={versionLabels("label")}
-				current={versionLabels("current")}
 			/>
+			<Link href={`/changelog#${appVersion}`} className="docs-version-news">
+				<History size={14} aria-hidden="true" />
+				{versionLabels("whatsNew", { version: appVersion })}
+			</Link>
 			<DocsNavScroll current={slug ?? "index"}>
 				<Link
 					href={route("docs")}

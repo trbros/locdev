@@ -572,7 +572,8 @@
 		"fullRelease": "Abrir release completa",
 		"unreleased": "Ainda não publicado",
 		"notPublished": "Teste interno",
-		"source": "Fonte: CHANGELOG.pt-BR.md do repositório. O lançamento inicial reúne tudo o que passou por testes internos e com usuários selecionados desde a 0.1.0."
+		"source": "Fonte: CHANGELOG.pt-BR.md do repositório. O lançamento inicial reúne tudo o que passou por testes internos e com usuários selecionados desde a 0.1.0.",
+		"since": "Mudanças desde a {version}"
 	},
 	"Contribute": {
 		"title": "Faça parte do próximo passo.",
@@ -970,7 +971,9 @@
 	},
 	"DocsVersion": {
 		"label": "Versão da documentação",
-		"current": "Atual"
+		"current": "Atual",
+		"changes": "O que mudou",
+		"whatsNew": "Novidades da {version}"
 	},
 	"FaqPage": {
 		"title": "Perguntas frequentes",

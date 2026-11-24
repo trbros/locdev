@@ -6456,6 +6456,20 @@ body {
 	font-weight: 620;
 	margin-bottom: 12px;
 }
+/* "Changes since v<previous>": what the entry adds over the version before. */
+.changelog-since {
+	margin-top: -4px;
+	margin-bottom: 12px;
+	color: var(--muted-foreground);
+	font: 400 12px var(--font-mono);
+}
+/* The entry a link opened (from the docs' version selector). */
+.changelog-entry {
+	scroll-margin-top: 96px;
+}
+.changelog-entry:target h2 {
+	color: var(--ember);
+}
 .release-notes {
 	font-size: 14px;
 	line-height: 1.9;
@@ -7747,6 +7761,17 @@ select:focus {
 	font-family: var(--font-mono);
 	font-size: 13px;
 	min-height: 44px;
+}
+.docs-version-news {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: -14px 8px 24px;
+	color: var(--muted-foreground);
+	font-size: 12px;
+}
+.docs-version-news:hover {
+	color: var(--ember);
 }
 .docs-detail-link {
 	display: flex;

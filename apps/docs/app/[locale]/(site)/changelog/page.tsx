@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ScrollToHash } from "@/components/scroll-to-hash";
 import { Link } from "@/i18n/navigation";
 import { getChangelog } from "@/lib/changelog";
 import { getReleaseFeed } from "@/lib/github-releases";
@@ -39,7 +40,10 @@ export default async function ChangelogPage() {
 				</div>
 			</header>
 			<div className="changelog-list">
-				{entries.map((entry) => {
+				{entries.map((entry, index) => {
+					const previous = entries
+						.slice(index + 1)
+						.find((older) => older.version !== "Unreleased");
 					const release = feed.releases.find(
 						(r) => r.tag.replace(/^v/, "") === entry.version,
 					);
@@ -68,6 +72,11 @@ export default async function ChangelogPage() {
 										? t("unreleased")
 										: entry.version}
 								</h2>
+								{previous && (
+									<p className="changelog-since">
+										{t("since", { version: `v${previous.version}` })}
+									</p>
+								)}
 								<div className="release-notes">
 									<ReactMarkdown
 										remarkPlugins={[remarkGfm]}
@@ -111,6 +120,7 @@ export default async function ChangelogPage() {
 				})}
 			</div>
 			<p className="tool-caption">{t("source")}</p>
+			<ScrollToHash />
 		</div>
 	);
 }
