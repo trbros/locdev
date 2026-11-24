@@ -12,6 +12,13 @@ O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Se�
 
 App 0.19.2 com daemon e CLI 0.18.2.
 
+### Adicionado
+
+- Os instaladores ganharam arte própria, feita a partir do logo: um ícone de
+  instalador com um selo de download e as imagens de boas-vindas e das
+  páginas no Windows (NSIS e MSI), e uma janela com uma seta para Aplicativos
+  no `.dmg` do macOS.
+
 ### Corrigido
 
 - Sites PHP abertos em HTTPS (Laravel, Symfony, WordPress, Bedrock, PHP

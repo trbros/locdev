@@ -12,3 +12,9 @@ export const milestones = [
 ] as const;
 
 export { githubReleases, githubRepo } from "./repository.ts";
+
+/** Where voluntary financial support goes (also in .github/FUNDING.yml). */
+export const sponsors = {
+	github: "https://github.com/sponsors/bnacci",
+	coffee: "https://buymeacoffee.com/bnacci",
+} as const;

@@ -12,7 +12,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"!src/components/ui/**\"",
     "tauri": "tauri",
     "screenshots": "node scripts/screenshots.mjs",
-    "icons": "node scripts/icons.mjs",
+    "icons": "node scripts/icons.mjs && node scripts/installer-art.mjs",
+    "installer-art": "node scripts/installer-art.mjs",
     "test:ui": "node scripts/smoke.mjs",
     "test:a11y": "node scripts/a11y.mjs",
     "test:i18n": "node scripts/i18n-check.mjs"

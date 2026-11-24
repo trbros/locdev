@@ -5097,7 +5097,7 @@ body {
 	}
 }
 
-/* Voluntary support: explain the work, with financial contributions unavailable. */
+/* Voluntary support: explain the work and link to GitHub Sponsors and Buy Me a Coffee. */
 .donation-status {
 	display: flex;
 	flex-direction: column;
@@ -5119,15 +5119,15 @@ body {
 	color: var(--ember);
 	background: color-mix(in oklch, var(--ember) 5%, var(--well));
 }
-.donation-coming {
+.donation-open {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	color: var(--amber);
+	color: var(--ember);
 	font: 400 9px var(--font-mono);
 	letter-spacing: 0.05em;
 }
-.donation-coming i {
+.donation-open i {
 	width: 5px;
 	height: 5px;
 	border-radius: 50%;
@@ -5148,14 +5148,12 @@ body {
 	font-size: 13px;
 	line-height: 1.9;
 }
-.donation-status .donation-disabled {
+.donation-status .donation-participate,
+.donation-status .donation-coffee {
+	justify-content: center;
 	width: 100%;
 	min-height: 46px;
 	margin-top: 26px;
-	background: var(--muted);
-	color: var(--muted-foreground);
-	opacity: 1;
-	border: 1px solid var(--border);
 }
 .donation-status small {
 	max-width: 340px;
@@ -10108,11 +10106,8 @@ html.light .shot-dark {
 .donate-page .donation-participate {
 	margin-top: 20px;
 }
-.donate-page .donation-disabled {
+.donate-page .donation-coffee {
 	margin-top: 12px;
-	background: transparent;
-	border: 1px solid var(--border);
-	color: var(--muted-foreground);
 }
 .donate-page .donation-priorities {
 	gap: 16px;

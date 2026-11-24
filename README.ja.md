@@ -213,12 +213,15 @@ pnpm tauri dev
 
 LocDev はコミュニティとともに成長します。**開発の時間を節約できたら、継続へのご協力をお願いします。** リポジトリへのスター、他の開発者への紹介、再現可能なバグ報告、翻訳やドキュメントの改善、お使いの OS でのテスト、目的を絞った pull request を歓迎します。
 
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub%20Sponsors-bnacci-EA4AAA?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/bnacci)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-bnacci-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/bnacci)
+
 - [貢献ガイド](https://locdev.app/ja/contribute)
 - [バグ報告と機能リクエスト](https://github.com/trbros/locdev/issues)
 - [コミュニティとプロジェクトへの支援](https://locdev.app/ja/donate)
 - [トラブルシューティングとサポート](https://locdev.app/ja/support)
 
-支援ページで現在利用できる方法を確認してください。支払い窓口があるとは限りません。脆弱性は公開 issue ではなく、[非公開のセキュリティ窓口](https://locdev.app/ja/security)へ報告してください。
+金銭的に支援していただける場合は、[GitHub Sponsors](https://github.com/sponsors/bnacci) または [Buy Me a Coffee](https://buymeacoffee.com/bnacci) から bnacci をスポンサーできます。脆弱性は公開 issue ではなく、[非公開のセキュリティ窓口](https://locdev.app/ja/security)へ報告してください。
 
 <a id="credits"></a>
 

@@ -3,6 +3,7 @@ import {
 	ArrowUpRight,
 	BookOpen,
 	Code2,
+	Coffee,
 	FlaskConical,
 	GitBranch,
 	Heart,
@@ -14,9 +15,8 @@ import {
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageReveal } from "@/components/page-reveal";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { githubRepo } from "@/lib/project";
+import { githubRepo, sponsors } from "@/lib/project";
 import { route } from "@/lib/routes.generated";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -71,19 +71,32 @@ export default async function DonatePage() {
 						<div className="donation-heart" aria-hidden="true">
 							<Heart size={44} strokeWidth={1.3} />
 						</div>
-						<span className="donation-coming">
+						<span className="donation-open">
 							<i />
 							{t("status")}
 						</span>
-						<h2>{t("comingTitle")}</h2>
-						<p>{t("comingBody")}</p>
-						<a href="#other-ways" className="btn-ember donation-participate">
-							{t("otherWays")}
-							<ArrowDown size={15} />
+						<h2>{t("fundTitle")}</h2>
+						<p>{t("fundBody")}</p>
+						<a
+							href={sponsors.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="btn-ember donation-participate"
+						>
+							<Heart size={15} />
+							{t("sponsorsButton")}
+							<ArrowUpRight size={15} />
 						</a>
-						<Button disabled className="donation-disabled">
-							{t("comingButton")}
-						</Button>
+						<a
+							href={sponsors.coffee}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="btn-outline donation-coffee"
+						>
+							<Coffee size={15} />
+							{t("coffeeButton")}
+							<ArrowUpRight size={15} />
+						</a>
 						<small>{t("noPayment")}</small>
 					</div>
 				</PageReveal>

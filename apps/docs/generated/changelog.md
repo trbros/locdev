@@ -21,6 +21,12 @@ Installer availability depends on [published releases](https://github.com/trbros
 
 App 0.19.2 with daemon and CLI 0.18.2.
 
+### Added
+
+- The installers have their own artwork, made from the logo: a setup icon
+  with a download badge and the welcome and page images on Windows (NSIS
+  and MSI), and a window with an arrow to Applications in the macOS `.dmg`.
+
 ### Fixed
 
 - PHP sites opened over HTTPS (Laravel, Symfony, WordPress, Bedrock, plain

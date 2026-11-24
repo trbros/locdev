@@ -213,12 +213,15 @@ Para configurar e publicar o site, leia [`apps/docs/README.pt-BR.md`](apps/docs/
 
 O LocDev cresce com a comunidade. **Se ele economiza seu tempo, ajude o projeto a continuar:** dê uma estrela no repositório, compartilhe com outros desenvolvedores, relate bugs reproduzíveis, melhore traduções e documentação, teste no seu sistema ou envie uma pull request focada.
 
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub%20Sponsors-bnacci-EA4AAA?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/bnacci)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-bnacci-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/bnacci)
+
 - [Como contribuir](https://locdev.app/pt-BR/contribute)
 - [Bugs e pedidos de recursos](https://github.com/trbros/locdev/issues)
 - [Apoio da comunidade e ao projeto](https://locdev.app/pt-BR/donate)
 - [Resolução de problemas e suporte](https://locdev.app/pt-BR/support)
 
-A página de apoio descreve as formas disponíveis de ajudar; não presuma que exista um canal de pagamento. Para vulnerabilidades, use o [canal privado de segurança](https://locdev.app/pt-BR/security), em vez de abrir uma issue pública.
+Para apoiar o trabalho financeiramente, patrocine bnacci pelo [GitHub Sponsors](https://github.com/sponsors/bnacci) ou pelo [Buy Me a Coffee](https://buymeacoffee.com/bnacci). Para vulnerabilidades, use o [canal privado de segurança](https://locdev.app/pt-BR/security), em vez de abrir uma issue pública.
 
 <a id="credits"></a>
 

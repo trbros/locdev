@@ -68,11 +68,25 @@
       "rpm": {}
     },
     "macOS": {
-      "minimumSystemVersion": "11.0"
+      "minimumSystemVersion": "11.0",
+      "dmg": {
+        "background": "installer/dmg-background.png",
+        "windowSize": { "width": 660, "height": 400 },
+        "appPosition": { "x": 180, "y": 190 },
+        "applicationFolderPosition": { "x": 480, "y": 190 }
+      }
     },
     "windows": {
       "nsis": {
-        "installMode": "currentUser"
+        "installMode": "currentUser",
+        "installerIcon": "installer/installer.ico",
+        "uninstallerIcon": "icons/icon.ico",
+        "headerImage": "installer/nsis-header.bmp",
+        "sidebarImage": "installer/nsis-sidebar.bmp"
+      },
+      "wix": {
+        "bannerPath": "installer/wix-banner.bmp",
+        "dialogImagePath": "installer/wix-dialog.bmp"
       }
     },
     "createUpdaterArtifacts": true
@@ -81,9 +95,7 @@
   "plugins": {
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQ3NTUwRENDQTNFRkMwQkIKUldTN3dPK2p6QTFWUjV1UFh6OWMxN2JPeUpBYnBnUXp6SGdZazhhRWgrb1V2a3YrVjI4UjJROVgK",
-      "endpoints": [
-        "https://github.com/trbros/locdev/releases/latest/download/latest.json"
-      ],
+      "endpoints": ["https://github.com/trbros/locdev/releases/latest/download/latest.json"],
       "windows": {
         "installMode": "passive"
       }
