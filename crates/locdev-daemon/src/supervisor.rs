@@ -595,7 +595,7 @@ impl Supervisor {
 
         let mut reaped = Vec::new();
         for record in records {
-            if !locdev_platform::ports::process_matches(record.pid, &record.command) {
+            if !still_running(record.pid, &record.command).await {
                 continue;
             }
             warn!(id = %record.id, pid = record.pid, "stopping a dev server left by a previous locdevd");
@@ -617,6 +617,21 @@ impl Supervisor {
         }
         reaped
     }
+}
+
+/// Whether a recorded process is still the one LocDev started. A miss is
+/// checked twice more: reading another process's command line can fail for
+/// an instant (macOS, while it execs), and a miss leaves an orphan running.
+async fn still_running(pid: u32, command: &str) -> bool {
+    for attempt in 0..3 {
+        if attempt > 0 {
+            tokio::time::sleep(Duration::from_millis(100)).await;
+        }
+        if locdev_platform::ports::process_matches(pid, command) {
+            return true;
+        }
+    }
+    false
 }
 
 /// A level only when the line states one: a leading or bracketed tag
@@ -1135,20 +1150,36 @@ mod process_tests {
             .pid
             .unwrap();
         assert!(dir.path().join("running.json").is_file());
-        // While `sh -c` execs `sleep`, /proc shows no command line for an
-        // instant; a real orphan has been running for a while. Up to 10 s:
-        // a busy CI runner (macOS) can take more than 3.
+        // While `sh -c` execs `sleep`, the command line can't be read for an
+        // instant; a real orphan has been running for a while. Wait until it
+        // matches on five reads in a row (up to 10 s).
+        let mut matched = 0;
         for _ in 0..200 {
             if locdev_platform::ports::process_matches(pid, "sleep 31") {
-                break;
+                matched += 1;
+                if matched == 5 {
+                    break;
+                }
+            } else {
+                matched = 0;
             }
             tokio::time::sleep(Duration::from_millis(50)).await;
         }
+        let state = std::fs::read_to_string(dir.path().join("running.json")).unwrap_or_default();
 
         // A new daemon (the old one "crashed": nothing was stopped).
         let next = supervisor(dir.path());
         let reaped = next.reap_orphans().await;
-        assert_eq!(reaped, vec!["demo".to_string()]);
+        let ps = std::process::Command::new("ps")
+            .args(["-o", "pid=,ppid=,command=", "-p", &pid.to_string()])
+            .output()
+            .map(|o| String::from_utf8_lossy(&o.stdout).into_owned())
+            .unwrap_or_default();
+        assert_eq!(
+            reaped,
+            vec!["demo".to_string()],
+            "pid {pid}, matched {matched} times in a row\nrunning.json: {state}\nps: {ps}"
+        );
         // The group takes a moment to go away, longer on a busy machine.
         let group = nix::unistd::Pid::from_raw(pid as i32);
         let mut alive = true;
