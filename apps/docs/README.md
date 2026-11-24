@@ -41,7 +41,7 @@ From the repository root, `make cli-catalog` regenerates CLI, framework and star
 
 `NEXT_PUBLIC_GITHUB_REPOSITORY_URL` must be an HTTPS GitHub repository root without credentials, query or fragment. Repository links, issues, clone instructions and release API endpoints derive from it. `NEXT_PUBLIC_SITE_URL` identifies the public site URL. Public variables are embedded at build time; restart and rebuild after changing them. Never commit `.env` or `.env.local`.
 
-Vercel uses Root Directory `apps/docs` with access to files outside that directory: `next.config.ts` reads the root `Cargo.toml`. Configure the variables listed in `.env.example` in the build environment. The `docs` job in `.github/workflows/ci.yml` runs lint, typecheck, tests, comparison, routes and production build.
+Vercel uses Root Directory `apps/docs` with access to files outside that directory: `next.config.ts` reads the app version from `apps/desktop/package.json`. Configure the variables listed in `.env.example` in the build environment. The `docs` job in `.github/workflows/ci.yml` runs lint, typecheck, tests, comparison, routes and production build.
 
 ## Privacy, security and support
 

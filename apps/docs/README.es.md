@@ -41,7 +41,7 @@ Desde la raíz, `make cli-catalog` regenera los catálogos de CLI, frameworks y 
 
 `NEXT_PUBLIC_GITHUB_REPOSITORY_URL` debe ser la URL HTTPS raíz de un repositorio GitHub sin credenciales, query ni fragmento. De ella derivan enlaces, issues, instrucciones de clonado y API de releases. `NEXT_PUBLIC_SITE_URL` indica la URL pública. Las variables públicas se incorporan al build; reinicia y recompila al cambiarlas. Nunca incluyas `.env` ni `.env.local` en Git.
 
-En Vercel, usa Root Directory `apps/docs` con acceso a archivos externos a esa carpeta: `next.config.ts` lee el `Cargo.toml` raíz. Configura las variables de `.env.example` en el entorno de build. El job `docs` de `.github/workflows/ci.yml` ejecuta lint, typecheck, tests, comparación, rutas y build de producción.
+En Vercel, usa Root Directory `apps/docs` con acceso a archivos externos a esa carpeta: `next.config.ts` lee la versión de la app en `apps/desktop/package.json`. Configura las variables de `.env.example` en el entorno de build. El job `docs` de `.github/workflows/ci.yml` ejecuta lint, typecheck, tests, comparación, rutas y build de producción.
 
 ## Privacidad, seguridad y apoyo
 

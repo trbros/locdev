@@ -41,7 +41,7 @@ pnpm build
 
 `NEXT_PUBLIC_GITHUB_REPOSITORY_URL` は、認証情報、クエリー、フラグメントを含まない GitHub リポジトリのルート HTTPS URL に設定します。リンク、issue、clone コマンド、リリース API はこの値から生成します。`NEXT_PUBLIC_SITE_URL` は公開サイトの URL です。公開変数はビルド時に組み込まれるため、変更後は再起動と再ビルドが必要です。`.env` と `.env.local` をコミットしないでください。
 
-Vercel では Root Directory を `apps/docs` にし、ディレクトリ外のファイルへのアクセスを有効にします。`next.config.ts` がルートの `Cargo.toml` を読むためです。ビルド環境に `.env.example` の変数を設定してください。`.github/workflows/ci.yml` の `docs` ジョブが lint、型検査、テスト、比較、ルート、プロダクションビルドを実行します。
+Vercel では Root Directory を `apps/docs` にし、ディレクトリ外のファイルへのアクセスを有効にします。`next.config.ts` が `apps/desktop/package.json` からアプリのバージョンを読むためです。ビルド環境に `.env.example` の変数を設定してください。`.github/workflows/ci.yml` の `docs` ジョブが lint、型検査、テスト、比較、ルート、プロダクションビルドを実行します。
 
 ## プライバシー・セキュリティ・支援
 

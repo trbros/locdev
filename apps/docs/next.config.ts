@@ -4,27 +4,24 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { routing } from "./i18n/routing";
 
-// The docs describe the daemon and CLI, so the version shown is the workspace
-// version in Cargo.toml. NEXT_PUBLIC_APP_VERSION still overrides it. A copy
-// of the site deployed on its own has no Cargo.toml: it carries that version
-// in generated/version.json instead.
-function workspaceVersion(): string {
-	const cargoPath = new URL("../../Cargo.toml", import.meta.url);
-	if (!existsSync(cargoPath)) {
+// The version shown is the app's (apps/desktop/package.json), the one the
+// GitHub release tag (v<version>) follows. NEXT_PUBLIC_APP_VERSION still
+// overrides it. A copy of the site deployed on its own has no apps/desktop:
+// it carries that version in generated/version.json instead.
+function releaseVersion(): string {
+	const packagePath = new URL("../desktop/package.json", import.meta.url);
+	if (!existsSync(packagePath)) {
 		const copied = JSON.parse(
 			readFileSync(
 				new URL("./generated/version.json", import.meta.url),
 				"utf8",
 			),
-		)?.daemon;
-		if (!copied) throw new Error("No daemon version in generated/version.json");
+		)?.app;
+		if (!copied) throw new Error("No app version in generated/version.json");
 		return copied;
 	}
-	const cargo = readFileSync(cargoPath, "utf8");
-	const version = cargo.match(
-		/\[workspace\.package\][^[]*?version = "([^"]+)"/,
-	)?.[1];
-	if (!version) throw new Error("No [workspace.package] version in Cargo.toml");
+	const version = JSON.parse(readFileSync(packagePath, "utf8"))?.version;
+	if (!version) throw new Error("No version in apps/desktop/package.json");
 	return version;
 }
 
@@ -33,7 +30,7 @@ const nextConfig: NextConfig = {
 	poweredByHeader: false,
 	env: {
 		NEXT_PUBLIC_APP_VERSION:
-			process.env.NEXT_PUBLIC_APP_VERSION?.trim() || workspaceVersion(),
+			process.env.NEXT_PUBLIC_APP_VERSION?.trim() || releaseVersion(),
 	},
 };
 
