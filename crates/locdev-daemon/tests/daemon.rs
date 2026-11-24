@@ -904,7 +904,9 @@ async fn shared_environment_variables() {
         .call(Request::AddProject {
             path: dir.to_path_buf(),
             name: Some("envsite".into()),
-            command: Some("env > env.out; sleep 30".into()),
+            // Renamed when complete: `env` writes in chunks, so polling
+            // the file itself can read half of it.
+            command: Some("env > env.tmp && mv env.tmp env.out; sleep 30".into()),
             port: None,
             auto_start: false,
         })
@@ -1113,7 +1115,9 @@ async fn framework_adapters_and_manual_stacks() {
                 .call(Request::AddProject {
                     path: dir.clone(),
                     name: Some(name.clone()),
-                    command: Some("env > env.out; sleep 30".into()),
+                    // Renamed when complete: `env` writes in chunks, so polling
+                    // the file itself can read half of it.
+                    command: Some("env > env.tmp && mv env.tmp env.out; sleep 30".into()),
                     port: None,
                     auto_start: false,
                 })
