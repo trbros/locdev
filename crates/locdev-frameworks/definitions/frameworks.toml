@@ -11,7 +11,7 @@
 # together with the engine, and then bump `format`.
 
 format = 2
-revision = 2026112401
+revision = 2026112501
 min_locdev = "0.1.0"
 
 # ── PHP ─────────────────────────────────────────────────────────────────────
