@@ -19,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function DownloadPage() {
 	const t = await getTranslations("Download");
 	const c = await getTranslations("Common");
+	const l = await getTranslations("Labels");
 	const feed = await getReleaseFeed();
 	const source = `git clone ${repository.clone} locdev\ncd locdev\ncargo build --release\ncd apps/desktop\npnpm install\npnpm tauri build`;
 	return (
@@ -58,7 +59,7 @@ export default async function DownloadPage() {
 						<span className="install-chip install-chip-windows">
 							<Windows className="install-platform-icon" /> Windows
 						</span>
-						<span className="install-caption">DESKTOP + CLI + DAEMON</span>
+						<span className="install-caption">{l("bundleCaption")}</span>
 					</div>
 				</PageReveal>
 			</section>

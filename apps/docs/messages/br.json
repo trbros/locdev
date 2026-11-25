@@ -1533,5 +1533,29 @@
 		"outputReview": "Revise os campos destacados",
 		"configureTitle": "Defina. Revise. Use.",
 		"configureBody": "Preencha os dados do projeto e confira a configuração ao lado. Copie os comandos ou salve o exemplo TOML quando estiver pronto."
+	},
+	"Labels": {
+		"headerTag": "AMBIENTE DE DESENVOLVIMENTO LOCAL / CÓDIGO ABERTO",
+		"poweredBy": "FEITO EM RUST",
+		"heroIndex": "[ 001 / INTERFACE ]",
+		"appDesktop": "[ APP / DESKTOP ]",
+		"crossPlatform": "[ MULTIPLATAFORMA ]",
+		"systemIndex": "{index} / SISTEMA",
+		"tlsSecure": "TLS / SEGURO",
+		"approvalRequired": "APROVAÇÃO NECESSÁRIA",
+		"allowOnce": "PERMITIR UMA VEZ",
+		"dnsResolver": "RESOLVEDOR DNS",
+		"localCa": "CA LOCAL",
+		"proxy": "PROXY",
+		"checksPassed": "3 / 3 VERIFICAÇÕES OK",
+		"bundleCaption": "APP + CLI + DAEMON",
+		"galleryTag": "APP / RUST + TAURI",
+		"appCapture": "CAPTURA DO APP",
+		"terminalTag": "LOCDEV / TERMINAL",
+		"cliExamples": "Exemplos da CLI",
+		"stackWorkflow": "{id} / fluxo",
+		"brandHome": "LocDev — início",
+		"contactHello": "olá, locdev.",
+		"close": "Fechar"
 	}
 }

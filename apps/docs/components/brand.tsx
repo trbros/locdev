@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 // The official PNG logo, used as is (no SVG redraw). public/logo.png is written
@@ -18,11 +19,12 @@ export function LogoMark({ className = "size-9" }: { className?: string }) {
 }
 
 export function Brand({ small = false }: { small?: boolean }) {
+	const l = useTranslations("Labels");
 	return (
 		<Link
 			href="/"
 			className="group inline-flex items-center gap-2.5"
-			aria-label="LocDev — home"
+			aria-label={l("brandHome")}
 		>
 			<LogoMark className={small ? "size-7" : "size-9"} />
 			<span

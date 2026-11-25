@@ -233,6 +233,13 @@ async fn run() -> anyhow::Result<()> {
 
     // Support schedules and release catalogs (for "update available") are
     // refreshed in the background, never in offline mode.
+    // Package managers that can't run as installed are installed again now,
+    // so the projects pinned to them start.
+    if !daemon.settings.get().network.offline {
+        let runtimes = daemon.runtimes.clone();
+        tokio::spawn(async move { runtimes.repair_installs().await });
+    }
+
     let updater = tokio::spawn({
         let daemon = daemon.clone();
         async move {

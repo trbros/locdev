@@ -22,7 +22,6 @@ struct Def {
 }
 
 enum Install {
-    None,
     Runtime(&'static str),
     /// The first command for this OS; run in the user's home.
     Commands(&'static [Cmd]),
@@ -144,8 +143,25 @@ const DEFS: &[Def] = &[
         description: "JavaScript runtime and package manager.",
         docs: "https://bun.com/docs/installation",
         programs: &["bun"],
-        // Bun's docs list it ("the last `npm` command you'll ever need").
-        install: Install::Commands(&[cmd(Os::Any, "npm", &["install", "-g", "bun"])]),
+        // Bun's own installers (into ~/.bun/bin). `npm install -g` lands in
+        // the global prefix of whichever Node comes first: /usr for a system
+        // Node (fails without sudo), or one LocDev Node version only.
+        install: Install::Commands(&[
+            cmd(
+                Os::Windows,
+                "powershell",
+                &[
+                    "-NoProfile",
+                    "-Command",
+                    "irm https://bun.sh/install.ps1 | iex",
+                ],
+            ),
+            cmd(
+                Os::Unix,
+                "bash",
+                &["-c", "curl -fsSL https://bun.sh/install | bash"],
+            ),
+        ]),
     },
     Def {
         id: "python",
@@ -153,7 +169,15 @@ const DEFS: &[Def] = &[
         description: "Runs Django, Flask and FastAPI; each project gets its own virtual environment.",
         docs: "https://www.python.org/downloads/",
         programs: &["python3", "python"],
-        install: Install::None,
+        // Linux: the distribution's package (needs administrator rights).
+        install: Install::Commands(&[
+            cmd(
+                Os::Windows,
+                "winget",
+                &["install", "-e", "--id", "Python.Python.3.13"],
+            ),
+            cmd(Os::Mac, "brew", &["install", "python"]),
+        ]),
     },
     Def {
         id: "uv",
@@ -180,7 +204,11 @@ const DEFS: &[Def] = &[
         description: "Installs Python command-line tools in their own environments; optional.",
         docs: "https://pipx.pypa.io/stable/installation/",
         programs: &["pipx"],
-        install: Install::None,
+        // pipx's page: Scoop and Homebrew; Linux: the distribution's package.
+        install: Install::Commands(&[
+            cmd(Os::Windows, "scoop", &["install", "pipx"]),
+            cmd(Os::Mac, "brew", &["install", "pipx"]),
+        ]),
     },
     Def {
         id: "poetry",
@@ -259,11 +287,14 @@ const DEFS: &[Def] = &[
         description: "Version control; starters can initialize a repository.",
         docs: "https://git-scm.com/downloads",
         programs: &["git"],
-        install: Install::Commands(&[cmd(
-            Os::Windows,
-            "winget",
-            &["install", "--id", "Git.Git", "-e", "--source", "winget"],
-        )]),
+        install: Install::Commands(&[
+            cmd(
+                Os::Windows,
+                "winget",
+                &["install", "--id", "Git.Git", "-e", "--source", "winget"],
+            ),
+            cmd(Os::Mac, "brew", &["install", "git"]),
+        ]),
     },
     Def {
         id: "rails",
@@ -271,7 +302,19 @@ const DEFS: &[Def] = &[
         description: "`rails new`; needs Ruby.",
         docs: "https://guides.rubyonrails.org/install_ruby_on_rails.html",
         programs: &["rails"],
-        install: Install::Commands(&[cmd(Os::Any, "gem", &["install", "rails"])]),
+        // A system Ruby's gem folder (/var/lib/gems) needs sudo: there it's a
+        // per-user install (~/.local/share/gem or ~/.gem, see extra_dirs).
+        install: Install::Commands(&[
+            cmd(Os::Windows, "gem", &["install", "rails"]),
+            cmd(
+                Os::Unix,
+                "sh",
+                &[
+                    "-c",
+                    "if [ -w \"$(gem env gemdir)\" ]; then gem install rails; else gem install --user-install rails; fi",
+                ],
+            ),
+        ]),
     },
     Def {
         id: "dotnet",
@@ -307,11 +350,24 @@ pub fn extra_dirs(home: &Path) -> Vec<PathBuf> {
         home.join(".bun/bin"),
         home.join(".cargo/bin"),
         home.join(".local/bin"),
-        // Symfony CLI's and dotnet-install's folders.
+        // Symfony CLI's (now and before) and dotnet-install's folders.
+        home.join(".config/symfony-cli/bin"),
         home.join(".symfony5/bin"),
         home.join(".dotnet"),
         home.join("scoop/shims"),
     ];
+    // Per-user gems (`gem install --user-install`): one folder per Ruby.
+    for base in [home.join(".local/share/gem/ruby"), home.join(".gem/ruby")] {
+        if let Ok(entries) = std::fs::read_dir(&base) {
+            let mut found: Vec<PathBuf> = entries
+                .flatten()
+                .map(|e| e.path().join("bin"))
+                .filter(|bin| bin.is_dir())
+                .collect();
+            found.sort();
+            dirs.extend(found.into_iter().rev());
+        }
+    }
     if let Some(local) = std::env::var_os("LOCALAPPDATA") {
         // winget's links for portable packages (uv).
         dirs.push(PathBuf::from(local).join("Microsoft/WinGet/Links"));
@@ -424,6 +480,14 @@ pub fn tools(path: &str, home: &Path, starters: &[Starter]) -> Vec<Tool> {
         .collect()
 }
 
+/// Each tool's id, name and description: what the app shows and translates
+/// (committed as `apps/desktop/src/generated/tools.json`).
+pub fn descriptions() -> Vec<serde_json::Value> {
+    DEFS.iter()
+        .map(|d| serde_json::json!({ "id": d.id, "name": d.name, "description": d.description }))
+        .collect()
+}
+
 /// The install steps of a tool LocDev can install by command.
 pub fn install_steps(id: &str, home: &Path) -> Option<Vec<Step>> {
     let def = DEFS.iter().find(|d| d.id == id)?;
@@ -476,9 +540,11 @@ mod tests {
         for id in ["laravel", "bun", "wp", "rails"] {
             assert!(install_steps(id, home).is_some(), "{id}");
         }
-        assert_eq!(
-            install_steps("bun", home).unwrap()[0].display(),
-            "npm install -g bun"
+        // Bun through its own installer, never `npm install -g`.
+        assert!(
+            !install_steps("bun", home).unwrap()[0]
+                .display()
+                .contains("npm")
         );
         assert!(
             install_steps("php", home).is_none(),

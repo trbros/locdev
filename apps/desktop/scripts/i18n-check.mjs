@@ -34,6 +34,16 @@ for (const file of files) {
   }
 }
 
+// Texts the daemon sends from its fixed catalogs (frameworks and tools),
+// which the app shows through t(): they need translations too.
+const generated = (name) => JSON.parse(readFileSync(new URL(`../src/generated/${name}`, import.meta.url), "utf8"));
+const TEXT_FIELDS = new Set(["description", "label", "note", "help"]);
+(function collect(value, key) {
+  if (Array.isArray(value)) value.forEach((v) => collect(v, key));
+  else if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) collect(v, k);
+  else if (typeof value === "string" && TEXT_FIELDS.has(key) && value.trim()) used.add(value);
+})([generated("starters.json"), generated("tools.json")]);
+
 let failed = false;
 for (const locale of ["pt-BR", "es", "ja"]) {
   const catalog = JSON.parse(readFileSync(new URL(`../src/i18n/${locale}.json`, import.meta.url), "utf8"));

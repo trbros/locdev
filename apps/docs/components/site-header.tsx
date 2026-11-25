@@ -36,6 +36,7 @@ export function SiteHeader({
 	searchEntries: DocSearchEntry[];
 }) {
 	const t = useTranslations("Nav");
+	const l = useTranslations("Labels");
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
 	useEffect(() => {
@@ -55,9 +56,9 @@ export function SiteHeader({
 			</a>
 			<div className="microbar">
 				<span className="inline-flex items-center gap-2">
-					<i className="led led-green" /> LOCAL DEV ENVIRONMENT / OPEN SOURCE
+					<i className="led led-green" /> {l("headerTag")}
 				</span>
-				<span className="hidden sm:inline">POWERED BY RUST</span>
+				<span className="hidden sm:inline">{l("poweredBy")}</span>
 			</div>
 			<header className="site-header">
 				<div className="page-container header-row">

@@ -55,6 +55,7 @@ As flags de cada instalador vêm do código-fonte ou da documentação oficial d
 Dois detalhes de comando que valem para todos:
 
 - `npm create --yes x@latest` evita que o npm pare perguntando se pode baixar o gerador.
+- Os instaladores rodam sem as opções que pulam as perguntas deles (`--no-interaction` no `laravel new`, no Composer e no `artisan migrate`, `--yes` no `create-next-app` e no `create-astro`, `--defaults` no `ng new`): o que as flags do LocDev não respondem, o instalador pergunta no terminal, onde você também vê a saída e qualquer erro.
 - O Angular CLI roda com `NG_CLI_ANALYTICS=false` (mostrado no comando), a forma documentada de não enviar dados de uso e não perguntar sobre isso no meio da criação.
 
 ## Instaladores
@@ -65,10 +66,10 @@ Em **Ferramentas → Instaladores** (ou `locdev tools list`) ficam as ferramenta
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | PHP, Composer, Node.js, npm, pnpm                                                | em [Runtimes](/docs/runtimes), com download verificado                                 |
 | Instalador do Laravel                                                            | `composer global require laravel/installer`, num terminal, depois de mostrar o comando |
-| Rails                                                                            | `gem install rails` (precisa de Ruby)                                                  |
-| Symfony CLI, Bun, Python, uv, pipx, Poetry, Cargo, rustup, WP-CLI, Git, .NET SDK | link para o instalador oficial                                                         |
+| Rails                                                                            | `gem install rails` (precisa de Ruby; instalação por usuário quando a pasta de gems do Ruby exige administrador) |
+| Symfony CLI, Bun, uv, Poetry, Cargo, rustup, WP-CLI, .NET SDK; Python, pipx e Git no Windows e no macOS | o comando documentado pelo autor (veja [Instaladores pelo app](#instaladores-pelo-app)); nos outros casos, link para o instalador oficial |
 
-As ferramentas são encontradas também onde os instaladores oficiais as colocam, mesmo fora do `PATH`: a pasta global do Composer (`~/.config/composer/vendor/bin`, `~/.composer/vendor/bin` ou `%APPDATA%\Composer\vendor\bin`), `~/.bun/bin`, `~/.cargo/bin` (rustup) e `~/.local/bin`. Os passos rodam com os runtimes do LocDev primeiro no `PATH`.
+As ferramentas são encontradas também onde os instaladores oficiais as colocam, mesmo fora do `PATH`: a pasta global do Composer (`~/.config/composer/vendor/bin`, `~/.composer/vendor/bin` ou `%APPDATA%\Composer\vendor\bin`), `~/.bun/bin`, `~/.cargo/bin` (rustup), `~/.local/bin`, a do Symfony CLI (`~/.config/symfony-cli/bin`) e as gems por usuário (`~/.local/share/gem/ruby/*/bin`). Elas vêm depois do `PATH`, então os runtimes do LocDev, primeiro no `PATH`, são os encontrados e usados.
 
 ## Na linha de comando
 
@@ -127,13 +128,15 @@ O instalador roda com as flags correspondentes (`--react --workos`, `--vue --no-
 | --------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | Instalador do Laravel | `composer global require laravel/installer`                                                                         |
 | Symfony CLI           | `scoop install symfony-cli` (Windows), `brew install symfony-cli/tap/symfony-cli` (macOS), o script oficial (Linux) |
-| Bun                   | `npm install -g bun`                                                                                                |
+| Bun                   | o script oficial (`curl -fsSL https://bun.sh/install \| bash`; PowerShell no Windows) |
 | uv                    | `winget install --id=astral-sh.uv -e` (Windows), o script oficial (macOS, Linux)                                    |
 | Poetry                | O instalador oficial                                                                                                |
+| Python                | `winget install -e --id Python.Python.3.13` (Windows), `brew install python` (macOS); no Linux, o pacote da sua distribuição |
+| pipx                  | `scoop install pipx` (Windows), `brew install pipx` (macOS); no Linux, o pacote da sua distribuição |
 | Rust (rustup, Cargo)  | O script oficial (macOS, Linux)                                                                                     |
 | WP-CLI                | `composer global require wp-cli/wp-cli-bundle`                                                                      |
-| Git                   | `winget install --id Git.Git -e --source winget` (Windows)                                                          |
+| Git                   | `winget install --id Git.Git -e --source winget` (Windows), `brew install git` (macOS) |
 | .NET SDK              | `winget install Microsoft.DotNet.SDK.10` (Windows), `dotnet-install.sh --channel LTS` (macOS, Linux)                |
-| Rails                 | `gem install rails`                                                                                                 |
+| Rails                 | `gem install rails`, ou `gem install --user-install rails` quando a pasta de gems do Ruby não aceita escrita (Ruby do sistema) |
 
 Ferramenta sem comando para o seu sistema continua com o link da página de instalação. `locdev tools install <id>` faz o mesmo pelo terminal.

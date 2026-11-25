@@ -539,8 +539,10 @@ export interface AppUpdate {
   notes: string | null;
   downgrade: boolean;
   can_install: boolean;
-  /** Why it can't: `development_build` or `linux_package`. */
-  reason: "development_build" | "linux_package" | null;
+  /** Why it can't: `development_build` or `unknown_install`. */
+  reason: "development_build" | "unknown_install" | null;
+  /** Installing asks for the administrator password (a .deb or .rpm). */
+  asks_password: boolean;
   page: string;
 }
 

@@ -18,6 +18,7 @@ import { CapabilityGrid } from "./capability-grid";
 export async function CapabilitySection() {
 	const t = await getTranslations("Capabilities");
 	const common = await getTranslations("Common");
+	const l = await getTranslations("Labels");
 	return (
 		<section id="capabilities" className="section-pad border-t border-border">
 			<div className="page-container">
@@ -96,7 +97,7 @@ export async function CapabilitySection() {
 								<LockKeyhole size={30} strokeWidth={1.4} />
 							</div>
 							<div className="security-label">
-								<span className="led led-green" /> TLS / SECURE
+								<span className="led led-green" /> {l("tlsSecure")}
 							</div>
 						</div>
 						<div className="cap-bottom">
@@ -133,10 +134,10 @@ export async function CapabilitySection() {
 							</span>
 							<div className="flex items-center gap-2 text-[12px]">
 								<CircleCheck className="text-phosphor" size={16} />
-								<span>APPROVAL REQUIRED</span>
+								<span>{l("approvalRequired")}</span>
 							</div>
 							<div className="privilege-action">
-								<span>ALLOW ONCE</span>
+								<span>{l("allowOnce")}</span>
 								<ArrowDownRight size={14} />
 							</div>
 						</div>
@@ -176,18 +177,18 @@ export async function CapabilitySection() {
 						</div>
 						<div className="doctor-art" aria-hidden="true">
 							<div>
-								<span>DNS RESOLVER</span>
+								<span>{l("dnsResolver")}</span>
 								<CircleCheck size={14} />
 							</div>
 							<div>
-								<span>LOCAL CA</span>
+								<span>{l("localCa")}</span>
 								<CircleCheck size={14} />
 							</div>
 							<div>
-								<span>PROXY</span>
+								<span>{l("proxy")}</span>
 								<CircleCheck size={14} />
 							</div>
-							<div className="doctor-success">3 / 3 CHECKS PASSED</div>
+							<div className="doctor-success">{l("checksPassed")}</div>
 						</div>
 						<div className="cap-bottom">
 							<h3>{t("doctorTitle")}</h3>

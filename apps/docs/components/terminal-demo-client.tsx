@@ -38,6 +38,7 @@ export function TerminalDemoClient({
 	highlightedCommands: ReactNode[];
 }) {
 	const t = useTranslations("Workflow");
+	const l = useTranslations("Labels");
 	const [tab, setTab] = useState(1);
 	const [copied, setCopied] = useState(false);
 	async function copy() {
@@ -54,14 +55,14 @@ export function TerminalDemoClient({
 			<div className="terminal-head">
 				<div className="inline-flex items-center gap-2">
 					<Terminal size={14} className="text-ember" />
-					<span>LOCDEV / TERMINAL</span>
+					<span>{l("terminalTag")}</span>
 				</div>
 				<span className="text-muted-foreground/60">⌘_</span>
 			</div>
 			<div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
 				<div
 					role="tablist"
-					aria-label="CLI examples"
+					aria-label={l("cliExamples")}
 					className="flex min-w-0 gap-1 overflow-x-auto"
 				>
 					{[t("tabOne"), t("tabTwo"), t("tabThree")].map((label, index) => (

@@ -16,7 +16,7 @@ The app uses the Tauri updater. Every release carries a `latest.json` and update
 | Windows                 | Yes (NSIS installer, no administrator prompt). The daemon stops before installing, because Windows can't replace a running program. |
 | macOS                   | Yes.                                                                                                                                |
 | Linux, AppImage         | Yes.                                                                                                                                |
-| Linux, `.deb` or `.rpm` | No: the Tauri updater only replaces AppImages. The page says so and links to the release, where you download the new package.       |
+| Linux, `.deb` or `.rpm` | Yes: the app downloads the release's package of the same kind and installs it with the system's package tool (`pkexec dpkg -i` or `rpm -U`), which asks for your password. A copy installed before this support (0.19.1 or earlier, or the first 0.19.2 builds) needs one update by hand. |
 
 A development copy (`make app`) doesn't update itself either.
 
@@ -61,7 +61,7 @@ An older version doesn't know what newer ones added: it ignores settings it does
 
 ## Updating by hand
 
-For `.deb`/`.rpm` packages, a local build, or whenever you prefer:
+For a local build, a `.deb`/`.rpm` installed before that support, or whenever you prefer:
 
 ```bash
 locdev version
@@ -86,5 +86,5 @@ Starting may reopen projects with `auto_start`. Check the client and daemon vers
 ## Limitations
 
 - Not validated against a real release: none exists yet. The release reading (against a fake API) and the page (with the mock backend) were tested; downloading and replacing the app through the Tauri updater depend on the first signed release.
-- `.deb` and `.rpm` don't update through the app.
+- Updating a `.deb` or `.rpm` through the app hasn't been run against a real release yet: the first one is the update after the version that brought it.
 - Going back only reaches releases that already carried the signed `latest.json`.

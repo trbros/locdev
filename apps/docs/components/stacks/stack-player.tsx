@@ -42,6 +42,7 @@ export function StackPlayer({
 	onPrevious: () => void;
 }) {
 	const t = useTranslations("Stacks");
+	const l = useTranslations("Labels");
 	const root = useRef<HTMLDivElement>(null);
 	const [progress, setProgress] = useState({ id: stack.id, step: 0 });
 	const phase = progress.id === stack.id ? progress.step : 0;
@@ -145,7 +146,7 @@ export function StackPlayer({
 				<div className="stack-player-terminal">
 					<div className="stack-terminal-title">
 						<Terminal size={14} />
-						<span>{stack.id} / workflow</span>
+						<span>{l("stackWorkflow", { id: stack.id })}</span>
 						<span className="ml-auto">{t("example")}</span>
 					</div>
 					<ol className="stack-command-list">

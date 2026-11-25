@@ -36,8 +36,11 @@ pub struct AppUpdate {
     downgrade: bool,
     /// Whether this copy can replace itself; `reason` says why not.
     can_install: bool,
-    /// `development_build` or `linux_package` (the UI words it).
+    /// `development_build` or `unknown_install` (the UI words it).
     reason: Option<&'static str>,
+    /// Installing asks for the administrator password: a `.deb` or `.rpm`
+    /// goes in through the system's package tool (`pkexec dpkg -i`/`rpm -U`).
+    asks_password: bool,
     /// The release page, to download by hand.
     page: String,
 }
@@ -55,14 +58,23 @@ fn other(message: impl ToString) -> CommandError {
     }
 }
 
+/// Whether this copy came from LocDev's `.deb` or `.rpm` (the bundler marks
+/// the binary): the updater then installs the release's package of the same
+/// kind with the system's package tool.
+fn linux_package() -> bool {
+    use tauri::utils::{config::BundleType, platform::bundle_type};
+    cfg!(target_os = "linux") && matches!(bundle_type(), Some(BundleType::Deb | BundleType::Rpm))
+}
+
 /// Why this copy can't update itself, if it can't.
 fn blocker() -> Option<&'static str> {
     if cfg!(debug_assertions) {
         return Some("development_build");
     }
-    // The updater replaces AppImages only; packages come from the release.
-    if cfg!(target_os = "linux") && std::env::var_os("APPIMAGE").is_none() {
-        return Some("linux_package");
+    // On Linux the updater replaces an AppImage or installs a package; a copy
+    // that is neither (built by hand) would be taken for an AppImage.
+    if cfg!(target_os = "linux") && !linux_package() && std::env::var_os("APPIMAGE").is_none() {
+        return Some("unknown_install");
     }
     None
 }
@@ -71,7 +83,7 @@ fn blocked(reason: &str) -> CommandError {
     other(match reason {
         "development_build" => "this is a development build; updates are for installed copies",
         _ => {
-            "installed from a .deb or .rpm package: download the new package from the release page"
+            "this copy wasn't installed from LocDev's package or AppImage: download the new version from the release page"
         }
     })
 }
@@ -122,6 +134,7 @@ pub async fn app_update_check(
             notes: update.body.clone(),
             can_install: reason.is_none(),
             reason,
+            asks_password: linux_package(),
             page: page(tag.as_deref()),
         },
         None => AppUpdate {
@@ -133,6 +146,7 @@ pub async fn app_update_check(
             downgrade: false,
             can_install: reason.is_none(),
             reason,
+            asks_password: linux_package(),
             page: page(tag.as_deref()),
         },
     })

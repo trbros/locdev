@@ -20,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
 	const t = await getTranslations("Contact");
+	const l = await getTranslations("Labels");
 	return (
 		<PageReveal className="page-container contact-page">
 			<header className="contact-hero">
@@ -60,7 +61,7 @@ export default async function ContactPage() {
 						</div>
 					</div>
 					<div className="contact-signal-copy">
-						<span>hello, locdev.</span>
+						<span>{l("contactHello")}</span>
 						<span>↳ {t("signal")}</span>
 					</div>
 					<div className="contact-signal-bottom">{t("signature")}</div>

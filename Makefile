@@ -60,7 +60,7 @@ test: ## Roda os testes Rust
 cli-catalog: ## Regenera os catálogos de comandos e frameworks e o changelog (app e docs)
 	LOCDEV_UPDATE_CATALOG=1 cargo test -p locdev catalog
 	LOCDEV_UPDATE_CATALOG=1 cargo test -p locdev-frameworks committed_definitions
-	LOCDEV_UPDATE_CATALOG=1 cargo test -p locdev-scaffold committed_starters
+	LOCDEV_UPDATE_CATALOG=1 cargo test -p locdev-scaffold committed_
 	node $(DOCS)/scripts/sync-changelogs.mjs
 
 .PHONY: third-party

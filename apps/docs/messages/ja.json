@@ -1533,5 +1533,29 @@
 		"outputReview": "入力内容を確認してください",
 		"configureTitle": "入力、確認、実行。",
 		"configureBody": "プロジェクトの情報を入力し、隣の設定を確認してください。準備ができたらコマンドをコピーするか、TOML の例を保存できます。"
+	},
+	"Labels": {
+		"headerTag": "ローカル開発環境 / オープンソース",
+		"poweredBy": "RUST 製",
+		"heroIndex": "[ 001 / インターフェース ]",
+		"appDesktop": "[ アプリ / デスクトップ ]",
+		"crossPlatform": "[ クロスプラットフォーム ]",
+		"systemIndex": "{index} / システム",
+		"tlsSecure": "TLS / 安全",
+		"approvalRequired": "承認が必要",
+		"allowOnce": "一度だけ許可",
+		"dnsResolver": "DNS リゾルバー",
+		"localCa": "ローカル CA",
+		"proxy": "プロキシ",
+		"checksPassed": "3 / 3 チェック合格",
+		"bundleCaption": "デスクトップ + CLI + デーモン",
+		"galleryTag": "アプリ / RUST + TAURI",
+		"appCapture": "アプリの画面",
+		"terminalTag": "LOCDEV / ターミナル",
+		"cliExamples": "CLI の例",
+		"stackWorkflow": "{id} / ワークフロー",
+		"brandHome": "LocDev — ホーム",
+		"contactHello": "こんにちは、locdev。",
+		"close": "閉じる"
 	}
 }

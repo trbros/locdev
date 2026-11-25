@@ -23,6 +23,7 @@ import { route } from "@/lib/routes.generated";
 import { stacks } from "@/lib/stacks";
 
 export default async function Home() {
+	const l = await getTranslations("Labels");
 	const [h, tick, demo, flow, gallery] = await Promise.all([
 		getTranslations("Hero"),
 		getTranslations("Ticker"),
@@ -79,7 +80,7 @@ export default async function Home() {
 							<div className="hero-visual-deco" aria-hidden="true">
 								<span className="corner-plus plus-one">+</span>
 								<span className="corner-plus plus-two">+</span>
-								<span className="hero-visual-index">[ 001 / INTERFACE ]</span>
+								<span className="hero-visual-index">{l("heroIndex")}</span>
 							</div>
 							<AppShowcase hero />
 							<div className="hero-floating-tag">
@@ -127,7 +128,7 @@ export default async function Home() {
 					<div className="section-topline">
 						<p className="section-eyebrow">{demo("eyebrow")}</p>
 						<span className="font-mono text-xs text-muted-foreground">
-							[ APP / DESKTOP ]
+							{l("appDesktop")}
 						</span>
 					</div>
 					<div className="section-intro">

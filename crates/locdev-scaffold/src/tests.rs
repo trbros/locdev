@@ -86,9 +86,7 @@ fn laravel_installer_uses_the_documented_flags() {
     .unwrap();
     assert_eq!(
         commands(&p),
-        [
-            "laravel new shop --no-interaction --react --workos --pest --database=sqlite --pnpm --no-boost"
-        ]
+        ["laravel new shop --react --workos --pest --database=sqlite --pnpm --no-boost"]
     );
     // No starter kit: a stack other than Blade is the blank kit, no auth.
     let p = plan(&project(
@@ -100,9 +98,7 @@ fn laravel_installer_uses_the_documented_flags() {
     .unwrap();
     assert_eq!(
         commands(&p),
-        [
-            "laravel new shop --no-interaction --vue --no-authentication --pest --database=sqlite --npm --boost"
-        ]
+        ["laravel new shop --vue --no-authentication --pest --database=sqlite --npm --boost"]
     );
     // Livewire kit with class components: teams isn't asked then.
     let kit = [
@@ -116,7 +112,7 @@ fn laravel_installer_uses_the_documented_flags() {
     assert_eq!(
         commands(&p),
         [
-            "laravel new shop --no-interaction --livewire --livewire-class-components --pest --database=sqlite --npm --boost"
+            "laravel new shop --livewire --livewire-class-components --pest --database=sqlite --npm --boost"
         ]
     );
 }
@@ -160,7 +156,7 @@ fn laravel_with_composer_picks_the_kit_package_and_builds() {
     assert_eq!(
         commands(&p),
         [
-            "composer create-project laravel/blank-vue-starter-kit shop --no-interaction --stability=dev",
+            "composer create-project laravel/blank-vue-starter-kit shop --stability=dev",
             "npm install",
             "npm run build"
         ]
@@ -168,7 +164,7 @@ fn laravel_with_composer_picks_the_kit_package_and_builds() {
     let p = plan(&project(dir.path(), "laravel", "composer", &[])).unwrap();
     assert_eq!(
         commands(&p),
-        ["composer create-project laravel/laravel shop --no-interaction"]
+        ["composer create-project laravel/laravel shop"]
     );
     let p = plan(&project(
         dir.path(),
@@ -184,9 +180,7 @@ fn laravel_with_composer_picks_the_kit_package_and_builds() {
     .unwrap();
     assert_eq!(
         commands(&p),
-        [
-            "composer create-project laravel/react-starter-kit:dev-teams shop --no-interaction --stability=dev"
-        ]
+        ["composer create-project laravel/react-starter-kit:dev-teams shop --stability=dev"]
     );
 }
 
@@ -205,10 +199,7 @@ fn a_locdev_database_sets_the_driver_and_migrates() {
     });
     let p = plan(&new).unwrap();
     assert!(p.steps[0].args.contains(&"--database=pgsql".to_string()));
-    assert_eq!(
-        commands(&p).last().unwrap(),
-        "php artisan migrate --no-interaction"
-    );
+    assert_eq!(commands(&p).last().unwrap(), "php artisan migrate");
     assert!(p.actions.iter().any(|a| a.contains("database 'shop'")));
     // Only starters that support it.
     let mut vite = project(dir.path(), "vite", "npm", &[]);
@@ -239,7 +230,7 @@ fn javascript_starters_follow_each_tools_cli() {
     assert_eq!(
         cmd("nextjs", "pnpm", &[("linter", "biome"), ("git", "false")]),
         [
-            "pnpm dlx create-next-app@latest shop --yes --ts --tailwind --biome --app --no-src-dir --use-pnpm --disable-git"
+            "pnpm dlx create-next-app@latest shop --ts --tailwind --biome --app --no-src-dir --use-pnpm --disable-git"
         ]
     );
     assert_eq!(
@@ -250,7 +241,7 @@ fn javascript_starters_follow_each_tools_cli() {
     );
     assert_eq!(
         cmd("astro", "bun", &[("git", "false")]),
-        ["bunx create-astro@latest shop --template basics --install --no-git --yes --skip-houston"]
+        ["bunx create-astro@latest shop --template basics --install --no-git --skip-houston"]
     );
     assert_eq!(
         cmd("sveltekit", "npm", &[]),
@@ -276,8 +267,8 @@ fn other_stacks() {
     assert_eq!(
         cmd("symfony", "composer", &[]),
         [
-            "composer create-project symfony/skeleton shop --no-interaction",
-            "composer require webapp --no-interaction"
+            "composer create-project symfony/skeleton shop",
+            "composer require webapp"
         ]
     );
     assert_eq!(
@@ -405,6 +396,22 @@ fn committed_starters_are_current() {
     }
 }
 
+/// The tool descriptions the app translates (its i18n check reads this copy).
+#[test]
+fn committed_tools_are_current() {
+    let fresh = serde_json::to_string_pretty(&crate::tools::descriptions()).unwrap() + "\n";
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let path = root.join("apps/desktop/src/generated/tools.json");
+    if std::env::var_os("LOCDEV_UPDATE_CATALOG").is_some() {
+        std::fs::write(&path, &fresh).unwrap();
+    }
+    let committed = std::fs::read_to_string(&path).unwrap_or_default();
+    assert!(
+        committed == fresh,
+        "apps/desktop/src/generated/tools.json is out of date; run `make cli-catalog`"
+    );
+}
+
 #[test]
 fn vue_and_angular_follow_their_clis() {
     let dir = tempfile::tempdir().unwrap();
@@ -436,7 +443,7 @@ fn vue_and_angular_follow_their_clis() {
     assert_eq!(
         commands(&angular),
         [
-            "NG_CLI_ANALYTICS=false npx --yes @angular/cli@latest new shop --defaults --style=scss --routing=true --ssr=false --package-manager=npm --ai-config=none --skip-git"
+            "NG_CLI_ANALYTICS=false npx --yes @angular/cli@latest new shop --style=scss --routing=true --ssr=false --package-manager=npm --ai-config=none --skip-git"
         ]
     );
     let bun = plan(&project(dir.path(), "angular", "bun", &[])).unwrap();

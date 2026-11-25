@@ -16,7 +16,7 @@ O app usa o atualizador do Tauri. Cada release traz um `latest.json` e os arquiv
 | Windows                 | Sim (instalador NSIS, sem pedir administrador). O daemon para antes de instalar, porque o Windows não substitui um programa em execução. |
 | macOS                   | Sim.                                                                                                                                     |
 | Linux, AppImage         | Sim.                                                                                                                                     |
-| Linux, `.deb` ou `.rpm` | Não: o atualizador do Tauri só substitui AppImages. A tela avisa e leva à página da release, de onde você baixa o pacote novo.           |
+| Linux, `.deb` ou `.rpm` | Sim: o app baixa o pacote do mesmo tipo da release e o instala com a ferramenta de pacotes do sistema (`pkexec dpkg -i` ou `rpm -U`), que pede sua senha. Uma cópia instalada antes desse suporte (0.19.1 ou anterior, ou as primeiras builds da 0.19.2) precisa de uma atualização manual. |
 
 Uma cópia de desenvolvimento (`make app`) também não se atualiza.
 
@@ -61,7 +61,7 @@ Uma versão mais antiga não conhece o que as mais novas acrescentaram: ela igno
 
 ## Atualizar à mão
 
-Para pacotes `.deb`/`.rpm`, uma compilação local ou quando preferir:
+Para uma compilação local, um `.deb`/`.rpm` instalado antes desse suporte, ou quando preferir:
 
 ```bash
 locdev version
@@ -86,5 +86,5 @@ O início pode reabrir os projetos com `auto_start`. Confira as versões do clie
 ## Limitações
 
 - Não validado com uma release real: ainda não existe nenhuma. Foram testados a leitura das releases (contra uma API falsa) e a tela com o backend simulado; o download e a troca do app pelo atualizador do Tauri dependem da primeira release assinada.
-- `.deb` e `.rpm` não se atualizam pelo app.
+- A atualização de `.deb` e `.rpm` pelo app ainda não foi executada com uma release real: a primeira é a atualização seguinte à versão que a trouxe.
 - A volta de versão só alcança releases que já traziam o `latest.json` assinado.

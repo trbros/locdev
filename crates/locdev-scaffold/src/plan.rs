@@ -269,7 +269,6 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 "@angular/cli@latest".to_string(),
                 "new".into(),
                 name.into(),
-                "--defaults".into(),
                 format!("--style={}", opt(project, starter, "style")),
                 format!("--routing={}", on(project, starter, "routing")),
                 format!("--ssr={}", on(project, starter, "ssr")),
@@ -379,8 +378,9 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 _ => opt(project, starter, "database"),
             };
             if m == "installer" {
-                let mut args: Vec<String> =
-                    vec!["new".into(), name.into(), "--no-interaction".into()];
+                // No --no-interaction: the installer asks what the flags don't
+                // answer, and its output and errors show in the terminal.
+                let mut args: Vec<String> = vec!["new".into(), name.into()];
                 if kit != "blade" {
                     args.push(format!("--{kit}"));
                     if !starter_kit {
@@ -433,7 +433,7 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                     };
                     format!("laravel/{kit}-starter-kit{branch}")
                 };
-                let mut args = vec!["create-project", &package, name, "--no-interaction"];
+                let mut args = vec!["create-project", &package, name];
                 if kit != "blade" {
                     args.push("--stability=dev");
                 }
@@ -462,19 +462,14 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                     "Create the project",
                     parent,
                     "composer",
-                    &[
-                        "create-project",
-                        "symfony/skeleton",
-                        name,
-                        "--no-interaction",
-                    ],
+                    &["create-project", "symfony/skeleton", name],
                 ));
                 if webapp {
                     steps.push(step(
                         "Add the web app pack",
                         &dir,
                         "composer",
-                        &["require", "webapp", "--no-interaction"],
+                        &["require", "webapp"],
                     ));
                 }
             }
@@ -484,14 +479,14 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 "Create the project",
                 parent,
                 "composer",
-                &["create-project", "roots/bedrock", name, "--no-interaction"],
+                &["create-project", "roots/bedrock", name],
             ));
             notes.push("Bedrock reads the database from .env (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST); fill it in before installing WordPress.".into());
         }
         "nextjs" => {
             let (program, base) = runner(m);
             let mut args: Vec<String> = base.iter().map(|s| (*s).to_string()).collect();
-            args.extend(["create-next-app@latest".into(), name.into(), "--yes".into()]);
+            args.extend(["create-next-app@latest".into(), name.into()]);
             args.push(if opt(project, starter, "language") == "js" {
                 "--js".into()
             } else {
@@ -590,14 +585,7 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
                 m,
                 "astro",
                 name,
-                &[
-                    "--template",
-                    template,
-                    "--install",
-                    git,
-                    "--yes",
-                    "--skip-houston",
-                ],
+                &["--template", template, "--install", git, "--skip-houston"],
             );
             steps.push(Step {
                 label: "Create the project".into(),
@@ -768,7 +756,7 @@ pub fn plan(project: &NewProject) -> Result<ProjectPlan, String> {
             "Run the migrations",
             &dir,
             "php",
-            &["artisan", "migrate", "--no-interaction"],
+            &["artisan", "migrate"],
         ));
     }
     actions.extend(after_steps_actions(&project.starter, name));

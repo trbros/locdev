@@ -131,7 +131,9 @@ impl Store {
             .filter(|name| !name.starts_with('.') && !version::parts(name).is_empty())
             .filter_map(|name| {
                 let executable = self.executable(kind, &name);
-                executable.is_file().then(|| RuntimeVersion {
+                let usable = executable.is_file()
+                    && !tools::needs_reinstall(kind, &self.kind_dir(kind).join(&name));
+                usable.then(|| RuntimeVersion {
                     version: name,
                     source: RuntimeSource::Managed,
                     executable,
@@ -141,6 +143,30 @@ impl Store {
             })
             .collect();
         found.sort_by(|a, b| version::compare(&b.version, &a.version));
+        found
+    }
+
+    /// Managed installs that can't run as they are (see
+    /// [`tools::needs_reinstall`]); installing them again repairs them.
+    pub fn needing_reinstall(&self) -> Vec<(RuntimeKind, String)> {
+        let mut found = Vec::new();
+        for kind in RuntimeKind::ALL {
+            if !tools::supported(kind) {
+                continue;
+            }
+            let Ok(entries) = std::fs::read_dir(self.kind_dir(kind)) else {
+                continue;
+            };
+            for name in entries
+                .filter_map(Result::ok)
+                .filter_map(|e| e.file_name().into_string().ok())
+                .filter(|name| !name.starts_with('.') && !version::parts(name).is_empty())
+            {
+                if tools::needs_reinstall(kind, &self.kind_dir(kind).join(&name)) {
+                    found.push((kind, name));
+                }
+            }
+        }
         found
     }
 
@@ -164,6 +190,22 @@ impl Store {
         log: &dyn Fn(String),
     ) -> Result<RuntimeVersion, RuntimeError> {
         let dest = self.kind_dir(kind).join(version);
+        // A broken install is set aside and put back if the new one fails.
+        let broken = dest.exists() && tools::needs_reinstall(kind, &dest);
+        let aside = self.root.join(".tmp").join(format!(
+            "{}-{version}-{}-broken",
+            kind.executable(),
+            std::process::id()
+        ));
+        if broken {
+            let _ = std::fs::remove_dir_all(&aside);
+            std::fs::create_dir_all(self.root.join(".tmp"))?;
+            std::fs::rename(&dest, &aside)?;
+            log(format!(
+                "reinstalling {}: it can't run as installed",
+                dest.display()
+            ));
+        }
         if !dest.exists() {
             let scratch = self.root.join(".tmp").join(format!(
                 "{}-{version}-{}",
@@ -185,6 +227,13 @@ impl Store {
                 _ => Err(RuntimeError::Unsupported),
             };
             let _ = std::fs::remove_dir_all(&scratch);
+            if broken {
+                if result.is_err() {
+                    let _ = std::fs::rename(&aside, &dest);
+                } else {
+                    let _ = std::fs::remove_dir_all(&aside);
+                }
+            }
             result?;
             log(format!("installed in {}", dest.display()));
         } else {
@@ -269,6 +318,47 @@ impl Store {
 #[cfg(all(test, unix))]
 mod tests {
     use super::*;
+
+    /// A pnpm 12 whose launcher hands the placeholder to `node` (as LocDev
+    /// 0.19.2 and earlier installed it) is hidden from `installed` and
+    /// installed again. Network:
+    /// `cargo test -p locdev-runtimes -- --ignored reinstalls_a_broken_pnpm`.
+    #[cfg(unix)]
+    #[test]
+    #[ignore = "downloads pnpm from the npm registry"]
+    fn reinstalls_a_broken_pnpm() {
+        let dir = tempfile::tempdir().unwrap();
+        let store = Store::new(dir.path().join("runtimes"), PhpSource::default());
+        store
+            .install(RuntimeKind::Pnpm, "12.23.0", &|_, _, _| {})
+            .unwrap();
+        let dest = dir.path().join("runtimes/pnpm/12.23.0");
+        let launcher = tools::executable(RuntimeKind::Pnpm, &dest);
+        std::fs::write(
+            &launcher,
+            format!(
+                "#!/bin/sh\nexec node '{}' \"$@\"\n",
+                dest.join("pnpm").display()
+            ),
+        )
+        .unwrap();
+        assert!(store.installed(RuntimeKind::Pnpm).is_empty());
+        assert_eq!(
+            store.needing_reinstall(),
+            vec![(RuntimeKind::Pnpm, "12.23.0".to_string())]
+        );
+
+        store
+            .install(RuntimeKind::Pnpm, "12.23.0", &|_, _, _| {})
+            .unwrap();
+        assert!(store.needing_reinstall().is_empty());
+        assert_eq!(store.installed(RuntimeKind::Pnpm).len(), 1);
+        let out = locdev_core::process::command(&launcher)
+            .arg("--version")
+            .output()
+            .unwrap();
+        assert_eq!(String::from_utf8_lossy(&out.stdout).trim(), "12.23.0");
+    }
 
     #[test]
     fn shims_versioned_executables() {

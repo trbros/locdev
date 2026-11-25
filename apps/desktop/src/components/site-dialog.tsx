@@ -1,5 +1,5 @@
 import { FolderOpen } from "lucide-react";
-import { type ReactNode, type SyntheticEvent, useEffect, useState } from "react";
+import { type ReactNode, type SyntheticEvent, useEffect, useId, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -397,9 +397,11 @@ function Field({
 }
 
 function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
+  // One id per toggle: with a shared one, every label switched the first toggle.
+  const id = useId();
   return (
-    <label className="flex items-center gap-2.5 text-sm" htmlFor="checked">
-      <Switch id="checked" checked={checked} onCheckedChange={onChange} className="data-checked:bg-ember" />
+    <label className="flex items-center gap-2.5 text-sm" htmlFor={id}>
+      <Switch id={id} checked={checked} onCheckedChange={onChange} className="data-checked:bg-ember" />
       {label}
     </label>
   );

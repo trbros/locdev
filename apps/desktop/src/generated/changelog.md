@@ -26,9 +26,42 @@ App 0.19.2 with daemon and CLI 0.18.2.
 - The installers have their own artwork, made from the logo: a setup icon
   with a download badge and the welcome and page images on Windows (NSIS
   and MSI), and a window with an arrow to Applications in the macOS `.dmg`.
+- Copies installed from the `.deb` or `.rpm` update themselves: the app
+  installs the release's package with the system's package tool, which asks
+  for your password (`pkexec`). A copy installed before this needs one
+  update by hand.
+- Tools → Installers: install commands for Python, pipx and Git on Windows
+  and macOS.
+
+### Changed
+
+- Installers run without the options that skip their questions
+  (`--no-interaction` in `laravel new`, Composer and `artisan migrate`,
+  `--yes` in `create-next-app` and `create-astro`, `--defaults` in
+  `ng new`): what LocDev's choices don't answer, the installer asks in the
+  terminal, where its output and errors show.
+- Bun installs with its own script (into `~/.bun/bin`) instead of
+  `npm install -g`, which needs administrator rights with a system Node.js.
+  Rails installs per user when Ruby's gem folder isn't writable.
 
 ### Fixed
 
+- pnpm 11 and later failed to start (`SyntaxError: Invalid or unexpected
+  token`): LocDev ran the placeholder its package ships with through
+  Node.js. It now installs pnpm's native binary, checked against the
+  registry like the package, and installs broken copies again when the
+  daemon starts.
+- The update notice showed "Invalid Date" next to the version.
+- Adding a site: clicking "Start with LocDev" switched "Start it now"
+  instead (and clicking a file in a commit selected the first file).
+- New project: choosing a framework scrolls to its fields.
+- Tools → Installers: the Symfony CLI showed as not installed after its
+  installer ran (it moved to `~/.config/symfony-cli/bin`); tools found in
+  installers' folders were taken over the runtimes LocDev puts first; the
+  list now checks again when an install finishes.
+- Texts that showed only in English: frameworks, options and tools in
+  New project and Installers, the plan's steps, the secrets vault notice,
+  the CLI page, and labels across the website.
 - PHP sites opened over HTTPS (Laravel, Symfony, WordPress, Bedrock, plain
   PHP) linked their own assets, fonts and Symfony's toolbar with `http://`,
   which the browser blocked as mixed content. Every PHP site now loads

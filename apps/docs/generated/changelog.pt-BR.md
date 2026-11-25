@@ -18,9 +18,43 @@ App 0.19.2 com daemon e CLI 0.18.2.
   instalador com um selo de download e as imagens de boas-vindas e das
   páginas no Windows (NSIS e MSI), e uma janela com uma seta para Aplicativos
   no `.dmg` do macOS.
+- Cópias instaladas pelo `.deb` ou `.rpm` se atualizam sozinhas: o app
+  instala o pacote da release com a ferramenta de pacotes do sistema, que
+  pede sua senha (`pkexec`). Uma cópia instalada antes disso precisa de uma
+  atualização manual.
+- Ferramentas → Instaladores: comandos de instalação para Python, pipx e Git
+  no Windows e no macOS.
+
+### Alterado
+
+- Os instaladores rodam sem as opções que pulam as perguntas deles
+  (`--no-interaction` no `laravel new`, no Composer e no `artisan migrate`,
+  `--yes` no `create-next-app` e no `create-astro`, `--defaults` no
+  `ng new`): o que as escolhas do LocDev não respondem, o instalador
+  pergunta no terminal, onde aparecem a saída e os erros.
+- O Bun é instalado pelo script dele (em `~/.bun/bin`) em vez de
+  `npm install -g`, que exige administrador com um Node.js do sistema. O
+  Rails é instalado por usuário quando a pasta de gems do Ruby não aceita
+  escrita.
 
 ### Corrigido
 
+- O pnpm 11 e posteriores não iniciavam (`SyntaxError: Invalid or
+  unexpected token`): o LocDev rodava pelo Node.js o arquivo provisório que
+  vem no pacote. Agora ele instala o binário nativo do pnpm, conferido no
+  registro como o pacote, e reinstala as cópias quebradas quando o daemon
+  inicia.
+- O aviso de atualização mostrava "Invalid Date" ao lado da versão.
+- Ao adicionar um site, clicar em "Iniciar com o LocDev" alternava
+  "Iniciar agora" (e clicar num arquivo de um commit marcava o primeiro).
+- Novo projeto: escolher um framework rola até os campos dele.
+- Ferramentas → Instaladores: o Symfony CLI aparecia como não instalado
+  depois do instalador (ele foi para `~/.config/symfony-cli/bin`);
+  ferramentas das pastas dos instaladores passavam na frente dos runtimes
+  do LocDev; a lista agora verifica de novo quando uma instalação termina.
+- Textos que apareciam só em inglês: frameworks, opções e ferramentas em
+  Novo projeto e Instaladores, os passos do plano, o aviso do cofre de
+  segredos, a página da CLI e rótulos em todo o site.
 - Sites PHP abertos em HTTPS (Laravel, Symfony, WordPress, Bedrock, PHP
   puro) apontavam os próprios assets, fontes e a toolbar do Symfony com
   `http://`, e o navegador os bloqueava como _mixed content_. Todo site PHP

@@ -558,6 +558,21 @@ impl Runtimes {
         Ok(releases)
     }
 
+    /// Reinstalls managed package managers that can't run as installed
+    /// (pnpm 11+ set up by LocDev 0.19.2 and earlier), one at a time.
+    pub async fn repair_installs(self: &Arc<Self>) {
+        for (kind, version) in self.store.needing_reinstall() {
+            warn!(runtime = kind.executable(), %version, "reinstalling: it can't run as installed");
+            let this = self.clone();
+            let label = version.clone();
+            let result =
+                tokio::task::spawn_blocking(move || this.run_install(kind, &version)).await;
+            if let Ok(Err(error)) | Err(error) = result.map_err(|e| e.to_string()) {
+                warn!(runtime = kind.executable(), version = %label, %error, "could not reinstall");
+            }
+        }
+    }
+
     /// Refreshes the catalogs of kinds with managed installs, so `info()`
     /// can show updates. Errors are logged, not returned.
     pub async fn refresh_catalogs(&self) {

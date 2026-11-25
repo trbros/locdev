@@ -4,13 +4,14 @@ import { Apple, Linux, Windows } from "@/components/icons";
 
 export async function PlatformSection() {
 	const t = await getTranslations("Platform");
+	const l = await getTranslations("Labels");
 	return (
 		<section className="section-pad border-t border-border">
 			<div className="page-container">
 				<div className="section-topline">
 					<p className="section-eyebrow">{t("eyebrow")}</p>
 					<span className="font-mono text-[11px] text-muted-foreground">
-						[ CROSS-PLATFORM ]
+						{l("crossPlatform")}
 					</span>
 				</div>
 				<div className="section-intro">
@@ -36,7 +37,9 @@ export async function PlatformSection() {
 						] as const
 					).map((p, i) => (
 						<div className="platform-card" key={p.tag}>
-							<span className="platform-index">0{i + 1} / SYSTEM</span>
+							<span className="platform-index">
+								{l("systemIndex", { index: `0${i + 1}` })}
+							</span>
 							<div className="platform-glyph" aria-hidden="true">
 								<p.logo className="platform-logo" focusable="false" />
 							</div>

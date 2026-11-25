@@ -1,5 +1,5 @@
 import { ImageIcon } from "lucide-react";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { shotUrl } from "@/lib/screenshots";
 
 /** Real captures of the app, in the page's language. Both themes are in the
@@ -7,6 +7,7 @@ import { shotUrl } from "@/lib/screenshots";
  *  flashes (the hidden one is lazy and never downloads). */
 export async function Screenshot({ name, alt }: { name: string; alt: string }) {
 	const locale = await getLocale();
+	const l = await getTranslations("Labels");
 	const dark = shotUrl(locale, "dark", name);
 	const light = shotUrl(locale, "light", name);
 	const first = dark ?? light;
@@ -17,7 +18,7 @@ export async function Screenshot({ name, alt }: { name: string; alt: string }) {
 				<span className="inline-flex items-center gap-2">
 					<ImageIcon size={12} /> LOCDEV / {name.toUpperCase()}
 				</span>
-				<span>APP CAPTURE</span>
+				<span>{l("appCapture")}</span>
 			</div>
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img

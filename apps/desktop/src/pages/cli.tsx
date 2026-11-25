@@ -73,13 +73,13 @@ export function CliView() {
     <Page
       view={view}
       title={sub.label}
-      description={
-        <>
-          Everything here also works from a terminal with{" "}
-          <span className="font-mono text-foreground">{t("locdev")}</span>, which talks to the same daemon. Add{" "}
-          <span className="font-mono text-foreground">{t("--json")}</span> to any command for machine-readable output.
-        </>
-      }
+      description={tx(
+        "Everything here also works from a terminal with {locdev}, which talks to the same daemon. Add {json} to any command for machine-readable output.",
+        {
+          locdev: <span className="font-mono text-foreground">locdev</span>,
+          json: <span className="font-mono text-foreground">--json</span>,
+        },
+      )}
       crumbs={crumbs}
       wide
     >

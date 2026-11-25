@@ -614,10 +614,10 @@ function CommitView({ name, sha, commit, run }: { name: string; sha: string; com
       </Section>
 
       <Section title={t("Files {length}", { length: d.files.length })}>
-        {d.files.map((f) => (
-          <label key={f.path} className="flex h-7 items-center gap-2 px-1 text-[12.5px]" htmlFor="path">
+        {d.files.map((f, i) => (
+          <label key={f.path} className="flex h-7 items-center gap-2 px-1 text-[12.5px]" htmlFor={`commit-file-${i}`}>
             <Checkbox
-              id="path"
+              id={`commit-file-${i}`}
               checked={files.has(f.path)}
               onCheckedChange={() => toggle(f.path)}
               aria-label={t("Select {path}", { path: f.path })}

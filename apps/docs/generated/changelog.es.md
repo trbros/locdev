@@ -18,9 +18,44 @@ App 0.19.2 con daemon y CLI 0.18.2.
   instalador con una insignia de descarga y las imágenes de bienvenida y de
   las páginas en Windows (NSIS y MSI), y una ventana con una flecha hacia
   Aplicaciones en el `.dmg` de macOS.
+- Las copias instaladas con el `.deb` o el `.rpm` se actualizan solas: la
+  app instala el paquete de la release con la herramienta de paquetes del
+  sistema, que pide tu contraseña (`pkexec`). Una copia instalada antes
+  necesita una actualización manual.
+- Herramientas → Instaladores: comandos de instalación para Python, pipx y
+  Git en Windows y macOS.
+
+### Modificado
+
+- Los instaladores se ejecutan sin las opciones que saltan sus preguntas
+  (`--no-interaction` en `laravel new`, Composer y `artisan migrate`,
+  `--yes` en `create-next-app` y `create-astro`, `--defaults` en
+  `ng new`): lo que las elecciones de LocDev no responden, el instalador lo
+  pregunta en la terminal, donde aparecen su salida y sus errores.
+- Bun se instala con su propio script (en `~/.bun/bin`) en lugar de
+  `npm install -g`, que requiere administrador con un Node.js del sistema.
+  Rails se instala por usuario cuando la carpeta de gems de Ruby no admite
+  escritura.
 
 ### Corregido
 
+- pnpm 11 y posteriores no arrancaban (`SyntaxError: Invalid or
+  unexpected token`): LocDev ejecutaba con Node.js el archivo provisional
+  que trae el paquete. Ahora instala el binario nativo de pnpm, comprobado
+  en el registro como el paquete, y reinstala las copias rotas al iniciar
+  el daemon.
+- El aviso de actualización mostraba "Invalid Date" junto a la versión.
+- Al añadir un sitio, hacer clic en "Iniciar con LocDev" cambiaba "Iniciar
+  ahora" (y hacer clic en un archivo de un commit marcaba el primero).
+- Proyecto nuevo: elegir un framework desplaza hasta sus campos.
+- Herramientas → Instaladores: Symfony CLI aparecía como no instalado
+  después de su instalador (ahora usa `~/.config/symfony-cli/bin`); las
+  herramientas de las carpetas de los instaladores pasaban por delante de
+  los runtimes de LocDev; la lista vuelve a comprobar al terminar una
+  instalación.
+- Textos que solo aparecían en inglés: frameworks, opciones y herramientas
+  en Proyecto nuevo e Instaladores, los pasos del plan, el aviso del almacén
+  de secretos, la página de la CLI y etiquetas en todo el sitio web.
 - Los sitios PHP abiertos por HTTPS (Laravel, Symfony, WordPress, Bedrock,
   PHP puro) enlazaban sus propios assets, fuentes y la barra de Symfony con
   `http://`, y el navegador los bloqueaba como _mixed content_. Todo sitio

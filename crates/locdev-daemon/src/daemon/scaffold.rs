@@ -51,10 +51,13 @@ impl Daemon {
             .find(|(k, _)| k == "PATH")
             .map(|(_, v)| v.clone())
             .unwrap_or_else(|| std::env::var("PATH").unwrap_or_default());
+        // Installers' folders go last: they only add what PATH lacks, and
+        // never shadow the runtimes LocDev put first (a pnpm or node in
+        // ~/.local/bin was taken over the project's own).
         let mut dirs: Vec<PathBuf> = std::env::split_paths(&base).collect();
-        for extra in locdev_scaffold::tools::extra_dirs(&home).into_iter().rev() {
+        for extra in locdev_scaffold::tools::extra_dirs(&home) {
             if extra.is_dir() && !dirs.contains(&extra) {
-                dirs.insert(0, extra);
+                dirs.push(extra);
             }
         }
         let path = std::env::join_paths(dirs)

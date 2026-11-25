@@ -25,10 +25,14 @@ import { t } from "@/lib/i18n";
 
 const day = (iso?: string | null) => (iso ? new Date(iso).toLocaleDateString() : null);
 
+const PASSWORD = t("Installing asks for your password: the new package goes in like the one you installed.");
+
 /** Why this copy can't replace itself (codes from the shell). */
 const REASON: Record<string, string> = {
   development_build: t("This is a development build; updates are for installed copies."),
-  linux_package: t("Installed from a .deb or .rpm package: download the new package from the release page."),
+  unknown_install: t(
+    "This copy wasn't installed from LocDev's package or AppImage: download the new version from the release page.",
+  ),
 };
 
 function Toggle({
@@ -150,6 +154,9 @@ function AppUpdates() {
             </div>
           )}
           {offered.reason && <p className="mt-2 text-[13px] text-muted-foreground">{REASON[offered.reason]}</p>}
+          {offered.asks_password && offered.can_install && (
+            <p className="mt-2 text-[13px] text-muted-foreground">{PASSWORD}</p>
+          )}
         </>
       )}
       {install.data && <RestartPrompt version={install.data} />}
@@ -324,6 +331,9 @@ function EarlierVersions() {
             <p className="text-[13px] text-destructive">{t("That release has no update for this system.")}</p>
           )}
           {check.data?.reason && <p className="text-[13px] text-muted-foreground">{REASON[check.data.reason]}</p>}
+          {check.data?.asks_password && check.data.can_install && (
+            <p className="text-[13px] text-muted-foreground">{PASSWORD}</p>
+          )}
           {install.isPending && <InstallProgress progress={progress} />}
           <DialogFooter>
             <Button variant="outline" disabled={install.isPending} onClick={() => setTarget(null)}>

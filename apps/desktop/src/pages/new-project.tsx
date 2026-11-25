@@ -14,7 +14,7 @@ import {
   TerminalSquare,
   X,
 } from "lucide-react";
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 
 import { CodeView, languageForPath } from "@/components/code-editor";
 import { Page, Section, useCrumbs } from "@/components/page";
@@ -159,7 +159,7 @@ function Picker({
                     <StackIcon id={s.framework} className="mt-0.5 size-6 shrink-0" />
                     <span className="min-w-0">
                       <span className="block text-[13.5px] font-medium">{s.name}</span>
-                      <span className="line-clamp-2 text-[11.5px] text-muted-foreground">{s.description}</span>
+                      <span className="line-clamp-2 text-[11.5px] text-muted-foreground">{t(s.description)}</span>
                     </span>
                   </button>
                 ))}
@@ -208,6 +208,13 @@ function Form({
     if (!parent && defaultParent) setParent(defaultParent);
   }, [defaultParent, parent]);
 
+  // Choosing a framework mounts the form below the list: bring its fields into view.
+  const top = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    top.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }, []);
+
   const project: NewProject = {
     starter: starter.id,
     method,
@@ -231,7 +238,7 @@ function Form({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+    <div ref={top} className="grid scroll-mt-4 grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
       <div className="flex flex-col gap-6">
         <Section title={t("{name} project", { name: starter.name })}>
           <div className="flex flex-col gap-3 pt-1">
@@ -289,14 +296,14 @@ function Form({
                 >
                   <span className="flex items-center gap-2 text-[13px] font-medium">
                     <Led tone={tool?.installed ? "live" : "warn"} />
-                    {m.label}
+                    {t(m.label)}
                   </span>
                   <span className="font-mono text-[11px] text-muted-foreground">
                     {tool?.installed
                       ? (tool.version ?? t("installed"))
                       : t("{name} not installed", { name: tool?.name ?? m.tool })}
                   </span>
-                  {m.note && <span className="text-[11.5px] text-muted-foreground">{m.note}</span>}
+                  {m.note && <span className="text-[11.5px] text-muted-foreground">{t(m.note)}</span>}
                 </button>
               );
             })}
@@ -478,7 +485,7 @@ function Form({
                 {[...plan.data.steps, ...plan.data.finish].map((s, i) => (
                   <li key={i} className="flex flex-col gap-1">
                     <span className="text-[12px] text-muted-foreground">
-                      {i + 1}. {s.label}
+                      {i + 1}. {t(s.label)}
                     </span>
                     <code
                       className="rounded-md bg-well px-2.5 py-1.5 font-mono text-[11.5px] break-all"
@@ -562,16 +569,16 @@ function OptionRow({
   return (
     <div className="flex items-center gap-3 border-b border-dashed py-2 last:border-b-0">
       <span className="min-w-0 flex-1">
-        <span className="block text-[13px]">{option.label}</span>
+        <span className="block text-[13px]">{t(option.label)}</span>
         {(locked ?? option.help) && (
-          <span className="block text-[11.5px] text-muted-foreground">{locked ?? option.help}</span>
+          <span className="block text-[11.5px] text-muted-foreground">{locked ?? t(option.help!)}</span>
         )}
       </span>
       {option.choices.length === 0 ? (
         <Switch
           checked={value === "true"}
           onCheckedChange={(on) => onChange(String(on))}
-          aria-label={option.label}
+          aria-label={t(option.label)}
           className="data-checked:bg-ember"
         />
       ) : (
@@ -581,13 +588,13 @@ function OptionRow({
           onValueChange={(v) => v && onChange(String(v))}
           disabled={!!locked}
         >
-          <SelectTrigger size="sm" aria-label={option.label} className="h-7 min-w-44 text-[12.5px]">
+          <SelectTrigger size="sm" aria-label={t(option.label)} className="h-7 min-w-44 text-[12.5px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {option.choices.map((c) => (
               <SelectItem key={c.value} value={c.value} className="text-[12.5px]">
-                {c.label}
+                {t(c.label)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -785,6 +792,13 @@ export function InstallersView() {
   const { navigate } = useUi();
   const [confirm, setConfirm] = useState<Tool | null>(null);
   const [terminal, setTerminal] = useState<TerminalInfo | null>(null);
+  // When an install's terminal finishes, check the tools again: the list
+  // shows what got installed without "Check again".
+  const finished = terminal !== null && !terminal.running;
+  const refetchTools = tools.refetch;
+  useEffect(() => {
+    if (finished) void refetchTools();
+  }, [finished, refetchTools]);
   const sorted = useMemo(
     () => [...(tools.data ?? [])].sort((a, b) => Number(a.installed) - Number(b.installed)),
     [tools.data],
@@ -819,8 +833,8 @@ export function InstallersView() {
                     </span>
                   </span>
                   <span className="block text-[12px] text-muted-foreground">
-                    {tool.description}
-                    {tool.used_by.length > 0 && <> · for {tool.used_by.join(", ")}</>}
+                    {t(tool.description)}
+                    {tool.used_by.length > 0 && <> · {t("for {names}", { names: tool.used_by.join(", ") })}</>}
                   </span>
                 </span>
                 {!tool.installed &&

@@ -16,7 +16,7 @@ La app usa el actualizador de Tauri. Cada release trae un `latest.json` y los ar
 | Windows                | Sí (instalador NSIS, sin pedir administrador). El daemon se detiene antes de instalar, porque Windows no reemplaza un programa en ejecución. |
 | macOS                  | Sí.                                                                                                                                          |
 | Linux, AppImage        | Sí.                                                                                                                                          |
-| Linux, `.deb` o `.rpm` | No: el actualizador de Tauri solo reemplaza AppImages. La pantalla lo indica y enlaza a la release, donde descargas el paquete nuevo.        |
+| Linux, `.deb` o `.rpm` | Sí: la app descarga el paquete del mismo tipo de la release y lo instala con la herramienta de paquetes del sistema (`pkexec dpkg -i` o `rpm -U`), que pide tu contraseña. Una copia instalada antes de este soporte (0.19.1 o anterior, o las primeras builds de la 0.19.2) necesita una actualización manual. |
 
 Una copia de desarrollo (`make app`) tampoco se actualiza.
 
@@ -61,7 +61,7 @@ Una versión anterior no conoce lo que añadieron las nuevas: ignora los ajustes
 
 ## Actualizar a mano
 
-Para paquetes `.deb`/`.rpm`, una compilación local o cuando lo prefieras:
+Para una compilación local, un `.deb`/`.rpm` instalado antes de ese soporte, o cuando lo prefieras:
 
 ```bash
 locdev version
@@ -86,5 +86,5 @@ El inicio puede reabrir los proyectos con `auto_start`. Comprueba las versiones 
 ## Limitaciones
 
 - No validado con una release real: aún no existe ninguna. Se probaron la lectura de las releases (contra una API falsa) y la pantalla (con el backend simulado); la descarga y el reemplazo de la app con el actualizador de Tauri dependen de la primera release firmada.
-- `.deb` y `.rpm` no se actualizan desde la app.
+- La actualización de `.deb` y `.rpm` desde la app aún no se ejecutó con una release real: la primera es la actualización siguiente a la versión que la trajo.
 - Volver atrás solo alcanza releases que ya traían el `latest.json` firmado.

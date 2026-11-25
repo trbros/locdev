@@ -1533,5 +1533,29 @@
 		"outputReview": "Review the highlighted fields",
 		"configureTitle": "Define. Review. Use.",
 		"configureBody": "Enter your project details and review the configuration alongside them. Copy the commands or save the TOML example when ready."
+	},
+	"Labels": {
+		"headerTag": "LOCAL DEV ENVIRONMENT / OPEN SOURCE",
+		"poweredBy": "POWERED BY RUST",
+		"heroIndex": "[ 001 / INTERFACE ]",
+		"appDesktop": "[ APP / DESKTOP ]",
+		"crossPlatform": "[ CROSS-PLATFORM ]",
+		"systemIndex": "{index} / SYSTEM",
+		"tlsSecure": "TLS / SECURE",
+		"approvalRequired": "APPROVAL REQUIRED",
+		"allowOnce": "ALLOW ONCE",
+		"dnsResolver": "DNS RESOLVER",
+		"localCa": "LOCAL CA",
+		"proxy": "PROXY",
+		"checksPassed": "3 / 3 CHECKS PASSED",
+		"bundleCaption": "DESKTOP + CLI + DAEMON",
+		"galleryTag": "APP / RUST + TAURI",
+		"appCapture": "APP CAPTURE",
+		"terminalTag": "LOCDEV / TERMINAL",
+		"cliExamples": "CLI examples",
+		"stackWorkflow": "{id} / workflow",
+		"brandHome": "LocDev — home",
+		"contactHello": "hello, locdev.",
+		"close": "Close"
 	}
 }

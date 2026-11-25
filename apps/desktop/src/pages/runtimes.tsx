@@ -319,7 +319,7 @@ function RuntimeSection({ info, onInstall }: { info: RuntimeInfo; onInstall: () 
           {info.default ? (
             <>
               <Led tone={current ? "live" : "warn"} />
-              default {info.default}
+              {t("default {version}", { version: info.default })}
               {current ? (
                 <span className="text-muted-foreground">→ {current.version}</span>
               ) : (

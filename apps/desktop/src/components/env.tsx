@@ -197,15 +197,14 @@ export function EnvironmentSettings() {
       >
         <Lock className="mt-0.5 size-4 shrink-0" />
         <span>
-          {data.vault.available ? (
-            <>
-              Secret values are encrypted (ChaCha20-Poly1305) with a key kept in the{" "}
-              <span className="text-foreground">{data.vault.backend}</span>. Sites get them only in their process
-              environment; nothing is written to your project files unless you sync.
-            </>
-          ) : (
-            <>The vault can't be opened: {data.vault.error}. Plain variables still work; secrets are not injected.</>
-          )}
+          {data.vault.available
+            ? tx(
+                "Secret values are encrypted (ChaCha20-Poly1305) with a key kept in the {backend}. Sites get them only in their process environment; nothing is written to your project files unless you sync.",
+                { backend: <span className="text-foreground">{data.vault.backend}</span> },
+              )
+            : t("The vault can't be opened: {error}. Plain variables still work; secrets are not injected.", {
+                error: data.vault.error,
+              })}
         </span>
       </div>
 

@@ -77,6 +77,7 @@ export function mockAppUpdate(tag?: string | null): AppUpdate {
     downgrade: !!tag && target !== releases[0],
     can_install: true,
     reason: null,
+    asks_password: false,
     page: target?.url ?? "https://github.com/trbros/locdev/releases/latest",
   };
 }

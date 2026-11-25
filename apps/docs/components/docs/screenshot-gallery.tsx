@@ -6,13 +6,14 @@ import { Screenshot } from "./screenshot";
 
 export async function ScreenshotGallery() {
 	const t = await getTranslations("Gallery");
+	const l = await getTranslations("Labels");
 	return (
 		<section className="section-pad border-t border-border bg-chrome/30">
 			<div className="page-container">
 				<div className="section-topline">
 					<p className="section-eyebrow">{t("eyebrow")}</p>
 					<span className="font-mono text-xs text-muted-foreground">
-						APP / RUST + TAURI
+						{l("galleryTag")}
 					</span>
 				</div>
 				<div className="section-intro">

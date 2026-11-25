@@ -55,6 +55,7 @@ Laravel のインストーラーでは、ドライバー (`--database=pgsql`、`
 すべてに共通するコマンドの細かな点が 2 つあります。
 
 - `npm create --yes x@latest` は、ジェネレーターをダウンロードしてよいか npm が尋ねて止まるのを防ぎます。
+- インストーラーは質問を省略するオプションなしで実行します (`laravel new`、Composer、`artisan migrate` の `--no-interaction`、`create-next-app` と `create-astro` の `--yes`、`ng new` の `--defaults`)。LocDev のフラグで決まらない項目はインストーラーがターミナルで質問し、出力やエラーもそこに表示されます。
 - Angular CLI は `NG_CLI_ANALYTICS=false` (コマンドに表示) で実行します。使用状況データを送らず、作成の途中でそれについて尋ねられないための、文書化された方法です。
 
 ## インストーラー
@@ -65,10 +66,10 @@ Laravel のインストーラーでは、ドライバー (`--database=pgsql`、`
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | PHP、Composer、Node.js、npm、pnpm                                                | [ランタイム](/docs/runtimes)で、検証済みのダウンロード                           |
 | Laravel インストーラー                                                           | コマンドを表示したあと、ターミナルで `composer global require laravel/installer` |
-| Rails                                                                            | `gem install rails` (Ruby が必要)                                                |
-| Symfony CLI、Bun、Python、uv、pipx、Poetry、Cargo、rustup、WP-CLI、Git、.NET SDK | 公式インストーラーへのリンク                                                     |
+| Rails                                                                            | `gem install rails` (Ruby が必要。Ruby の gem フォルダーに管理者権限が必要な場合はユーザー単位でインストール) |
+| Symfony CLI、Bun、uv、Poetry、Cargo、rustup、WP-CLI、.NET SDK。Windows と macOS では Python、pipx、Git も | 開発元が案内するコマンド ([アプリからのインストール](#アフリからのインストール)を参照)。それ以外は公式インストーラーへのリンク |
 
-ツールは、`PATH` の外でも公式インストーラーが置く場所から見つけます: Composer のグローバルフォルダー (`~/.config/composer/vendor/bin`、`~/.composer/vendor/bin`、`%APPDATA%\Composer\vendor\bin`)、`~/.bun/bin`、`~/.cargo/bin` (rustup)、`~/.local/bin`。手順は LocDev のランタイムを `PATH` の先頭にして実行されます。
+ツールは、`PATH` の外でも公式インストーラーが置く場所から見つけます: Composer のグローバルフォルダー (`~/.config/composer/vendor/bin`、`~/.composer/vendor/bin`、`%APPDATA%\Composer\vendor\bin`)、`~/.bun/bin`、`~/.cargo/bin` (rustup)、`~/.local/bin`、Symfony CLI のフォルダー (`~/.config/symfony-cli/bin`)、ユーザー単位の gem (`~/.local/share/gem/ruby/*/bin`)。これらは `PATH` の後ろに置かれるため、`PATH` の先頭にある LocDev のランタイムが見つかり、使われます。
 
 ## コマンドラインから
 
@@ -127,13 +128,15 @@ LocDev は `laravel new` と同じ質問を同じ順序で尋ねます。
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Laravel インストーラー | `composer global require laravel/installer`                                                                       |
 | Symfony CLI            | `scoop install symfony-cli` (Windows)、`brew install symfony-cli/tap/symfony-cli` (macOS)、公式スクリプト (Linux) |
-| Bun                    | `npm install -g bun`                                                                                              |
+| Bun                    | 公式スクリプト (`curl -fsSL https://bun.sh/install \| bash`、Windows は PowerShell) |
 | uv                     | `winget install --id=astral-sh.uv -e` (Windows)、公式スクリプト (macOS、Linux)                                    |
 | Poetry                 | 公式インストーラー                                                                                                |
+| Python                 | `winget install -e --id Python.Python.3.13` (Windows)、`brew install python` (macOS)。Linux ではディストリビューションのパッケージ |
+| pipx                   | `scoop install pipx` (Windows)、`brew install pipx` (macOS)。Linux ではディストリビューションのパッケージ |
 | Rust (rustup、Cargo)   | 公式スクリプト (macOS、Linux)                                                                                     |
 | WP-CLI                 | `composer global require wp-cli/wp-cli-bundle`                                                                    |
-| Git                    | `winget install --id Git.Git -e --source winget` (Windows)                                                        |
+| Git                    | `winget install --id Git.Git -e --source winget` (Windows)、`brew install git` (macOS) |
 | .NET SDK               | `winget install Microsoft.DotNet.SDK.10` (Windows)、`dotnet-install.sh --channel LTS` (macOS、Linux)              |
-| Rails                  | `gem install rails`                                                                                               |
+| Rails                  | `gem install rails`。Ruby の gem フォルダーに書き込めない場合 (システムの Ruby) は `gem install --user-install rails` |
 
 お使いのシステム向けのコマンドがないツールは、インストールページへのリンクのままです。ターミナルでは `locdev tools install <id>` が同じことをします。

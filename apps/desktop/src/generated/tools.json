@@ -1,0 +1,92 @@
+[
+  {
+    "description": "Runs Laravel, Symfony and WordPress.",
+    "id": "php",
+    "name": "PHP"
+  },
+  {
+    "description": "PHP's package manager; creates Laravel, Symfony and Bedrock projects.",
+    "id": "composer",
+    "name": "Composer"
+  },
+  {
+    "description": "`laravel new`, with starter kits, testing and database choices.",
+    "id": "laravel",
+    "name": "Laravel installer"
+  },
+  {
+    "description": "`symfony new`; Composer works without it.",
+    "id": "symfony",
+    "name": "Symfony CLI"
+  },
+  {
+    "description": "Runs the JavaScript starters and front-end builds.",
+    "id": "node",
+    "name": "Node.js"
+  },
+  {
+    "description": "Comes with Node.js.",
+    "id": "npm",
+    "name": "npm"
+  },
+  {
+    "description": "Fast, disk-efficient package manager.",
+    "id": "pnpm",
+    "name": "pnpm"
+  },
+  {
+    "description": "JavaScript runtime and package manager.",
+    "id": "bun",
+    "name": "Bun"
+  },
+  {
+    "description": "Runs Django, Flask and FastAPI; each project gets its own virtual environment.",
+    "id": "python",
+    "name": "Python"
+  },
+  {
+    "description": "Fast Python package and project manager; optional.",
+    "id": "uv",
+    "name": "uv"
+  },
+  {
+    "description": "Installs Python command-line tools in their own environments; optional.",
+    "id": "pipx",
+    "name": "pipx"
+  },
+  {
+    "description": "Python dependency management and packaging; optional.",
+    "id": "poetry",
+    "name": "Poetry"
+  },
+  {
+    "description": "Rust's build tool and package manager; creates the Axum and Actix Web starters.",
+    "id": "cargo",
+    "name": "Cargo"
+  },
+  {
+    "description": "Installs and updates Rust toolchains (and Cargo with them).",
+    "id": "rustup",
+    "name": "rustup"
+  },
+  {
+    "description": "WordPress's command line; downloads WordPress for new projects.",
+    "id": "wp",
+    "name": "WP-CLI"
+  },
+  {
+    "description": "Version control; starters can initialize a repository.",
+    "id": "git",
+    "name": "Git"
+  },
+  {
+    "description": "`rails new`; needs Ruby.",
+    "id": "rails",
+    "name": "Rails"
+  },
+  {
+    "description": "`dotnet new` for ASP.NET Core.",
+    "id": "dotnet",
+    "name": ".NET SDK"
+  }
+]
