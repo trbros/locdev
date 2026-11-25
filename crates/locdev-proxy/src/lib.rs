@@ -69,9 +69,6 @@ pub struct Route {
     pub subdomains: Vec<SubRoute>,
     /// Only the site itself and listed subdomains answer (the wildcard is off).
     pub exclusive: bool,
-    /// A Next.js dev server: told the request came over HTTP even on HTTPS
-    /// (see [`forwarded_proto`]).
-    pub next_dev: bool,
 }
 
 /// A subdomain pattern (see `locdev_core::subdomains`) and where it goes.
@@ -361,12 +358,7 @@ impl Proxy {
         *req.version_mut() = Version::HTTP_11;
         let headers = req.headers_mut();
         strip_hop_by_hop(headers, upgrade);
-        add_forwarded(
-            headers,
-            host,
-            peer,
-            forwarded_proto(listen.https, route.next_dev),
-        );
+        add_forwarded(headers, host, peer, listen.https);
         relabel_next_dev_origin(headers, host, &shown_path);
         relabel_nuxt_dev_host(headers, host, &shown_path);
 
@@ -458,17 +450,6 @@ fn strip_hop_by_hop(headers: &mut HeaderMap, keep_upgrade: bool) {
         headers.remove(header::CONNECTION);
         headers.remove(header::UPGRADE);
     }
-}
-
-/// The scheme told to the dev server. Next.js's dev server builds its own URL
-/// from the address it listens on (`127.0.0.1`) while middleware sees it as
-/// `localhost`, so a middleware rewrite (next-intl's locale prefix, say)
-/// looks external and Next proxies it to itself, over TLS when
-/// `X-Forwarded-Proto` says `https`: `EPROTO … wrong version number`, a 500.
-/// Over HTTP that self-proxy works. Redirects stay relative either way, and
-/// the browser still gets HTTPS from LocDev.
-fn forwarded_proto(https: bool, next_dev: bool) -> bool {
-    https && !next_dev
 }
 
 fn add_forwarded(headers: &mut HeaderMap, host: &str, peer: SocketAddr, https: bool) {

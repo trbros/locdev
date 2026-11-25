@@ -48,7 +48,13 @@ fn detects_next_with_pnpm() {
     assert_eq!(s.kind, ProjectKind::Next);
     assert_eq!(
         s.command.as_deref(),
-        Some("pnpm run dev --hostname 127.0.0.1 --port {port}")
+        Some("pnpm run dev --hostname localhost --port {port}")
+    );
+    // localhost, kept on IPv4: see the definition's note.
+    assert!(
+        s.port_env
+            .iter()
+            .any(|e| e == "NODE_OPTIONS=--dns-result-order=ipv4first")
     );
     assert_eq!(s.package_manager, Some(RuntimeKind::Pnpm));
     assert_eq!(s.adapter.as_deref(), Some("nextjs"));

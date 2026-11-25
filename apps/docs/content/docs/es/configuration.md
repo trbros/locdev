@@ -106,7 +106,7 @@ name = "blog"
 domain = "blog.test"
 path = "/home/tu/Code/blog"
 kind = "next"
-command = "pnpm run dev --hostname 127.0.0.1 --port {port}"
+command = "pnpm run dev --hostname localhost --port {port}"
 port = 8101
 auto_start = true
 ```

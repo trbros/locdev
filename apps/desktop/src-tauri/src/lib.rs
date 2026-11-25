@@ -11,7 +11,7 @@ use locdev_ipc::{Endpoint, IpcError, launcher};
 use locdev_platform::elevate::Mode;
 use locdev_platform::{Plan, resolver, service, trust};
 use serde::{Deserialize, Serialize};
-use tauri::{AppHandle, Manager, State};
+use tauri::{AppHandle, Emitter, Manager, State};
 use tokio::sync::watch;
 
 mod tray;
@@ -213,6 +213,24 @@ fn boot_stages(
 
 /// Brings the main window up (from the splash, the tray or hidden), closing
 /// the splash if it's still there.
+/// What an OS notification asked the app to open (`--notification=<id>` or
+/// `=list`), until the window takes it.
+static OPEN_NOTIFICATION: std::sync::Mutex<Option<String>> = std::sync::Mutex::new(None);
+
+/// The notification a launch argument names: an id, or `list`.
+fn notification_arg<S: AsRef<str>>(args: &[S]) -> Option<String> {
+    args.iter().find_map(|a| {
+        let value = a.as_ref().strip_prefix("--notification=")?;
+        (value == "list" || value.parse::<u64>().is_ok()).then(|| value.to_string())
+    })
+}
+
+/// The window asks once it's up, for the launch that came from a notification.
+#[tauri::command]
+fn take_notification_to_open() -> Option<String> {
+    OPEN_NOTIFICATION.lock().unwrap().take()
+}
+
 pub(crate) fn show_main(app: &AppHandle) {
     if let Some(main) = app.get_webview_window("main") {
         let _ = main.show();
@@ -484,10 +502,17 @@ fn app_info(app: AppHandle) -> Result<AppInfo, CommandError> {
 }
 
 pub fn run() {
+    let args: Vec<String> = std::env::args().collect();
+    *OPEN_NOTIFICATION.lock().unwrap() = notification_arg(&args);
     tauri::Builder::default()
         // First, so a second launch only brings this one forward (also the way
         // back on desktops without a tray).
-        .plugin(tauri_plugin_single_instance::init(|app, _, _| {
+        .plugin(tauri_plugin_single_instance::init(|app, argv, _| {
+            // A click on an OS notification launches the app with what to open.
+            if let Some(target) = notification_arg(&argv) {
+                *OPEN_NOTIFICATION.lock().unwrap() = Some(target.clone());
+                let _ = app.emit("open-notification", target);
+            }
             show_main(app)
         }))
         .plugin(tauri_plugin_dialog::init())
@@ -529,6 +554,7 @@ pub fn run() {
             save_text_file,
             tray_language,
             app_info,
+            take_notification_to_open,
             cli_status,
             cli_link,
             updater::app_update_check,
@@ -537,4 +563,26 @@ pub fn run() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running LocDev");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn reads_the_notification_a_click_launched_with() {
+        assert_eq!(
+            notification_arg(&["locdev-app", "--notification=42"]),
+            Some("42".into())
+        );
+        assert_eq!(
+            notification_arg(&["locdev-app", "--notification=list"]),
+            Some("list".into())
+        );
+        assert_eq!(
+            notification_arg(&["locdev-app", "--notification=../x"]),
+            None
+        );
+        assert_eq!(notification_arg(&["locdev-app"]), None);
+    }
 }

@@ -11,7 +11,7 @@ Ao registrar uma pasta, o LocDev **lê** os arquivos do projeto (`package.json`,
 | Laravel                            | `php artisan serve --no-reload` (sem o `--no-reload`, o Laravel descarta as variáveis que o LocDev injeta) | `--port {port}`                               |
 | Laravel + Vite                     | `artisan serve` + **Vite como auxiliar** (com consentimento)                                               | `--port` no Vite                              |
 | React/Vue/Svelte + Vite, SvelteKit | o script `dev`                                                                                             | `--port {port} --strictPort --host 127.0.0.1` |
-| Next.js                            | o script `dev`                                                                                             | `--hostname 127.0.0.1 --port {port}`          |
+| Next.js                            | o script `dev`                                                                                             | `--hostname localhost --port {port}`          |
 | Nuxt, Astro                        | o script `dev`                                                                                             | `--port {port} --host 127.0.0.1`              |
 | Node.js genérico                   | `dev` ou `start`                                                                                           | variável `PORT`                               |
 | PHP, WordPress                     | `php -S`                                                                                                   | na linha de comando                           |

@@ -163,19 +163,11 @@ async fn serves_https_with_per_site_certificates() {
 
     let upstream = echo_upstream().await;
     let table = Arc::new(Routes::default());
-    table.replace(vec![
-        Route {
-            name: "blog".into(),
-            port: Some(upstream),
-            ..Default::default()
-        },
-        Route {
-            name: "shop".into(),
-            port: Some(upstream),
-            next_dev: true,
-            ..Default::default()
-        },
-    ]);
+    table.replace(vec![Route {
+        name: "blog".into(),
+        port: Some(upstream),
+        ..Default::default()
+    }]);
 
     let dir = tempfile::tempdir().unwrap();
     let ca = Arc::new(Authority::load_or_create(dir.path()).unwrap());
@@ -197,39 +189,22 @@ async fn serves_https_with_per_site_certificates() {
     .with_no_client_auth();
     let connector = tokio_rustls::TlsConnector::from(Arc::new(config));
 
-    let fetch = async |host: &str| {
-        let tcp = TcpStream::connect(("127.0.0.1", port)).await.unwrap();
-        let mut tls = connector
-            .connect(ServerName::try_from(host.to_string()).unwrap(), tcp)
-            .await
-            .unwrap_or_else(|e| panic!("handshake with a certificate for {host}: {e}"));
-        tls.write_all(
-            format!("GET / HTTP/1.1\r\nhost: {host}\r\nconnection: close\r\n\r\n").as_bytes(),
-        )
+    let tcp = TcpStream::connect(("127.0.0.1", port)).await.unwrap();
+    let mut tls = connector
+        .connect(ServerName::try_from("blog.test").unwrap(), tcp)
+        .await
+        .expect("handshake with a certificate for blog.test");
+
+    tls.write_all(b"GET / HTTP/1.1\r\nhost: blog.test\r\nconnection: close\r\n\r\n")
         .await
         .unwrap();
-        let mut response = Vec::new();
-        let _ = tls.read_to_end(&mut response).await;
-        String::from_utf8_lossy(&response).to_ascii_lowercase()
-    };
+    let mut response = Vec::new();
+    let _ = tls.read_to_end(&mut response).await;
+    let response = String::from_utf8_lossy(&response).to_ascii_lowercase();
 
-    let response = fetch("blog.test").await;
     assert!(response.starts_with("http/1.1 200"), "{response}");
     assert!(response.contains("x-forwarded-proto: https"), "{response}");
     assert!(response.contains("x-forwarded-port: 443"), "{response}");
-
-    // A Next.js dev server is told HTTP, so its middleware rewrites (a locale
-    // prefix) don't proxy to itself over TLS; the browser still has HTTPS.
-    let response = fetch("shop.test").await;
-    assert!(response.starts_with("http/1.1 200"), "{response}");
-    assert!(
-        response.contains("x-forwarded-proto: http\r\n"),
-        "{response}"
-    );
-    assert!(
-        response.contains("x-forwarded-host: shop.test"),
-        "{response}"
-    );
 }
 
 #[tokio::test]

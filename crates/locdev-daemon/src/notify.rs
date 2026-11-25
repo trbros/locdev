@@ -256,10 +256,10 @@ impl Notifications {
             if title.is_empty() {
                 pending
                     .iter()
-                    .all(|n| show(&n.title, &n.body))
+                    .all(|n| show(&n.title, &n.body, Opens::One(n.id)))
                     .then_some(pending)
             } else {
-                show(&title, &body).then_some(pending)
+                show(&title, &body, Opens::List).then_some(pending)
             }
         })
         .await
@@ -280,16 +280,47 @@ impl Notifications {
     }
 }
 
+/// What clicking an OS notification opens in the app.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Opens {
+    /// That notification: its site, page or message.
+    One(u64),
+    /// The notification list (a summary of several).
+    List,
+}
+
+impl Opens {
+    /// The argument the app reads (`--notification=<id>` or `=list`).
+    fn arg(self) -> String {
+        match self {
+            Opens::One(id) => format!("--notification={id}"),
+            Opens::List => "--notification=list".into(),
+        }
+    }
+}
+
 /// One OS notification; `false` when the desktop can't show it (no session
-/// bus, no notification service). Blocking.
-fn show(title: &str, body: &str) -> bool {
-    match notify_rust::Notification::new()
-        .appname("LocDev")
-        .summary(title)
-        .body(body)
-        .show()
-    {
-        Ok(_) => true,
+/// bus, no notification service). Blocking. On Linux a click opens the app
+/// on what it's about; macOS and Windows keep their default click.
+fn show(title: &str, body: &str, opens: Opens) -> bool {
+    let mut notification = notify_rust::Notification::new();
+    notification.appname("LocDev").summary(title).body(body);
+    #[cfg(all(unix, not(target_os = "macos")))]
+    notification.action("default", "Open");
+    match notification.show() {
+        Ok(handle) => {
+            #[cfg(all(unix, not(target_os = "macos")))]
+            std::thread::spawn(move || {
+                handle.wait_for_action(|action| {
+                    if action == "default" {
+                        open_app(opens);
+                    }
+                });
+            });
+            #[cfg(not(all(unix, not(target_os = "macos"))))]
+            let _ = (handle, opens);
+            true
+        }
         Err(error) => {
             debug!(%error, "native notification not shown");
             false
@@ -297,9 +328,48 @@ fn show(title: &str, body: &str) -> bool {
     }
 }
 
+/// Opens the desktop app (next to this daemon in every package, and in a
+/// development build) on `opens`; a running app gets the argument through its
+/// single-instance handoff.
+#[cfg_attr(not(all(unix, not(target_os = "macos"))), allow(dead_code))]
+fn open_app(opens: Opens) {
+    // `locdev-app` in the packages, `locdev-desktop` in a development build.
+    let exe = std::env::current_exe().ok();
+    let Some(app) = ["locdev-app", "locdev-desktop"]
+        .iter()
+        .filter_map(|name| {
+            let file = if cfg!(windows) {
+                format!("{name}.exe")
+            } else {
+                (*name).to_string()
+            };
+            exe.as_ref().map(|exe| exe.with_file_name(file))
+        })
+        .find(|app| app.is_file())
+    else {
+        debug!("no desktop app next to the daemon; the notification can't open it");
+        return;
+    };
+    if let Err(error) = locdev_core::process::command(&app)
+        .arg(opens.arg())
+        .stdin(std::process::Stdio::null())
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+    {
+        debug!(%error, app = %app.display(), "could not open the app from a notification");
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_click_opens_the_notification_or_the_list() {
+        assert_eq!(Opens::One(42).arg(), "--notification=42");
+        assert_eq!(Opens::List.arg(), "--notification=list");
+    }
 
     fn new(dedup: &str) -> New {
         New {

@@ -164,7 +164,7 @@
         "postcss.config.mjs"
       ],
       "dev": [
-        "<pm> run dev --hostname 127.0.0.1 --port {port}"
+        "<pm> run dev --hostname localhost --port {port}"
       ],
       "docs": "https://nextjs.org/docs/app/api-reference/cli/next",
       "id": "nextjs",

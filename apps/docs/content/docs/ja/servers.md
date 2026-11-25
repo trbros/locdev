@@ -11,7 +11,7 @@ LocDev は各サイトの開発サーバーを、デーモンが監視するプ�
 | Laravel                            | `php artisan serve --no-reload` (`--no-reload` がないと、LocDev が渡す変数を Laravel が捨ててしまう) | `--port {port}`                               |
 | Laravel + Vite                     | `artisan serve` + **補助としての Vite** (同意が必要)                                                 | Vite に `--port`                              |
 | React/Vue/Svelte + Vite、SvelteKit | `dev` スクリプト                                                                                     | `--port {port} --strictPort --host 127.0.0.1` |
-| Next.js                            | `dev` スクリプト                                                                                     | `--hostname 127.0.0.1 --port {port}`          |
+| Next.js                            | `dev` スクリプト                                                                                     | `--hostname localhost --port {port}`          |
 | Nuxt、Astro                        | `dev` スクリプト                                                                                     | `--port {port} --host 127.0.0.1`              |
 | 汎用 Node.js                       | `dev` または `start`                                                                                 | `PORT` 変数                                   |
 | PHP、WordPress                     | `php -S`                                                                                             | コマンドラインで指定                          |

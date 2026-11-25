@@ -118,7 +118,7 @@ runtimes = ["node"]
 detect.any = [{ npm = "next" }]
 version = [{ npm = "next" }]
 supported = ">=13"
-dev = [{ script = ["dev"], args = "--hostname 127.0.0.1 --port {port}" }]
+dev = [{ script = ["dev"], args = "--hostname localhost --port {port}", port_env = ["NODE_OPTIONS=--dns-result-order=ipv4first"], note = "--hostname localhost, not 127.0.0.1: Next builds its own address from it while middleware sees 127.0.0.1 as localhost, so with 127.0.0.1 every middleware rewrite (next-intl's locale prefix) looked external and Next proxied it to itself (a 500 over HTTPS, a redirect loop with a prefix-less default locale). NODE_OPTIONS keeps localhost on 127.0.0.1, where LocDev connects, unless the site sets NODE_OPTIONS itself." }]
 dev_tool = "next"
 install = "{pm} install"
 build = "{pm} run build"

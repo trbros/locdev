@@ -51,10 +51,18 @@ App 0.19.2 con daemon y CLI 0.18.2.
 
 ### Corregido
 
-- Next.js por HTTPS: los rewrites del middleware, como el prefijo de idioma
-  de next-intl, respondían 500 (`Failed to proxy … EPROTO … wrong version
-  number`). El proxy le dice al servidor de desarrollo de Next que la
-  petición llegó por HTTP.
+- Next.js con rewrites del middleware, como el prefijo de idioma de
+  next-intl: un 500 por HTTPS (`Failed to proxy … EPROTO … wrong version
+  number`) o un bucle de redirecciones (`ERR_TOO_MANY_REDIRECTS`) con el
+  idioma predeterminado sin prefijo. El servidor de desarrollo ahora arranca
+  con `--hostname localhost` (en 127.0.0.1 gracias a
+  `NODE_OPTIONS=--dns-result-order=ipv4first`), así que Next ya no se hace
+  proxy de esos rewrites a sí mismo. Los sitios guardados con el comando
+  anterior pasan al nuevo cuando arranca el daemon.
+- Hacer clic en una notificación del sistema (Linux) abre la app en lo que
+  trata, como un clic en la lista de notificaciones: la pestaña del sitio,
+  el mensaje del Mailbox, la actualización; un resumen de varias abre la
+  lista.
 - Interruptores: hacer clic en el texto de uno podía cambiar otro o ninguno
   en algunos motores web; ahora el texto cambia su propio interruptor. Los
   selects de Proyecto nuevo mostraban la opción elegida en inglés.

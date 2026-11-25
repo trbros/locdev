@@ -11,7 +11,7 @@ When you register a folder, LocDev **reads** the project's files (`package.json`
 | Laravel                            | `php artisan serve --no-reload` (without `--no-reload`, Laravel drops the variables LocDev injects) | `--port {port}`                               |
 | Laravel + Vite                     | `artisan serve` + **Vite as an auxiliary** (with consent)                                           | `--port` on Vite                              |
 | React/Vue/Svelte + Vite, SvelteKit | the `dev` script                                                                                    | `--port {port} --strictPort --host 127.0.0.1` |
-| Next.js                            | the `dev` script                                                                                    | `--hostname 127.0.0.1 --port {port}`          |
+| Next.js                            | the `dev` script                                                                                    | `--hostname localhost --port {port}`          |
 | Nuxt, Astro                        | the `dev` script                                                                                    | `--port {port} --host 127.0.0.1`              |
 | Generic Node.js                    | `dev` or `start`                                                                                    | `PORT` variable                               |
 | PHP, WordPress                     | `php -S`                                                                                            | on the command line                           |

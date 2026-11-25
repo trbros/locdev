@@ -66,7 +66,7 @@ In **Settings → Automations** (or `locdev settings set automation.audit <value
 LocDev tells you about available updates, vulnerabilities, servers that fail and the result of what you started. Notifications are stored on disk: they survive closing the app and restarting the daemon and the computer, until you dismiss them. Each has a key: the same update or warning never shows up twice (a newer version makes another one).
 
 - **Pending / History:** mark as read, dismiss, open the resource (the site, the dependencies tab or the server output).
-- **Preferences:** the categories that create notifications (including **emails captured** by the Mailbox) and **system notifications**, on by default. The daemon itself shows them whenever no LocDev window is in front: the app hidden in the tray, closed or behind other windows. What arrived while nothing could show them appears when the computer comes back (several at once become a summary).
+- **Preferences:** the categories that create notifications (including **emails captured** by the Mailbox) and **system notifications**, on by default. The daemon itself shows them whenever no LocDev window is in front: the app hidden in the tray, closed or behind other windows. What arrived while nothing could show them appears when the computer comes back (several at once become a summary). On Linux, clicking one opens the app on what it's about (the site's tab, the Mailbox message, the update), like clicking it in the list; a summary opens the list.
 - With the app window in front, new ones show as toasts inside it, never both: the app tells the daemon when it's focused.
 - The [colored dot in the tray](/docs/app) shows what's unread.
 - Everything is local: no notification goes through an external service.

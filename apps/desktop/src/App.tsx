@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { isTauri } from "@tauri-apps/api/core";
+import { invoke, isTauri } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -16,9 +16,10 @@ import { useNotifications, useProjectAction, useProjects } from "@/hooks/use-dae
 import { useOpenInEditor } from "@/hooks/use-editors";
 import { useShortcutMap } from "@/lib/shortcuts";
 import { openInBrowser, revealFolder } from "@/lib/system";
-import { backend } from "@/lib/daemon";
+import { backend, request } from "@/lib/daemon";
 import { TOOLS, VIEWS, type ViewId, viewById } from "@/lib/nav";
 import { usePrefs } from "@/lib/prefs";
+import type { Notification as DaemonNotification } from "@/lib/protocol";
 import { useUi } from "@/lib/ui-state";
 import { ComingSoonView } from "@/pages/coming-soon";
 import { DashboardView } from "@/pages/dashboard";
@@ -39,6 +40,7 @@ export default function App() {
   useNotificationToasts();
   usePresence();
   useTrayNavigation();
+  useNotificationLaunch();
   useAutoUpdate();
 
   const def = viewById(view);
@@ -207,6 +209,37 @@ function usePresence() {
       window.removeEventListener("focus", send);
       window.removeEventListener("blur", send);
       document.removeEventListener("visibilitychange", send);
+    };
+  }, []);
+}
+
+/**
+ * A click on an OS notification opens the app (or brings it forward) with
+ * the notification it was: open what it's about, like a click in the list.
+ */
+function useNotificationLaunch() {
+  const open = useOpenNotification();
+  const { navigate } = useUi();
+  const latest = useRef({ open, navigate });
+  latest.current = { open, navigate };
+  useEffect(() => {
+    if (!isTauri()) return;
+    const take = async () => {
+      const target = await invoke<string | null>("take_notification_to_open").catch(() => null);
+      if (!target) return;
+      const { open, navigate } = latest.current;
+      if (target === "list") return navigate("notifications");
+      const { notifications } = await request({ type: "list_notifications", all: true }, "notifications").catch(() => ({
+        notifications: [] as DaemonNotification[],
+      }));
+      const found = notifications.find((n) => n.id === Number(target));
+      if (found?.link) open(found);
+      else navigate("notifications");
+    };
+    void take();
+    const off = listen<string>("open-notification", () => void take());
+    return () => {
+      off.then((fn) => fn());
     };
   }, []);
 }

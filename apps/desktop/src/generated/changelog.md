@@ -55,9 +55,16 @@ App 0.19.2 with daemon and CLI 0.18.2.
 
 ### Fixed
 
-- Next.js over HTTPS: middleware rewrites, such as next-intl's locale
-  prefix, answered 500 (`Failed to proxy … EPROTO … wrong version number`).
-  The proxy tells Next's dev server the request came over HTTP.
+- Next.js with middleware rewrites, such as next-intl's locale prefix: a
+  500 over HTTPS (`Failed to proxy … EPROTO … wrong version number`), or a
+  redirect loop (`ERR_TOO_MANY_REDIRECTS`) with a default locale without
+  prefix. The dev server now starts with `--hostname localhost` (kept on
+  127.0.0.1 by `NODE_OPTIONS=--dns-result-order=ipv4first`), so Next no
+  longer proxies those rewrites to itself. Sites saved with the former
+  command move to the new one when the daemon starts.
+- Clicking a system notification (Linux) opens the app on what it's about,
+  as a click in the notification list does: the site's tab, the Mailbox
+  message, the update; a summary of several opens the list.
 - Switches: clicking a switch's text could toggle another one or none on some
   web engines; the text now toggles its own switch. Selects in New project
   showed the chosen option in English.

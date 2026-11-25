@@ -117,7 +117,10 @@ pub struct Daemon {
 impl Daemon {
     pub fn load(paths: Paths) -> Result<Self, AppError> {
         let config = Config::load_or_create(&paths.config_file())?;
-        let registry = Registry::load(&paths.registry_file())?;
+        let mut registry = Registry::load(&paths.registry_file())?;
+        if migrate_next_hostname(&mut registry) {
+            registry.save()?;
+        }
         let routes = Arc::new(Routes::default());
         sync_routes(&routes, &registry);
 
@@ -1581,8 +1584,40 @@ pub(crate) fn route_of(p: &locdev_core::model::Project) -> Route {
         secure: p.secure,
         subdomains,
         exclusive: !p.subdomains.wildcard,
-        next_dev: uses_next(&p.path),
     }
+}
+
+/// LocDev's former default dev command for Next.js, and today's (see the
+/// `nextjs` definition's note: with `127.0.0.1`, middleware rewrites, such
+/// as next-intl's locale prefix, made Next proxy to itself).
+const NEXT_HOST_BEFORE: &str = " --hostname 127.0.0.1 --port {port}";
+const NEXT_HOST_NOW: &str = " --hostname localhost --port {port}";
+
+/// Next.js sites saved with the former default command take today's; a
+/// command written by hand (anything else) is left alone. Whether any changed.
+fn migrate_next_hostname(registry: &mut Registry) -> bool {
+    let names: Vec<String> = registry
+        .all()
+        .iter()
+        .filter(|p| {
+            p.command
+                .as_deref()
+                .is_some_and(|c| c.ends_with(NEXT_HOST_BEFORE))
+                && uses_next(&p.path)
+        })
+        .map(|p| p.name.clone())
+        .collect();
+    for name in &names {
+        if let Ok(project) = registry.get_mut(name)
+            && let Some(command) = project.command.as_mut()
+        {
+            let base = command.len() - NEXT_HOST_BEFORE.len();
+            command.truncate(base);
+            command.push_str(NEXT_HOST_NOW);
+            info!(project = %name, command = %command, "Next.js dev command now uses --hostname localhost");
+        }
+    }
+    !names.is_empty()
 }
 
 /// Whether the site's package.json depends on Next.js.
@@ -1605,4 +1640,72 @@ pub(super) fn parse_pin(kind: RuntimeKind, raw: &str) -> Result<Option<String>, 
     }
     validate_pin(kind, pin)?;
     Ok(Some(pin.to_string()))
+}
+
+#[cfg(test)]
+mod next_host_tests {
+    use super::*;
+
+    #[test]
+    fn next_sites_saved_with_the_old_default_move_to_localhost() {
+        let dir = tempfile::tempdir().unwrap();
+        let site = |name: &str, next: bool, command: &str| {
+            let path = dir.path().join(name);
+            std::fs::create_dir(&path).unwrap();
+            let deps = if next {
+                r#"{"next":"16"}"#
+            } else {
+                r#"{"vite":"7"}"#
+            };
+            std::fs::write(
+                path.join("package.json"),
+                format!(r#"{{"dependencies":{deps}}}"#),
+            )
+            .unwrap();
+            locdev_core::model::Project {
+                name: name.into(),
+                path,
+                command: Some(command.into()),
+                ..Default::default()
+            }
+        };
+        let mut registry = Registry::load(&dir.path().join("projects.toml")).unwrap();
+        for project in [
+            site(
+                "shop",
+                true,
+                "pnpm run dev --hostname 127.0.0.1 --port {port}",
+            ),
+            site(
+                "blog",
+                true,
+                "npm run dev -- --hostname 127.0.0.1 --port {port}",
+            ),
+            site("mine", true, "next dev -H 127.0.0.1 -p {port}"),
+            site(
+                "app",
+                false,
+                "pnpm run dev --hostname 127.0.0.1 --port {port}",
+            ),
+        ] {
+            registry.insert(project).unwrap();
+        }
+        assert!(migrate_next_hostname(&mut registry));
+        let command = |name: &str| registry.get(name).unwrap().command.clone().unwrap();
+        assert_eq!(
+            command("shop"),
+            "pnpm run dev --hostname localhost --port {port}"
+        );
+        assert_eq!(
+            command("blog"),
+            "npm run dev -- --hostname localhost --port {port}"
+        );
+        // Written by hand, or not Next.js: left alone.
+        assert_eq!(command("mine"), "next dev -H 127.0.0.1 -p {port}");
+        assert_eq!(
+            command("app"),
+            "pnpm run dev --hostname 127.0.0.1 --port {port}"
+        );
+        assert!(!migrate_next_hostname(&mut registry));
+    }
 }
