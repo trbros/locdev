@@ -8,7 +8,7 @@ LocDev の最初の公開バージョンは 0.19.0 です。デスクトップ�
 
 形式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に従います。項目は追加、変更、修正、セキュリティ、互換性のない変更です。インストーラーの提供状況は[公開済みリリース](https://github.com/trbros/locdev/releases)で確認してください。[ドキュメント](https://locdev.app/ja/docs)。
 
-## [0.19.2] - 2026-11-24
+## [0.19.2] - 2026-11-25
 
 アプリ 0.19.2、デーモンと CLI 0.18.2。
 

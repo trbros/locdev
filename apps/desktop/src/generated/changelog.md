@@ -17,7 +17,7 @@ Sections: Added, Changed, Fixed, Security, Breaking.
 
 Installer availability depends on [published releases](https://github.com/trbros/locdev/releases). [Full documentation](https://locdev.app/en/docs).
 
-## [0.19.2] - 2026-11-24
+## [0.19.2] - 2026-11-25
 
 App 0.19.2 with daemon and CLI 0.18.2.
 

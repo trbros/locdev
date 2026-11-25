@@ -8,7 +8,7 @@ El daemon/CLI y la aplicación de escritorio tienen versiones separadas: los cam
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Secciones: Añadido, Modificado, Corregido, Seguridad y Cambios incompatibles. Los instaladores dependen de las [releases publicadas](https://github.com/trbros/locdev/releases). [Documentación completa](https://locdev.app/es/docs).
 
-## [0.19.2] - 2026-11-24
+## [0.19.2] - 2026-11-25
 
 App 0.19.2 con daemon y CLI 0.18.2.
 

@@ -8,7 +8,7 @@ O daemon/CLI e o app desktop têm numeração separada: mudanças somente na int
 
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Seções: Adicionado, Alterado, Corrigido, Segurança e Mudanças incompatíveis. A disponibilidade dos instaladores depende das [releases publicadas](https://github.com/trbros/locdev/releases). [Documentação completa](https://locdev.app/pt-BR/docs).
 
-## [0.19.2] - 2026-11-24
+## [0.19.2] - 2026-11-25
 
 App 0.19.2 com daemon e CLI 0.18.2.
 
