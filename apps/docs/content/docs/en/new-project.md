@@ -6,8 +6,8 @@ In **Tools → New project** (or `locdev new`), LocDev creates a project with **
 
 ## How it works
 
-1. **Pick the framework.** Each has its own ways to be created and its own options (table below).
-2. **Name and folder.** The name becomes the folder and the site (`shop` → `shop.test`). The folder must not exist: LocDev never creates over anything.
+1. **Pick the framework.** Its form opens on a screen of its own (**← Frameworks** goes back). Each framework has its own ways to be created and its own options (table below).
+2. **Name and folder.** The name becomes the folder and the site (`shop` → `shop.test`). The folder must not exist: LocDev never creates over anything. In the app, new projects go to `~/LocDev/Sites` by default (made on first use; any other folder can be chosen); `locdev new` uses the current folder.
 3. **How to create it.** For instance, Laravel with its installer or with Composer; JavaScript projects with npm, pnpm or Bun. Each choice shows whether the tool is installed and its version.
 4. **Runtime** (PHP and JavaScript): the PHP or Node.js version the installer runs with, among the installed ones. The new site is pinned to it. **Default** uses LocDev's default version.
 5. **Options.** Starter kit, authentication, tests, TypeScript, Tailwind, linter, routing, template… Only the ones the chosen method accepts show up.
@@ -15,7 +15,7 @@ In **Tools → New project** (or `locdev new`), LocDev creates a project with **
 7. **Packages:** search npm or Packagist, depending on the framework, to install right after creating.
 8. **What will run:** the files LocDev writes (when there are any), each exact command and what LocDev itself does between them. Nothing runs before **Create project**.
 
-Then the steps run in a **terminal inside the app**: you see the installer's output and can answer what it asks. Lines starting with › are LocDev's (files, database, site). When it's done, the app offers to open and start the site.
+Then the steps run in a **terminal inside the app**: you see the installer's output and can answer what it asks. Lines starting with › are LocDev's (files, database, site). When it's done, the site is registered and **starts by itself**: its button shows **Running** (click it to stop), next to **Open site**.
 
 ![The installer running in the app's terminal, step by step.](screenshot:new-project-run)
 

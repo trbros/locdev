@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowUpRight,
   Check,
   CircleAlert,
@@ -40,11 +41,12 @@ import {
   useInstallTool,
   usePackageSearch,
   usePlan,
+  useSitesDir,
   useStarters,
   useTools,
 } from "@/hooks/use-scaffold";
 import { useServices } from "@/hooks/use-services";
-import { backend, isMock } from "@/lib/daemon";
+import { backend } from "@/lib/daemon";
 import { subById, viewById } from "@/lib/nav";
 import {
   type DatabaseChoice,
@@ -64,6 +66,7 @@ import { useUi } from "@/lib/ui-state";
 import { cn } from "@/lib/utils";
 import { intlLocale, t, tn } from "@/lib/i18n";
 import { tx } from "@/lib/i18n-jsx";
+import { SwitchField } from "@/components/ui/switch-field";
 
 const FAMILIES: { id: string; label: string }[] = [
   { id: "php", label: t("PHP") },
@@ -81,11 +84,9 @@ const DATABASES: { value: DatabaseChoice["service"]; label: string }[] = [
 ];
 
 /** The folder new projects go in: next to the sites already registered. */
+/** LocDev's own folder for new projects (`~/LocDev/Sites`, made on first use). */
 function useDefaultParent(): string {
-  const projects = useProjects();
-  const first = projects.data?.[0]?.path;
-  if (!first) return isMock ? "/home/you/Code" : "";
-  return first.replace(/[\\/][^\\/]+[\\/]?$/, "");
+  return useSitesDir().data ?? "";
 }
 
 export function NewProjectView() {
@@ -106,19 +107,27 @@ export function NewProjectView() {
         <RunPanel run={run} onInfo={(info) => setRun({ ...run, info })} onDone={() => setRun(null)} />
       ) : !starters.data ? (
         <Skeleton className="h-64" />
+      ) : // Two screens: the frameworks, then the chosen one's form.
+      starter ? (
+        <div className="flex flex-col gap-5">
+          <div className="flex min-w-0 items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => setStarterId(null)}>
+              <ArrowLeft data-icon="inline-start" /> {t("Frameworks")}
+            </Button>
+            <StackIcon id={starter.framework} className="size-5 shrink-0" />
+            <span className="shrink-0 text-sm font-medium">{starter.name}</span>
+            <span className="truncate text-[12px] text-muted-foreground">{t(starter.description)}</span>
+          </div>
+          <Form
+            key={starter.id}
+            starter={starter}
+            tools={tools.data ?? []}
+            defaultParent={defaultParent}
+            onStarted={(project, info) => setRun({ project, info })}
+          />
+        </div>
       ) : (
-        <>
-          <Picker starters={starters.data} selected={starterId} onSelect={setStarterId} />
-          {starter && (
-            <Form
-              key={starter.id}
-              starter={starter}
-              tools={tools.data ?? []}
-              defaultParent={defaultParent}
-              onStarted={(project, info) => setRun({ project, info })}
-            />
-          )}
-        </>
+        <Picker starters={starters.data} selected={starterId} onSelect={setStarterId} />
       )}
     </Page>
   );
@@ -208,11 +217,11 @@ function Form({
     if (!parent && defaultParent) setParent(defaultParent);
   }, [defaultParent, parent]);
 
-  // Choosing a framework mounts the form below the list: bring its fields into view.
+  // The form opens as its own screen: show it from the top (the list may
+  // have been scrolled down to reach the framework).
   const top = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    top.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    top.current?.closest('[data-slot="scroll-area-viewport"]')?.scrollTo({ top: 0 });
   }, []);
 
   const project: NewProject = {
@@ -238,7 +247,7 @@ function Form({
   };
 
   return (
-    <div ref={top} className="grid scroll-mt-4 grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+    <div ref={top} className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
       <div className="flex flex-col gap-6">
         <Section title={t("{name} project", { name: starter.name })}>
           <div className="flex flex-col gap-3 pt-1">
@@ -301,7 +310,7 @@ function Form({
                   <span className="font-mono text-[11px] text-muted-foreground">
                     {tool?.installed
                       ? (tool.version ?? t("installed"))
-                      : t("{name} not installed", { name: tool?.name ?? m.tool })}
+                      : t("{name} not installed", { name: t(tool?.name ?? m.tool) })}
                   </span>
                   {m.note && <span className="text-[11.5px] text-muted-foreground">{t(m.note)}</span>}
                 </button>
@@ -428,8 +437,12 @@ function Form({
         {starter.packages && <Packages registry={starter.packages} value={packages} onChange={setPackages} />}
 
         <Section title={t("site")}>
-          <label className="flex items-start gap-3 pt-1">
-            <Switch checked={register} onCheckedChange={setRegister} className="mt-0.5 data-checked:bg-ember" />
+          <SwitchField
+            className="flex items-start gap-3 pt-1"
+            checked={register}
+            onCheckedChange={setRegister}
+            switchClassName="mt-0.5 data-checked:bg-ember"
+          >
             <span>
               <span className="block text-sm">{t("Register it as a site when it's done")}</span>
               <span className="block text-[12px] text-muted-foreground">
@@ -438,7 +451,7 @@ function Form({
                 })}
               </span>
             </span>
-          </label>
+          </SwitchField>
         </Section>
       </div>
 
@@ -583,7 +596,7 @@ function OptionRow({
         />
       ) : (
         <Select
-          items={option.choices}
+          items={option.choices.map((c) => ({ value: c.value, label: t(c.label) }))}
           value={value}
           onValueChange={(v) => v && onChange(String(v))}
           disabled={!!locked}
@@ -723,8 +736,20 @@ function RunPanel({
 }) {
   const { openSite } = useUi();
   const action = useProjectAction();
+  const projects = useProjects();
   const { info } = run;
   const ok = !info.running && info.code === 0;
+  const site = info.site ? projects.data?.find((p) => p.name === info.site) : undefined;
+  const state = site?.process.state;
+  const running = state === "running";
+  // Once the project is created and registered, its dev server starts by itself.
+  const started = useRef(false);
+  const start = action.mutate;
+  useEffect(() => {
+    if (!ok || !site?.command || started.current) return;
+    started.current = true;
+    if (state !== "running" && state !== "stopping") start({ action: "start_project", name: site.name });
+  }, [ok, site?.command, site?.name, state, start]);
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
@@ -756,13 +781,29 @@ function RunPanel({
                   <Button size="sm" onClick={() => openSite(info.site!)}>
                     {t("Open site")}
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => action.mutate({ action: "start_project", name: info.site! })}
-                  >
-                    <Play data-icon="inline-start" /> {t("Start it")}
-                  </Button>
+                  {site?.command && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      aria-pressed={running}
+                      disabled={action.isPending || state === "stopping"}
+                      className={cn(running && "border-phosphor/50 text-foreground")}
+                      title={running ? t("Stop") : undefined}
+                      onClick={() =>
+                        action.mutate({ action: running ? "stop_project" : "start_project", name: site.name })
+                      }
+                    >
+                      {running ? (
+                        <>
+                          <Led tone="live" live /> {t("Running")}
+                        </>
+                      ) : (
+                        <>
+                          <Play data-icon="inline-start" /> {t("Start it")}
+                        </>
+                      )}
+                    </Button>
+                  )}
                 </>
               )}
               <Button size="sm" variant="ghost" onClick={onDone}>

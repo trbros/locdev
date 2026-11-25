@@ -36,6 +36,8 @@ serde_json.workspace = true
 # File events for parked folders (inotify, FSEvents, ReadDirectoryChangesW).
 notify = "9"
 notify-rust = { version = "4.18", default-features = false, features = ["z-with-tokio"] }
+# Deleting a site's folder from the app moves it to the system's trash.
+trash = "5.4"
 tokio.workspace = true
 tokio-util.workspace = true
 tokio-rustls.workspace = true

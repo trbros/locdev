@@ -6,8 +6,8 @@ Em **Ferramentas → Novo projeto** (ou `locdev new`), o LocDev cria um projeto 
 
 ## Como funciona
 
-1. **Escolha o framework.** Cada um tem as próprias formas de criar e as próprias opções (tabela abaixo).
-2. **Nome e pasta.** O nome vira a pasta e o site (`loja` → `loja.test`). A pasta não pode existir: o LocDev nunca cria por cima de nada.
+1. **Escolha o framework.** O formulário dele abre numa tela própria (**← Frameworks** volta). Cada framework tem as próprias formas de criar e as próprias opções (tabela abaixo).
+2. **Nome e pasta.** O nome vira a pasta e o site (`loja` → `loja.test`). A pasta não pode existir: o LocDev nunca cria por cima de nada. No app, os projetos novos vão por padrão para `~/LocDev/Sites` (criada no primeiro uso; dá para escolher outra pasta); o `locdev new` usa a pasta atual.
 3. **Como criar.** Por exemplo, Laravel pelo instalador ou pelo Composer; os projetos JavaScript por npm, pnpm ou Bun. Cada opção mostra se a ferramenta está instalada e a versão.
 4. **Runtime** (PHP e JavaScript): a versão do PHP ou do Node.js com que o instalador roda, entre as instaladas. O site novo fica fixado nela. **Padrão** usa a versão padrão do LocDev.
 5. **Opções.** Kit inicial, autenticação, testes, TypeScript, Tailwind, linter, roteamento, template… Só aparecem as que o método escolhido aceita.
@@ -15,7 +15,7 @@ Em **Ferramentas → Novo projeto** (ou `locdev new`), o LocDev cria um projeto 
 7. **Pacotes:** busca no npm ou no Packagist, conforme o framework, para instalar logo depois de criar.
 8. **O que vai rodar:** os arquivos que o LocDev escreve (quando houver), cada comando exato e o que o próprio LocDev faz entre eles. Nada roda antes de **Criar projeto**.
 
-Depois disso, os passos rodam num **terminal dentro do app**: você vê a saída do instalador e pode responder o que ele perguntar. As linhas que começam com › são do LocDev (arquivos, banco, site). Ao terminar, o app oferece abrir e iniciar o site.
+Depois disso, os passos rodam num **terminal dentro do app**: você vê a saída do instalador e pode responder o que ele perguntar. As linhas que começam com › são do LocDev (arquivos, banco, site). Ao terminar, o site é registrado e **inicia sozinho**: o botão dele mostra **Rodando** (clique para parar), ao lado de **Abrir site**.
 
 ![O instalador rodando no terminal do app, passo a passo.](screenshot:new-project-run)
 

@@ -263,6 +263,7 @@ async fn run() -> anyhow::Result<()> {
         tokio::spawn(daemon.clone().run_jobs()),
         tokio::spawn(daemon.clone().watch_processes()),
         tokio::spawn(daemon.clone().watch_parked()),
+        tokio::spawn(daemon.clone().watch_site_folders()),
     ];
     tokio::spawn({
         let daemon = daemon.clone();

@@ -11,7 +11,7 @@ locdev down acme
 locdev remove acme
 ```
 
-`remove` unregisters the project; it does not delete its files. If that is all you need, keep the app and any DNS or certificates used by other projects.
+`remove` unregisters the project; it does not delete its files (`--delete-files` moves its folder to the trash). If that is all you need, keep the app and any DNS or certificates used by other projects.
 
 ## Prepare complete removal
 

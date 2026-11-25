@@ -11,7 +11,7 @@ locdev down acme
 locdev remove acme
 ```
 
-`remove` elimina el registro, no los archivos del proyecto. Si ese era el objetivo, no necesitas desinstalar el app ni quitar DNS y certificados que otros proyectos utilizan.
+`remove` elimina el registro, no los archivos del proyecto (`--delete-files` mueve su carpeta a la papelera). Si ese era el objetivo, no necesitas desinstalar el app ni quitar DNS y certificados que otros proyectos utilizan.
 
 ## Preparar la eliminación completa
 

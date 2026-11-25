@@ -24,9 +24,21 @@ App 0.19.2 con daemon y CLI 0.18.2.
   necesita una actualización manual.
 - Herramientas → Instaladores: comandos de instalación para Python, pipx y
   Git en Windows y macOS.
+- Los proyectos nuevos creados desde la app van por defecto a
+  `~/LocDev/Sites` (se crea en el primer uso).
+- Quitar un sitio puede también mover su carpeta a la papelera (una opción
+  en el diálogo, `locdev remove <nombre> --delete-files`); se rechaza para
+  una carpeta que contiene otros sitios, la carpeta personal o la raíz de un
+  disco.
+- Un sitio cuya carpeta se borra fuera de LocDev se detiene y se quita en
+  segundos, con una notificación (no uno en un disco o recurso compartido
+  desconectado).
 
 ### Modificado
 
+- Proyecto nuevo: elegir un framework abre su formulario en una pantalla
+  propia; al terminar, el sitio se inicia solo y su botón muestra En
+  ejecución.
 - Los instaladores se ejecutan sin las opciones que saltan sus preguntas
   (`--no-interaction` en `laravel new`, Composer y `artisan migrate`,
   `--yes` en `create-next-app` y `create-astro`, `--defaults` en
@@ -39,6 +51,13 @@ App 0.19.2 con daemon y CLI 0.18.2.
 
 ### Corregido
 
+- Next.js por HTTPS: los rewrites del middleware, como el prefijo de idioma
+  de next-intl, respondían 500 (`Failed to proxy … EPROTO … wrong version
+  number`). El proxy le dice al servidor de desarrollo de Next que la
+  petición llegó por HTTP.
+- Interruptores: hacer clic en el texto de uno podía cambiar otro o ninguno
+  en algunos motores web; ahora el texto cambia su propio interruptor. Los
+  selects de Proyecto nuevo mostraban la opción elegida en inglés.
 - pnpm 11 y posteriores no arrancaban (`SyntaxError: Invalid or
   unexpected token`): LocDev ejecutaba con Node.js el archivo provisional
   que trae el paquete. Ahora instala el binario nativo de pnpm, comprobado

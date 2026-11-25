@@ -490,7 +490,7 @@ const packages: Record<"npm" | "packagist", PackageHit[]> = {
 export function handleScaffold(req: Request): Response | null {
   switch (req.type) {
     case "list_starters":
-      return { type: "starters", starters: catalog };
+      return { type: "starters", starters: catalog, sites_dir: "/home/you/LocDev/Sites" };
     case "list_tools":
       return { type: "tools", tools };
     case "plan_project":

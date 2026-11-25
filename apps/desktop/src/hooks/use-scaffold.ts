@@ -9,13 +9,20 @@ import type { NewProject, PackageRegistry } from "@/lib/protocol";
 import { errorMessage } from "./use-daemon";
 import { t } from "@/lib/i18n";
 
+const startersQuery = {
+  queryKey: ["starters"],
+  queryFn: () => request({ type: "list_starters" }, "starters"),
+  staleTime: Number.POSITIVE_INFINITY,
+  retry: false,
+} as const;
+
 export function useStarters() {
-  return useQuery({
-    queryKey: ["starters"],
-    queryFn: async () => (await request({ type: "list_starters" }, "starters")).starters,
-    staleTime: Number.POSITIVE_INFINITY,
-    retry: false,
-  });
+  return useQuery({ ...startersQuery, select: (r) => r.starters });
+}
+
+/** Where the app creates new projects by default (`~/LocDev/Sites`). */
+export function useSitesDir() {
+  return useQuery({ ...startersQuery, select: (r) => r.sites_dir ?? null });
 }
 
 /** Runs each tool's `--version`, so it isn't polled. */

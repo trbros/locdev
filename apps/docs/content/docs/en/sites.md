@@ -1,6 +1,6 @@
 # Sites and processes
 
-A **site** is a folder registered in LocDev, with a name, a dev server command and a port. The registry lives in `projects.toml`; removing a site from LocDev never deletes its files.
+A **site** is a folder registered in LocDev, with a name, a dev server command and a port. The registry lives in `projects.toml`; removing a site from LocDev doesn't delete its files, unless you choose to move its folder to the trash when removing it (**Also move the folder to the trash**, or `locdev remove <name> --delete-files`; refused for a folder that holds other sites, the home folder or a drive's root). A site whose folder is deleted outside LocDev is stopped and removed within seconds, with a notification; one on an unplugged drive or share isn't.
 
 To skip adding them one by one, park the folder that holds your projects: each project inside becomes a site and the list follows what's created and deleted ([Parked folders](/docs/parked-folders)).
 

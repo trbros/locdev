@@ -141,6 +141,7 @@ async fn registers_lists_and_removes_projects() {
     daemon
         .call(Request::RemoveProject {
             name: "my-site".into(),
+            delete_files: false,
         })
         .await
         .unwrap();
@@ -2856,6 +2857,7 @@ async fn parked_folders_follow_their_projects() {
     daemon
         .call(Request::RemoveProject {
             name: "shop".into(),
+            delete_files: false,
         })
         .await
         .unwrap();
@@ -3426,6 +3428,7 @@ http.server.HTTPServer(("127.0.0.1", int(sys.argv[1])), H).serve_forever()
     daemon
         .call(Request::RemoveProject {
             name: "shared".into(),
+            delete_files: false,
         })
         .await
         .unwrap();

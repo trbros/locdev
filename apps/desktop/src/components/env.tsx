@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/ui/switch-field";
 import { Textarea } from "@/components/ui/textarea";
 import { errorMessage, useProjectAction, useSettings } from "@/hooks/use-daemon";
 import {
@@ -605,14 +606,13 @@ function VarForm({
           />
         )}
       </div>
-      <label className="flex items-start gap-3" htmlFor="secret">
-        <Switch
-          id="secret"
-          checked={secret}
-          disabled={!!prefix}
-          onCheckedChange={setSecretChoice}
-          className="mt-0.5 data-checked:bg-ember"
-        />
+      <SwitchField
+        className="flex items-start gap-3"
+        checked={secret}
+        disabled={!!prefix}
+        onCheckedChange={setSecretChoice}
+        switchClassName="mt-0.5 data-checked:bg-ember"
+      >
         <span>
           <span className="block text-sm">{t("Secret")}</span>
           <span className="block text-[12.5px] text-muted-foreground">
@@ -625,7 +625,7 @@ function VarForm({
                 )}
           </span>
         </span>
-      </label>
+      </SwitchField>
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="env-description">{t("Description (optional)")}</Label>
         <Input id="env-description" value={description} onChange={(e) => setDescription(e.target.value)} />
@@ -881,15 +881,14 @@ export function SiteEnvTab({ site }: { site: ProjectView }) {
           </span>
         }
       >
-        <label className="flex items-center gap-3 py-1.5 text-sm" htmlFor="inherit_global">
-          <Switch
-            id="inherit_global"
-            checked={r.settings.inherit_global}
-            onCheckedChange={(inherit_global) => change({ inherit_global })}
-            className="data-checked:bg-ember"
-          />
+        <SwitchField
+          className="flex items-center gap-3 py-1.5 text-sm"
+          checked={r.settings.inherit_global}
+          onCheckedChange={(inherit_global) => change({ inherit_global })}
+          switchClassName="data-checked:bg-ember"
+        >
           {t("Take the global variables")}
-        </label>
+        </SwitchField>
         <div className="flex flex-wrap gap-1.5 pt-1">
           {profiles
             .filter((p) => p.id !== GLOBAL_PROFILE)

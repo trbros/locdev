@@ -852,7 +852,7 @@
         {
           "usage": "locdev remove",
           "name": "remove",
-          "about": "Unregister a project. Its files are left untouched",
+          "about": "Unregister a project. Its files are left untouched unless `--delete-files` moves its folder to the trash",
           "details": null,
           "aliases": [
             "rm"
@@ -864,6 +864,14 @@
               "required": true,
               "takes_value": true,
               "help": "",
+              "default": null
+            },
+            {
+              "name": "--delete-files",
+              "positional": false,
+              "required": false,
+              "takes_value": false,
+              "help": "Also move the project's folder to the trash",
               "default": null
             }
           ],

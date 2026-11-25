@@ -170,9 +170,15 @@ enum Command {
         #[arg(long)]
         restart_on_failure: Option<bool>,
     },
-    /// Unregister a project. Its files are left untouched.
+    /// Unregister a project. Its files are left untouched unless
+    /// `--delete-files` moves its folder to the trash.
     #[command(visible_alias = "rm")]
-    Remove { name: String },
+    Remove {
+        name: String,
+        /// Also move the project's folder to the trash.
+        #[arg(long)]
+        delete_files: bool,
+    },
     /// Start a site (its helper too, when set to start with it).
     Up {
         /// Defaults to the site in the current directory.
@@ -659,9 +665,20 @@ async fn run(command: Command, out: &Output) -> anyhow::Result<ExitCode> {
             out.project(&expect_project(daemon_call(&paths, request).await?)?);
         }
 
-        Command::Remove { name } => {
-            daemon_call(&paths, Request::RemoveProject { name: name.clone() }).await?;
-            out.message(&format!("removed {name} (files were not touched)"));
+        Command::Remove { name, delete_files } => {
+            daemon_call(
+                &paths,
+                Request::RemoveProject {
+                    name: name.clone(),
+                    delete_files,
+                },
+            )
+            .await?;
+            out.message(&if delete_files {
+                format!("removed {name} and moved its folder to the trash")
+            } else {
+                format!("removed {name} (files were not touched)")
+            });
         }
 
         Command::Up { name } => {

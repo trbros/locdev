@@ -70,9 +70,9 @@ await step("site tabs: Ctrl+click opens a tab, the address bar switches, new tab
   if (process.env.SHOT_TABS) await page.screenshot({ path: process.env.SHOT_TABS });
   await page.getByRole("button", { name: "New tab" }).click();
   await page.getByRole("heading", { name: "Open a site" }).waitFor({ timeout: 3000 });
-  await strip.locator("[data-tab]:has([role=tab][aria-selected=true]) button[aria-label=\"Close tab\"]").click();
+  await strip.locator('[data-tab]:has([role=tab][aria-selected=true]) button[aria-label="Close tab"]').click();
   await strip.getByRole("tab", { name: /^landing\.test/, selected: true }).waitFor({ timeout: 3000 });
-  await strip.locator("[data-tab]:has([role=tab][aria-selected=true]) button[aria-label=\"Close tab\"]").click();
+  await strip.locator('[data-tab]:has([role=tab][aria-selected=true]) button[aria-label="Close tab"]').click();
   if ((await tabs.count()) !== before) throw new Error("closing tabs left the wrong count");
 });
 await step("Ctrl+3 opens Runtimes", async () => {
@@ -481,7 +481,7 @@ await step("parked folders: park one, change rules, un-ignore, stop parking keep
   await page.getByText("Removed sites: wp-agency, docs-clients").waitFor({ timeout: 3000 });
   if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT });
 });
-await step("new project: Flask shows LocDev's files; Laravel picks a PHP version", async () => {
+await step("new project: Flask shows LocDev's files; back; Laravel picks a PHP version", async () => {
   await page.getByRole("navigation", { name: "Main" }).getByRole("button", { name: "New project" }).click();
   await page.getByRole("button", { name: /^Flask/ }).click();
   await page.getByLabel("Project name").fill("api");
@@ -489,6 +489,8 @@ await step("new project: Flask shows LocDev's files; Laravel picks a PHP version
   await page.locator("summary", { hasText: "app.py" }).waitFor({ timeout: 3000 });
   await page.locator("summary", { hasText: "requirements.txt" }).click();
   await page.getByText("python3 -m venv .venv").waitFor({ timeout: 3000 });
+  // Each framework's form is a screen of its own; back to the list for the next.
+  await page.getByRole("button", { name: "Frameworks" }).click();
   await page.getByRole("button", { name: /^Laravel/ }).click();
   await page.getByLabel("Project name").fill("shop");
   await page.getByRole("combobox", { name: "PHP" }).click();
@@ -556,7 +558,10 @@ await step("updates: install with progress, restart prompt, earlier version", as
   await press("Control+Comma");
   await page.getByRole("navigation", { name: "Settings" }).getByRole("button", { name: "Updates" }).click();
   await page.getByText(/LocDev \d+\.\d+\.\d+ is available/).waitFor({ timeout: 3000 });
-  await page.getByRole("button", { name: /^Install \d/ }).first().click();
+  await page
+    .getByRole("button", { name: /^Install \d/ })
+    .first()
+    .click();
   await page.getByText("Restart LocDev").waitFor({ timeout: 6000 });
   await page.getByRole("button", { name: "Go back to this version" }).first().waitFor({ timeout: 3000 });
   await page.getByText("this app ships").waitFor({ state: "detached", timeout: 1000 });
@@ -598,11 +603,17 @@ await step("about: versions, history and third-party software", async () => {
 await step("debug center: timeline, detail with cause and stack, dumps, problems", async () => {
   await press("Control+Shift+D");
   await page.getByRole("heading", { name: "Debug Center" }).waitFor({ timeout: 3000 });
-  await page.getByRole("button", { name: /QueryException/ }).first().click();
+  await page
+    .getByRole("button", { name: /QueryException/ })
+    .first()
+    .click();
   await page.getByText("Likely cause").waitFor({ timeout: 2000 });
   await page.getByText("4 frames in dependencies").click();
   await page.getByText("Illuminate\\Routing\\Route->runController()").waitFor({ timeout: 2000 });
-  await page.getByRole("button", { name: /App\\Models\\Order/ }).first().click();
+  await page
+    .getByRole("button", { name: /App\\Models\\Order/ })
+    .first()
+    .click();
   await page.getByText('"customer_id"').waitFor({ timeout: 2000 });
   await page.getByRole("tab", { name: "Problems" }).click();
   await page.getByRole("list", { name: "Problems" }).waitFor({ timeout: 2000 });

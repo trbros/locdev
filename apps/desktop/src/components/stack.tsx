@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/ui/switch-field";
 import { errorMessage, useSettings } from "@/hooks/use-daemon";
 import { useDefinitions, useDefinitionsActions, useStackReport, useStackSet } from "@/hooks/use-stack";
 import { uptime } from "@/lib/format";
@@ -203,15 +203,14 @@ function StackDialog({ site, open, onClose }: { site: ProjectView; open: boolean
             </Button>
           )}
         </div>
-        <label className="flex items-center gap-3 text-sm" htmlFor="applyCommand">
-          <Switch
-            id="applyCommand"
-            checked={applyCommand}
-            onCheckedChange={setApplyCommand}
-            className="data-checked:bg-ember"
-          />
+        <SwitchField
+          className="flex items-center gap-3 text-sm"
+          checked={applyCommand}
+          onCheckedChange={setApplyCommand}
+          switchClassName="data-checked:bg-ember"
+        >
           {t("When choosing a framework, also use its start command for this site")}
-        </label>
+        </SwitchField>
         <div className="relative">
           <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -349,22 +348,21 @@ export function DefinitionsSettings() {
             "Definitions are data: how each framework is recognized, how its dev server takes a host and port, its links. A downloaded set is used only when its minisign signature matches the key LocDev ships, its format is one this version understands, and it is newer than any set already seen. Nothing in them can run code LocDev doesn't already have.",
           )}
         </p>
-        <label className="mt-3 flex items-center gap-3 text-sm" htmlFor="auto">
-          <Switch
-            id="auto"
-            checked={!!auto}
-            disabled={!settings.query.data}
-            onCheckedChange={(definitions) =>
-              settings.query.data &&
-              settings.update.mutate({
-                ...settings.query.data,
-                automation: { ...settings.query.data.automation, definitions },
-              })
-            }
-            className="data-checked:bg-ember"
-          />
+        <SwitchField
+          className="mt-3 flex items-center gap-3 text-sm"
+          checked={!!auto}
+          disabled={!settings.query.data}
+          onCheckedChange={(definitions) =>
+            settings.query.data &&
+            settings.update.mutate({
+              ...settings.query.data,
+              automation: { ...settings.query.data.automation, definitions },
+            })
+          }
+          switchClassName="data-checked:bg-ember"
+        >
           {t("Check for new definitions daily (skipped in offline mode)")}
-        </label>
+        </SwitchField>
       </Section>
 
       <Section title={t("frameworks · {length}", { length: definitions.data.definitions.length })}>

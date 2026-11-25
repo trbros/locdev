@@ -6,7 +6,7 @@ import { Fact, Section } from "@/components/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/ui/switch-field";
 import { useGithubAccount, useGithubConnect, useSecurity, useSettings } from "@/hooks/use-daemon";
 import type { DeviceCode } from "@/lib/protocol";
 import { copyText, openInBrowser } from "@/lib/system";
@@ -141,28 +141,26 @@ export function SecuritySection() {
             )}
           </p>
         )}
-        <label className="flex items-start gap-3 py-1.5" htmlFor="password">
-          <Switch
-            id="password"
-            checked={status.require_password}
-            disabled={!status.password_set}
-            onCheckedChange={(v) => option({ require_password: v })}
-            className="mt-0.5 data-checked:bg-ember"
-          />
+        <SwitchField
+          className="flex items-start gap-3 py-1.5"
+          checked={status.require_password}
+          disabled={!status.password_set}
+          onCheckedChange={(v) => option({ require_password: v })}
+          switchClassName="mt-0.5 data-checked:bg-ember"
+        >
           <span>
             <span className="block text-sm">{t("Ask for the password")}</span>
             <span className="block text-[12.5px] text-muted-foreground">
               {t("On every destructive operation, after typing the confirmation phrase.")}
             </span>
           </span>
-        </label>
-        <label className="flex items-start gap-3 py-1.5" htmlFor="backups">
-          <Switch
-            id="backups"
-            checked={status.backups}
-            onCheckedChange={(v) => option({ backups: v })}
-            className="mt-0.5 data-checked:bg-ember"
-          />
+        </SwitchField>
+        <SwitchField
+          className="flex items-start gap-3 py-1.5"
+          checked={status.backups}
+          onCheckedChange={(v) => option({ backups: v })}
+          switchClassName="mt-0.5 data-checked:bg-ember"
+        >
           <span>
             <span className="block text-sm">{t("Back up first")}</span>
             <span className="block text-[12.5px] text-muted-foreground">
@@ -172,7 +170,7 @@ export function SecuritySection() {
               )}
             </span>
           </span>
-        </label>
+        </SwitchField>
       </Section>
     </>
   );
@@ -381,13 +379,12 @@ export function IntegrationsSection() {
       </Section>
 
       <Section title={t("workflow checks")}>
-        <label className="flex items-start gap-3 py-1.5" htmlFor="github_watch_runs">
-          <Switch
-            id="github_watch_runs"
-            checked={settings.integrations.github_watch_runs}
-            onCheckedChange={(v) => integrations({ github_watch_runs: v })}
-            className="mt-0.5 data-checked:bg-ember"
-          />
+        <SwitchField
+          className="flex items-start gap-3 py-1.5"
+          checked={settings.integrations.github_watch_runs}
+          onCheckedChange={(v) => integrations({ github_watch_runs: v })}
+          switchClassName="mt-0.5 data-checked:bg-ember"
+        >
           <span>
             <span className="block text-sm">{t("Notify about failed workflow runs")}</span>
             <span className="block text-[12.5px] text-muted-foreground">
@@ -396,7 +393,7 @@ export function IntegrationsSection() {
               )}
             </span>
           </span>
-        </label>
+        </SwitchField>
       </Section>
     </>
   );

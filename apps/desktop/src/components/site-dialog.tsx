@@ -1,5 +1,5 @@
 import { FolderOpen } from "lucide-react";
-import { type ReactNode, type SyntheticEvent, useEffect, useId, useState } from "react";
+import { type ReactNode, type SyntheticEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { useDebounced, useProjectAction, useProjects, useRuntimes, useSaveProject } from "@/hooks/use-daemon";
 import { useDetectFolder } from "@/hooks/use-stack";
 import { isMock } from "@/lib/daemon";
@@ -23,6 +22,7 @@ import { pickFolder } from "@/lib/system";
 import { useUi } from "@/lib/ui-state";
 import { t } from "@/lib/i18n";
 import { tx } from "@/lib/i18n-jsx";
+import { SwitchField } from "@/components/ui/switch-field";
 
 const slug = (path: string) =>
   (path.split(/[\\/]/).filter(Boolean).pop() ?? "")
@@ -397,13 +397,15 @@ function Field({
 }
 
 function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
-  // One id per toggle: with a shared one, every label switched the first toggle.
-  const id = useId();
   return (
-    <label className="flex items-center gap-2.5 text-sm" htmlFor={id}>
-      <Switch id={id} checked={checked} onCheckedChange={onChange} className="data-checked:bg-ember" />
+    <SwitchField
+      className="flex items-center gap-2.5 text-sm"
+      checked={checked}
+      onCheckedChange={onChange}
+      switchClassName="data-checked:bg-ember"
+    >
       {label}
-    </label>
+    </SwitchField>
   );
 }
 

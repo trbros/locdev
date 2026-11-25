@@ -17,6 +17,7 @@
 
 - **PHP (Laravel、Symfony、WordPress、Bedrock、素の PHP):** すべての PHP サイトが LocDev の `auto_prepend_file` (`<data>/php-prepend/` にあり、"Managed by LocDev" の印付き。`PHP_INI_SCAN_DIR` で追加) を読み込みます。HTTPS でプロキシに届いたリクエストでは、TLS サーバーと同じように `$_SERVER['HTTPS'] = 'on'`、`REQUEST_SCHEME`、`SERVER_PORT` を設定します。これで `asset()` や `url()`、Symfony のツールバー (`/_wdt`)、WordPress の `is_ssl()` が `https://` を生成します。これらのヘッダーを信頼するのは、プロキシが接続してくるループバックからの接続だけで、プロキシは常にヘッダーを上書きします。PHP にすでに `auto_prepend_file` があった場合、そのすぐ後に引き続き実行されます。
 - **リダイレクト (すべてのスタック):** HTTPS のリクエストで、`Location: http://<同じホスト>/…` を返すレスポンスは `https://` を指すように書き換えられます。`http://` の設定 (Bedrock の `WP_HOME` など) から URL を組み立てるアプリに対応し、HTTPS のみのサイトが 2 つのスキームの間を行き来するのを防ぎます。ほかのホストや相対パスは変わりません。
+- **Next.js:** 開発サーバーにはリクエストが HTTP で届いたと伝えます。Next は自身のアドレスを `127.0.0.1` で組み立てる一方、ミドルウェアは `localhost` として見るため、ミドルウェアのリライト (next-intl のロケール接頭辞など) が外部扱いになり、Next が自分自身にプロキシします。HTTPS と伝えると TLS で接続して `Failed to proxy … EPROTO … wrong version number` になります。リダイレクトは相対のままで、ブラウザーは HTTPS を使い続けます。
 - **Laravel と並ぶ Vite:** Vite に渡す証明書は `localhost`、`127.0.0.1`、`::1` もカバーします (**開発サーバー** を参照)。
 
 ## この CA を信頼してもリスクが小さい理由

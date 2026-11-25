@@ -635,7 +635,6 @@
   "LocDev runs `php artisan make:mail` for the Mailable class, then fills the Blade view with editable blocks.": "LocDev ejecuta `php artisan make:mail` para la clase Mailable y luego llena la vista Blade con bloques editables.",
   "LocDev saves {backup} first.": "LocDev guarda {backup} primero.",
   "LocDev scans the folder now and whenever something changes in it. Nothing in it is modified.": "LocDev revisa la carpeta ahora y cada vez que algo cambia en ella. No se modifica nada dentro.",
-  "LocDev stops the site and forgets its settings. The folder": "LocDev detiene el sitio y olvida su configuración. La carpeta",
   "LocDev won't manage it": "LocDev no lo gestionará",
   "LocDev writes its starter files first:": "LocDev escribe primero sus archivos iniciales:",
   "LocDev's PHP file": "Archivo PHP de LocDev",
@@ -1390,7 +1389,6 @@
   "all clear": "todo en orden",
   "always": "siempre",
   "and collaborators": "y colaboradores",
-  "and its files are not touched.": "y sus archivos no se tocan.",
   "any level": "cualquier nivel",
   "api, admin, *.tenants": "api, admin, *.tenants",
   "app language": "idioma de la aplicación",
@@ -2286,5 +2284,12 @@
   "Would you like to add teams support to your application?": "¿Quieres añadir soporte de equipos a tu aplicación?",
   "Would you like to use single-file Livewire components?": "¿Quieres usar componentes Livewire de un solo archivo?",
   "WP-CLI": "WP-CLI",
-  "日本語": "日本語"
+  "日本語": "日本語",
+  "Removed {name}": "{name} eliminado",
+  "Its folder was moved to the trash.": "Su carpeta se movió a la papelera.",
+  "LocDev stops the site, forgets its settings and moves the folder {folder} to the trash.": "LocDev detiene el sitio, olvida su configuración y mueve la carpeta {folder} a la papelera.",
+  "LocDev stops the site and forgets its settings. The folder {folder} and its files are not touched.": "LocDev detiene el sitio y olvida su configuración. La carpeta {folder} y sus archivos no se tocan.",
+  "Also move the folder to the trash": "Mover también la carpeta a la papelera",
+  "Everything in it goes, uncommitted work included; it can be restored from the system's trash.": "Se va todo lo que contiene, incluido el trabajo sin commit; se puede restaurar desde la papelera del sistema.",
+  "Remove and delete the folder": "Eliminar y borrar la carpeta"
 }

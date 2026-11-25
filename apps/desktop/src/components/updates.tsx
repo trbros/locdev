@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
 import { useAppInfo, useDaemonControl, useSettings, useStatus } from "@/hooks/use-daemon";
 import { useAppInstall, useAppRestart, useAppUpdate, useReleases, useReleasesRefresh } from "@/hooks/use-updates";
 import { usePrefs } from "@/lib/prefs";
@@ -22,6 +21,7 @@ import { isNewer } from "@/lib/protocol";
 import type { AppUpdateProgress, ReleaseInfo } from "@/lib/protocol";
 import { copyText, openInBrowser } from "@/lib/system";
 import { t } from "@/lib/i18n";
+import { SwitchField } from "@/components/ui/switch-field";
 
 const day = (iso?: string | null) => (iso ? new Date(iso).toLocaleDateString() : null);
 
@@ -49,13 +49,16 @@ function Toggle({
   description: string;
 }) {
   return (
-    <label className="flex items-start gap-3 py-1.5">
-      <Switch checked={checked} disabled={disabled} onCheckedChange={onChange} className="mt-0.5" />
-      <span>
-        <span className="block text-sm">{title}</span>
-        <span className="block text-[13px] text-muted-foreground">{description}</span>
-      </span>
-    </label>
+    <SwitchField
+      className="flex items-start gap-3 py-1.5"
+      checked={checked}
+      disabled={disabled}
+      onCheckedChange={onChange}
+      switchClassName="mt-0.5"
+    >
+      <span className="block text-sm">{title}</span>
+      <span className="block text-[13px] text-muted-foreground">{description}</span>
+    </SwitchField>
   );
 }
 

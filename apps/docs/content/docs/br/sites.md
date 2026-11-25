@@ -1,6 +1,6 @@
 # Sites e processos
 
-Um **site** é uma pasta registrada no LocDev, com um nome, um comando de servidor de desenvolvimento e uma porta. O registro fica em `projects.toml`; remover um site do LocDev nunca apaga os arquivos dele.
+Um **site** é uma pasta registrada no LocDev, com um nome, um comando de servidor de desenvolvimento e uma porta. O registro fica em `projects.toml`; remover um site do LocDev não apaga os arquivos dele, a menos que você escolha mover a pasta para a lixeira ao remover (**Mover também a pasta para a lixeira**, ou `locdev remove <nome> --delete-files`; recusado para uma pasta que contém outros sites, a pasta pessoal ou a raiz de um disco). Um site cuja pasta é apagada fora do LocDev é parado e removido em segundos, com uma notificação; um num disco ou compartilhamento desconectado, não.
 
 Para não cadastrar um por um, monitore a pasta onde ficam seus projetos: cada projeto dentro dela vira um site e a lista acompanha o que é criado e apagado ([Diretórios monitorados](/docs/parked-folders)).
 

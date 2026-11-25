@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
   type ActionVersion,
@@ -28,6 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/i18n";
 import { tx } from "@/lib/i18n-jsx";
+import { SwitchField } from "@/components/ui/switch-field";
 
 const RUNNERS = ["ubuntu-latest", "ubuntu-24.04", "windows-latest", "macos-latest"];
 const SCOPES = [
@@ -189,10 +189,14 @@ function Field({ label, children, className }: { label: string; children: React.
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
-    <label className="flex items-center gap-2.5 py-1 text-[13px]">
-      <Switch checked={checked} onCheckedChange={onChange} className="data-checked:bg-ember" />
+    <SwitchField
+      className="flex items-center gap-2.5 py-1 text-[13px]"
+      checked={checked}
+      onCheckedChange={onChange}
+      switchClassName="data-checked:bg-ember"
+    >
       {label}
-    </label>
+    </SwitchField>
   );
 }
 

@@ -6,8 +6,8 @@ En **Herramientas → Nuevo proyecto** (o `locdev new`), LocDev crea un proyecto
 
 ## Cómo funciona
 
-1. **Elige el framework.** Cada uno tiene sus formas de crearse y sus opciones (tabla de abajo).
-2. **Nombre y carpeta.** El nombre se convierte en la carpeta y el sitio (`tienda` → `tienda.test`). La carpeta no puede existir: LocDev nunca crea encima de nada.
+1. **Elige el framework.** Su formulario se abre en una pantalla propia (**← Frameworks** vuelve). Cada framework tiene sus formas de crearse y sus opciones (tabla de abajo).
+2. **Nombre y carpeta.** El nombre se convierte en la carpeta y el sitio (`tienda` → `tienda.test`). La carpeta no puede existir: LocDev nunca crea encima de nada. En la app, los proyectos nuevos van por defecto a `~/LocDev/Sites` (se crea en el primer uso; se puede elegir otra carpeta); `locdev new` usa la carpeta actual.
 3. **Cómo crearlo.** Por ejemplo, Laravel con su instalador o con Composer; los proyectos JavaScript con npm, pnpm o Bun. Cada opción muestra si la herramienta está instalada y su versión.
 4. **Runtime** (PHP y JavaScript): la versión de PHP o de Node.js con la que se ejecuta el instalador, entre las instaladas. El sitio nuevo queda fijado a ella. **Predeterminada** usa la versión predeterminada de LocDev.
 5. **Opciones.** Kit inicial, autenticación, pruebas, TypeScript, Tailwind, linter, enrutamiento, plantilla… Solo aparecen las que acepta el método elegido.
@@ -15,7 +15,7 @@ En **Herramientas → Nuevo proyecto** (o `locdev new`), LocDev crea un proyecto
 7. **Paquetes:** búsqueda en npm o en Packagist, según el framework, para instalarlos justo después de crear.
 8. **Qué se ejecutará:** los archivos que escribe LocDev (cuando los hay), cada comando exacto y lo que LocDev mismo hace entre ellos. Nada se ejecuta antes de **Crear proyecto**.
 
-Después, los pasos se ejecutan en una **terminal dentro de la app**: ves la salida del instalador y puedes responder lo que pregunte. Las líneas que empiezan con › son de LocDev (archivos, base de datos, sitio). Al terminar, la app ofrece abrir e iniciar el sitio.
+Después, los pasos se ejecutan en una **terminal dentro de la app**: ves la salida del instalador y puedes responder lo que pregunte. Las líneas que empiezan con › son de LocDev (archivos, base de datos, sitio). Al terminar, el sitio se registra y **se inicia solo**: su botón muestra **En ejecución** (haz clic para detenerlo), junto a **Abrir sitio**.
 
 ![El instalador ejecutándose en la terminal de la app, paso a paso.](screenshot:new-project-run)
 

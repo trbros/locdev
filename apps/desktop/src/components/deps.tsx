@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/ui/switch-field";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   type UpdateChoice,
@@ -422,24 +422,22 @@ function UpdateDialog({
         {jobId === null ? (
           <>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              <label className="flex items-center gap-2" htmlFor="major">
-                <Switch
-                  id="major"
-                  checked={allowMajor}
-                  onCheckedChange={setAllowMajor}
-                  className="data-checked:bg-ember"
-                />
+              <SwitchField
+                className="flex items-center gap-2"
+                checked={allowMajor}
+                onCheckedChange={setAllowMajor}
+                switchClassName="data-checked:bg-ember"
+              >
                 {t("Allow new major versions")}
-              </label>
-              <label className="flex items-center gap-2" htmlFor="scripts">
-                <Switch
-                  id="scripts"
-                  checked={runScripts}
-                  onCheckedChange={setRunScripts}
-                  className="data-checked:bg-ember"
-                />
+              </SwitchField>
+              <SwitchField
+                className="flex items-center gap-2"
+                checked={runScripts}
+                onCheckedChange={setRunScripts}
+                switchClassName="data-checked:bg-ember"
+              >
                 {t("Run install scripts")}
-              </label>
+              </SwitchField>
             </div>
 
             <div className="max-h-[50vh] overflow-y-auto">

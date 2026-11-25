@@ -40,6 +40,7 @@ mod editors;
 mod email;
 mod env;
 mod extensions;
+mod folders;
 mod git;
 mod github;
 mod mail;
@@ -634,7 +635,10 @@ impl Daemon {
             | Request::ParkScan { .. }
             | Request::ParkIgnore { .. } => self.park_request(request).await,
 
-            Request::RemoveProject { name } => {
+            Request::RemoveProject { name, delete_files } => {
+                if delete_files {
+                    self.trash_site_folder(&name).await?;
+                }
                 self.remove_site(&name).await?;
                 Ok(Response::Ok)
             }
@@ -1577,7 +1581,20 @@ pub(crate) fn route_of(p: &locdev_core::model::Project) -> Route {
         secure: p.secure,
         subdomains,
         exclusive: !p.subdomains.wildcard,
+        next_dev: uses_next(&p.path),
     }
+}
+
+/// Whether the site's package.json depends on Next.js.
+fn uses_next(path: &std::path::Path) -> bool {
+    std::fs::read_to_string(path.join("package.json"))
+        .ok()
+        .and_then(|raw| serde_json::from_str::<serde_json::Value>(&raw).ok())
+        .is_some_and(|manifest| {
+            ["dependencies", "devDependencies"]
+                .iter()
+                .any(|key| manifest[key].get("next").is_some())
+        })
 }
 
 /// `""` clears a pin; anything else must be a version like 22 or 8.3.

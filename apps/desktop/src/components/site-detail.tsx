@@ -24,7 +24,7 @@ import { Terminal } from "@/components/terminal";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/ui/switch-field";
 import { useAppInfo, useGitStatus, useSetSecure, useSiteHttps, useStatus } from "@/hooks/use-daemon";
 import { useAuxProcesses } from "@/hooks/use-procs";
 import { tildify } from "@/lib/format";
@@ -400,14 +400,13 @@ function HttpsSection({ site }: { site: ProjectView }) {
         </Button>
       }
     >
-      <label className="flex items-start gap-3 py-1.5" htmlFor="secure">
-        <Switch
-          id="secure"
-          checked={!!site.secure}
-          disabled={secure.isPending || !site.https_url}
-          onCheckedChange={(on) => secure.mutate({ name: site.name, secure: on })}
-          className="mt-0.5 data-checked:bg-ember"
-        />
+      <SwitchField
+        className="flex items-start gap-3 py-1.5"
+        checked={!!site.secure}
+        disabled={secure.isPending || !site.https_url}
+        onCheckedChange={(on) => secure.mutate({ name: site.name, secure: on })}
+        switchClassName="mt-0.5 data-checked:bg-ember"
+      >
         <span>
           <span className="block text-sm">{t("HTTPS only")}</span>
           <span className="block text-[12.5px] text-muted-foreground">
@@ -417,7 +416,7 @@ function HttpsSection({ site }: { site: ProjectView }) {
             })}
           </span>
         </span>
-      </label>
+      </SwitchField>
       {checking && (
         <ul className="mt-2">
           {checks.isPending

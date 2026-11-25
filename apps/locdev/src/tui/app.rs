@@ -699,7 +699,10 @@ impl App {
                     message: format!("Remove {name} from LocDev? Its files are left untouched."),
                     cmd: Box::new(Cmd::Act {
                         done: format!("removed {name}"),
-                        request: Box::new(Request::RemoveProject { name }),
+                        request: Box::new(Request::RemoveProject {
+                            name,
+                            delete_files: false,
+                        }),
                     }),
                 })
             }

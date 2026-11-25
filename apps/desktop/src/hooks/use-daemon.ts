@@ -136,13 +136,27 @@ export function useProjectAction() {
   const invalidate = useInvalidate();
 
   return useMutation({
-    mutationFn: async ({ action, name }: { action: ProjectAction; name: string }) => {
-      const response = await backend.request({ type: action, name });
+    mutationFn: async ({
+      action,
+      name,
+      deleteFiles,
+    }: {
+      action: ProjectAction;
+      name: string;
+      /** remove_project: also move the folder to the trash. */
+      deleteFiles?: boolean;
+    }) => {
+      const response = await backend.request(
+        action === "remove_project" ? { type: action, name, delete_files: !!deleteFiles } : { type: action, name },
+      );
       if (response.type === "error") throw new Error(response.message);
       return response;
     },
-    onSuccess: (_, { action, name }) => {
-      if (action === "remove_project") toast(`Removed ${name}`, { description: t("Its files were not touched.") });
+    onSuccess: (_, { action, name, deleteFiles }) => {
+      if (action === "remove_project")
+        toast(t("Removed {name}", { name }), {
+          description: deleteFiles ? t("Its folder was moved to the trash.") : t("Its files were not touched."),
+        });
     },
     onError: (error, { action, name }) =>
       toast.error(t("Could not {action} {name}", { action: ACTION_LABEL[action], name }), {

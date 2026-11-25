@@ -185,7 +185,7 @@ mod tests {
                 mail: Default::default(),
                 unread_notifications: 0,
             }),
-            Request::RemoveProject { name } => {
+            Request::RemoveProject { name, .. } => {
                 Response::Error(AppError::not_found(format!("no project named {name}")))
             }
             _ => Response::Projects {
@@ -220,7 +220,10 @@ mod tests {
         tokio::spawn(serve(server, handler));
 
         let error = Client::new(client)
-            .call(Request::RemoveProject { name: "x".into() })
+            .call(Request::RemoveProject {
+                name: "x".into(),
+                delete_files: false,
+            })
             .await
             .unwrap_err();
 

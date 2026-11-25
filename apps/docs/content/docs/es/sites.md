@@ -1,6 +1,6 @@
 # Sitios y procesos
 
-Un **sitio** es una carpeta registrada en LocDev, con un nombre, un comando de servidor de desarrollo y un puerto. El registro está en `projects.toml`; quitar un sitio de LocDev nunca borra sus archivos.
+Un **sitio** es una carpeta registrada en LocDev, con un nombre, un comando de servidor de desarrollo y un puerto. El registro está en `projects.toml`; quitar un sitio de LocDev no borra sus archivos, salvo que elijas mover su carpeta a la papelera al quitarlo (**Mover también la carpeta a la papelera**, o `locdev remove <nombre> --delete-files`; se rechaza para una carpeta que contiene otros sitios, la carpeta personal o la raíz de un disco). Un sitio cuya carpeta se borra fuera de LocDev se detiene y se quita en segundos, con una notificación; uno en un disco o recurso compartido desconectado, no.
 
 Para no agregarlos uno por uno, monitorea la carpeta donde guardas tus proyectos: cada proyecto dentro de ella se vuelve un sitio y la lista sigue lo que se crea y se borra ([Carpetas monitoreadas](/docs/parked-folders)).
 

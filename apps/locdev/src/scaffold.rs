@@ -85,7 +85,8 @@ pub(crate) enum ToolsCommand {
 }
 
 pub async fn list(paths: &Paths, out: &Output) -> anyhow::Result<ExitCode> {
-    let Response::Starters { starters } = daemon_call(paths, Request::ListStarters).await? else {
+    let Response::Starters { starters, .. } = daemon_call(paths, Request::ListStarters).await?
+    else {
         bail!("unexpected response from daemon");
     };
     if out.is_json() {
@@ -180,7 +181,8 @@ pub async fn shortcut(
 }
 
 async fn starters(paths: &Paths) -> anyhow::Result<Vec<Starter>> {
-    let Response::Starters { starters } = daemon_call(paths, Request::ListStarters).await? else {
+    let Response::Starters { starters, .. } = daemon_call(paths, Request::ListStarters).await?
+    else {
         bail!("unexpected response from daemon");
     };
     Ok(starters)

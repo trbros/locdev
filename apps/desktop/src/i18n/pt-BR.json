@@ -635,7 +635,6 @@
   "LocDev runs `php artisan make:mail` for the Mailable class, then fills the Blade view with editable blocks.": "O LocDev roda `php artisan make:mail` para a classe Mailable e depois preenche a view Blade com blocos editáveis.",
   "LocDev saves {backup} first.": "O LocDev guarda {backup} antes.",
   "LocDev scans the folder now and whenever something changes in it. Nothing in it is modified.": "O LocDev varre a pasta agora e sempre que algo mudar nela. Nada dentro dela é modificado.",
-  "LocDev stops the site and forgets its settings. The folder": "O LocDev para o site e esquece as configurações dele. A pasta",
   "LocDev won't manage it": "O LocDev não vai gerenciá-lo",
   "LocDev writes its starter files first:": "O LocDev escreve antes os arquivos iniciais dele:",
   "LocDev's PHP file": "Arquivo PHP do LocDev",
@@ -1390,7 +1389,6 @@
   "all clear": "tudo certo",
   "always": "sempre",
   "and collaborators": "e colaboradores",
-  "and its files are not touched.": "e os arquivos dela não são tocados.",
   "any level": "qualquer nível",
   "api, admin, *.tenants": "api, admin, *.tenants",
   "app language": "idioma do app",
@@ -2286,5 +2284,12 @@
   "Would you like to add teams support to your application?": "Quer adicionar suporte a times à aplicação?",
   "Would you like to use single-file Livewire components?": "Quer usar componentes Livewire de arquivo único?",
   "WP-CLI": "WP-CLI",
-  "日本語": "日本語"
+  "日本語": "日本語",
+  "Removed {name}": "{name} removido",
+  "Its folder was moved to the trash.": "A pasta foi para a lixeira.",
+  "LocDev stops the site, forgets its settings and moves the folder {folder} to the trash.": "O LocDev para o site, esquece as configurações dele e move a pasta {folder} para a lixeira.",
+  "LocDev stops the site and forgets its settings. The folder {folder} and its files are not touched.": "O LocDev para o site e esquece as configurações dele. A pasta {folder} e os arquivos não são tocados.",
+  "Also move the folder to the trash": "Mover também a pasta para a lixeira",
+  "Everything in it goes, uncommitted work included; it can be restored from the system's trash.": "Tudo o que está nela vai junto, inclusive trabalho não commitado; dá para restaurar pela lixeira do sistema.",
+  "Remove and delete the folder": "Remover e apagar a pasta"
 }

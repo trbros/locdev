@@ -183,6 +183,10 @@ pub enum Request {
     },
     RemoveProject {
         name: String,
+        /// Also move the project's folder to the trash (refused for a folder
+        /// that holds other sites, the home folder or a drive's root).
+        #[serde(default)]
+        delete_files: bool,
     },
     /// Deploy platforms LocDev talks to, and which are connected.
     DeployPlatforms,
@@ -1189,6 +1193,9 @@ pub enum Response {
     Ok,
     Starters {
         starters: Vec<crate::scaffold::Starter>,
+        /// Where the app creates new projects by default (`~/LocDev/Sites`).
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sites_dir: Option<std::path::PathBuf>,
     },
     Tools {
         tools: Vec<crate::scaffold::Tool>,

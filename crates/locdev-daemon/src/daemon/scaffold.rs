@@ -116,6 +116,12 @@ impl Daemon {
             .unwrap_or_else(|| PathBuf::from("."))
     }
 
+    /// Where the app creates new projects by default: `~/LocDev/Sites`
+    /// (LocDev's own folder, clear of the `~/Sites` macOS already has).
+    pub(super) fn sites_dir() -> PathBuf {
+        Self::home_dir().join("LocDev").join("Sites")
+    }
+
     async fn scaffold_tools(&self) -> Vec<locdev_core::scaffold::Tool> {
         let path = self
             .scaffold_env(&Self::home_dir())
@@ -133,6 +139,15 @@ impl Daemon {
 
     /// The plan, with the tools it needs that aren't installed.
     async fn scaffold_plan(&self, project: &mut NewProject) -> Result<ProjectPlan, AppError> {
+        // The default folder is made on first use; any other must exist.
+        if project.parent == Self::sites_dir() && !project.parent.is_dir() {
+            std::fs::create_dir_all(&project.parent).map_err(|e| {
+                AppError::new(
+                    ErrorCode::Io,
+                    format!("could not create {}: {e}", project.parent.display()),
+                )
+            })?;
+        }
         let mut plan = locdev_scaffold::plan(project).map_err(AppError::invalid)?;
         plan.notes.extend(self.scaffold_pins(project)?);
         let tools = self.scaffold_tools().await;
@@ -154,6 +169,7 @@ impl Daemon {
         match request {
             Request::ListStarters => Ok(Response::Starters {
                 starters: locdev_scaffold::starters(),
+                sites_dir: Some(Self::sites_dir()),
             }),
             Request::ListTools => Ok(Response::Tools {
                 tools: self.scaffold_tools().await,

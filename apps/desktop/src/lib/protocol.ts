@@ -1007,7 +1007,7 @@ export type Request =
       tools?: Partial<Record<RuntimeKind, string>>;
       restart_on_failure?: boolean;
     }
-  | { type: "remove_project"; name: string }
+  | { type: "remove_project"; name: string; delete_files?: boolean }
   | { type: "start_project"; name: string }
   | { type: "stop_project"; name: string }
   | { type: "restart_project"; name: string }
@@ -1053,7 +1053,7 @@ export type Request =
 export type Response =
   | InsightsResponse
   | { type: "ok" }
-  | { type: "starters"; starters: Starter[] }
+  | { type: "starters"; starters: Starter[]; sites_dir?: string | null }
   | { type: "tools"; tools: Tool[] }
   | ({ type: "project_plan" } & ProjectPlan)
   | ({ type: "terminal" } & TerminalInfo)

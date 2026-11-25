@@ -635,7 +635,6 @@
   "LocDev runs `php artisan make:mail` for the Mailable class, then fills the Blade view with editable blocks.": "LocDev は Mailable クラスのために `php artisan make:mail` を実行し、Blade のビューを編集できるブロックで埋めます。",
   "LocDev saves {backup} first.": "LocDev は先に {backup} を保存します。",
   "LocDev scans the folder now and whenever something changes in it. Nothing in it is modified.": "LocDev は今すぐ、そして中身が変わるたびにフォルダーをスキャンします。中のものは変更しません。",
-  "LocDev stops the site and forgets its settings. The folder": "LocDev はサイトを停止し、その設定を消去します。フォルダー",
   "LocDev won't manage it": "LocDev は管理しません",
   "LocDev writes its starter files first:": "LocDev が最初に用意するファイル:",
   "LocDev's PHP file": "LocDev の PHP ファイル",
@@ -1390,7 +1389,6 @@
   "all clear": "問題なし",
   "always": "常に",
   "and collaborators": "と協力者",
-  "and its files are not touched.": "とそのファイルには触れません。",
   "any level": "すべてのレベル",
   "api, admin, *.tenants": "api, admin, *.tenants",
   "app language": "アプリの言語",
@@ -2286,5 +2284,12 @@
   "Would you like to add teams support to your application?": "アプリケーションにチーム機能を追加しますか?",
   "Would you like to use single-file Livewire components?": "単一ファイルの Livewire コンポーネントを使いますか?",
   "WP-CLI": "WP-CLI",
-  "日本語": "日本語"
+  "日本語": "日本語",
+  "Removed {name}": "{name} を削除しました",
+  "Its folder was moved to the trash.": "フォルダーはゴミ箱に移動しました。",
+  "LocDev stops the site, forgets its settings and moves the folder {folder} to the trash.": "LocDev はサイトを停止して設定を破棄し、フォルダー {folder} をゴミ箱に移動します。",
+  "LocDev stops the site and forgets its settings. The folder {folder} and its files are not touched.": "LocDev はサイトを停止して設定を破棄します。フォルダー {folder} とそのファイルには触れません。",
+  "Also move the folder to the trash": "フォルダーもゴミ箱に移動する",
+  "Everything in it goes, uncommitted work included; it can be restored from the system's trash.": "中身はすべて移動します (未コミットの作業も含む)。システムのゴミ箱から元に戻せます。",
+  "Remove and delete the folder": "削除してフォルダーも消す"
 }
