@@ -11,6 +11,7 @@ use locdev_ipc::launcher;
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, Url};
 use tauri_plugin_updater::{Updater, UpdaterExt};
+use time::format_description::well_known::Rfc3339;
 
 use crate::CommandError;
 
@@ -115,7 +116,9 @@ pub async fn app_update_check(
             current,
             bundled_daemon: env!("CARGO_PKG_VERSION"),
             version: Some(update.version.clone()),
-            date: update.date.map(|d| d.to_string()),
+            // RFC 3339, which the UI's `new Date()` reads; the date's
+            // Display (`2026-11-24 22:51:12.62 +00:00:00`) showed "Invalid Date".
+            date: update.date.and_then(|d| d.format(&Rfc3339).ok()),
             notes: update.body.clone(),
             can_install: reason.is_none(),
             reason,

@@ -23,6 +23,8 @@ tauri-plugin-dialog = "2"
 tauri-plugin-opener = "2"
 tauri-plugin-single-instance = "2"
 tauri-plugin-updater = "2"
+# Already in the tree through the updater; formats its release date.
+time = { version = "0.3", features = ["formatting"] }
 tokio.workspace = true
 
 [target.'cfg(target_os = "linux")'.dependencies]
